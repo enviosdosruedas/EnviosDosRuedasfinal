@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
+import { PT_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import Header from "@/components/header";
+
+const ptSans = PT_Sans({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-pt-sans",
+});
 
 export const metadata: Metadata = {
-  title: "Envios DosRuedas",
-  description: "Entregas rápidas y seguras en dos ruedas.",
+  title: "EnviosDosRuedas | Mensajería y Delivery Express en Mar del Plata",
+  description: "Servicio confiable de mensajería y delivery en moto. Envíos express y low-cost para e-commerce, pymes y Mercado Libre Flex en Mar del Plata. Cotizá online.",
 };
 
 export default function RootLayout({
@@ -13,17 +21,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="font-body antialiased">
-        {children}
+    <html lang="es" className={`${ptSans.variable} scroll-smooth`}>
+      <body className="font-sans antialiased">
+        <Header />
+        <main>{children}</main>
+        {/* Footer will be added later */}
         <Toaster />
       </body>
     </html>
