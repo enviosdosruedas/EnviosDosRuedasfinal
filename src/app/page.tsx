@@ -5,6 +5,9 @@ import { HeroSection } from '@/components/ui/HeroSection';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { ServicesOverview } from '@/components/home/services-overview';
+import { EntrepreneurSolutions } from '@/components/home/entrepreneur-solutions';
+import { StatsSection } from '@/components/home/stats-section';
 
 function HomePageLogo() {
   return (
@@ -53,6 +56,11 @@ export default function Home() {
         backgroundImageUrl="/bannerenvios.png"
         backgroundOverlayOpacity={0.75}
       />
+      <main>
+        <ServicesOverview />
+        <EntrepreneurSolutions />
+        <StatsSection />
+      </main>
     </div>
   );
 }
