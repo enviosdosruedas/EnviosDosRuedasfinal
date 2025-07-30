@@ -3,6 +3,7 @@ import { PT_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/header";
+import { Footer } from "@/components/footer";
 
 const ptSans = PT_Sans({
   subsets: ["latin"],
@@ -25,7 +26,7 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <Header />
         <main>{children}</main>
-        {/* Footer will be added later */}
+        <Footer />
         <Toaster />
       </body>
     </html>
