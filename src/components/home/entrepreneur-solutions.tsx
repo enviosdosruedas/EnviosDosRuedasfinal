@@ -1,8 +1,12 @@
+
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { TrendingUp, Users, Package, Zap, DollarSign, Clock } from "lucide-react"
 import Link from "next/link"
+import { motion } from "framer-motion"
 
 export function EntrepreneurSolutions() {
   const solutions = [
@@ -13,6 +17,7 @@ export function EntrepreneurSolutions() {
       features: ["Tarifas LowCost", "Facturación mensual", "Soporte dedicado"],
       link: "/servicios/plan-emprendedores",
       color: "from-blue-500 to-blue-600",
+      borderColor: "border-t-blue-500"
     },
     {
       icon: Package,
@@ -21,6 +26,7 @@ export function EntrepreneurSolutions() {
       features: ["Entregas el mismo día", "Mejora tu reputación", "Tarifas LowCost"],
       link: "/servicios/enviosflex",
       color: "from-yellow-500 to-yellow-600",
+      borderColor: "border-t-yellow-500"
     },
     {
       icon: Users,
@@ -29,6 +35,7 @@ export function EntrepreneurSolutions() {
       features: ["Repartidor exclusivo", "Horarios personalizados", "Rutas optimizadas"],
       link: "/servicios/moto-fija",
       color: "from-green-500 to-green-600",
+      borderColor: "border-t-green-500"
     },
   ]
 
@@ -50,10 +57,32 @@ export function EntrepreneurSolutions() {
     },
   ]
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 90,
+        damping: 12,
+      },
+    },
+  };
+
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-blue-50 via-white to-yellow-50">
       <div className="container mx-auto">
-        {/* Header */}
         <div className="text-center mb-16">
           <Badge className="bg-blue-600 text-white hover:bg-blue-700 mb-6 px-6 py-3 text-base font-semibold rounded-full">
             <TrendingUp className="w-5 h-5 mr-2" />
@@ -69,44 +98,55 @@ export function EntrepreneurSolutions() {
           </p>
         </div>
 
-        {/* Solutions Grid */}
-        <div className="grid lg:grid-cols-3 gap-8 mb-16">
+        <motion.div
+          className="grid lg:grid-cols-3 gap-8 mb-16"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {solutions.map((solution, index) => {
             const IconComponent = solution.icon
             return (
-              <Card
+              <motion.div
                 key={index}
-                className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-white/80 backdrop-blur-sm"
+                variants={cardVariants}
+                whileHover={{ y: -5, boxShadow: "0px 10px 30px -5px rgba(0, 0, 0, 0.1)" }}
+                className="h-full"
               >
-                <CardContent className="p-8">
-                  <div
-                    className={`w-16 h-16 bg-gradient-to-r ${solution.color} rounded-full flex items-center justify-center mx-auto mb-6 transform group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    <IconComponent className="w-8 h-8 text-white" />
-                  </div>
+                <Card
+                  className={`group transition-all duration-300 bg-white/80 backdrop-blur-sm border-t-4 ${solution.borderColor}`}
+                >
+                  <CardContent className="p-8">
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: -5 }}
+                      className={`w-16 h-16 bg-gradient-to-r ${solution.color} rounded-full flex items-center justify-center mx-auto mb-6`}
+                    >
+                      <IconComponent className="w-8 h-8 text-white" />
+                    </motion.div>
 
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">{solution.title}</h3>
-                  <p className="text-gray-600 mb-6 text-center leading-relaxed">{solution.description}</p>
+                    <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">{solution.title}</h3>
+                    <p className="text-gray-600 mb-6 text-center leading-relaxed">{solution.description}</p>
 
-                  <ul className="space-y-3 mb-8">
-                    {solution.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-sm text-gray-600">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                    <ul className="space-y-3 mb-8">
+                      {solution.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className="flex items-center text-sm text-gray-600">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
 
-                  <Button asChild className="w-full bg-gray-800 hover:bg-gray-900 text-white font-semibold transform hover:scale-105 transition-transform duration-200">
-                    <Link href={solution.link}>Conocer Más</Link>
-                  </Button>
-                </CardContent>
-              </Card>
+                    <Button asChild className="w-full bg-gray-800 hover:bg-gray-900 text-white font-semibold transform hover:scale-105 transition-transform duration-200">
+                      <Link href={solution.link}>Conocer Más</Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
             )
           })}
-        </div>
+        </motion.div>
 
-        {/* Benefits Section */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 md:p-12">
           <div className="text-center mb-12">
             <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -132,7 +172,6 @@ export function EntrepreneurSolutions() {
             })}
           </div>
 
-          {/* CTA Section */}
           <div className="text-center">
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 max-w-2xl mx-auto">
               <h4 className="text-2xl font-bold text-white mb-4">¿Listo para Hacer Crecer tu Negocio?</h4>
@@ -151,7 +190,6 @@ export function EntrepreneurSolutions() {
           </div>
         </div>
 
-        {/* Success Stats */}
         <div className="mt-16 grid md:grid-cols-4 gap-8 text-center">
           <div>
             <div className="text-3xl font-bold text-blue-600 mb-2">100+</div>
