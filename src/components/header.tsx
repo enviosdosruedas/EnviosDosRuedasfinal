@@ -10,10 +10,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet"
-import { Menu, X, Home, Truck, Calculator as CalculatorIcon, Users, Mail, ChevronDown, ChevronUp, LogOut, Shield, Briefcase } from "lucide-react"
+import { Menu, X, Home, Truck, Calculator as CalculatorIcon, Users, Mail, ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -27,7 +26,7 @@ interface NavGroup {
   label: string
   icon: React.ElementType
   items: NavItem[]
-  basePath?: string 
+  basePath?: string
 }
 
 const navGroups: NavGroup[] = [
@@ -64,6 +63,20 @@ const navGroups: NavGroup[] = [
   },
 ];
 
+const mobileNavVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.05,
+        }
+    }
+};
+
+const mobileNavItemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0 }
+};
+
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [openMobileSections, setOpenMobileSections] = useState<Record<string, boolean>>({})
@@ -95,7 +108,6 @@ export function Header() {
 
   const isActive = (href: string, isExact = false) => {
     if (isExact) return pathname === href
-    // For basePath matching, ensure it's a significant part of the path
     if (href !== "/" && pathname.startsWith(href)) return true;
     return false;
   }
@@ -109,9 +121,15 @@ export function Header() {
 
   return (
     <>
-      <header className={cn(
-        "bg-primary text-primary-foreground shadow-md sticky top-0 z-50 transition-all duration-300",
-        isScrolled ? "py-2" : "py-3"
+      <motion.header 
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className={cn(
+        "sticky top-0 z-50 transition-all duration-300",
+        isScrolled 
+            ? "py-2 bg-primary/80 backdrop-blur-md shadow-lg" 
+            : "py-3 bg-primary shadow-md"
       )}>
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
@@ -123,7 +141,7 @@ export function Header() {
                 height={isScrolled ? 32 : 40}
                 className="rounded-full transition-all duration-300"
                 priority
- sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
               <div>
                 <h1 className={cn(
@@ -138,46 +156,51 @@ export function Header() {
             </Link>
 
             <nav className="hidden lg:flex items-center space-x-1">
-              <Button variant="ghost" size="sm" asChild className={cn("text-primary-foreground hover:bg-primary-foreground hover:text-primary", isActive("/", true) && "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:text-secondary-foreground")}>
-                <Link href="/">
-                  <Home className="w-4 h-4 mr-1.5" /> Inicio
-                </Link>
-              </Button>
+                 <motion.div whileHover={{ scale: 1.05 }}>
+                    <Button variant="ghost" size="sm" asChild className={cn("text-primary-foreground hover:bg-primary-foreground/20 hover:text-white", isActive("/", true) && "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:text-secondary-foreground")}>
+                        <Link href="/">
+                        <Home className="w-4 h-4 mr-1.5" /> Inicio
+                        </Link>
+                    </Button>
+                </motion.div>
 
               {navGroups.map((group) => (
-                <DropdownMenu key={group.label}>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm" className={cn("text-primary-foreground hover:bg-primary-foreground hover:text-primary", isGroupActive(group) && "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:text-secondary-foreground")}>
-                      <group.icon className="w-4 h-4 mr-1.5" />
-                      {group.label}
-                      <ChevronDown className="w-4 h-4 ml-1 opacity-70" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-card border text-card-foreground shadow-lg mt-2 w-56">
-                    {group.items.map((item) => (
-                      <DropdownMenuItem key={item.href} asChild>
-                        <Link
-                          href={item.href}
-                          className={cn(
-                            "cursor-pointer transition-colors duration-150 flex items-center w-full px-3 py-2 text-sm",
-                            isActive(item.href)
-                              ? "bg-accent text-accent-foreground font-medium"
-                              : "hover:bg-accent hover:text-accent-foreground"
-                          )}
-                        >
-                          {item.label}
-                        </Link>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <motion.div key={group.label} whileHover={{ scale: 1.05 }}>
+                    <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="sm" className={cn("text-primary-foreground hover:bg-primary-foreground/20 hover:text-white", isGroupActive(group) && "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:text-secondary-foreground")}>
+                        <group.icon className="w-4 h-4 mr-1.5" />
+                        {group.label}
+                        <ChevronDown className="w-4 h-4 ml-1 opacity-70" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="bg-card border text-card-foreground shadow-lg mt-2 w-56">
+                        {group.items.map((item) => (
+                        <DropdownMenuItem key={item.href} asChild>
+                            <Link
+                            href={item.href}
+                            className={cn(
+                                "cursor-pointer transition-colors duration-150 flex items-center w-full px-3 py-2 text-sm",
+                                isActive(item.href)
+                                ? "bg-accent text-accent-foreground font-medium"
+                                : "hover:bg-accent hover:text-accent-foreground"
+                            )}
+                            >
+                            {item.label}
+                            </Link>
+                        </DropdownMenuItem>
+                        ))}
+                    </DropdownMenuContent>
+                    </DropdownMenu>
+                </motion.div>
               ))}
-
-              <Button variant="ghost" size="sm" asChild className={cn("text-primary-foreground hover:bg-primary-foreground hover:text-primary", isActive("/contacto") && "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:text-secondary-foreground")}>
-                <Link href="/contacto">
-                  <Mail className="w-4 h-4 mr-1.5" /> Contacto
-                </Link>
-              </Button>
+                <motion.div whileHover={{ scale: 1.05 }}>
+                    <Button variant="ghost" size="sm" asChild className={cn("text-primary-foreground hover:bg-primary-foreground/20 hover:text-white", isActive("/contacto") && "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:text-secondary-foreground")}>
+                        <Link href="/contacto">
+                        <Mail className="w-4 h-4 mr-1.5" /> Contacto
+                        </Link>
+                    </Button>
+                </motion.div>
             </nav>
 
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -209,24 +232,31 @@ export function Header() {
                    </SheetTitle>
                 </SheetHeader>
                 
-                <div className="flex-grow overflow-y-auto p-4 space-y-2">
-                  <SheetClose asChild>
-                    <Link
-                      href="/"
-                      className={cn(
-                        "flex items-center space-x-3 py-3 px-3 rounded-md transition-colors duration-200 w-full text-left",
-                        isActive("/", true)
-                          ? "bg-secondary text-secondary-foreground font-semibold"
-                          : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/10"
-                      )}
-                    >
-                      <Home className="w-5 h-5" />
-                      <span className="font-medium text-base">Inicio</span>
-                    </Link>
-                  </SheetClose>
+                <motion.div 
+                    className="flex-grow overflow-y-auto p-4 space-y-2"
+                    variants={mobileNavVariants}
+                    initial="hidden"
+                    animate="visible"
+                >
+                  <motion.div variants={mobileNavItemVariants}>
+                    <SheetClose asChild>
+                        <Link
+                        href="/"
+                        className={cn(
+                            "flex items-center space-x-3 py-3 px-3 rounded-md transition-colors duration-200 w-full text-left",
+                            isActive("/", true)
+                            ? "bg-secondary text-secondary-foreground font-semibold"
+                            : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/10"
+                        )}
+                        >
+                        <Home className="w-5 h-5" />
+                        <span className="font-medium text-base">Inicio</span>
+                        </Link>
+                    </SheetClose>
+                  </motion.div>
 
                   {navGroups.map((group) => (
-                    <div key={group.label}>
+                    <motion.div key={group.label} variants={mobileNavItemVariants}>
                       <button
                         onClick={() => toggleMobileSection(group.label)}
                         className={cn(
@@ -269,28 +299,30 @@ export function Header() {
                           </motion.div>
                         )}
                       </AnimatePresence>
-                    </div>
+                    </motion.div>
                   ))}
-                  <SheetClose asChild>
-                    <Link
-                      href="/contacto"
-                      className={cn(
-                        "flex items-center space-x-3 py-3 px-3 rounded-md transition-colors duration-200 w-full text-left",
-                        isActive("/contacto")
-                          ? "bg-secondary text-secondary-foreground font-semibold"
-                          : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/10"
-                      )}
-                    >
-                      <Mail className="w-5 h-5" />
-                      <span className="font-medium text-base">Contacto</span>
-                    </Link>
-                  </SheetClose>
-                </div>
+                  <motion.div variants={mobileNavItemVariants}>
+                    <SheetClose asChild>
+                        <Link
+                        href="/contacto"
+                        className={cn(
+                            "flex items-center space-x-3 py-3 px-3 rounded-md transition-colors duration-200 w-full text-left",
+                            isActive("/contacto")
+                            ? "bg-secondary text-secondary-foreground font-semibold"
+                            : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/10"
+                        )}
+                        >
+                        <Mail className="w-5 h-5" />
+                        <span className="font-medium text-base">Contacto</span>
+                        </Link>
+                    </SheetClose>
+                  </motion.div>
+                </motion.div>
               </SheetContent>
             </Sheet>
           </div>
         </div>
-      </header>
+      </motion.header>
     </>
   )
 }
