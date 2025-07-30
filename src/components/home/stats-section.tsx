@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useInView, useSpring, useTransform } from 'framer-motion';
+import { animate, motion, useInView } from 'framer-motion';
 import { Package, Users, Clock, Star } from 'lucide-react';
 
 const stats = [
@@ -12,16 +12,15 @@ const stats = [
 ];
 
 function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string }) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
   const [displayValue, setDisplayValue] = useState(0);
 
   useEffect(() => {
     if (isInView) {
       const isInteger = Number.isInteger(value);
-      const controls = motion.div();
       
-      const unsubscribe = controls.animate(0, value, {
+      const controls = animate(0, value, {
         duration: 2,
         ease: 'easeOut',
         onUpdate: (latest) => {
@@ -33,7 +32,7 @@ function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string
         },
       });
 
-      return () => unsubscribe.stop();
+      return () => controls.stop();
     }
   }, [isInView, value]);
 
