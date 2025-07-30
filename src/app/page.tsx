@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { ServicesOverview } from '@/components/home/services-overview';
 import { EntrepreneurSolutions } from '@/components/home/entrepreneur-solutions';
 import { StatsSection } from '@/components/home/stats-section';
+import { TestimonialsSection } from '@/components/home/testimonials-section';
 
 function HomePageLogo() {
   return (
@@ -60,6 +61,7 @@ export default function Home() {
         <ServicesOverview />
         <EntrepreneurSolutions />
         <StatsSection />
+        <TestimonialsSection />
       </main>
     </div>
   );
