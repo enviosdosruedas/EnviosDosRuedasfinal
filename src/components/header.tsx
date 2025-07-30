@@ -32,6 +32,22 @@ const mobileNavItemVariants = {
     visible: { opacity: 1, x: 0 }
 };
 
+const NavLink = ({ href, children, isActive }: { href: string, children: React.ReactNode, isActive: boolean }) => (
+    <motion.div whileHover={{ scale: 1.05 }} className="relative">
+      <Button variant="ghost" size="sm" asChild className={cn("text-primary-foreground hover:bg-primary-foreground/20 hover:text-white", isActive && "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:text-secondary-foreground")}>
+        <Link href={href}>
+          {children}
+        </Link>
+      </Button>
+      {isActive && (
+         <motion.div
+            className="absolute bottom-0 left-0 right-0 h-0.5 bg-secondary rounded-full"
+            layoutId="underline"
+          />
+      )}
+    </motion.div>
+  );
+
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [openMobileSections, setOpenMobileSections] = useState<Record<string, boolean>>({})
@@ -77,13 +93,13 @@ export function Header() {
   return (
     <>
       <motion.header 
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className={cn(
         "sticky top-0 z-50 transition-all duration-300",
         isScrolled 
-            ? "py-2 bg-primary/80 backdrop-blur-md shadow-lg" 
+            ? "py-2 bg-primary/80 backdrop-blur-lg shadow-lg border-b border-primary-foreground/10" 
             : "py-3 bg-primary shadow-md"
       )}>
         <div className="container mx-auto px-4">
@@ -111,16 +127,12 @@ export function Header() {
             </Link>
 
             <nav className="hidden lg:flex items-center space-x-1">
-                 <motion.div whileHover={{ scale: 1.05 }}>
-                    <Button variant="ghost" size="sm" asChild className={cn("text-primary-foreground hover:bg-primary-foreground/20 hover:text-white", isActive("/", true) && "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:text-secondary-foreground")}>
-                        <Link href="/">
-                        <Home className="w-4 h-4 mr-1.5" /> Inicio
-                        </Link>
-                    </Button>
-                </motion.div>
+                 <NavLink href="/" isActive={isActive("/", true)}>
+                    <Home className="w-4 h-4 mr-1.5" /> Inicio
+                </NavLink>
 
               {navGroups.map((group) => (
-                <motion.div key={group.label} whileHover={{ scale: 1.05 }}>
+                <motion.div key={group.label} whileHover={{ scale: 1.05 }} className="relative">
                     <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="sm" className={cn("text-primary-foreground hover:bg-primary-foreground/20 hover:text-white", isGroupActive(group) && "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:text-secondary-foreground")}>
@@ -129,30 +141,40 @@ export function Header() {
                         <ChevronDown className="w-4 h-4 ml-1 opacity-70" />
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="bg-card border text-card-foreground shadow-lg mt-2 w-56">
-                        {group.items.map((item) => (
-                        <DropdownMenuItem key={item.href} asChild>
-                            <Link
-                            href={item.href}
-                            className={cn(
-                                "cursor-pointer transition-colors duration-150 flex items-center w-full px-3 py-2 text-sm",
-                                isActive(item.href)
-                                ? "bg-accent text-accent-foreground font-medium"
-                                : "hover:bg-accent hover:text-accent-foreground"
-                            )}
-                            >
-                            {item.label}
-                            </Link>
-                        </DropdownMenuItem>
-                        ))}
-                    </DropdownMenuContent>
+                    {isGroupActive(group) && <motion.div className="absolute bottom-0 left-0 right-0 h-0.5 bg-secondary rounded-full" layoutId="underline" />}
+                    <AnimatePresence>
+                        <DropdownMenuContent className="bg-popover/80 backdrop-blur-lg border text-popover-foreground shadow-lg mt-2 w-56">
+                            {group.items.map((item) => (
+                            <DropdownMenuItem key={item.href} asChild>
+                                <motion.div whileHover={{x:3}}>
+                                <Link
+                                href={item.href}
+                                className={cn(
+                                    "cursor-pointer transition-colors duration-150 flex items-center w-full px-3 py-2 text-sm",
+                                    isActive(item.href)
+                                    ? "bg-accent text-accent-foreground font-medium"
+                                    : "hover:bg-accent hover:text-accent-foreground"
+                                )}
+                                >
+                                {item.label}
+                                </Link>
+                                </motion.div>
+                            </DropdownMenuItem>
+                            ))}
+                        </DropdownMenuContent>
+                    </AnimatePresence>
                     </DropdownMenu>
                 </motion.div>
               ))}
-                <motion.div whileHover={{ scale: 1.05 }}>
-                    <Button variant="ghost" size="sm" asChild className={cn("text-primary-foreground hover:bg-primary-foreground/20 hover:text-white", isActive("/contacto") && "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:text-secondary-foreground")}>
-                        <Link href="/contacto">
-                        <Mail className="w-4 h-4 mr-1.5" /> Contacto
+                <NavLink href="/contacto" isActive={isActive("/contacto")}>
+                  <Mail className="w-4 h-4 mr-1.5" /> Contacto
+                </NavLink>
+
+                <motion.div whileHover={{ scale: 1.05 }} className="ml-2">
+                    <Button asChild size="sm" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-md hover:shadow-lg">
+                        <Link href="/cotizar/express">
+                            <CalculatorIcon className="w-4 h-4 mr-2" />
+                            Cotizar Envío
                         </Link>
                     </Button>
                 </motion.div>
