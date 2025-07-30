@@ -1,27 +1,29 @@
-import React from 'react';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export function CtaSection() {
   return (
-    <section id="contact" className="bg-primary text-primary-foreground py-20 md:py-28">
-      <div className="container mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+    <section id="cta" className="py-16 md:py-24 bg-primary text-primary-foreground">
+      <div className="container mx-auto px-4 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold font-headline mb-6">
           ¿Listos para tu Próximo Envío?
         </h2>
-        <p className="max-w-3xl mx-auto text-lg text-primary-foreground/90 mb-8">
-          En Envios DosRuedas estamos listos para ayudarte con tus necesidades de mensajería y paquetería. Contáctanos hoy mismo o calcula tu envío.
+        <p className="text-lg mb-8 max-w-2xl mx-auto text-primary-foreground/80">
+          En Envios DosRuedas 1806 estamos listos para ayudarte con tus necesidades de mensajería y paquetería. 
+          Contáctanos hoy mismo o calcula tu envío.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button asChild size="lg" variant="secondary">
-            <Link href="/contacto">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg transform hover:scale-105 transition-transform">
+            <Link href="#contact">
               Solicitar Cotización Personalizada
-              <ArrowRight />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
-          <Button asChild size="lg" variant="outline">
-            <Link href="/servicios/envios-express">Explorar Nuestros Servicios</Link>
+          <Button asChild variant="outline" size="lg" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground shadow-lg transform hover:scale-105 transition-transform">
+            <Link href="#services">
+              Explorar Nuestros Servicios
+            </Link>
           </Button>
         </div>
       </div>

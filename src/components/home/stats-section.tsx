@@ -1,81 +1,147 @@
-"use client";
 
-import React, { useEffect, useRef, useState } from 'react';
-import { animate, motion, useInView } from 'framer-motion';
-import { Package, Users, Clock, Star } from 'lucide-react';
+"use client"
 
-const stats = [
-  { icon: Package, value: 15000, label: 'Envíos Realizados', suffix: '+' },
-  { icon: Users, value: 2500, label: 'Clientes Satisfechos', suffix: '+' },
-  { icon: Clock, value: 98, label: 'Entregas a Tiempo', suffix: '%' },
-  { icon: Star, value: 4.9, label: 'Calificación en Google Reviews', suffix: '/5' },
-];
-
-function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-  const [displayValue, setDisplayValue] = useState(0);
-
-  useEffect(() => {
-    if (isInView) {
-      const isInteger = Number.isInteger(value);
-      
-      const controls = animate(0, value, {
-        duration: 2,
-        ease: 'easeOut',
-        onUpdate: (latest) => {
-          if (isInteger) {
-            setDisplayValue(Math.round(latest));
-          } else {
-            setDisplayValue(parseFloat(latest.toFixed(1)));
-          }
-        },
-      });
-
-      return () => controls.stop();
-    }
-  }, [isInView, value]);
-
-  return (
-    <span ref={ref} className="text-4xl md:text-5xl font-bold tracking-tighter">
-      {displayValue.toLocaleString('es-AR')}{suffix}
-    </span>
-  );
-}
+import { useEffect, useState } from "react"
+import { Card, CardContent } from "@/components/ui/card"
+import { Package, Users, Clock, Star } from "lucide-react"
 
 export function StatsSection() {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    const currentElement = document.getElementById("stats-section-observer")
+    if (currentElement) {
+      observer.observe(currentElement)
+    }
+
+    return () => {
+      if (currentElement) {
+        observer.unobserve(currentElement)
+      }
+    }
+  }, [])
+
+  const stats = [
+    {
+      icon: Package,
+      number: 15000,
+      suffix: "+",
+      label: "Envíos Realizados",
+      description: "Paquetes entregados con éxito",
+    },
+    {
+      icon: Users,
+      number: 2500,
+      suffix: "+",
+      label: "Clientes Satisfechos",
+      description: "Confían en nuestro servicio",
+    },
+    {
+      icon: Clock,
+      number: 98,
+      suffix: "%",
+      label: "Entregas a Tiempo",
+      description: "Puntualidad garantizada",
+    },
+    {
+      icon: Star,
+      number: 4.9,
+      suffix: "/5",
+      label: "Calificación",
+      description: "En Google Reviews",
+    },
+  ]
+
+  const AnimatedNumber = ({ target, suffix }: { target: number; suffix: string }) => {
+    const [current, setCurrent] = useState(0)
+
+    useEffect(() => {
+      if (!isVisible) return
+
+      let startValue = 0
+      const duration = 2000 // 2 seconds
+      const startTime = Date.now()
+
+      const animate = () => {
+        const now = Date.now()
+        const elapsedTime = now - startTime
+        const progress = Math.min(elapsedTime / duration, 1)
+        
+        let currentValue = progress * (target - startValue) + startValue
+        
+        // For numbers with decimals, round to 1 decimal place, otherwise floor
+        if (target % 1 !== 0) {
+             currentValue = parseFloat(currentValue.toFixed(1));
+        } else {
+            currentValue = Math.floor(currentValue);
+        }
+
+        setCurrent(currentValue)
+
+        if (progress < 1) {
+          requestAnimationFrame(animate)
+        } else {
+          setCurrent(target) // Ensure it ends exactly on target
+        }
+      }
+
+      requestAnimationFrame(animate)
+    }, [isVisible, target])
+    
+    // Format number with one decimal place if it's not an integer
+    const displayValue = target % 1 !== 0 ? current.toFixed(1) : current;
+
+    return (
+      <span className="text-4xl md:text-5xl font-bold text-yellow-400">
+        {displayValue}
+        {suffix}
+      </span>
+    )
+  }
+
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-r from-blue-900 to-blue-800 text-white">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Números que Hablan</h2>
-          <p className="mt-4 text-lg text-blue-200">
-            Nuestra experiencia y compromiso se reflejan en cada estadística.
+    <section className="py-20 px-4 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900" id="stats-section-observer">
+      <div className="container mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Números que Hablan</h2>
+          <p className="text-xl text-white/80 max-w-3xl mx-auto">
+            Nuestra experiencia y compromiso se reflejan en cada estadística
           </p>
-        </motion.div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8 text-center">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="flex flex-col items-center gap-3"
-            >
-              <stat.icon className="w-12 h-12 text-yellow-400" />
-              <AnimatedNumber value={stat.value} suffix={stat.suffix} />
-              <p className="text-sm text-blue-200">{stat.label}</p>
-            </motion.div>
-          ))}
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {stats.map((stat, index) => {
+            const IconComponent = stat.icon
+            return (
+              <Card
+                key={index}
+                className="group bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transform hover:scale-105 transition-all duration-300"
+              >
+                <CardContent className="p-8 text-center">
+                  <div className="w-16 h-16 bg-yellow-400/20 rounded-full flex items-center justify-center mx-auto mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                    <IconComponent className="w-8 h-8 text-yellow-400" />
+                  </div>
+                  <div className="mb-2">
+                    <AnimatedNumber target={stat.number} suffix={stat.suffix} />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">{stat.label}</h3>
+                  <p className="text-white/70 text-sm">{stat.description}</p>
+                </CardContent>
+              </Card>
+            )
+          })}
         </div>
       </div>
     </section>
-  );
+  )
 }

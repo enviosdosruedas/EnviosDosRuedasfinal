@@ -1,0 +1,23 @@
+import type { Metadata } from "next";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { ContactPageClient } from "@/components/contact/contact-page-client";
+
+export const metadata: Metadata = {
+  title: "Contacto",
+  description:
+    "Contáctanos para servicios de mensajería y delivery en Mar del Plata. Respuesta rápida y atención personalizada. WhatsApp, teléfono y email disponibles.",
+  keywords: "contacto, envios mar del plata, mensajeria, delivery, whatsapp, telefono, email",
+};
+
+export default function ContactPage() {
+  return (
+    <div className="min-h-screen flex flex-col bg-background">
+      <Header />
+      <main className="flex-grow">
+        <ContactPageClient />
+      </main>
+      <Footer />
+    </div>
+  );
+}

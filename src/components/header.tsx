@@ -1,205 +1,296 @@
-"use client";
+"use client"
 
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { Home, Mail, Menu, X, ChevronDown } from "lucide-react";
-
+import { useState, useEffect } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { usePathname } from "next/navigation"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetClose,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { navGroups, NavGroup } from "@/lib/navigation";
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet"
+import { Menu, X, Home, Truck, Calculator as CalculatorIcon, Users, Mail, ChevronDown, ChevronUp, LogOut, Shield, Briefcase } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { motion, AnimatePresence } from "framer-motion"
 
-export default function Header() {
+interface NavItem {
+  href: string
+  label: string
+  icon?: React.ElementType
+}
+
+interface NavGroup {
+  label: string
+  icon: React.ElementType
+  items: NavItem[]
+  basePath?: string 
+}
+
+const navGroups: NavGroup[] = [
+  {
+    label: "Servicios",
+    icon: Truck,
+    basePath: "/servicios",
+    items: [
+      { href: "/servicios/envios-express", label: "Envíos Express" },
+      { href: "/servicios/envios-lowcost", label: "Envíos LowCost" },
+      { href: "/servicios/moto-fija", label: "Moto Fija" },
+      { href: "/servicios/plan-emprendedores", label: "Plan Emprendedores" },
+      { href: "/servicios/enviosflex", label: "Envíos Flex MercadoLibre" },
+    ],
+  },
+  {
+    label: "Cotizar",
+    icon: CalculatorIcon,
+    basePath: "/cotizar",
+    items: [
+      { href: "/cotizar/express", label: "Cotizar Express" },
+      { href: "/cotizar/lowcost", label: "Cotizar LowCost" },
+    ],
+  },
+  {
+    label: "Nosotros",
+    icon: Users,
+    basePath: "/nosotros",
+    items: [
+      { href: "/nosotros/sobre-nosotros", label: "Sobre Nosotros" },
+      { href: "/nosotros/preguntas-frecuentes", label: "Preguntas Frecuentes" },
+      { href: "/nosotros/nuestras-redes", label: "Nuestras Redes" },
+    ],
+  },
+];
+
+export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [openMobileSections, setOpenMobileSections] = useState<Record<string, boolean>>({})
+  const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isLinkActive = (basePath?: string) => {
-    if (!basePath) return false;
-    return pathname.startsWith(basePath);
-  };
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    }
+  }, [isMenuOpen])
 
-  const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
-    <Link
-      href={href}
-      className={cn(
-        "flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-        pathname === href
-          ? "bg-primary/10 text-primary"
-          : "text-muted-foreground hover:bg-muted hover:text-foreground"
-      )}
-    >
-      {children}
-    </Link>
-  );
+  const toggleMobileSection = (label: string) => {
+    setOpenMobileSections((prev) => ({ ...prev, [label]: !prev[label] }))
+  }
 
-  const DesktopNav = () => (
-    <nav className="hidden items-center gap-2 lg:flex">
-      <NavLink href="/">
-        <Home className="h-4 w-4" />
-        Inicio
-      </NavLink>
-      {navGroups.map((group) => (
-        <DropdownMenu key={group.label}>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className={cn(
-                "flex items-center gap-2 px-3 py-2 text-sm font-medium",
-                isLinkActive(group.basePath)
-                  ? "bg-primary/10 text-primary"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              )}
-            >
-              <group.icon className="h-4 w-4" />
-              {group.label}
-              <ChevronDown className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start">
-            {group.items.map((item) => (
-              <DropdownMenuItem key={item.href} asChild>
-                <Link href={item.href} className={cn(pathname === item.href && "font-bold")}>
-                  {item.label}
-                </Link>
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      ))}
-      <NavLink href="/contacto">
-        <Mail className="h-4 w-4" />
-        Contacto
-      </NavLink>
-    </nav>
-  );
+  const isActive = (href: string, isExact = false) => {
+    if (isExact) return pathname === href
+    // For basePath matching, ensure it's a significant part of the path
+    if (href !== "/" && pathname.startsWith(href)) return true;
+    return false;
+  }
 
-  const MobileNav = () => (
-    <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-      <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="lg:hidden">
-          <Menu className="h-6 w-6" />
-          <span className="sr-only">Abrir menú</span>
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="left" className="w-full max-w-sm">
-        <div className="flex h-full flex-col">
-          <div className="flex items-center justify-between border-b p-4">
-            <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
-              <Image src="/LogoEnviosDosRuedas.webp" alt="Logo Envios DosRuedas" width={32} height={32} />
-              <span className="font-bold">Envios DosRuedas</span>
-            </Link>
-            <SheetClose asChild>
-              <Button variant="ghost" size="icon">
-                <X className="h-6 w-6" />
-                <span className="sr-only">Cerrar menú</span>
-              </Button>
-            </SheetClose>
-          </div>
-          <nav className="flex-1 overflow-y-auto p-4">
-            <div className="flex flex-col gap-1">
-              <SheetClose asChild>
-                 <NavLink href="/">
-                    <Home className="h-4 w-4" />
-                    Inicio
-                </NavLink>
-              </SheetClose>
-              
-              <Accordion type="multiple" className="w-full">
-                {navGroups.map((group) => (
-                  <AccordionItem value={group.label} key={group.label}>
-                    <AccordionTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground hover:no-underline">
-                       <div className="flex items-center gap-2">
-                        <group.icon className="h-4 w-4" />
-                        <span>{group.label}</span>
-                       </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="pb-0">
-                      <div className="ml-7 flex flex-col border-l py-2">
-                        {group.items.map((item) => (
-                          <SheetClose asChild key={item.href}>
-                            <Link
-                              href={item.href}
-                              className={cn(
-                                "block rounded-r-md py-2 pl-4 pr-2 text-sm",
-                                pathname === item.href
-                                  ? "bg-primary/10 font-medium text-primary"
-                                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                              )}
-                            >
-                              {item.label}
-                            </Link>
-                          </SheetClose>
-                        ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-
-              <SheetClose asChild>
-                <NavLink href="/contacto">
-                    <Mail className="h-4 w-4" />
-                    Contacto
-                </NavLink>
-              </SheetClose>
-            </div>
-          </nav>
-        </div>
-      </SheetContent>
-    </Sheet>
-  );
+  const isGroupActive = (group: NavGroup) => {
+    if (group.basePath && isActive(group.basePath)) return true
+    return group.items.some(item => isActive(item.href))
+  }
+  
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm transition-all duration-300",
-        isScrolled ? "py-1" : "py-2"
-      )}
-    >
-      <div className="container flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-3">
-          <Image
-            src="/LogoEnviosDosRuedas.webp"
-            alt="Logo Envios DosRuedas"
-            width={isScrolled ? 32 : 40}
-            height={isScrolled ? 32 : 40}
-            className="transition-all duration-300"
-          />
-          <span className="hidden text-lg font-bold sm:inline-block">
-            Envios DosRuedas
-          </span>
-        </Link>
-        <DesktopNav />
-        <MobileNav />
-      </div>
-    </header>
-  );
+    <>
+      <header className={cn(
+        "bg-primary text-primary-foreground shadow-md sticky top-0 z-50 transition-all duration-300",
+        isScrolled ? "py-2" : "py-3"
+      )}>
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between">
+            <Link href="/" className="flex items-center space-x-2.5">
+              <Image
+                src="/LogoEnviosDosRuedas.webp"
+                alt="Envios DosRuedas Logo"
+                width={isScrolled ? 32 : 40}
+                height={isScrolled ? 32 : 40}
+                className="rounded-full transition-all duration-300"
+                priority
+ sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+              <div>
+                <h1 className={cn(
+                  "font-bold text-secondary transition-all duration-300",
+                  isScrolled ? "text-base" : "text-lg"
+                )}>Envios DosRuedas</h1>
+                <p className={cn(
+                  "text-xs text-primary-foreground/90 -mt-0.5 transition-all duration-300",
+                   isScrolled ? "opacity-0 h-0" : "opacity-100 h-auto"
+                )}>Tu Solución Confiable</p>
+              </div>
+            </Link>
+
+            <nav className="hidden lg:flex items-center space-x-1">
+              <Button variant="ghost" size="sm" asChild className={cn("text-primary-foreground hover:bg-primary-foreground hover:text-primary", isActive("/", true) && "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:text-secondary-foreground")}>
+                <Link href="/">
+                  <Home className="w-4 h-4 mr-1.5" /> Inicio
+                </Link>
+              </Button>
+
+              {navGroups.map((group) => (
+                <DropdownMenu key={group.label}>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm" className={cn("text-primary-foreground hover:bg-primary-foreground hover:text-primary", isGroupActive(group) && "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:text-secondary-foreground")}>
+                      <group.icon className="w-4 h-4 mr-1.5" />
+                      {group.label}
+                      <ChevronDown className="w-4 h-4 ml-1 opacity-70" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-card border text-card-foreground shadow-lg mt-2 w-56">
+                    {group.items.map((item) => (
+                      <DropdownMenuItem key={item.href} asChild>
+                        <Link
+                          href={item.href}
+                          className={cn(
+                            "cursor-pointer transition-colors duration-150 flex items-center w-full px-3 py-2 text-sm",
+                            isActive(item.href)
+                              ? "bg-accent text-accent-foreground font-medium"
+                              : "hover:bg-accent hover:text-accent-foreground"
+                          )}
+                        >
+                          {item.label}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ))}
+
+              <Button variant="ghost" size="sm" asChild className={cn("text-primary-foreground hover:bg-primary-foreground hover:text-primary", isActive("/contacto") && "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:text-secondary-foreground")}>
+                <Link href="/contacto">
+                  <Mail className="w-4 h-4 mr-1.5" /> Contacto
+                </Link>
+              </Button>
+            </nav>
+
+            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+              <SheetTrigger asChild className="lg:hidden">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-primary-foreground hover:text-secondary hover:bg-primary/80 transition-colors duration-200"
+                  aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+                >
+                  <AnimatePresence initial={false} mode="wait">
+                    <motion.div
+                      key={isMenuOpen ? "x" : "menu"}
+                      initial={{ rotate: isMenuOpen ? -90 : 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: isMenuOpen ? 90 : -90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                    </motion.div>
+                  </AnimatePresence>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[85vw] max-w-sm bg-primary text-primary-foreground p-0 flex flex-col">
+                <SheetHeader className="p-4 border-b border-primary-foreground/20 text-left">
+                   <SheetTitle className="flex items-center space-x-2.5">
+                     <Image src="/LogoEnviosDosRuedas.webp" alt="Logo" width={32} height={32} className="rounded-full" />
+                     <span className="text-md font-bold text-secondary">Envios DosRuedas</span>
+                   </SheetTitle>
+                </SheetHeader>
+                
+                <div className="flex-grow overflow-y-auto p-4 space-y-2">
+                  <SheetClose asChild>
+                    <Link
+                      href="/"
+                      className={cn(
+                        "flex items-center space-x-3 py-3 px-3 rounded-md transition-colors duration-200 w-full text-left",
+                        isActive("/", true)
+                          ? "bg-secondary text-secondary-foreground font-semibold"
+                          : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/10"
+                      )}
+                    >
+                      <Home className="w-5 h-5" />
+                      <span className="font-medium text-base">Inicio</span>
+                    </Link>
+                  </SheetClose>
+
+                  {navGroups.map((group) => (
+                    <div key={group.label}>
+                      <button
+                        onClick={() => toggleMobileSection(group.label)}
+                        className={cn(
+                          "flex items-center justify-between w-full space-x-3 py-3 px-3 rounded-md transition-colors duration-200 text-left",
+                          isGroupActive(group) && !openMobileSections[group.label]
+                            ? "text-secondary font-semibold hover:bg-primary-foreground/15"
+                            : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/10"
+                        )}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <group.icon className="w-5 h-5" />
+                          <span className="font-medium text-base">{group.label}</span>
+                        </div>
+                        <ChevronDown className={cn("w-5 h-5 transition-transform", openMobileSections[group.label] && "rotate-180")} />
+                      </button>
+                      <AnimatePresence>
+                        {openMobileSections[group.label] && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2, ease: "easeInOut" }}
+                            className="pl-6 mt-1 space-y-0.5 overflow-hidden"
+                          >
+                            {group.items.map((item) => (
+                              <SheetClose asChild key={item.href}>
+                                <Link
+                                  href={item.href}
+                                  className={cn(
+                                    "block py-2.5 px-3 rounded-md transition-colors duration-200 text-sm w-full text-left",
+                                    isActive(item.href)
+                                      ? "bg-secondary/80 text-secondary-foreground font-semibold"
+                                      : "text-primary-foreground/80 hover:text-secondary hover:bg-primary-foreground/10"
+                                  )}
+                                >
+                                  {item.label}
+                                </Link>
+                              </SheetClose>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ))}
+                  <SheetClose asChild>
+                    <Link
+                      href="/contacto"
+                      className={cn(
+                        "flex items-center space-x-3 py-3 px-3 rounded-md transition-colors duration-200 w-full text-left",
+                        isActive("/contacto")
+                          ? "bg-secondary text-secondary-foreground font-semibold"
+                          : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/10"
+                      )}
+                    >
+                      <Mail className="w-5 h-5" />
+                      <span className="font-medium text-base">Contacto</span>
+                    </Link>
+                  </SheetClose>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+      </header>
+    </>
+  )
 }
