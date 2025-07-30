@@ -10,7 +10,7 @@ export function CtaSection() {
           ¿Listos para tu Próximo Envío?
         </h2>
         <p className="text-lg mb-8 max-w-2xl mx-auto text-primary-foreground/80">
-          En Envios DosRuedas 1806 estamos listos para ayudarte con tus necesidades de mensajería y paquetería. 
+          En Envios DosRuedas estamos listos para ayudarte con tus necesidades de mensajería y paquetería. 
           Contáctanos hoy mismo o calcula tu envío.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
