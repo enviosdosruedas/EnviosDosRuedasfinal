@@ -1,0 +1,1096 @@
+{
+  "name": "src",
+  "type": "directory",
+  "children": [
+    {
+      "name": "ai",
+      "type": "directory",
+      "children": [
+        {
+          "name": "dev.ts",
+          "type": "file"
+        },
+        {
+          "name": "flows",
+          "type": "directory",
+          "children": [
+            {
+              "name": "summarize-testimonials.ts",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "genkit.ts",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "app",
+      "type": "directory",
+      "children": [
+        {
+          "name": "actions.ts",
+          "type": "file"
+        },
+        {
+          "name": "admin",
+          "type": "directory",
+          "children": [
+            {
+              "name": "actions.ts",
+              "type": "file"
+            },
+            {
+              "name": "add-post",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "page.tsx",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "ordenes",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "actions.ts",
+                  "type": "file"
+                },
+                {
+                  "name": "page.tsx",
+                  "type": "file"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "contacto",
+          "type": "directory",
+          "children": [
+            {
+              "name": "page.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "cotizar",
+          "type": "directory",
+          "children": [
+            {
+              "name": "express",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "page.tsx",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "lowcost",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "page.tsx",
+                  "type": "file"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "favicon.ico",
+          "type": "file"
+        },
+        {
+          "name": "globals.css",
+          "type": "file"
+        },
+        {
+          "name": "layout.tsx",
+          "type": "file"
+        },
+        {
+          "name": "nosotros",
+          "type": "directory",
+          "children": [
+            {
+              "name": "nuestras-redes",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "page.tsx",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "preguntas-frecuentes",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "page.tsx",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "sobre-nosotros",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "page.tsx",
+                  "type": "file"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "not-found.tsx",
+          "type": "file"
+        },
+        {
+          "name": "ordenes",
+          "type": "directory",
+          "children": [
+            {
+              "name": "actions.ts",
+              "type": "file"
+            },
+            {
+              "name": "page.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "page.tsx",
+          "type": "file"
+        },
+        {
+          "name": "politica-de-privacidad",
+          "type": "directory",
+          "children": [
+            {
+              "name": "page.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "robots.ts",
+          "type": "file"
+        },
+        {
+          "name": "seguimiento",
+          "type": "directory",
+          "children": [
+            {
+              "name": "actions.ts",
+              "type": "file"
+            },
+            {
+              "name": "page.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "servicios",
+          "type": "directory",
+          "children": [
+            {
+              "name": "envios-express",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "page.tsx",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "envios-lowcost",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "page.tsx",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "enviosflex",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "page.tsx",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "moto-fija",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "page.tsx",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "plan-emprendedores",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "page.tsx",
+                  "type": "file"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "sitemap.ts",
+          "type": "file"
+        },
+        {
+          "name": "terminos-y-condiciones",
+          "type": "directory",
+          "children": [
+            {
+              "name": "page.tsx",
+              "type": "file"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "components",
+      "type": "directory",
+      "children": [
+        {
+          "name": "about",
+          "type": "directory",
+          "children": [
+            {
+              "name": "about-hero.tsx",
+              "type": "file"
+            },
+            {
+              "name": "company-story.tsx",
+              "type": "file"
+            },
+            {
+              "name": "company-values.tsx",
+              "type": "file"
+            },
+            {
+              "name": "mission-vision.tsx",
+              "type": "file"
+            },
+            {
+              "name": "team-section.tsx",
+              "type": "file"
+            },
+            {
+              "name": "who-we-are.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "admin",
+          "type": "directory",
+          "children": [
+            {
+              "name": "AddPostForm.tsx",
+              "type": "file"
+            },
+            {
+              "name": "ordenes",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "OrdenesTable.tsx",
+                  "type": "file"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "calculator",
+          "type": "directory",
+          "children": [
+            {
+              "name": "calculator-contact.tsx",
+              "type": "file"
+            },
+            {
+              "name": "calculator-hero.tsx",
+              "type": "file"
+            },
+            {
+              "name": "calculator-tips.tsx",
+              "type": "file"
+            },
+            {
+              "name": "express-calculator.tsx",
+              "type": "file"
+            },
+            {
+              "name": "lowcost-calculator-hero.tsx",
+              "type": "file"
+            },
+            {
+              "name": "lowcost-calculator.tsx",
+              "type": "file"
+            },
+            {
+              "name": "map-features.tsx",
+              "type": "file"
+            },
+            {
+              "name": "pricing-info.tsx",
+              "type": "file"
+            },
+            {
+              "name": "route-map.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "contact",
+          "type": "directory",
+          "children": [
+            {
+              "name": "business-hours.tsx",
+              "type": "file"
+            },
+            {
+              "name": "contact-form.tsx",
+              "type": "file"
+            },
+            {
+              "name": "contact-hero.tsx",
+              "type": "file"
+            },
+            {
+              "name": "contact-info.tsx",
+              "type": "file"
+            },
+            {
+              "name": "contact-map.tsx",
+              "type": "file"
+            },
+            {
+              "name": "contact-page-client.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "delivery-form.tsx",
+          "type": "file"
+        },
+        {
+          "name": "entrepreneur",
+          "type": "directory",
+          "children": [
+            {
+              "name": "entrepreneur-benefits.tsx",
+              "type": "file"
+            },
+            {
+              "name": "entrepreneur-cta.tsx",
+              "type": "file"
+            },
+            {
+              "name": "entrepreneur-hero.tsx",
+              "type": "file"
+            },
+            {
+              "name": "entrepreneur-pricing-ranges.tsx",
+              "type": "file"
+            },
+            {
+              "name": "plan-information.tsx",
+              "type": "file"
+            },
+            {
+              "name": "success-stories.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "envios-flex",
+          "type": "directory",
+          "children": [
+            {
+              "name": "envios-flex-content.tsx",
+              "type": "file"
+            },
+            {
+              "name": "envios-flex-cta.tsx",
+              "type": "file"
+            },
+            {
+              "name": "envios-flex-hero.tsx",
+              "type": "file"
+            },
+            {
+              "name": "flex-pricing-ranges.tsx",
+              "type": "file"
+            },
+            {
+              "name": "how-it-works.tsx",
+              "type": "file"
+            },
+            {
+              "name": "mercadolibre-benefits.tsx",
+              "type": "file"
+            },
+            {
+              "name": "requirements.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "type": "directory",
+          "children": [
+            {
+              "name": "not-found-illustration.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "express",
+          "type": "directory",
+          "children": [
+            {
+              "name": "express-benefits.tsx",
+              "type": "file"
+            },
+            {
+              "name": "express-content.tsx",
+              "type": "file"
+            },
+            {
+              "name": "express-cta.tsx",
+              "type": "file"
+            },
+            {
+              "name": "express-hero.tsx",
+              "type": "file"
+            },
+            {
+              "name": "express-page-client.tsx",
+              "type": "file"
+            },
+            {
+              "name": "express-pricing-ranges.tsx",
+              "type": "file"
+            },
+            {
+              "name": "time-slots.tsx",
+              "type": "file"
+            },
+            {
+              "name": "urgent-scenarios.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "faq",
+          "type": "directory",
+          "children": [
+            {
+              "name": "faq-categories.tsx",
+              "type": "file"
+            },
+            {
+              "name": "faq-contact-cta.tsx",
+              "type": "file"
+            },
+            {
+              "name": "faq-hero.tsx",
+              "type": "file"
+            },
+            {
+              "name": "faq-item.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "footer.tsx",
+          "type": "file"
+        },
+        {
+          "name": "header.tsx",
+          "type": "file"
+        },
+        {
+          "name": "hero-section.tsx",
+          "type": "file"
+        },
+        {
+          "name": "home",
+          "type": "directory",
+          "children": [
+            {
+              "name": "entrepreneur-solutions.tsx",
+              "type": "file"
+            },
+            {
+              "name": "hero-section.tsx",
+              "type": "file"
+            },
+            {
+              "name": "services-overview.tsx",
+              "type": "file"
+            },
+            {
+              "name": "stats-section.tsx",
+              "type": "file"
+            },
+            {
+              "name": "testimonials-section.tsx",
+              "type": "file"
+            },
+            {
+              "name": "vision-section.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "layout",
+          "type": "directory",
+          "children": [
+            {
+              "name": "footer.tsx",
+              "type": "file"
+            },
+            {
+              "name": "header.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "lowcost",
+          "type": "directory",
+          "children": [
+            {
+              "name": "how-lowcost-works.tsx",
+              "type": "file"
+            },
+            {
+              "name": "lowcost-benefits.tsx",
+              "type": "file"
+            },
+            {
+              "name": "lowcost-content.tsx",
+              "type": "file"
+            },
+            {
+              "name": "lowcost-cta.tsx",
+              "type": "file"
+            },
+            {
+              "name": "lowcost-hero.tsx",
+              "type": "file"
+            },
+            {
+              "name": "pricing-comparison.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "moto-fija",
+          "type": "directory",
+          "children": [
+            {
+              "name": "ideal-clients.tsx",
+              "type": "file"
+            },
+            {
+              "name": "moto-fija-content.tsx",
+              "type": "file"
+            },
+            {
+              "name": "moto-fija-cta.tsx",
+              "type": "file"
+            },
+            {
+              "name": "moto-fija-hero.tsx",
+              "type": "file"
+            },
+            {
+              "name": "pricing-plans.tsx",
+              "type": "file"
+            },
+            {
+              "name": "service-features.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "ordenes",
+          "type": "directory",
+          "children": [
+            {
+              "name": "ClientRegistrationForm.tsx",
+              "type": "file"
+            },
+            {
+              "name": "ClientSearchForm.tsx",
+              "type": "file"
+            },
+            {
+              "name": "GenerarEnvioForm.tsx",
+              "type": "file"
+            },
+            {
+              "name": "ShipmentCreationForm.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "order-summary.tsx",
+          "type": "file"
+        },
+        {
+          "name": "pickup-form.tsx",
+          "type": "file"
+        },
+        {
+          "name": "sections",
+          "type": "directory",
+          "children": [
+            {
+              "name": "ai-summary-section.tsx",
+              "type": "file"
+            },
+            {
+              "name": "calculator-section.tsx",
+              "type": "file"
+            },
+            {
+              "name": "contact-section.tsx",
+              "type": "file"
+            },
+            {
+              "name": "cta-section.tsx",
+              "type": "file"
+            },
+            {
+              "name": "hero-section.tsx",
+              "type": "file"
+            },
+            {
+              "name": "services-section.tsx",
+              "type": "file"
+            },
+            {
+              "name": "trust-section.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "services-preview.tsx",
+          "type": "file"
+        },
+        {
+          "name": "social",
+          "type": "directory",
+          "children": [
+            {
+              "name": "newsletter-signup.tsx",
+              "type": "file"
+            },
+            {
+              "name": "social-benefits.tsx",
+              "type": "file"
+            },
+            {
+              "name": "social-connect.tsx",
+              "type": "file"
+            },
+            {
+              "name": "social-feed.tsx",
+              "type": "file"
+            },
+            {
+              "name": "social-hero.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "theme-provider.tsx",
+          "type": "file"
+        },
+        {
+          "name": "tracking",
+          "type": "directory",
+          "children": [
+            {
+              "name": "driver-info.tsx",
+              "type": "file"
+            },
+            {
+              "name": "interactive-tracking-map.tsx",
+              "type": "file"
+            },
+            {
+              "name": "order-details.tsx",
+              "type": "file"
+            },
+            {
+              "name": "order-status.tsx",
+              "type": "file"
+            },
+            {
+              "name": "route-tracker.tsx",
+              "type": "file"
+            },
+            {
+              "name": "social-footer.tsx",
+              "type": "file"
+            },
+            {
+              "name": "tracking-header.tsx",
+              "type": "file"
+            },
+            {
+              "name": "tracking-map.tsx",
+              "type": "file"
+            },
+            {
+              "name": "updates-timeline.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "ui",
+          "type": "directory",
+          "children": [
+            {
+              "name": "HeroSection.tsx",
+              "type": "file"
+            },
+            {
+              "name": "accordion.tsx",
+              "type": "file"
+            },
+            {
+              "name": "alert-dialog.tsx",
+              "type": "file"
+            },
+            {
+              "name": "alert.tsx",
+              "type": "file"
+            },
+            {
+              "name": "aspect-ratio.tsx",
+              "type": "file"
+            },
+            {
+              "name": "avatar.tsx",
+              "type": "file"
+            },
+            {
+              "name": "badge.tsx",
+              "type": "file"
+            },
+            {
+              "name": "breadcrumb.tsx",
+              "type": "file"
+            },
+            {
+              "name": "button.tsx",
+              "type": "file"
+            },
+            {
+              "name": "calendar.tsx",
+              "type": "file"
+            },
+            {
+              "name": "card.tsx",
+              "type": "file"
+            },
+            {
+              "name": "carousel.tsx",
+              "type": "file"
+            },
+            {
+              "name": "chart.tsx",
+              "type": "file"
+            },
+            {
+              "name": "checkbox.tsx",
+              "type": "file"
+            },
+            {
+              "name": "collapsible.tsx",
+              "type": "file"
+            },
+            {
+              "name": "command.tsx",
+              "type": "file"
+            },
+            {
+              "name": "context-menu.tsx",
+              "type": "file"
+            },
+            {
+              "name": "dialog.tsx",
+              "type": "file"
+            },
+            {
+              "name": "drawer.tsx",
+              "type": "file"
+            },
+            {
+              "name": "dropdown-menu.tsx",
+              "type": "file"
+            },
+            {
+              "name": "form.tsx",
+              "type": "file"
+            },
+            {
+              "name": "hover-card.tsx",
+              "type": "file"
+            },
+            {
+              "name": "input-otp.tsx",
+              "type": "file"
+            },
+            {
+              "name": "input.tsx",
+              "type": "file"
+            },
+            {
+              "name": "label.tsx",
+              "type": "file"
+            },
+            {
+              "name": "menubar.tsx",
+              "type": "file"
+            },
+            {
+              "name": "navigation-menu.tsx",
+              "type": "file"
+            },
+            {
+              "name": "pagination.tsx",
+              "type": "file"
+            },
+            {
+              "name": "popover.tsx",
+              "type": "file"
+            },
+            {
+              "name": "progress.tsx",
+              "type": "file"
+            },
+            {
+              "name": "radio-group.tsx",
+              "type": "file"
+            },
+            {
+              "name": "resizable.tsx",
+              "type": "file"
+            },
+            {
+              "name": "scroll-area.tsx",
+              "type": "file"
+            },
+            {
+              "name": "select.tsx",
+              "type": "file"
+            },
+            {
+              "name": "separator.tsx",
+              "type": "file"
+            },
+            {
+              "name": "sheet.tsx",
+              "type": "file"
+            },
+            {
+              "name": "sidebar.tsx",
+              "type": "file"
+            },
+            {
+              "name": "skeleton.tsx",
+              "type": "file"
+            },
+            {
+              "name": "slider.tsx",
+              "type": "file"
+            },
+            {
+              "name": "sonner.tsx",
+              "type": "file"
+            },
+            {
+              "name": "switch.tsx",
+              "type": "file"
+            },
+            {
+              "name": "table.tsx",
+              "type": "file"
+            },
+            {
+              "name": "tabs.tsx",
+              "type": "file"
+            },
+            {
+              "name": "textarea.tsx",
+              "type": "file"
+            },
+            {
+              "name": "toast.tsx",
+              "type": "file"
+            },
+            {
+              "name": "toaster.tsx",
+              "type": "file"
+            },
+            {
+              "name": "toggle-group.tsx",
+              "type": "file"
+            },
+            {
+              "name": "toggle.tsx",
+              "type": "file"
+            },
+            {
+              "name": "tooltip.tsx",
+              "type": "file"
+            },
+            {
+              "name": "use-mobile.tsx",
+              "type": "file"
+            },
+            {
+              "name": "use-toast.ts",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "vision-section.tsx",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "hooks",
+      "type": "directory",
+      "children": [
+        {
+          "name": "use-mobile.tsx",
+          "type": "file"
+        },
+        {
+          "name": "use-toast.ts",
+          "type": "file"
+        },
+        {
+          "name": "useGoogleMaps.ts",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "lib",
+      "type": "directory",
+      "children": [
+        {
+          "name": "motofija.ts",
+          "type": "file"
+        },
+        {
+          "name": "preciosexpress.ts",
+          "type": "file"
+        },
+        {
+          "name": "precioslowcost.ts",
+          "type": "file"
+        },
+        {
+          "name": "prisma.ts",
+          "type": "file"
+        },
+        {
+          "name": "social",
+          "type": "directory",
+          "children": [
+            {
+              "name": "posts.ts",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "utils.ts",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "styles",
+      "type": "directory",
+      "children": [
+        {
+          "name": "globals.css",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "types",
+      "type": "directory",
+      "children": [
+        {
+          "name": "index.ts",
+          "type": "file"
+        },
+        {
+          "name": "order-actions.ts",
+          "type": "file"
+        },
+        {
+          "name": "social-post.ts",
+          "type": "file"
+        }
+      ]
+    }
+  ]
+}

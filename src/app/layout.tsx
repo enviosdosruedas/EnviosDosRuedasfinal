@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import { PT_Sans } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
-const ptSans = PT_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-pt-sans",
+  weight: ["400", "500"],
+  variable: "--font-inter",
 });
 
-// Tarea 1: Optimizar el objeto metadata
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-manrope",
+});
+
 export const metadata: Metadata = {
   title: 'EnviosDosRuedas | Mensajería y Delivery Express en Mar del Plata',
   description: 'Servicio confiable de mensajería y delivery en moto. Envíos express y low-cost para e-commerce, pymes y Mercado Libre Flex en Mar del Plata. Cotizá online.',
@@ -37,7 +42,7 @@ export const metadata: Metadata = {
 
 
 export const viewport = {
-  themeColor: "#2563EB",
+  themeColor: "#1E40AF",
 }
 
 export default function RootLayout({
@@ -45,7 +50,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    // Tarea 2: Añadir Datos Estructurados (Schema)
     const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
@@ -87,7 +91,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${ptSans.variable} font-sans antialiased`}
+        className={`${inter.variable} ${manrope.variable} font-sans antialiased`}
       >
         {children}
         <Toaster />
