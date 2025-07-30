@@ -12,6 +12,7 @@ import { Header } from "@/components/header";
 import Image from "next/image";
 import { Star, Calculator as CalculatorIcon, Mail } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { motion } from 'framer-motion';
 
 
 const HomePageLogo = () => (
@@ -65,23 +66,28 @@ export default function HomePage() {
           priority={true}
           disableAnimation={true}
         />
-        <HeroSection
-          title="Nuestra Visión Global"
-          description="Datos que respaldan nuestra calidad y compromiso. ¡Descubre por qué somos la solución confiable para tus envíos!"
-          backgroundType="image"
-          backgroundImageUrl="/bannerenvios.png"
-          backgroundImageAlt="Banner visión Envios DosRuedas"
-          backgroundOverlayOpacity={0.8}
-          textColorClassName="text-primary-foreground"
-          textAlignment="text-center"
-          titleClassName="text-3xl sm:text-4xl md:text-5xl font-bold text-yellow-400"
-          descriptionClassName="text-lg sm:text-xl md:text-2xl opacity-90"
-          minHeight="min-h-[40vh] sm:min-h-[50vh]"
-          contentMaxWidth="max-w-4xl"
-          className="py-12 sm:py-16 md:py-20"
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <div className="w-24 sm:w-32 h-1 bg-yellow-400 mx-auto mt-6 sm:mt-8"></div>
-        </HeroSection>
+          <HeroSection
+            title={<span className="text-yellow-400">Nuestra Visión Global</span>}
+            description="Datos que respaldan nuestra calidad y compromiso. ¡Descubre por qué somos la solución confiable para tus envíos!"
+            backgroundType="color"
+            backgroundColor="bg-primary"
+            textColorClassName="text-primary-foreground"
+            textAlignment="text-center"
+            titleClassName="text-3xl sm:text-4xl md:text-5xl font-bold"
+            descriptionClassName="text-lg sm:text-xl md:text-2xl opacity-90"
+            minHeight="min-h-[40vh] sm:min-h-[50vh]"
+            contentMaxWidth="max-w-4xl"
+            className="py-12 sm:py-16 md:py-20"
+          >
+            <div className="w-24 sm:w-32 h-1 bg-yellow-400 mx-auto mt-6 sm:mt-8"></div>
+          </HeroSection>
+        </motion.div>
         <ServicesOverview />
         <EntrepreneurSolutions />
         <StatsSection />
