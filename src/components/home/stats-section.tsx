@@ -4,32 +4,12 @@
 import { useEffect, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Package, Users, Clock, Star } from "lucide-react"
+import { motion, useInView } from "framer-motion"
+import { useRef } from "react"
 
 export function StatsSection() {
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    const currentElement = document.getElementById("stats-section-observer")
-    if (currentElement) {
-      observer.observe(currentElement)
-    }
-
-    return () => {
-      if (currentElement) {
-        observer.unobserve(currentElement)
-      }
-    }
-  }, [])
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   const stats = [
     {
@@ -66,7 +46,7 @@ export function StatsSection() {
     const [current, setCurrent] = useState(0)
 
     useEffect(() => {
-      if (!isVisible) return
+      if (!isInView) return
 
       let startValue = 0
       const duration = 2000 // 2 seconds
@@ -79,7 +59,6 @@ export function StatsSection() {
         
         let currentValue = progress * (target - startValue) + startValue
         
-        // For numbers with decimals, round to 1 decimal place, otherwise floor
         if (target % 1 !== 0) {
              currentValue = parseFloat(currentValue.toFixed(1));
         } else {
@@ -91,14 +70,13 @@ export function StatsSection() {
         if (progress < 1) {
           requestAnimationFrame(animate)
         } else {
-          setCurrent(target) // Ensure it ends exactly on target
+          setCurrent(target)
         }
       }
 
       requestAnimationFrame(animate)
-    }, [isVisible, target])
+    }, [isInView, target])
     
-    // Format number with one decimal place if it's not an integer
     const displayValue = target % 1 !== 0 ? current.toFixed(1) : current;
 
     return (
@@ -109,38 +87,71 @@ export function StatsSection() {
     )
   }
 
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, rotateY: -90 },
+    visible: { 
+      opacity: 1, 
+      rotateY: 0,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+        damping: 15
+      }
+    },
+  };
+
   return (
-    <section className="py-20 px-4 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900" id="stats-section-observer">
+    <section className="py-20 px-4 bg-gradient-to-r from-primary via-gray-900 to-black" ref={ref}>
       <div className="container mx-auto">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: -20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Números que Hablan</h2>
           <p className="text-xl text-white/80 max-w-3xl mx-auto">
             Nuestra experiencia y compromiso se reflejan en cada estadística
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
           {stats.map((stat, index) => {
             const IconComponent = stat.icon
             return (
-              <Card
-                key={index}
-                className="group bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transform hover:scale-105 transition-all duration-300"
-              >
-                <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-yellow-400/20 rounded-full flex items-center justify-center mx-auto mb-6 transform group-hover:scale-110 transition-transform duration-300">
-                    <IconComponent className="w-8 h-8 text-yellow-400" />
-                  </div>
-                  <div className="mb-2">
-                    <AnimatedNumber target={stat.number} suffix={stat.suffix} />
-                  </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">{stat.label}</h3>
-                  <p className="text-white/70 text-sm">{stat.description}</p>
-                </CardContent>
-              </Card>
+              <motion.div key={index} variants={cardVariants}>
+                <Card
+                  className="group bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transform hover:scale-105 transition-all duration-300 h-full"
+                >
+                  <CardContent className="p-8 text-center">
+                    <div className="w-16 h-16 bg-yellow-400/20 rounded-full flex items-center justify-center mx-auto mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                      <IconComponent className="w-8 h-8 text-yellow-400" />
+                    </div>
+                    <div className="mb-2">
+                      <AnimatedNumber target={stat.number} suffix={stat.suffix} />
+                    </div>
+                    <h3 className="text-xl font-semibold text-white mb-2">{stat.label}</h3>
+                    <p className="text-white/70 text-sm">{stat.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             )
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   )
