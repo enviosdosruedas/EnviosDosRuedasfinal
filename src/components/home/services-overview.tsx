@@ -70,16 +70,17 @@ export function ServicesOverview() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.15,
       },
     },
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 40, scale: 0.98 },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
         type: "spring",
         stiffness: 90,
@@ -89,7 +90,7 @@ export function ServicesOverview() {
   };
 
   return (
-    <section className="py-16 md:py-20 lg:py-24 px-4 bg-gray-50">
+    <section className="py-16 md:py-20 lg:py-24 px-4 bg-background">
       <div className="container mx-auto">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">Nuestros Servicios Principales</h2>
@@ -111,17 +112,15 @@ export function ServicesOverview() {
               <motion.div
                 key={index}
                 variants={cardVariants}
-                whileHover={{ y: -5, boxShadow: "0px 10px 30px -5px rgba(0, 0, 0, 0.1)" }}
                 className="h-full"
               >
-                <Card className="group transition-all duration-300 ease-in-out flex flex-col h-full bg-white rounded-lg overflow-hidden">
+                <Card className="group hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-1.5 flex flex-col h-full bg-white rounded-lg overflow-hidden">
                   <CardContent className="p-6 md:p-8 flex flex-col flex-grow">
-                    <motion.div
-                      whileHover={{ scale: 1.1, rotate: -5 }}
-                      className={`w-12 h-12 sm:w-14 sm:h-14 ${service.iconBg} rounded-lg flex items-center justify-center mx-auto mb-4 sm:mb-5`}
+                    <div
+                      className={`w-12 h-12 sm:w-14 sm:h-14 ${service.iconBg} rounded-lg flex items-center justify-center mx-auto mb-4 sm:mb-5 transform group-hover:scale-110 transition-transform duration-300`}
                     >
                       <IconComponent className={`w-6 h-6 sm:w-7 sm:h-7 ${service.iconColor}`} />
-                    </motion.div>
+                    </div>
                     <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2 text-center">{service.title}</h3>
                     <p className="text-gray-600 mb-4 text-center text-sm sm:text-base leading-relaxed flex-grow">{service.description}</p>
 
@@ -157,19 +156,15 @@ export function ServicesOverview() {
               <motion.div
                 key={index}
                 variants={cardVariants}
-                whileHover={{ y: -5, boxShadow: "0px 10px 30px -5px rgba(0, 0, 0, 0.1)" }}
                 className="h-full"
               >
                 <Card
-                  className="group bg-white border-gray-200 h-full"
+                  className="group bg-white border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-105 h-full"
                 >
                   <CardContent className="p-6 text-center flex flex-col items-center justify-center h-full">
-                    <motion.div
-                        whileHover={{ scale: 1.1, rotate: -5 }}
-                        className={`w-12 h-12 sm:w-14 sm:h-14 ${feature.iconBg} rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-5`}
-                    >
+                    <div className={`w-12 h-12 sm:w-14 sm:h-14 ${feature.iconBg} rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-5 transform group-hover:scale-110 transition-transform duration-300`}>
                       <IconComponent className={`w-6 h-6 sm:w-7 sm:h-7 ${feature.iconColor}`} />
-                    </motion.div>
+                    </div>
                     <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">{feature.title}</h3>
                     <p className="text-gray-600 text-sm sm:text-base leading-relaxed">{feature.description}</p>
                   </CardContent>
