@@ -81,9 +81,15 @@ export function EntrepreneurSolutions() {
   };
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-br from-blue-50 via-white to-yellow-50">
+    <section className="py-20 px-4 bg-gradient-to-b from-background to-blue-50">
       <div className="container mx-auto">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+        >
           <Badge className="bg-blue-600 text-white hover:bg-blue-700 mb-6 px-6 py-3 text-base font-semibold rounded-full">
             <TrendingUp className="w-5 h-5 mr-2" />
             Especial para Emprendedores
@@ -96,7 +102,7 @@ export function EntrepreneurSolutions() {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
           Diseñamos servicios específicos para ayudar a crecer tu negocio online. Desde tarifas preferenciales hasta integración con plataformas de venta.
           </p>
-        </div>
+        </motion.div>
 
         <motion.div
           className="grid lg:grid-cols-3 gap-8 mb-16"
