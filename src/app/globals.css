@@ -83,7 +83,7 @@
 
 @layer utilities {
     .font-heading {
-        @apply font-manrope;
+        font-family: var(--font-manrope), sans-serif;
     }
     * {
         @apply transition-colors duration-200;

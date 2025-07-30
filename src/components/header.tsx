@@ -15,53 +15,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose 
 import { Menu, X, Home, Truck, Calculator as CalculatorIcon, Users, Mail, ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
-
-interface NavItem {
-  href: string
-  label: string
-  icon?: React.ElementType
-}
-
-interface NavGroup {
-  label: string
-  icon: React.ElementType
-  items: NavItem[]
-  basePath?: string
-}
-
-const navGroups: NavGroup[] = [
-  {
-    label: "Servicios",
-    icon: Truck,
-    basePath: "/servicios",
-    items: [
-      { href: "/servicios/envios-express", label: "Envíos Express" },
-      { href: "/servicios/envios-lowcost", label: "Envíos LowCost" },
-      { href: "/servicios/moto-fija", label: "Moto Fija" },
-      { href: "/servicios/plan-emprendedores", label: "Plan Emprendedores" },
-      { href: "/servicios/enviosflex", label: "Envíos Flex MercadoLibre" },
-    ],
-  },
-  {
-    label: "Cotizar",
-    icon: CalculatorIcon,
-    basePath: "/cotizar",
-    items: [
-      { href: "/cotizar/express", label: "Cotizar Express" },
-      { href: "/cotizar/lowcost", label: "Cotizar LowCost" },
-    ],
-  },
-  {
-    label: "Nosotros",
-    icon: Users,
-    basePath: "/nosotros",
-    items: [
-      { href: "/nosotros/sobre-nosotros", label: "Sobre Nosotros" },
-      { href: "/nosotros/preguntas-frecuentes", label: "Preguntas Frecuentes" },
-      { href: "/nosotros/nuestras-redes", label: "Nuestras Redes" },
-    ],
-  },
-];
+import { navGroups, type NavGroup } from "@/lib/navigation";
 
 const mobileNavVariants = {
     hidden: {},
