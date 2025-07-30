@@ -59,7 +59,6 @@ export interface HeroSectionProps {
   className?: string;
   children?: React.ReactNode;
   priority?: boolean;
-  disableAnimation?: boolean;
 }
 
 const containerVariants = {
@@ -67,8 +66,8 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15, 
-      delayChildren: 0.1,
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
     },
   },
 };
@@ -80,7 +79,7 @@ const itemVariants = {
     opacity: 1,
     transition: {
       type: 'spring',
-      stiffness: 80, 
+      stiffness: 80,
       damping: 12,
     },
   },
@@ -94,7 +93,7 @@ const visualElementVariants = {
     scale: 1,
     transition: {
       type: 'spring',
-      stiffness: 70, 
+      stiffness: 70,
       damping: 15,
       delay: 0.2,
     },
@@ -107,14 +106,14 @@ export function HeroSection({
   description,
   ctaButtons,
   backgroundType = 'gradient',
-  backgroundColor = 'bg-background', 
-  backgroundGradient = 'bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700', 
+  backgroundColor = 'bg-background',
+  backgroundGradient = 'bg-gradient-to-br from-primary to-primary/80',
   backgroundImageUrl,
   backgroundImageAlt = 'Hero background image',
   backgroundOverlayOpacity = 0,
-  textColorClassName = 'text-primary-foreground', 
-  titleClassName = 'text-4xl sm:text-5xl lg:text-6xl font-bold', 
-  descriptionClassName = 'text-lg sm:text-xl lg:text-2xl opacity-90 leading-relaxed', 
+  textColorClassName = 'text-primary-foreground',
+  titleClassName = 'text-4xl sm:text-5xl lg:text-6xl font-bold',
+  descriptionClassName = 'text-lg sm:text-xl lg:text-2xl opacity-90 leading-relaxed',
   visualElement,
   layout = 'center-stacked',
   minHeight = 'min-h-[60vh] md:min-h-[70vh]',
@@ -123,36 +122,14 @@ export function HeroSection({
   className = '',
   children,
   priority = false,
-  disableAnimation = false,
 }: HeroSectionProps) {
-  
-  const SectionWrapper = disableAnimation ? "section" : motion.section;
-  const sectionWrapperProps = disableAnimation ? {} : {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    transition: { duration: 0.3 },
-  };
 
-  const ContentWrapper = disableAnimation ? "div" : motion.div;
-  const contentWrapperProps = disableAnimation ? {} : {
-    variants: containerVariants,
-    initial: "hidden",
-    whileInView: "visible",
-    viewport: { once: true, amount: 0.2 },
-  };
+  const ContentWrapper = motion.div;
+  const itemWrapperProps = { variants: itemVariants };
 
-  const ItemWrapper = disableAnimation ? "div" : motion.div;
-  const itemWrapperProps = disableAnimation ? {} : { variants: itemVariants };
-
-  const VisualWrapper = disableAnimation ? "div" : motion.div;
-  const visualWrapperRightProps = disableAnimation ? {} : {
+  const VisualWrapper = motion.div;
+  const visualWrapperRightProps = {
     variants: visualElementVariants,
-    initial: "hidden",
-    whileInView: "visible",
-    viewport: { once: true, amount: 0.2 },
-  };
-  const visualWrapperLeftProps = disableAnimation ? {} : {
-    variants: { ...visualElementVariants, hidden: { x: -30, opacity: 0, scale: 0.95 } },
     initial: "hidden",
     whileInView: "visible",
     viewport: { once: true, amount: 0.2 },
@@ -171,65 +148,63 @@ export function HeroSection({
 
   const contentContainerClasses = cn(
     'relative z-10 container mx-auto px-4 w-full',
-    layout === 'center-stacked' ? 'py-12 sm:py-16 md:py-24 lg:py-32' : 'py-10 sm:py-12 md:py-20 lg:py-28'
+    'py-12 sm:py-16 md:py-24 lg:py-32'
   );
 
   const textContentWrapper = (
-    <ContentWrapper
+     <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
       className={cn(
         textColorClassName,
-        textAlignment,
-        layout === 'center-stacked' ? `mx-auto ${contentMaxWidth}` : ``,
-        layout !== 'center-stacked' && visualElement ? (layout === 'split-visual-right' ? 'lg:text-left' : 'lg:text-right') : textAlignment
+        layout === 'center-stacked' ? `mx-auto ${contentMaxWidth} ${textAlignment}` :
+        (layout === 'split-visual-right' ? `${textAlignment} lg:text-left` :
+         layout === 'split-visual-left' ? `${textAlignment} lg:text-right` : textAlignment),
       )}
-      {...contentWrapperProps}
     >
       {preTitle && (
-        <ItemWrapper {...itemWrapperProps}>
-          <div className="mb-4 md:mb-6">
-            {typeof preTitle === 'string' ? (
-              <Badge className="px-4 py-2 text-sm font-semibold" variant="secondary">{preTitle}</Badge>
-            ) : preTitle}
-          </div>
-        </ItemWrapper>
+        <motion.div variants={itemVariants}>
+          {typeof preTitle === 'string' ? (
+            <Badge className="px-4 py-2 text-sm font-semibold" variant="secondary">{preTitle}</Badge>
+          ) : preTitle}
+        </motion.div>
       )}
 
-      <ItemWrapper {...itemWrapperProps}>
-        {typeof title === 'string' ? <h1 className={cn(titleClassName, 'leading-tight md:leading-tight')}>{title}</h1> : <div className={cn(titleClassName, 'leading-tight md:leading-tight')}>{title}</div>}
-      </ItemWrapper>
+      <motion.div variants={itemVariants} className={cn(titleClassName, 'mt-4 leading-tight md:leading-tight')}>
+        {title}
+      </motion.div>
 
       {description && (
-        <ItemWrapper {...itemWrapperProps}>
-          <div className={cn('mt-4 md:mt-6', descriptionClassName, layout === 'center-stacked' ? `mx-auto ${contentMaxWidth === 'max-w-4xl' ? 'max-w-3xl' : contentMaxWidth}` : (layout !== 'center-stacked' ? 'max-w-xl' : ''))}>
-            {typeof description === 'string' ? <p>{description}</p> : description}
-          </div>
-        </ItemWrapper>
+        <motion.p variants={itemVariants} className={cn('mt-6', descriptionClassName, 'max-w-xl', textAlignment === 'text-left' ? 'mr-auto' : textAlignment === 'text-right' ? 'ml-auto' : 'mx-auto')}>
+            {description}
+        </motion.p>
       )}
 
-      {children && <ItemWrapper {...itemWrapperProps}><div className="mt-6 md:mt-8">{children}</div></ItemWrapper>}
+      {children && <motion.div variants={itemVariants} className="mt-6 md:mt-8">{children}</motion.div>}
 
       {ctaButtons && ctaButtons.length > 0 && (
-        <ItemWrapper {...itemWrapperProps}>
-          <div
-            className={cn(
-              'mt-6 sm:mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto',
-              textAlignment === 'text-center' && layout === 'center-stacked' ? 'justify-center' :
-              (textAlignment === 'text-left' || (layout === 'split-visual-right')) ? 'justify-center lg:justify-start' :
-              (textAlignment === 'text-right' || layout === 'split-visual-left') ? 'justify-center lg:justify-end' : 
-              'justify-center' 
-            )}
-          >
-            {ctaButtons.map((button, index) => {
-              const IconComponent = button.icon ? iconMap[button.icon] : null;
-              return (
+        <motion.div
+          variants={itemVariants}
+          className={cn(
+            'mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto',
+            textAlignment === 'text-center' ? 'justify-center' :
+            (layout === 'split-visual-right' || textAlignment === 'text-left') ? 'justify-start' :
+            (layout === 'split-visual-left' || textAlignment === 'text-right') ? 'justify-end' :
+            'justify-center'
+          )}
+        >
+          {ctaButtons.map((button, index) => {
+            const IconComponent = button.icon ? iconMap[button.icon] : null;
+            return (
+              <motion.div key={index} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button
-                  key={index}
-                  variant={button.variant || 'default'} 
+                  variant={button.variant || 'default'}
                   size="lg"
                   asChild={!!button.href && !button.onClick}
                   onClick={button.onClick}
                   className={cn(
-                    'font-semibold text-base sm:text-lg py-2.5 sm:py-3 px-6 sm:px-8 rounded-md shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-full sm:w-auto',
+                    'font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto',
                     button.className
                   )}
                 >
@@ -245,18 +220,20 @@ export function HeroSection({
                     </>
                   )}
                 </Button>
-              );
-            })}
-          </div>
-        </ItemWrapper>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       )}
-    </ContentWrapper>
+    </motion.div>
   );
 
   return (
-    <SectionWrapper
+    <motion.section
       className={sectionClasses}
-      {...sectionWrapperProps}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
     >
       {backgroundType === 'image' && backgroundImageUrl && (
         <Image
@@ -265,14 +242,14 @@ export function HeroSection({
           fill
           sizes="100vw"
           style={{ objectFit: 'cover' }}
-          quality={80} 
+          quality={80}
           priority={priority}
           className="z-0"
         />
       )}
       {backgroundType === 'image' && backgroundOverlayOpacity > 0 && (
         <div
-          className="absolute inset-0 bg-black z-0" 
+          className="absolute inset-0 bg-black z-0"
           style={{ opacity: backgroundOverlayOpacity }}
         ></div>
       )}
@@ -281,34 +258,15 @@ export function HeroSection({
         {layout === 'center-stacked' && textContentWrapper}
         {layout === 'split-visual-right' && (
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
-            <div>{textContentWrapper}</div>
+            <div className="lg:col-span-1">{textContentWrapper}</div>
             {visualElement && (
-              <VisualWrapper
-                className="flex items-center justify-center lg:justify-end mt-8 lg:mt-0"
-                {...visualWrapperRightProps}
-              >
+              <div className="hidden lg:flex lg:col-span-1 items-center justify-center">
                 {visualElement}
-              </VisualWrapper>
+              </div>
             )}
-          </div>
-        )}
-         {layout === 'split-visual-left' && (
-          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
-            {visualElement && (
-              <VisualWrapper
-                className="flex items-center justify-center lg:justify-start lg:order-first mt-8 lg:mt-0" 
-                {...visualWrapperLeftProps}
-              >
-                {visualElement}
-              </VisualWrapper>
-            )}
-             
-            <div className={layout === 'split-visual-left' && visualElement ? 'lg:order-last' : ''}>
-                {textContentWrapper}
-            </div>
           </div>
         )}
       </div>
-    </SectionWrapper>
+    </motion.section>
   );
 }
