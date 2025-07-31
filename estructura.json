@@ -555,6 +555,14 @@
           "type": "directory",
           "children": [
             {
+              "name": "HeroVisual.tsx",
+              "type": "file"
+            },
+            {
+              "name": "NeuralHorizonHero.tsx",
+              "type": "file"
+            },
+            {
               "name": "entrepreneur-solutions.tsx",
               "type": "file"
             },
@@ -1034,6 +1042,10 @@
       "children": [
         {
           "name": "motofija.ts",
+          "type": "file"
+        },
+        {
+          "name": "navigation.ts",
           "type": "file"
         },
         {

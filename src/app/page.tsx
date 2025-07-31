@@ -17,12 +17,12 @@ export default function HomePage() {
       <Header />
       <main className="flex-grow">
         <NeuralHorizonHero />
-        <VisionSection />
+        
         <div className="relative z-10 bg-background">
           <ServicesOverview />
           <EntrepreneurSolutions />
           <StatsSection />
-          <TestimonialsSection />
+          <VisionSection />
           <CtaSection />
         </div>
       </main>
