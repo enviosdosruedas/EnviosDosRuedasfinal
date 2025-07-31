@@ -17,7 +17,7 @@ export function EntrepreneurSolutions() {
       features: ["Tarifas LowCost", "Facturación mensual", "Soporte dedicado"],
       link: "/servicios/plan-emprendedores",
       color: "from-primary to-blue-600",
-      borderColor: "border-t-primary"
+      borderColor: "border-primary"
     },
     {
       icon: Package,
@@ -26,7 +26,7 @@ export function EntrepreneurSolutions() {
       features: ["Entregas el mismo día", "Mejora tu reputación", "Tarifas LowCost"],
       link: "/servicios/enviosflex",
       color: "from-secondary to-yellow-600",
-      borderColor: "border-t-secondary"
+      borderColor: "border-secondary"
     },
     {
       icon: Users,
@@ -35,7 +35,7 @@ export function EntrepreneurSolutions() {
       features: ["Repartidor exclusivo", "Horarios personalizados", "Rutas optimizadas"],
       link: "/servicios/moto-fija",
       color: "from-green-500 to-green-600",
-      borderColor: "border-t-green-500"
+      borderColor: "border-green-500"
     },
   ]
 
@@ -105,7 +105,7 @@ export function EntrepreneurSolutions() {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 md:mb-16"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -117,33 +117,31 @@ export function EntrepreneurSolutions() {
               <motion.div
                 key={index}
                 variants={cardVariants}
-                whileHover={{ y: -5, boxShadow: "0px 10px 30px -5px rgba(0, 0, 0, 0.1)" }}
                 className="h-full"
               >
                 <Card
-                  className={`group transition-all duration-300 bg-card/80 backdrop-blur-sm shadow-md hover:shadow-xl ${solution.borderColor}`}
+                  className={`group relative transition-all duration-500 bg-slate-900 text-slate-100 border border-slate-800 h-full flex flex-col hover:border-slate-700 hover:bg-slate-800`}
                 >
-                  <CardContent className="p-6 md:p-8">
+                  <CardContent className="p-6 md:p-8 flex flex-col flex-grow">
                     <motion.div
-                      whileHover={{ scale: 1.1, rotate: -5 }}
-                      className={`w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r ${solution.color} rounded-full flex items-center justify-center mx-auto mb-6`}
+                      className={`w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r ${solution.color} rounded-lg flex items-center justify-center mx-auto mb-6 shadow-lg`}
                     >
                       <IconComponent className="w-7 h-7 md:w-8 md:h-8 text-white" />
                     </motion.div>
 
-                    <h3 className="text-xl md:text-2xl font-bold font-heading text-card-foreground mb-4 text-center">{solution.title}</h3>
-                    <p className="text-sm md:text-base text-muted-foreground mb-6 text-center leading-relaxed">{solution.description}</p>
+                    <h3 className="text-xl md:text-2xl font-bold font-heading mb-4 text-center text-slate-50">{solution.title}</h3>
+                    <p className="text-sm md:text-base text-slate-400 mb-6 text-center leading-relaxed flex-grow">{solution.description}</p>
 
                     <ul className="space-y-3 mb-8">
                       {solution.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center text-sm text-muted-foreground">
-                          <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                        <li key={featureIndex} className="flex items-center text-sm text-slate-300">
+                          <div className="w-1.5 h-1.5 bg-secondary rounded-full mr-3"></div>
                           {feature}
                         </li>
                       ))}
                     </ul>
 
-                    <Button asChild className="w-full bg-foreground hover:bg-foreground/80 text-background font-semibold transform hover:scale-105 transition-transform duration-200">
+                    <Button asChild className="w-full mt-auto bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold transform hover:scale-105 transition-transform duration-200">
                       <Link href={solution.link}>Conocer Más</Link>
                     </Button>
                   </CardContent>
@@ -152,49 +150,7 @@ export function EntrepreneurSolutions() {
             )
           })}
         </motion.div>
-
-        <div className="bg-gradient-to-r from-primary to-primary/90 rounded-2xl p-6 md:p-12">
-          <div className="text-center mb-8 md:mb-12">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading text-primary-foreground mb-4">
-              ¿Por Qué Elegir Nuestras Soluciones?
-            </h3>
-            <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto">
-              Nuestros planes para emprendedores están diseñados para maximizar tu eficiencia y ahorro.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 mb-8 md:mb-12">
-            {benefits.map((benefit, index) => {
-              const IconComponent = benefit.icon
-              return (
-                <div key={index} className="text-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 transform group-hover:scale-110 transition-transform duration-300">
-                    <IconComponent className="w-7 h-7 md:w-8 md:h-8 text-secondary" />
-                  </div>
-                  <h4 className="text-lg md:text-xl font-bold font-heading text-primary-foreground mb-2">{benefit.title}</h4>
-                  <p className="text-base text-primary-foreground/80 leading-relaxed">{benefit.description}</p>
-                </div>
-              )
-            })}
-          </div>
-
-          <div className="text-center">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 md:p-8 max-w-2xl mx-auto">
-              <h4 className="text-xl md:text-2xl font-bold font-heading text-primary-foreground mb-4">¿Listo para Hacer Crecer tu Negocio?</h4>
-              <p className="text-primary-foreground/80 mb-6">
-                Únete a cientos de emprendedores que ya optimizaron sus envíos con nosotros
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" variant="secondary" className="font-bold transition-colors duration-200">
-                  <Link href="/servicios/plan-emprendedores">Conocer las Soluciones</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary transition-colors duration-200">
-                  <Link href="/contacto">Consultar Ahora</Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </section>
   )
