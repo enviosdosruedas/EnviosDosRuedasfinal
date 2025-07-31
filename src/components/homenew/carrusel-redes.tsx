@@ -1,7 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Facebook, Instagram, MessageCircle, Users, Heart, Share2 } from "lucide-react"
+import { Facebook, Instagram, Users, Heart, Share2 } from "lucide-react"
+import Image from "next/image"
 
 export function CarruselRedes() {
   const handleWhatsAppClick = () => {
@@ -32,8 +33,9 @@ export function CarruselRedes() {
     },
     {
       name: "WhatsApp",
-      icon: MessageCircle,
+      icon: null,
       onClick: handleWhatsAppClick,
+      href: "#",
       color: "from-green-500 to-green-600",
       bgColor: "bg-green-50",
       hoverColor: "hover:bg-green-100",
@@ -140,7 +142,9 @@ export function CarruselRedes() {
                 width: `${duplicatedNetworks.length * 300}px`, // 300px por cada elemento
               }}
             >
-              {duplicatedNetworks.map((network, index) => (
+              {duplicatedNetworks.map((network, index) => {
+                const IconComponent = network.icon;
+                return (
                 <motion.div
                   key={`${network.name}-${index}`}
                   className="flex-shrink-0 w-72 group cursor-pointer"
@@ -157,7 +161,7 @@ export function CarruselRedes() {
                       whileHover={{ rotate: 360 }}
                       transition={{ duration: 0.6, ease: "easeInOut" }}
                     >
-                      <network.icon className="w-10 h-10 text-white" />
+                      {IconComponent ? <IconComponent className="w-10 h-10 text-white" /> : <Image src="/icon/icon-whatsapp.svg" alt="WhatsApp" width={40} height={40} />}
                     </motion.div>
 
                     {/* Network name */}
@@ -179,7 +183,7 @@ export function CarruselRedes() {
                     </motion.div>
                   </div>
                 </motion.div>
-              ))}
+              )})}
             </motion.div>
           </div>
         </div>
