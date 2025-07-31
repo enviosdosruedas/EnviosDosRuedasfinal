@@ -161,7 +161,7 @@ export function CtaSection() {
                   alt="Repartidor en moto listo para una entrega"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover rounded-r-3xl"
+                  className="object-cover md:rounded-r-3xl"
                 />
 
                 {/* Floating elements on image */}
