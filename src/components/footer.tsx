@@ -51,16 +51,16 @@ export function Footer() {
 
   return (
     <motion.footer 
-      className="bg-gradient-to-t from-[#1A2B4E] to-[#21345d] text-white/80 border-t border-blue-900 relative"
+      className="bg-primary text-primary-foreground/80 border-t border-primary-foreground/10 relative"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
           {/* Company Info */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          <div className="md:col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center space-x-2.5 mb-4 group">
               <Image
                 src="/LogoEnviosDosRuedas.webp"
@@ -85,7 +85,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.15, rotate: 5 }}
-                    className="p-2 rounded-full text-white/80 hover:bg-white/10 hover:text-secondary transition-all duration-200"
+                    className="p-2 rounded-full text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-secondary transition-all duration-200"
                     aria-label={`${social.label} de Envios DosRuedas`}
                   >
                     <social.Icon className="w-5 h-5" />
@@ -97,12 +97,12 @@ export function Footer() {
           {/* Navigation Menus */}
           {navGroups.slice(0, 2).map(group => (
             <div key={group.label}>
-              <h4 className="font-heading text-base font-semibold text-white mb-4 pb-2 border-b-2 border-secondary inline-block">{group.label}</h4>
+              <h4 className="font-heading text-base font-semibold text-primary-foreground mb-4 pb-2 border-b-2 border-secondary inline-block">{group.label}</h4>
               <ul className="space-y-2 text-sm">
                 {group.items.map(item => (
                     <li key={item.href}>
                         <motion.div whileHover={{ x: 4 }}>
-                            <Link href={item.href} className="block text-white/80 hover:text-white transition-colors duration-200 py-1.5">
+                            <Link href={item.href} className="block text-primary-foreground/80 hover:text-primary-foreground transition-colors duration-200 py-1.5">
                                 {item.label}
                             </Link>
                         </motion.div>
@@ -114,7 +114,7 @@ export function Footer() {
 
           {/* Contact Info */}
           <div className="lg:pl-3">
-             <h4 className="font-heading text-base font-semibold text-white mb-4 pb-2 border-b-2 border-secondary inline-block">Contacto Rápido</h4>
+             <h4 className="font-heading text-base font-semibold text-primary-foreground mb-4 pb-2 border-b-2 border-secondary inline-block">Contacto Rápido</h4>
             <ul className="space-y-3">
               {[
                 {Icon: MapPin, text: "Mar del Plata, Argentina"},
@@ -128,7 +128,7 @@ export function Footer() {
                         whileHover={href ? { x: 4 } : {}}
                     >
                         <Icon className="w-4 h-4 text-secondary mt-1 flex-shrink-0" />
-                        <span className={cn("transition-colors", href && "group-hover:text-white")}>{text}</span>
+                        <span className={cn("transition-colors", href && "group-hover:text-primary-foreground")}>{text}</span>
                     </motion.a>
                 </li>
               ))}
@@ -136,7 +136,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-8 md:mt-12 pt-6 md:pt-8 text-center">
+        <div className="border-t border-primary-foreground/10 mt-8 md:mt-12 pt-6 md:pt-8 text-center">
          {currentYear !== null && (
             <p className="text-sm">
               &copy; {currentYear} Envios DosRuedas. Todos los derechos reservados.
