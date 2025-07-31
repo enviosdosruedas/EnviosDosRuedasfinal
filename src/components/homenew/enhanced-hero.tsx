@@ -1,7 +1,7 @@
 
 "use client"
 
-import { useEffect, useRef, useCallback, useState } from "react"
+import { useEffect, useRef, useCallback, useState, useMemo } from "react"
 import * as THREE from "three"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -17,7 +17,7 @@ export function EnhancedHero() {
   const animationFrameId = useRef<number>()
   const mouse = useRef(new THREE.Vector2())
   const [isLoaded, setIsLoaded] = useState(false)
-  const [dimensions, setDimensions] = useState({ width: 1920, height: 1080 });
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
 
   const { scrollY } = useScroll()
@@ -36,6 +36,14 @@ export function EnhancedHero() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const randomValues = useMemo(() => {
+    return [...Array(6)].map(() => ({
+      y1: Math.random() * (dimensions.height || 1080),
+      y2: Math.random() * (dimensions.height || 1080),
+      top: Math.random() * 100 + "%",
+    }));
+  }, [dimensions.height]);
 
 
   const setupScene = useCallback(() => {
@@ -285,13 +293,13 @@ export function EnhancedHero() {
 
       {/* Animated Background Elements */}
       <div className="absolute inset-0 z-10">
-        {[...Array(6)].map((_, i) => (
+        {randomValues.map((vals, i) => (
           <motion.div
             key={i}
             className="absolute w-2 h-2 bg-yellow-400/30 rounded-full"
             animate={{
               x: [0, dimensions.width],
-              y: [Math.random() * dimensions.height, Math.random() * dimensions.height],
+              y: [vals.y1, vals.y2],
             }}
             transition={{
               duration: 15 + i * 5,
@@ -301,7 +309,7 @@ export function EnhancedHero() {
             }}
             style={{
               left: -10,
-              top: Math.random() * 100 + "%",
+              top: vals.top,
             }}
           />
         ))}
