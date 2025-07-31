@@ -16,15 +16,15 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: 'EnviosDosRuedas | Mensajerí­a y Delivery Express en Mar del Plata',
-  description: 'Servicio confiable de mensajerí­a y delivery en moto. Enví­os express y low-cost para e-commerce, pymes y Mercado Libre Flex en Mar del Plata. Cotizá online.',
+  title: 'EnviosDosRuedas | Mensajería y Delivery Express en Mar del Plata',
+  description: 'Servicio confiable de mensajería y delivery en moto. Envíos express y low-cost para e-commerce, pymes y Mercado Libre Flex en Mar del Plata. Cotizá online.',
   keywords: 'mensajeria mar del plata, delivery mar del plata, envios en moto, cadeteria mar del plata, envios flex, envios low cost, mensajeria express, envios dos ruedas',
   alternates: {
     canonical: 'https://www.enviosdosruedas.com',
   },
   openGraph: {
-    title: 'EnviosDosRuedas | Mensajerí­a y Delivery Rápido en Mar del Plata',
-    description: 'Enví­os express, low-cost, para emprendedores y Mercado Libre Flex. Cotiza online.',
+    title: 'EnviosDosRuedas | Mensajería y Delivery Rápido en Mar del Plata',
+    description: 'Envíos express, low-cost, para emprendedores y Mercado Libre Flex. Cotiza online.',
     url: 'https://www.enviosdosruedas.com',
     images: [
       {
