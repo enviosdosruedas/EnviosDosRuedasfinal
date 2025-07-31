@@ -43,7 +43,7 @@ export function Footer() {
   const socialLinks = [
     { label: "Facebook", Icon: Facebook, href: "https://facebook.com/enviosdosruedas" },
     { label: "Instagram", Icon: Instagram, href: "https://instagram.com/enviosdosruedas" },
-    { label: "WhatsApp", Icon: MessageCircle, onClick: handleWhatsAppClick, href: "#" },
+    { label: "WhatsApp", Icon: null, onClick: handleWhatsAppClick, href: "#" },
   ]
 
   return (
@@ -122,7 +122,7 @@ export function Footer() {
                   className="p-3 rounded-full bg-primary-foreground/10 text-primary-foreground/80 hover:bg-secondary/20 hover:text-secondary border border-primary-foreground/10 hover:border-secondary/30 transition-all duration-300 backdrop-blur-sm"
                   aria-label={`${social.label} de Envios DosRuedas`}
                 >
-                  <social.Icon className="w-5 h-5" />
+                  {social.Icon ? <social.Icon className="w-5 h-5" /> : <Image src="/icon/icon-whatsapp.svg" alt="WhatsApp" width={20} height={20} className="w-5 h-5" />}
                 </motion.a>
               ))}
             </div>
