@@ -7,7 +7,7 @@ export function MissionVision() {
       <div className="container mx-auto max-w-6xl">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Mission */}
-          <Card className="hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
+          <Card className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5">
             <CardContent className="p-8 text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Target className="w-8 h-8 text-primary" />
@@ -21,7 +21,7 @@ export function MissionVision() {
           </Card>
 
           {/* Vision */}
-          <Card className="hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
+          <Card className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5">
             <CardContent className="p-8 text-center">
               <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Eye className="w-8 h-8 text-secondary" />
@@ -35,7 +35,7 @@ export function MissionVision() {
           </Card>
 
           {/* Innovation */}
-          <Card className="hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
+          <Card className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5">
             <CardContent className="p-8 text-center">
               <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Lightbulb className="w-8 h-8 text-green-500" />

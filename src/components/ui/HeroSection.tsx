@@ -112,7 +112,7 @@ export function HeroSection({
   backgroundImageAlt = 'Hero background image',
   backgroundOverlayOpacity = 0,
   textColorClassName = 'text-primary-foreground',
-  titleClassName = 'text-4xl sm:text-5xl lg:text-6xl font-bold',
+  titleClassName = 'text-4xl sm:text-5xl lg:text-6xl font-bold font-heading',
   descriptionClassName = 'text-lg sm:text-xl lg:text-2xl opacity-90 leading-relaxed',
   visualElement,
   layout = 'center-stacked',

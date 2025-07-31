@@ -43,7 +43,7 @@ export function TeamSection() {
           {teamRoles.map((role, index) => {
             const IconComponent = role.icon
             return (
-              <Card key={index} className="text-center hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
+              <Card key={index} className="text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5">
                 <CardContent className="p-6">
                   <div className="relative mb-4">
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
