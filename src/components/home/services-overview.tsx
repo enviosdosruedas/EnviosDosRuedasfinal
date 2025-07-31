@@ -1,6 +1,7 @@
 
 "use client"
 
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Truck, Clock, Shield, MapPin, Zap, Package } from "lucide-react"
 import Link from "next/link"
@@ -13,24 +14,27 @@ export function ServicesOverview() {
       icon: Zap,
       title: "Envíos Express",
       description: "Entregas el mismo día para cuando necesitas velocidad máxima.",
+      features: ["Entrega en en el día (Solicitalo antes de 15hs)", "Seguimiento en tiempo real", "Prioridad máxima"],
       link: "/servicios/envios-express",
-      imageUrl: "https://placehold.co/600x800/dc2626/ffffff?text=Express",
+      imageUrl: "/Emprendedoresbannerrapidas.webp",
       imageHint: "fast motorcycle"
     },
     {
       icon: Package,
       title: "Envíos Low Cost",
       description: "La opción más económica sin sacrificar calidad ni seguridad.",
+      features: ["Entrega en el día solicitando antes de 13hs", "Rutas optimizadas", "Precio más bajo"],
       link: "/servicios/envios-lowcost",
-      imageUrl: "https://placehold.co/600x800/16a34a/ffffff?text=Low+Cost",
+      imageUrl: "/Emprendedoresbannerrapidas2.webp",
       imageHint: "saving money"
     },
     {
       icon: Truck,
       title: "Moto Fija",
       description: "Servicio dedicado para tu negocio con repartidor exclusivo.",
+      features: ["Repartidor dedicado", "Horarios personalizados", "Ideal para negocios"],
       link: "/servicios/moto-fija",
-      imageUrl: "https://placehold.co/600x800/2563eb/ffffff?text=Moto+Fija",
+      imageUrl: "/Emprendedoresbanner.webp",
       imageHint: "dedicated courier"
     },
   ]
