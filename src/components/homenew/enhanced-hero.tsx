@@ -9,6 +9,12 @@ import Image from "next/image"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Calculator, Mail, ArrowDown, Sparkles, Zap } from "lucide-react"
 
+type RandomValue = {
+  y1: number;
+  y2: number;
+  top: string;
+};
+
 export function EnhancedHero() {
   const containerRef = useRef<HTMLDivElement>(null)
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null)
@@ -18,6 +24,7 @@ export function EnhancedHero() {
   const mouse = useRef(new THREE.Vector2())
   const [isLoaded, setIsLoaded] = useState(false)
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [randomValues, setRandomValues] = useState<RandomValue[]>([]);
 
 
   const { scrollY } = useScroll()
@@ -32,18 +39,22 @@ export function EnhancedHero() {
       });
     };
 
-    handleResize();
+    handleResize(); // Set initial dimensions
+    
+    // Generate random values only on the client
+    setRandomValues(
+        [...Array(6)].map(() => ({
+            y1: Math.random() * window.innerHeight,
+            y2: Math.random() * window.innerHeight,
+            top: Math.random() * 100 + "%",
+        }))
+    );
+
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const randomValues = useMemo(() => {
-    return [...Array(6)].map(() => ({
-      y1: Math.random() * (dimensions.height || 1080),
-      y2: Math.random() * (dimensions.height || 1080),
-      top: Math.random() * 100 + "%",
-    }));
-  }, [dimensions.height]);
 
 
   const setupScene = useCallback(() => {
