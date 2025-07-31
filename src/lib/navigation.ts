@@ -48,8 +48,8 @@ export const navGroups: NavGroup[] = [
     icon: Calculator,
     basePath: "/cotizar",
     items: [
-      { href: "/cotizar/express", label: "Cotizar Express" },
-      { href: "/cotizar/lowcost", label: "Cotizar LowCost" },
+      { href: "/cotizar/express", label: "Cotizar Express", icon: Zap },
+      { href: "/cotizar/lowcost", label: "Cotizar LowCost", icon: DollarSign },
     ],
   },
   {
