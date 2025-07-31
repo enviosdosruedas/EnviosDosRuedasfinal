@@ -17,7 +17,7 @@ export function ExpressPageClient() {
           <span className="text-secondary">Mensajería - Envíos Express</span>
         }
         description={
-          <>
+          <div className="space-y-4">
             <p className="text-base sm:text-lg md:text-xl text-primary-foreground/90 mt-4 sm:mt-6 max-w-3xl mx-auto leading-relaxed">
               Servicio de mensajería rápido y confiable para entregas el mismo día en Mar del Plata. Ideal para documentos y paquetes con máxima prioridad.
             </p>
@@ -29,7 +29,7 @@ export function ExpressPageClient() {
                 Tu Solución Confiable para Envíos
               </p>
             </div>
-          </>
+          </div>
         }
         ctaButtons={[
           { text: "Cotizar Envío Express", href: "/cotizar/express", variant: "secondary", icon: "Calculator", className:"text-sm sm:text-lg py-2.5 sm:py-3 px-5 sm:px-7" },
