@@ -32,8 +32,6 @@
     --input: 220 20% 88%;
     --ring: 221 70% 40%;
 
-    --radius: 0.5rem;
-
     --chart-1: 221 70% 50%;
     --chart-2: 39 96% 58%;
     --chart-3: 198 93% 60%;
@@ -79,11 +77,14 @@
   body {
     @apply bg-background text-foreground;
   }
+  .font-heading {
+    font-family: var(--font-manrope), sans-serif;
+  }
 }
 
 @layer utilities {
     .font-heading {
-        font-family: var(--font-manrope);
+      font-family: var(--font-manrope);
     }
     * {
         @apply transition-colors duration-200;
@@ -99,4 +100,19 @@
     .animate-float {
       animation: float 6s ease-in-out infinite;
     }
+    
+    .text-gradient-animated {
+        background: linear-gradient(90deg, #00ffd5, #ff2cc4, #00ffd5);
+        background-size: 200% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: gradientFlow 5s infinite linear;
+    }
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
