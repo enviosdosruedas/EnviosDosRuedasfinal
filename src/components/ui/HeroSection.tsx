@@ -176,9 +176,9 @@ export function HeroSection({
       </motion.div>
 
       {description && (
-        <motion.p variants={itemVariants} className={cn('mt-6', descriptionClassName, 'max-w-xl', textAlignment === 'text-left' ? 'mr-auto' : textAlignment === 'text-right' ? 'ml-auto' : 'mx-auto')}>
+        <motion.div variants={itemVariants} className={cn('mt-6', descriptionClassName, 'max-w-xl', textAlignment === 'text-left' ? 'mr-auto' : textAlignment === 'text-right' ? 'ml-auto' : 'mx-auto')}>
             {description}
-        </motion.p>
+        </motion.div>
       )}
 
       {children && <motion.div variants={itemVariants} className="mt-6 md:mt-8">{children}</motion.div>}
