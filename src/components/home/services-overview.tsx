@@ -1,8 +1,9 @@
 
 "use client"
 
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Zap, Package, Truck } from "lucide-react"
+import { Truck, Clock, Shield, MapPin, Zap, Package } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import Image from "next/image"
@@ -13,6 +14,7 @@ export function ServicesOverview() {
       icon: Zap,
       title: "Envíos Express",
       description: "Entregas el mismo día para cuando necesitas velocidad máxima.",
+      features: ["Entrega en en el día (Solicitalo antes de 15hs)", "Seguimiento en tiempo real", "Prioridad máxima"],
       link: "/servicios/envios-express",
       imageUrl: "/Emprendedoresbannerrapidas.webp",
       imageHint: "fast motorcycle"
@@ -21,6 +23,7 @@ export function ServicesOverview() {
       icon: Package,
       title: "Envíos Low Cost",
       description: "La opción más económica sin sacrificar calidad ni seguridad.",
+      features: ["Entrega en el día solicitando antes de 13hs", "Rutas optimizadas", "Precio más bajo"],
       link: "/servicios/envios-lowcost",
       imageUrl: "/Emprendedoresbannerrapidas2.webp",
       imageHint: "saving money"
@@ -29,6 +32,7 @@ export function ServicesOverview() {
       icon: Truck,
       title: "Moto Fija",
       description: "Servicio dedicado para tu negocio con repartidor exclusivo.",
+      features: ["Repartidor dedicado", "Horarios personalizados", "Ideal para negocios"],
       link: "/servicios/moto-fija",
       imageUrl: "/Emprendedoresbanner.webp",
       imageHint: "dedicated courier"
@@ -51,7 +55,7 @@ export function ServicesOverview() {
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">Nuestros Servicios Principales</h2>
           <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Soluciones adaptadas a cada necesidad, desde entregas urgentes hasta servicios dedicados para tu negocio.
+          Soluciones adaptadas a cada necesidad, desde entregas urgentes hasta servicios dedicados para tu negocio.
           </p>
         </div>
 
