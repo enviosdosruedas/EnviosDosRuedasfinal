@@ -26,11 +26,11 @@ export function CompanyValues() {
   ]
 
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="py-16 px-4 bg-background">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Nuestros Valores</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading">Nuestros Valores</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Los principios que guían nuestro trabajo diario y nos permiten brindar un servicio excepcional
           </p>
         </div>
@@ -39,13 +39,13 @@ export function CompanyValues() {
           {values.map((value, index) => {
             const IconComponent = value.icon
             return (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300">
+              <Card key={index} className="text-center hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
                 <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <IconComponent className="w-8 h-8 text-blue-600" />
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <IconComponent className="w-8 h-8 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-3">{value.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                  <h3 className="text-xl font-semibold text-foreground mb-3 font-heading">{value.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{value.description}</p>
                 </CardContent>
               </Card>
             )

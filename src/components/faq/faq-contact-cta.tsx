@@ -5,12 +5,12 @@ import { MessageCircle, Phone, Mail } from "lucide-react"
 
 export function FaqContactCta() {
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="py-16 px-4 bg-background">
       <div className="container mx-auto max-w-4xl">
-        <Card className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+        <Card className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground">
           <CardContent className="p-8 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">¿No encontraste lo que buscabas?</h2>
-            <p className="text-lg mb-8 text-blue-100">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading">¿No encontraste lo que buscabas?</h2>
+            <p className="text-lg mb-8 text-primary-foreground/80">
               Nuestro equipo está listo para ayudarte con cualquier consulta específica sobre nuestros servicios.
             </p>
 
@@ -30,7 +30,7 @@ export function FaqContactCta() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-white text-white hover:bg-white hover:text-blue-600"
+                className="border-white text-white hover:bg-white hover:text-primary"
               >
                 <a href="tel:+542236602699">
                   <Phone className="w-5 h-5 mr-2" />
@@ -42,7 +42,7 @@ export function FaqContactCta() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-white text-white hover:bg-white hover:text-blue-600"
+                className="border-white text-white hover:bg-white hover:text-primary"
               >
                 <Link href="/contacto">
                   <Mail className="w-5 h-5 mr-2" />

@@ -30,11 +30,11 @@ export function TeamSection() {
   ]
 
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="py-16 px-4 bg-background">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Nuestro Equipo</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading">Nuestro Equipo</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Un equipo de profesionales apasionados por brindar el mejor servicio de mensajería y delivery
           </p>
         </div>
@@ -43,18 +43,18 @@ export function TeamSection() {
           {teamRoles.map((role, index) => {
             const IconComponent = role.icon
             return (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300">
+              <Card key={index} className="text-center hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
                 <CardContent className="p-6">
                   <div className="relative mb-4">
-                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
-                      <IconComponent className="w-8 h-8 text-blue-600" />
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
+                      <IconComponent className="w-8 h-8 text-primary" />
                     </div>
-                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-sm font-bold text-gray-900">
+                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-sm font-bold text-secondary-foreground">
                       {role.count}
                     </div>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-3">{role.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{role.description}</p>
+                  <h3 className="text-xl font-semibold text-foreground mb-3 font-heading">{role.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{role.description}</p>
                 </CardContent>
               </Card>
             )

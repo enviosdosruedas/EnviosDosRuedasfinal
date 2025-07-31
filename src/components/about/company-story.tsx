@@ -43,7 +43,7 @@ export function CompanyStory() {
           {milestones.map((milestone, index) => {
             const IconComponent = milestone.icon
             return (
-              <Card key={index} className="relative overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <Card key={index} className="relative overflow-hidden hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
                 <CardContent className="p-6">
                   <div className="flex items-center mb-4">
                     <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
