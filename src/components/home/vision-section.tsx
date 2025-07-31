@@ -11,7 +11,6 @@ export function VisionSection() {
     "/Emprendedoresbanner.webp",
     "/Emprendedoresbannerrapidas.webp",
     "/Emprendedoresbannerrapidas2.webp",
-    "/Emprendedoresbannerrapidas3.webp",
   ];
 
   const containerVariants = {
@@ -19,92 +18,74 @@ export function VisionSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2,
+        staggerChildren: 0.2,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 1.0,
+        duration: 0.8,
         ease: "easeOut",
       },
     },
   };
 
   return (
-    <>
-      <section className="relative flex h-[80vh] flex-col items-center justify-center overflow-hidden bg-primary px-4 py-16">
-        {/* Animated background images */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="flex h-full items-center relative overflow-hidden">
-            <div className="flex-shrink-0 flex gap-4 animate-h-scroll">
-              {[...images, ...images, ...images].map((src, index) => (
-                <Image
-                  key={`row1-${index}`}
-                  src={src}
-                  alt={`Imagen de servicio de fondo ${index + 1}`}
-                  width={400}
-                  height={300}
-                  className="h-[150px] w-auto rounded-lg object-cover md:h-[200px]"
-                  unoptimized
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-primary/50" />
-
-        {/* Content */}
-        <motion.div
-          className="relative z-10 flex flex-col items-center gap-6 text-center"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
+    <section className="bg-gray-900 py-20 md:py-24 flex flex-col items-center justify-center">
+      <motion.div
+        className="container mx-auto px-4 flex flex-col items-center gap-10"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl"
+          variants={itemVariants}
         >
-          <motion.h2
-            variants={itemVariants}
-            className="text-4xl font-bold text-primary-foreground md:text-5xl lg:text-6xl"
-          >
-            Nuestra <span className="text-yellow-400">Visión Global</span>
-          </motion.h2>
-          <motion.p
-            variants={itemVariants}
-            className="max-w-2xl text-lg text-primary-foreground/90 md:text-xl lg:text-2xl"
-          >
-            Datos que respaldan nuestra calidad y compromiso. ¡Descubre por qué
-            somos la solución confiable para tus envíos!
-          </motion.p>
-          <motion.div variants={itemVariants}>
-            <Button asChild size="lg" className="bg-yellow-400 font-bold text-primary-foreground hover:bg-yellow-500">
-              <Link href="/nosotros/sobre-nosotros">
-                Conocé más
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </motion.div>
+          {images.map((src, index) => (
+            <div key={index} className="overflow-hidden rounded-lg shadow-lg">
+              <Image
+                src={src}
+                alt={`Banner de emprendedores ${index + 1}`}
+                width={400}
+                height={300}
+                className="w-full h-auto object-cover filter grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-105"
+              />
+            </div>
+          ))}
         </motion.div>
-      </section>
-      <style jsx global>{`
-        @keyframes h-scroll {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-100%);
-          }
-        }
-        .animate-h-scroll {
-          animation: h-scroll 45s linear infinite;
-        }
-      `}</style>
-    </>
+
+        <motion.h2
+          variants={itemVariants}
+          className="text-4xl md:text-5xl font-bold text-white text-center"
+        >
+          Nuestra <span className="text-yellow-400">Visión</span> Global
+        </motion.h2>
+
+        <motion.p
+          variants={itemVariants}
+          className="text-lg text-gray-300 max-w-2xl text-center"
+        >
+          Datos que respaldan nuestra calidad y compromiso. ¡Descubre por qué
+          somos la solución confiable para tus envíos!
+        </motion.p>
+
+        <motion.div variants={itemVariants} whileHover={{ scale: 1.05 }}>
+          <Button asChild size="lg" className="bg-yellow-400 hover:bg-yellow-500 text-primary-foreground font-bold">
+            <Link href="/nosotros/sobre-nosotros">
+              Conocé más
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+        </motion.div>
+      </motion.div>
+    </section>
   );
 }

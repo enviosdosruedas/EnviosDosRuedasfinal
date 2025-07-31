@@ -4,7 +4,6 @@
 import { ServicesOverview } from "@/components/home/services-overview";
 import { EntrepreneurSolutions } from "@/components/home/entrepreneur-solutions";
 import { StatsSection } from "@/components/home/stats-section";
-import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { CtaSection } from "@/components/sections/cta-section";
 import { Footer } from "@/components/footer";
 import { NeuralHorizonHero } from "@/components/home/NeuralHorizonHero";
