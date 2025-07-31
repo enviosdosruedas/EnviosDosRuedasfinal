@@ -186,7 +186,7 @@ export function EntrepreneurSolutions() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" variant="secondary" className="font-bold transition-colors duration-200">
-                  <Link href="/servicios/plan-emprendedores">Ver Plan Emprendedores</Link>
+                  <Link href="/servicios/plan-emprendedores">Conocer las Soluciones</Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary transition-colors duration-200">
                   <Link href="/contacto">Consultar Ahora</Link>
