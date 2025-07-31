@@ -39,24 +39,6 @@ export function EntrepreneurSolutions() {
     },
   ]
 
-  const benefits = [
-    {
-      icon: DollarSign,
-      title: "Ahorra hasta 35%",
-      description: "En costos de envío con nuestros planes especiales",
-    },
-    {
-      icon: Clock,
-      title: "Entregas Garantizadas",
-      description: "Todas tus entregas realizadas en tiempo y forma",
-    },
-    {
-      icon: Zap,
-      title: "Crecimiento Acelerado",
-      description: "Impulsa tus ventas con envíos profesionales y confiables",
-    },
-  ]
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -67,7 +49,7 @@ export function EntrepreneurSolutions() {
     },
   };
 
-  const cardVariants = {
+  const itemVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
@@ -105,52 +87,54 @@ export function EntrepreneurSolutions() {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 md:mb-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
           {solutions.map((solution, index) => {
-            const IconComponent = solution.icon
+            const IconComponent = solution.icon;
             return (
-              <motion.div
-                key={index}
-                variants={cardVariants}
-                className="h-full"
-              >
-                <Card
-                  className={`group relative transition-all duration-500 bg-slate-900 text-slate-100 border border-slate-800 h-full flex flex-col hover:border-slate-700 hover:bg-slate-800`}
-                >
-                  <CardContent className="p-6 md:p-8 flex flex-col flex-grow">
-                    <motion.div
-                      className={`w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r ${solution.color} rounded-lg flex items-center justify-center mx-auto mb-6 shadow-lg`}
-                    >
-                      <IconComponent className="w-7 h-7 md:w-8 md:h-8 text-white" />
-                    </motion.div>
+              <motion.div key={index} variants={itemVariants} className="h-full">
+                <div style={{ perspective: "1000px" }}>
+                  <motion.div
+                    whileHover={{ rotateY: -15, rotateX: 10 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="group relative h-full rounded-xl"
+                    style={{ transformStyle: "preserve-3d" }}
+                  >
+                    <div className="absolute inset-0 bg-slate-900 rounded-xl shadow-lg" />
 
-                    <h3 className="text-xl md:text-2xl font-bold font-heading mb-4 text-center text-slate-50">{solution.title}</h3>
-                    <p className="text-sm md:text-base text-slate-400 mb-6 text-center leading-relaxed flex-grow">{solution.description}</p>
+                    <div className="absolute inset-0 bg-gradient-radial from-yellow-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    <div className="relative transform-gpu [transform:translateZ(40px)] p-6 md:p-8 flex flex-col h-full text-slate-100">
+                      <div className={`w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r ${solution.color} rounded-lg flex items-center justify-center mx-auto mb-6 shadow-lg`}>
+                        <IconComponent className="w-7 h-7 md:w-8 md:h-8 text-white" />
+                      </div>
 
-                    <ul className="space-y-3 mb-8">
-                      {solution.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center text-sm text-slate-300">
-                          <div className="w-1.5 h-1.5 bg-secondary rounded-full mr-3"></div>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
+                      <h3 className="text-xl md:text-2xl font-bold font-heading mb-4 text-center text-slate-50">{solution.title}</h3>
+                      <p className="text-sm md:text-base text-slate-400 mb-6 text-center leading-relaxed flex-grow">{solution.description}</p>
 
-                    <Button asChild className="w-full mt-auto bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold transform hover:scale-105 transition-transform duration-200">
-                      <Link href={solution.link}>Conocer Más</Link>
-                    </Button>
-                  </CardContent>
-                </Card>
+                      <ul className="space-y-3 mb-8">
+                        {solution.features.map((feature, featureIndex) => (
+                          <li key={featureIndex} className="flex items-center text-sm text-slate-300">
+                            <div className="w-1.5 h-1.5 bg-secondary rounded-full mr-3"></div>
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+
+                      <Button asChild className="w-full mt-auto bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold transform hover:scale-105 transition-transform duration-200">
+                        <Link href={solution.link}>Conocer Más</Link>
+                      </Button>
+                    </div>
+                  </motion.div>
+                </div>
               </motion.div>
-            )
+            );
           })}
         </motion.div>
-        
       </div>
     </section>
   )
