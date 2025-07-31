@@ -81,31 +81,31 @@ export function EntrepreneurSolutions() {
   };
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-background to-blue-50">
-      <div className="container mx-auto">
+    <section className="py-16 md:py-20 bg-gradient-to-b from-background to-blue-50">
+      <div className="container mx-auto px-4">
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5 }}
         >
-          <Badge className="bg-primary text-primary-foreground hover:bg-primary/90 mb-6 px-6 py-3 text-base font-semibold rounded-full">
+          <Badge className="bg-primary text-primary-foreground hover:bg-primary/90 mb-6 px-4 py-2 text-sm sm:text-base font-semibold rounded-full">
             <TrendingUp className="w-5 h-5 mr-2" />
             Especial para Emprendedores
           </Badge>
 
-          <h2 className="text-4xl md:text-5xl font-bold font-heading text-foreground mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-foreground mb-4">
             Soluciones Especiales para Emprendedores
           </h2>
 
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
           Diseñamos servicios específicos para ayudar a crecer tu negocio online. Desde tarifas preferenciales hasta integración con plataformas de venta.
           </p>
         </motion.div>
 
         <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -123,16 +123,16 @@ export function EntrepreneurSolutions() {
                 <Card
                   className={`group transition-all duration-300 bg-card/80 backdrop-blur-sm shadow-md hover:shadow-xl ${solution.borderColor}`}
                 >
-                  <CardContent className="p-8">
+                  <CardContent className="p-6 md:p-8">
                     <motion.div
                       whileHover={{ scale: 1.1, rotate: -5 }}
-                      className={`w-16 h-16 bg-gradient-to-r ${solution.color} rounded-full flex items-center justify-center mx-auto mb-6`}
+                      className={`w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r ${solution.color} rounded-full flex items-center justify-center mx-auto mb-6`}
                     >
-                      <IconComponent className="w-8 h-8 text-white" />
+                      <IconComponent className="w-7 h-7 md:w-8 md:h-8 text-white" />
                     </motion.div>
 
-                    <h3 className="text-2xl font-bold font-heading text-card-foreground mb-4 text-center">{solution.title}</h3>
-                    <p className="text-muted-foreground mb-6 text-center leading-relaxed">{solution.description}</p>
+                    <h3 className="text-xl md:text-2xl font-bold font-heading text-card-foreground mb-4 text-center">{solution.title}</h3>
+                    <p className="text-sm md:text-base text-muted-foreground mb-6 text-center leading-relaxed">{solution.description}</p>
 
                     <ul className="space-y-3 mb-8">
                       {solution.features.map((feature, featureIndex) => (
@@ -153,34 +153,34 @@ export function EntrepreneurSolutions() {
           })}
         </motion.div>
 
-        <div className="bg-gradient-to-r from-primary to-primary/90 rounded-2xl p-8 md:p-12">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold font-heading text-primary-foreground mb-4">
+        <div className="bg-gradient-to-r from-primary to-primary/90 rounded-2xl p-6 md:p-12">
+          <div className="text-center mb-8 md:mb-12">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading text-primary-foreground mb-4">
               ¿Por Qué Elegir Nuestras Soluciones?
             </h3>
-            <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto">
               Nuestros planes para emprendedores están diseñados para maximizar tu eficiencia y ahorro.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="grid md:grid-cols-3 gap-8 mb-8 md:mb-12">
             {benefits.map((benefit, index) => {
               const IconComponent = benefit.icon
               return (
                 <div key={index} className="text-center group">
-                  <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 transform group-hover:scale-110 transition-transform duration-300">
-                    <IconComponent className="w-8 h-8 text-secondary" />
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                    <IconComponent className="w-7 h-7 md:w-8 md:h-8 text-secondary" />
                   </div>
-                  <h4 className="text-xl font-bold font-heading text-primary-foreground mb-2">{benefit.title}</h4>
-                  <p className="text-primary-foreground/80 leading-relaxed">{benefit.description}</p>
+                  <h4 className="text-lg md:text-xl font-bold font-heading text-primary-foreground mb-2">{benefit.title}</h4>
+                  <p className="text-base text-primary-foreground/80 leading-relaxed">{benefit.description}</p>
                 </div>
               )
             })}
           </div>
 
           <div className="text-center">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 max-w-2xl mx-auto">
-              <h4 className="text-2xl font-bold font-heading text-primary-foreground mb-4">¿Listo para Hacer Crecer tu Negocio?</h4>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 md:p-8 max-w-2xl mx-auto">
+              <h4 className="text-xl md:text-2xl font-bold font-heading text-primary-foreground mb-4">¿Listo para Hacer Crecer tu Negocio?</h4>
               <p className="text-primary-foreground/80 mb-6">
                 Únete a cientos de emprendedores que ya optimizaron sus envíos con nosotros
               </p>
