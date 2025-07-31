@@ -8,6 +8,11 @@ import {
   ChevronDown,
   Menu,
   X,
+  Zap,
+  DollarSign,
+  Bike,
+  TrendingUp,
+  ShoppingCart,
   type LucideIcon,
 } from "lucide-react";
 import type React from "react";
@@ -31,11 +36,11 @@ export const navGroups: NavGroup[] = [
     icon: Truck,
     basePath: "/servicios",
     items: [
-      { href: "/servicios/envios-express", label: "Envíos Express" },
-      { href: "/servicios/envios-lowcost", label: "Envíos LowCost" },
-      { href: "/servicios/moto-fija", label: "Moto Fija" },
-      { href: "/servicios/plan-emprendedores", label: "Plan Emprendedores" },
-      { href: "/servicios/enviosflex", label: "Envíos Flex MercadoLibre" },
+      { href: "/servicios/envios-express", label: "Envíos Express", icon: Zap },
+      { href: "/servicios/envios-lowcost", label: "Envíos LowCost", icon: DollarSign },
+      { href: "/servicios/moto-fija", label: "Moto Fija", icon: Bike },
+      { href: "/servicios/plan-emprendedores", label: "Plan Emprendedores", icon: TrendingUp },
+      { href: "/servicios/enviosflex", label: "Mercado Libre Flex", icon: ShoppingCart },
     ],
   },
   {

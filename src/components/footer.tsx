@@ -99,15 +99,19 @@ export function Footer() {
             <div key={group.label}>
               <h4 className="font-heading text-base font-semibold text-primary-foreground mb-4 pb-2 border-b-2 border-secondary inline-block">{group.label}</h4>
               <ul className="space-y-2 text-sm">
-                {group.items.map(item => (
+                {group.items.map(item => {
+                  const Icon = item.icon;
+                  return (
                     <li key={item.href}>
                         <motion.div whileHover={{ x: 4 }}>
-                            <Link href={item.href} className="block text-primary-foreground/80 hover:text-primary-foreground transition-colors duration-200 py-1.5">
+                            <Link href={item.href} className="flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground transition-colors duration-200 py-1.5">
+                                {Icon && <Icon className="w-4 h-4 text-secondary" />}
                                 {item.label}
                             </Link>
                         </motion.div>
                     </li>
-                ))}
+                  )
+                })}
               </ul>
             </div>
           ))}
