@@ -24,8 +24,6 @@ export default function HomePage() {
           <EntrepreneurSolutions />
           <StatsSection />
           <VisionSection />
-          <TestimonialsSection/>
-          <AiSummarySection />
           <CtaSection />
         </div>
       </main>
