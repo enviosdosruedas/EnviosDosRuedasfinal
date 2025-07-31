@@ -81,7 +81,7 @@
 
 @layer utilities {
   .font-heading {
-    font-family: var(--font-pt-sans);
+    font-family: var(--font-manrope);
   }
   * {
       @apply transition-colors duration-200;

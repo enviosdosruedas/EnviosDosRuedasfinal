@@ -30,14 +30,14 @@ export function VisionSection() {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.8,
+        duration: 1.0,
         ease: "easeOut",
       },
     },
   };
 
   return (
-    <section className="bg-gray-900 py-20 md:py-24 flex flex-col items-center justify-center">
+    <section className="bg-primary text-primary-foreground py-20 md:py-28 flex flex-col items-center justify-center min-h-[70vh]">
       <motion.div
         className="container mx-auto px-4 flex flex-col items-center gap-10"
         variants={containerVariants}
@@ -45,7 +45,7 @@ export function VisionSection() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl"
           variants={itemVariants}
         >
@@ -64,21 +64,21 @@ export function VisionSection() {
 
         <motion.h2
           variants={itemVariants}
-          className="text-4xl md:text-5xl font-bold text-white text-center"
+          className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center font-heading"
         >
-          Nuestra <span className="text-yellow-400">Visión</span> Global
+          Nuestra <span className="text-secondary">Visión Global</span>
         </motion.h2>
 
         <motion.p
           variants={itemVariants}
-          className="text-lg text-gray-300 max-w-2xl text-center"
+          className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl text-center"
         >
           Datos que respaldan nuestra calidad y compromiso. ¡Descubre por qué
           somos la solución confiable para tus envíos!
         </motion.p>
 
         <motion.div variants={itemVariants} whileHover={{ scale: 1.05 }}>
-          <Button asChild size="lg" className="bg-yellow-400 hover:bg-yellow-500 text-primary-foreground font-bold">
+          <Button asChild size="lg" variant="secondary" className="font-bold px-8 py-3 text-base rounded-full">
             <Link href="/nosotros/sobre-nosotros">
               Conocé más
               <ArrowRight className="ml-2 h-5 w-5" />
