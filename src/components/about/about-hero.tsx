@@ -6,12 +6,12 @@ export function AboutHero() {
     <HeroSection
       title={<span className="text-yellow-400">Envios DosRuedas</span>}
       description={
-        <>
-          <h2 className="text-2xl md:text-3xl text-primary-foreground/90 mt-4 mb-2 font-semibold">Sobre Nosotros</h2>
+        <div className="mt-4">
+          <h2 className="text-2xl md:text-3xl text-primary-foreground/90 mb-2 font-semibold">Sobre Nosotros</h2>
           <p className="text-lg md:text-xl text-primary-foreground/80 max-w-3xl mx-auto leading-relaxed">
             Resolvemos tus dudas sobre envíos y delivery. ¿No encuentras lo que buscas? ¡Contáctanos!
           </p>
-        </>
+        </div>
       }
       backgroundType="image"
       backgroundImageUrl="/bannerenvios.png"
