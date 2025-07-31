@@ -57,7 +57,7 @@ export function CtaSection() {
 
             <div className="grid md:grid-cols-2 items-center min-h-[400px]">
               {/* Content Column */}
-              <div className="p-8 md:p-12 lg:p-16 relative z-10">
+              <div className="p-8 md:p-12 lg:p-16 relative z-20">
                 <motion.div
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-secondary/20 to-secondary/10 border border-secondary/30 backdrop-blur-sm mb-6"
                   whileHover={{ scale: 1.05, backgroundColor: "rgba(251, 191, 36, 0.2)" }}
