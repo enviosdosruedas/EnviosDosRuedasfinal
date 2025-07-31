@@ -8,10 +8,12 @@ import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { CtaSection } from "@/components/sections/cta-section";
 import { Footer } from "@/components/footer";
 import { NeuralHorizonHero } from "@/components/home/NeuralHorizonHero";
+import { Header } from "@/components/header";
 
 export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <Header />
       <main className="flex-grow">
         <NeuralHorizonHero />
         <div className="relative z-10 bg-background">

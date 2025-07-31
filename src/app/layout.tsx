@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { PT_Sans } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
-const inter = Inter({
+const ptSans = PT_Sans({
   subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-inter",
-});
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  weight: ["700", "800"],
-  variable: "--font-manrope",
+  weight: ["400", "700"],
+  variable: "--font-pt-sans",
 });
 
 export const metadata: Metadata = {
@@ -91,7 +85,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${manrope.variable} font-sans antialiased`}
+        className={`${ptSans.variable} font-sans antialiased`}
       >
         {children}
         <Toaster />
