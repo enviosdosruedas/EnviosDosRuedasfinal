@@ -16,7 +16,7 @@ export function ServicesOverview() {
       description: "Entregas el mismo día para cuando necesitas velocidad máxima.",
       features: ["Entrega en en el día (Solicitalo antes de 15hs)", "Seguimiento en tiempo real", "Prioridad máxima"],
       link: "/servicios/envios-express",
-      imageUrl: "/Emprendedoresbannerrapidas.webp",
+      imageUrl: "/servicios/enviosexpress.jpg",
       imageHint: "fast motorcycle"
     },
     {
@@ -25,7 +25,7 @@ export function ServicesOverview() {
       description: "La opción más económica sin sacrificar calidad ni seguridad.",
       features: ["Entrega en el día solicitando antes de 13hs", "Rutas optimizadas", "Precio más bajo"],
       link: "/servicios/envios-lowcost",
-      imageUrl: "/Emprendedoresbannerrapidas2.webp",
+      imageUrl: "/servicios/envios_low_cost.jpg",
       imageHint: "saving money"
     },
     {
@@ -34,7 +34,7 @@ export function ServicesOverview() {
       description: "Servicio dedicado para tu negocio con repartidor exclusivo.",
       features: ["Repartidor dedicado", "Horarios personalizados", "Ideal para negocios"],
       link: "/servicios/moto-fija",
-      imageUrl: "/Emprendedoresbanner.webp",
+      imageUrl: "/servicios/moto_fija.jpg",
       imageHint: "dedicated courier"
     },
   ]
