@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, ChevronUp } from "lucide-react"
+import { Phone, Mail, MapPin, Facebook, Instagram, MessageCircle, ChevronUp } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { navGroups } from "@/lib/navigation"
 
@@ -32,11 +32,18 @@ export function Footer() {
       behavior: "smooth",
     })
   }
+  
+  const handleWhatsAppClick = () => {
+    const phoneNumber = "5492236602699"
+    const message = "Hola, me gustaría obtener información sobre sus servicios de envío."
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+    window.open(whatsappUrl, "_blank")
+  }
 
   const socialLinks = [
     { label: "Facebook", Icon: Facebook, href: "https://facebook.com/enviosdosruedas" },
     { label: "Instagram", Icon: Instagram, href: "https://instagram.com/enviosdosruedas" },
-    { label: "Twitter", Icon: Twitter, href: "https://twitter.com/enviosdosruedas" },
+    { label: "WhatsApp", Icon: MessageCircle, onClick: handleWhatsAppClick, href: "#" },
   ]
 
   return (
@@ -105,6 +112,7 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={social.onClick}
                   whileHover={{ scale: 1.15, rotate: 5, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   initial={{ opacity: 0, y: 20 }}
