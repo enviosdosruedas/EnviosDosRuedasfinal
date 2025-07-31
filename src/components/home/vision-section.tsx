@@ -13,6 +13,8 @@ export function VisionSection() {
     "/Emprendedoresbannerrapidas2.webp",
   ];
 
+  const duplicatedImages = [...images, ...images];
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -37,7 +39,7 @@ export function VisionSection() {
   };
 
   return (
-    <section className="bg-primary text-primary-foreground py-20 md:py-28 flex flex-col items-center justify-center min-h-[70vh]">
+    <section className="bg-primary text-primary-foreground py-20 md:py-28 flex flex-col items-center justify-center min-h-[70vh] overflow-hidden">
       <motion.div
         className="container mx-auto px-4 flex flex-col items-center gap-10"
         variants={containerVariants}
@@ -46,20 +48,24 @@ export function VisionSection() {
         viewport={{ once: true, amount: 0.3 }}
       >
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl"
           variants={itemVariants}
+          className="w-full max-w-5xl overflow-hidden group"
         >
-          {images.map((src, index) => (
-            <div key={index} className="overflow-hidden rounded-lg shadow-lg">
-              <Image
-                src={src}
-                alt={`Banner de emprendedores ${index + 1}`}
-                width={400}
-                height={300}
-                className="w-full h-auto object-cover filter grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-105"
-              />
-            </div>
-          ))}
+          <div className="flex animate-h-scroll group-hover:[animation-play-state:paused] w-max">
+            {duplicatedImages.map((src, index) => (
+              <div key={index} className="w-[clamp(250px,40vw,350px)] flex-shrink-0 p-3">
+                <div className="overflow-hidden rounded-lg shadow-lg">
+                  <Image
+                    src={src}
+                    alt={`Banner de emprendedores ${index + 1}`}
+                    width={400}
+                    height={300}
+                    className="w-full h-auto object-cover filter grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-105"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
         <motion.h2
