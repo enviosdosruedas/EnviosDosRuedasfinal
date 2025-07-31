@@ -71,7 +71,7 @@ export function VisionSection() {
 
         <motion.p
           variants={itemVariants}
-          className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl text-center"
+          className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl text-center font-sans"
         >
           Datos que respaldan nuestra calidad y compromiso. ¡Descubre por qué
           somos la solución confiable para tus envíos!

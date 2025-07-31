@@ -80,7 +80,7 @@ export function StatsSection() {
     const displayValue = target % 1 !== 0 ? current.toFixed(1) : current;
 
     return (
-      <span className="text-4xl md:text-5xl font-bold text-yellow-400">
+      <span className="text-4xl md:text-5xl font-bold text-secondary">
         {displayValue}
         {suffix}
       </span>
@@ -110,7 +110,7 @@ export function StatsSection() {
   };
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-r from-primary via-gray-900 to-black" ref={ref}>
+    <section className="py-20 px-4 bg-primary" ref={ref}>
       <div className="container mx-auto">
         <motion.div 
           className="text-center mb-16"
@@ -118,8 +118,8 @@ export function StatsSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Números que Hablan</h2>
-          <p className="text-xl text-white/80 max-w-3xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold font-heading text-primary-foreground mb-4">Números que Hablan</h2>
+          <p className="text-xl text-primary-foreground/80 max-w-3xl mx-auto">
             Nuestra experiencia y compromiso se reflejan en cada estadística
           </p>
         </motion.div>
@@ -135,17 +135,17 @@ export function StatsSection() {
             return (
               <motion.div key={index} variants={cardVariants}>
                 <Card
-                  className="group bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transform hover:scale-105 transition-all duration-300 h-full"
+                  className="group bg-primary-foreground/5 backdrop-blur-sm border-primary-foreground/10 hover:bg-primary-foreground/10 transform hover:scale-105 transition-all duration-300 h-full"
                 >
                   <CardContent className="p-8 text-center">
-                    <div className="w-16 h-16 bg-yellow-400/20 rounded-full flex items-center justify-center mx-auto mb-6 transform group-hover:scale-110 transition-transform duration-300">
-                      <IconComponent className="w-8 h-8 text-yellow-400" />
+                    <div className="w-16 h-16 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                      <IconComponent className="w-8 h-8 text-secondary" />
                     </div>
                     <div className="mb-2">
                       <AnimatedNumber target={stat.number} suffix={stat.suffix} />
                     </div>
-                    <h3 className="text-xl font-semibold text-white mb-2">{stat.label}</h3>
-                    <p className="text-white/70 text-sm">{stat.description}</p>
+                    <h3 className="text-xl font-semibold font-heading text-primary-foreground mb-2">{stat.label}</h3>
+                    <p className="text-primary-foreground/70 text-sm">{stat.description}</p>
                   </CardContent>
                 </Card>
               </motion.div>
