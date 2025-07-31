@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 export function VisionSection() {
   const images = [
@@ -13,38 +14,46 @@ export function VisionSection() {
   ];
 
   return (
-    <section className="relative hero-vision flex flex-col justify-center items-center h-screen px-4 gap-6 overflow-hidden">
-      <div className="wrap-images">
-        <div className="row-images">
-          {[...images, ...images].map((src, index) => (
-            <Image
-              key={`row1-${index}`}
-              src={src}
-              alt={`Imagen de servicio ${index + 1}`}
-              width={400}
-              height={300}
-              className="h-[150px] md:h-[200px] w-auto rounded-lg opacity-80 object-cover"
-              unoptimized
-            />
-          ))}
+    <section className="relative flex flex-col justify-center items-center min-h-[70vh] px-4 py-16 overflow-hidden bg-primary">
+      <div className="absolute inset-0 opacity-20">
+        <div className="flex h-full items-center relative overflow-hidden">
+          <div className="flex-shrink-0 flex gap-4 animate-h-scroll">
+            {[...images, ...images, ...images].map((src, index) => (
+              <Image
+                key={`row1-${index}`}
+                src={src}
+                alt={`Imagen de servicio de fondo ${index + 1}`}
+                width={400}
+                height={300}
+                className="h-[150px] md:h-[200px] w-auto rounded-lg object-cover"
+                unoptimized
+              />
+            ))}
+          </div>
         </div>
       </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent z-0" />
+      
       <motion.div 
-        className="wrap-content z-10 flex flex-col items-center gap-6"
+        className="relative z-10 flex flex-col items-center gap-6 text-center"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
+        transition={{ duration: 1.8, ease: "easeOut" }}
       >
-        <h2 className="main-title-vision text-2xl md:text-4xl lg:text-5xl font-normal text-center leading-tight">
-        Nuestra Visi&#243;n Global
+        <h2 className="font-bold text-secondary text-4xl md:text-5xl lg:text-6xl">
+          Nuestra Visión Global
         </h2>
-        <p className="description-hero-vision text-lg md:text-xl lg:text-2xl text-center max-w-2xl">
-        Datos que respaldan nuestra calidad y compromiso. &#161;Descubre por qu&#233; somos la soluci&#243;n confiable para tus env&#237;os!
+        <p className="text-primary-foreground/90 text-lg md:text-xl lg:text-2xl max-w-2xl">
+          Datos que respaldan nuestra calidad y compromiso. ¡Descubre por qué somos la solución confiable para tus envíos!
         </p>
-        <Link href="/nosotros/sobre-nosotros" className="btn-primary-vision">
-          Conoc&#233; m&#225;s
-        </Link>
+        <motion.div whileHover={{ scale: 1.05 }}>
+           <Button asChild variant="secondary" size="lg" className="font-bold">
+            <Link href="/nosotros/sobre-nosotros">
+              Conocé más
+            </Link>
+          </Button>
+        </motion.div>
       </motion.div>
     </section>
   );
