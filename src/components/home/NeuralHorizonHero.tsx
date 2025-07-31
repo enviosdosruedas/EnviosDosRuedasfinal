@@ -1,7 +1,7 @@
 // src/components/home/NeuralHorizonHero.tsx
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import * as THREE from 'three';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -11,89 +11,177 @@ import { Calculator, Mail } from 'lucide-react';
 
 export function NeuralHorizonHero() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+    const sceneRef = useRef<THREE.Scene | null>(null);
+    const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+    const animationFrameId = useRef<number>();
+    const mouse = useRef(new THREE.Vector2());
 
-    useEffect(() => {
-        if (!containerRef.current || typeof window === 'undefined') return;
+    const setupScene = useCallback(() => {
+        if (!containerRef.current || rendererRef.current) return;
 
-        let scene: THREE.Scene, camera: THREE.PerspectiveCamera, renderer: THREE.WebGLRenderer, nodes: THREE.Mesh[] = [];
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 0, 15);
+        sceneRef.current = scene;
+        cameraRef.current = camera;
 
-        const init = () => {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(0, 0, 15);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        containerRef.current.appendChild(renderer.domElement);
+        rendererRef.current = renderer;
 
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            containerRef.current?.appendChild(renderer.domElement);
+        const nodeGeometry = new THREE.IcosahedronGeometry(0.2, 1);
+        const nodeMaterial = new THREE.MeshStandardMaterial({
+            color: 0x3B82F6,
+            metalness: 0.3,
+            roughness: 0.6,
+        });
+        const accentMaterial = new THREE.MeshStandardMaterial({
+            color: 0xF59E0B,
+            metalness: 0.5,
+            roughness: 0.4,
+            emissive: 0xF59E0B,
+            emissiveIntensity: 0.3,
+        });
+        
+        const totalNodes = 150;
+        const accentNodesCount = Math.floor(totalNodes * 0.1);
+        const regularNodesCount = totalNodes - accentNodesCount;
 
-            const nodeGeometry = new THREE.IcosahedronGeometry(0.2, 1);
-            const nodeMaterial = new THREE.MeshStandardMaterial({
-                color: 0x3B82F6, // Primary Blue
-                metalness: 0.3,
-                roughness: 0.6,
-            });
-            const accentMaterial = new THREE.MeshStandardMaterial({
-                color: 0xF59E0B, // Secondary Yellow
-                metalness: 0.5,
-                roughness: 0.4,
-                emissive: 0xF59E0B,
-                emissiveIntensity: 0.3
-            });
-            
-            for (let i = 0; i < 150; i++) {
-                const material = Math.random() > 0.9 ? accentMaterial : nodeMaterial;
-                const node = new THREE.Mesh(nodeGeometry, material);
-                node.position.set((Math.random() - 0.5) * 30, (Math.random() - 0.5) * 30, (Math.random() - 0.5) * 30);
-                node.velocity = new THREE.Vector3((Math.random() - 0.5) * 0.01, (Math.random() - 0.5) * 0.01, (Math.random() - 0.5) * 0.01);
-                nodes.push(node);
-                scene.add(node);
+        const regularNodesMesh = new THREE.InstancedMesh(nodeGeometry, nodeMaterial, regularNodesCount);
+        const accentNodesMesh = new THREE.InstancedMesh(nodeGeometry, accentMaterial, accentNodesCount);
+        
+        const instances: { matrix: THREE.Matrix4; velocity: THREE.Vector3; mesh: THREE.InstancedMesh; index: number }[] = [];
+
+        const setupInstances = (mesh: THREE.InstancedMesh, count: number) => {
+            for (let i = 0; i < count; i++) {
+                const matrix = new THREE.Matrix4();
+                const position = new THREE.Vector3(
+                    (Math.random() - 0.5) * 30,
+                    (Math.random() - 0.5) * 30,
+                    (Math.random() - 0.5) * 30
+                );
+                matrix.setPosition(position);
+                mesh.setMatrixAt(i, matrix);
+
+                instances.push({
+                    matrix,
+                    velocity: new THREE.Vector3(
+                        (Math.random() - 0.5) * 0.01,
+                        (Math.random() - 0.5) * 0.01,
+                        (Math.random() - 0.5) * 0.01
+                    ),
+                    mesh,
+                    index: i
+                });
             }
-
-            const ambientLight = new THREE.AmbientLight(0x60A5FA, 1); // Soft blue ambient
-            scene.add(ambientLight);
-
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-            directionalLight.position.set(5, 5, 5);
-            scene.add(directionalLight);
-
-            const pointLight = new THREE.PointLight(0xFBBF24, 2, 20); // Yellow point light
-            pointLight.position.set(-10, 5, 10);
-            scene.add(pointLight);
-
-            window.addEventListener('resize', onResize);
         };
 
-        const onResize = () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        };
+        setupInstances(regularNodesMesh, regularNodesCount);
+        setupInstances(accentNodesMesh, accentNodesCount);
+
+        scene.add(regularNodesMesh);
+        scene.add(accentNodesMesh);
+        
+        const ambientLight = new THREE.AmbientLight(0x60A5FA, 1);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
+        const pointLight = new THREE.PointLight(0xFBBF24, 2, 20);
+        pointLight.position.set(-10, 5, 10);
+        scene.add(pointLight);
+
+        const tempMatrix = new THREE.Matrix4();
+        const tempPosition = new THREE.Vector3();
 
         const animate = () => {
-            requestAnimationFrame(animate);
-            nodes.forEach(node => {
-                node.position.add(node.velocity);
-                if (Math.abs(node.position.x) > 15) node.velocity.x *= -1;
-                if (Math.abs(node.position.y) > 15) node.velocity.y *= -1;
-                if (Math.abs(node.position.z) > 15) node.velocity.z *= -1;
+            animationFrameId.current = requestAnimationFrame(animate);
+            
+            instances.forEach(instance => {
+                tempPosition.setFromMatrixPosition(instance.matrix);
+                tempPosition.add(instance.velocity);
 
-                node.rotation.x += 0.001;
-                node.rotation.y += 0.001;
+                if (Math.abs(tempPosition.x) > 15) instance.velocity.x *= -1;
+                if (Math.abs(tempPosition.y) > 15) instance.velocity.y *= -1;
+                if (Math.abs(tempPosition.z) > 15) instance.velocity.z *= -1;
+                
+                instance.matrix.setPosition(tempPosition);
+                instance.mesh.setMatrixAt(instance.index, instance.matrix);
             });
-            renderer.render(scene, camera);
-        };
-        
-        init();
-        animate();
 
-        return () => {
-            window.removeEventListener('resize', onResize);
-            if(renderer.domElement && containerRef.current) {
-                containerRef.current.removeChild(renderer.domElement);
+            regularNodesMesh.instanceMatrix.needsUpdate = true;
+            accentNodesMesh.instanceMatrix.needsUpdate = true;
+            
+            if (cameraRef.current) {
+                cameraRef.current.position.x += (mouse.current.x * 5 - cameraRef.current.position.x) * 0.05;
+                cameraRef.current.position.y += (-mouse.current.y * 5 - cameraRef.current.position.y) * 0.05;
+                cameraRef.current.lookAt(scene.position);
+            }
+            
+            renderer.render(scene, cameraRef.current!);
+        };
+
+        const handleResize = () => {
+            if (cameraRef.current && rendererRef.current) {
+                cameraRef.current.aspect = window.innerWidth / window.innerHeight;
+                cameraRef.current.updateProjectionMatrix();
+                rendererRef.current.setSize(window.innerWidth, window.innerHeight);
             }
         };
+
+        const handleMouseMove = (event: MouseEvent) => {
+            mouse.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        };
+        
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('mousemove', handleMouseMove);
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                   if (!animationFrameId.current) animate();
+                } else {
+                    if (animationFrameId.current) {
+                        cancelAnimationFrame(animationFrameId.current);
+                        animationFrameId.current = undefined;
+                    }
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
+        }
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('mousemove', handleMouseMove);
+            if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
+            if (containerRef.current) observer.unobserve(containerRef.current);
+
+            // Cleanup THREE.js resources
+            nodeGeometry.dispose();
+            nodeMaterial.dispose();
+            accentMaterial.dispose();
+            if (rendererRef.current?.domElement && containerRef.current) {
+                containerRef.current.removeChild(rendererRef.current.domElement);
+            }
+            rendererRef.current?.dispose();
+            rendererRef.current = null;
+        };
     }, []);
+
+    useEffect(() => {
+        const cleanup = setupScene();
+        return () => {
+            cleanup?.();
+        };
+    }, [setupScene]);
 
     return (
         <section className="h-screen w-full relative flex items-center justify-center">
