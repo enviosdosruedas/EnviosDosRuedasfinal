@@ -77,17 +77,92 @@
   body {
     @apply bg-background text-foreground;
   }
-  .font-heading {
-    font-family: var(--font-manrope), sans-serif;
+}
+
+@layer components {
+  .hero-vision {
+    background-color: #131320;
+    font-family: "IBM Plex Sans", sans-serif;
+  }
+
+  .wrap-images {
+    @apply hidden items-center relative overflow-hidden;
+  }
+
+  @media (min-height: 540px) {
+    .wrap-images {
+      @apply flex;
+    }
+  }
+
+  .wrap-images::before,
+  .wrap-images::after {
+    content: "";
+    @apply absolute z-20 w-3/5 h-full;
+  }
+
+  .wrap-images::before {
+    background: linear-gradient(-90deg, rgba(19, 19, 32, 0.00) 6.38%, #131320 100%);
+  }
+
+  .wrap-images::after {
+    @apply right-0;
+    background: linear-gradient(90deg, rgba(19, 19, 32, 0.00) 6.38%, #131320 100%);
+  }
+
+  .row-images {
+    @apply flex-shrink-0 flex gap-4 animate-h-scroll;
+  }
+  
+  .wrap-images:hover .row-images {
+    animation-play-state: paused;
+  }
+
+  .main-title-vision {
+    @apply m-0 font-normal text-white;
+  }
+
+  .main-title-vision strong {
+    color: hsl(var(--primary-100));
+  }
+  
+  .description-hero-vision {
+    color: hsl(var(--surface-300));
+  }
+  
+  .btn-primary-vision {
+    @apply inline-flex py-4 px-6 justify-center text-white rounded-full text-lg font-bold;
+    background: linear-gradient(90deg, #7D49F8 2.09%, #492B92 100.18%);
+    background-size: 200% 200%;
+    animation: bg-btn 3s linear alternate infinite;
+    text-decoration: none;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .btn-primary-vision:hover {
+    transform: scale(0.98);
+    box-shadow: 1px 1px hsl(var(--primary-100)) inset,
+                -1px -1px hsl(var(--primary-100)) inset;
   }
 }
 
 @layer utilities {
     .font-heading {
-      font-family: var(--font-manrope);
+      font-family: var(--font-pt-sans);
     }
     * {
         @apply transition-colors duration-200;
+    }
+    .animate-h-scroll {
+      animation: h-scroll 10s linear infinite;
+    }
+    @keyframes h-scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-100%);
+      }
     }
     @keyframes float {
       0%, 100% {
@@ -109,10 +184,14 @@
         color: transparent;
         animation: gradientFlow 5s infinite linear;
     }
-}
-
-@keyframes gradientFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes bg-btn {
+      0%{background-position:10% 0%}
+      50%{background-position:91% 100%}
+      100%{background-position:10% 0%}
+    }
 }

@@ -9,6 +9,7 @@ import { CtaSection } from "@/components/sections/cta-section";
 import { Footer } from "@/components/footer";
 import { NeuralHorizonHero } from "@/components/home/NeuralHorizonHero";
 import { Header } from "@/components/header";
+import { VisionSection } from "@/components/home/vision-section";
 
 export default function HomePage() {
   return (
@@ -16,6 +17,7 @@ export default function HomePage() {
       <Header />
       <main className="flex-grow">
         <NeuralHorizonHero />
+        <VisionSection />
         <div className="relative z-10 bg-background">
           <ServicesOverview />
           <EntrepreneurSolutions />
