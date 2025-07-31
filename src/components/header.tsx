@@ -144,23 +144,27 @@ export function Header() {
                     {isGroupActive(group) && <motion.div className="absolute bottom-0 left-0 right-0 h-0.5 bg-secondary rounded-full" layoutId="underline" />}
                     <AnimatePresence>
                         <DropdownMenuContent className="bg-popover/80 backdrop-blur-lg border text-popover-foreground shadow-lg mt-2 w-56">
-                            {group.items.map((item) => (
-                            <DropdownMenuItem key={item.href} asChild>
-                                <motion.div whileHover={{x:3}}>
-                                <Link
-                                href={item.href}
-                                className={cn(
-                                    "cursor-pointer transition-colors duration-150 flex items-center w-full px-3 py-2 text-sm",
-                                    isActive(item.href)
-                                    ? "bg-accent text-accent-foreground font-medium"
-                                    : "hover:bg-accent hover:text-accent-foreground"
-                                )}
-                                >
-                                {item.label}
-                                </Link>
-                                </motion.div>
-                            </DropdownMenuItem>
-                            ))}
+                            {group.items.map((item) => {
+                              const Icon = item.icon;
+                              return (
+                                <DropdownMenuItem key={item.href} asChild>
+                                  <motion.div whileHover={{x:3}}>
+                                  <Link
+                                  href={item.href}
+                                  className={cn(
+                                      "cursor-pointer transition-colors duration-150 flex items-center w-full px-3 py-2 text-sm",
+                                      isActive(item.href)
+                                      ? "bg-accent text-accent-foreground font-medium"
+                                      : "hover:bg-accent hover:text-accent-foreground"
+                                  )}
+                                  >
+                                  {Icon && <Icon className="w-4 h-4 mr-2" />}
+                                  {item.label}
+                                  </Link>
+                                  </motion.div>
+                                </DropdownMenuItem>
+                              )
+                            })}
                         </DropdownMenuContent>
                     </AnimatePresence>
                     </DropdownMenu>
@@ -258,21 +262,25 @@ export function Header() {
                             transition={{ duration: 0.2, ease: "easeInOut" }}
                             className="pl-6 mt-1 space-y-0.5 overflow-hidden"
                           >
-                            {group.items.map((item) => (
-                              <SheetClose asChild key={item.href}>
-                                <Link
-                                  href={item.href}
-                                  className={cn(
-                                    "block py-2.5 px-3 rounded-md transition-colors duration-200 text-sm w-full text-left",
-                                    isActive(item.href)
-                                      ? "bg-secondary/80 text-secondary-foreground font-semibold"
-                                      : "text-primary-foreground/80 hover:text-secondary hover:bg-primary-foreground/10"
-                                  )}
-                                >
-                                  {item.label}
-                                </Link>
-                              </SheetClose>
-                            ))}
+                            {group.items.map((item) => {
+                              const Icon = item.icon;
+                              return (
+                                <SheetClose asChild key={item.href}>
+                                  <Link
+                                    href={item.href}
+                                    className={cn(
+                                      "flex items-center gap-3 py-2.5 px-3 rounded-md transition-colors duration-200 text-sm w-full text-left",
+                                      isActive(item.href)
+                                        ? "bg-secondary/80 text-secondary-foreground font-semibold"
+                                        : "text-primary-foreground/80 hover:text-secondary hover:bg-primary-foreground/10"
+                                    )}
+                                  >
+                                    {Icon && <Icon className="w-4 h-4 text-secondary" />}
+                                    <span>{item.label}</span>
+                                  </Link>
+                                </SheetClose>
+                              )
+                            })}
                           </motion.div>
                         )}
                       </AnimatePresence>
