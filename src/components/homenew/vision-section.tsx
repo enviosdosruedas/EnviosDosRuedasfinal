@@ -145,15 +145,15 @@ export function VisionSection() {
               backgroundClip: "text",
             }}
           >
-            Nuestra <span className="text-secondary">Visión Global</span>
+            Nuestra <span className="text-secondary">Visi√≥n Global</span>
           </motion.h2>
 
           <motion.p
             variants={itemVariants}
             className="text-lg md:text-xl text-primary-foreground/80 max-w-3xl text-center font-sans leading-relaxed"
           >
-            Datos que respaldan nuestra calidad y compromiso. Descubre por qué somos la{" "}
-            <span className="text-secondary font-semibold">solución confiable</span> para tus envíos en Mar del Plata.
+            Datos que respaldan nuestra calidad y compromiso. Descubre por qu√© somos la{" "}
+            <span className="text-secondary font-semibold">soluci√≥n confiable</span> para tus env√≠os en Mar del Plata.
           </motion.p>
         </motion.div>
 
@@ -227,7 +227,7 @@ export function VisionSection() {
         {/* CTA Section */}
         <motion.div variants={itemVariants} className="text-center space-y-6">
           <motion.p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto" variants={itemVariants}>
-            ¿Listo para formar parte de nuestra familia de clientes satisfechos?
+            ¬øListo para formar parte de nuestra familia de clientes satisfechos?
           </motion.p>
 
           <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
@@ -237,7 +237,7 @@ export function VisionSection() {
               className="bg-gradient-to-r from-secondary to-secondary/90 hover:from-secondary/90 hover:to-secondary/80 text-secondary-foreground font-bold px-8 py-4 text-lg rounded-full shadow-2xl hover:shadow-secondary/25 border border-secondary/20"
             >
               <Link href="/nosotros/sobre-nosotros" className="flex items-center gap-3">
-                Conocé más sobre nosotros
+                Conoc√© m√°s sobre nosotros
                 <motion.div animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}>
                   <ArrowRight className="w-5 h-5" />
                 </motion.div>
@@ -246,21 +246,6 @@ export function VisionSection() {
           </motion.div>
         </motion.div>
       </motion.div>
-
-      {/* Custom CSS for horizontal scroll animation */}
-      <style jsx>{`
-        @keyframes h-scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        .animate-h-scroll {
-          animation: h-scroll 30s linear infinite;
-        }
-      `}</style>
     </section>
   )
 }

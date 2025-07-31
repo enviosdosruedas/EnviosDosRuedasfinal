@@ -279,6 +279,14 @@
       "type": "directory",
       "children": [
         {
+          "name": "AboutSectionnuevo.tsx",
+          "type": "file"
+        },
+        {
+          "name": "InteractiveBackground.tsx",
+          "type": "file"
+        },
+        {
           "name": "about",
           "type": "directory",
           "children": [
@@ -555,11 +563,63 @@
           "type": "directory",
           "children": [
             {
-              "name": "HeroVisual.tsx",
+              "name": "anterior",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "HeroVisual.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "NeuralHorizonHero.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "entrepreneur-solutions.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "hero-section.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "services-overview.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "stats-section.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "testimonials-section.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "vision-section.tsx",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "page.tsx",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "homenew",
+          "type": "directory",
+          "children": [
+            {
+              "name": "carrusel-redes.tsx",
               "type": "file"
             },
             {
-              "name": "NeuralHorizonHero.tsx",
+              "name": "cta-section.tsx",
+              "type": "file"
+            },
+            {
+              "name": "enhanced-hero.tsx",
               "type": "file"
             },
             {
@@ -567,7 +627,11 @@
               "type": "file"
             },
             {
-              "name": "hero-section.tsx",
+              "name": "footer.tsx",
+              "type": "file"
+            },
+            {
+              "name": "optimized-header.tsx",
               "type": "file"
             },
             {
@@ -575,11 +639,7 @@
               "type": "file"
             },
             {
-              "name": "stats-section.tsx",
-              "type": "file"
-            },
-            {
-              "name": "testimonials-section.tsx",
+              "name": "theme-provider.tsx",
               "type": "file"
             },
             {

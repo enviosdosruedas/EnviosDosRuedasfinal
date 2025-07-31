@@ -4,7 +4,7 @@ import { HeroSection } from "@/components/ui/HeroSection";
 export function AboutHero() {
   return (
     <HeroSection
-      title={<span className="text-yellow-400">Envios DosRuedas</span>}
+      title={<span className="text-secondary">Envios DosRuedas</span>}
       description={
         <div className="mt-4">
           <h2 className="text-2xl md:text-3xl text-primary-foreground/90 mb-2 font-semibold">Sobre Nosotros</h2>
