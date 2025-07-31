@@ -39,9 +39,8 @@ export function EnhancedHero() {
       });
     };
 
-    handleResize(); // Set initial dimensions
-    
-    // Generate random values only on the client
+    handleResize();
+
     setRandomValues(
         [...Array(6)].map(() => ({
             y1: Math.random() * window.innerHeight,
@@ -49,8 +48,7 @@ export function EnhancedHero() {
             top: Math.random() * 100 + "%",
         }))
     );
-
-
+    
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -387,7 +385,7 @@ export function EnhancedHero() {
             />
 
             <Image
-              src="/favicon.svg?height=160&width=160&text=Logo"
+              src="/LogoEnviosDosRuedas.webp"
               alt="Envios DosRuedas Logo"
               width={160}
               height={160}
