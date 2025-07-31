@@ -157,7 +157,7 @@ export function CtaSection() {
                 <div className="absolute inset-0 bg-gradient-to-l from-transparent via-primary/20 to-primary/60 z-10" />
 
                 <Image
-                  src="/placeholder.svg?height=400&width=600&text=Delivery+Motorcycle"
+                  src="/servicios/repartidor.jpg"
                   alt="Repartidor en moto listo para una entrega"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
