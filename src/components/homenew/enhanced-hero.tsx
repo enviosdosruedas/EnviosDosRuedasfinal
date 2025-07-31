@@ -387,7 +387,7 @@ export function EnhancedHero() {
             />
 
             <Image
-              src="/placeholder.svg?height=160&width=160&text=Logo"
+              src="/favicon.svg?height=160&width=160&text=Logo"
               alt="Envios DosRuedas Logo"
               width={160}
               height={160}

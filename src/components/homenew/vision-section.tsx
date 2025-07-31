@@ -8,9 +8,10 @@ import { ArrowRight, Users, Clock, Shield, Award, TrendingUp, Heart } from "luci
 
 export function VisionSection() {
   const images = [
-    "/placeholder.svg?height=300&width=400&text=Emprendedores+Banner+1",
-    "/placeholder.svg?height=300&width=400&text=Emprendedores+Banner+2",
-    "/placeholder.svg?height=300&width=400&text=Emprendedores+Banner+3",
+    "/Emprendedoresbanner.webp",
+    "/Emprendedoresbannerrapidas.webp",
+    "/Emprendedoresbannerrapidas2.webp",
+    "/Emprendedoresbannerrapidas3.webp",
   ]
 
   const duplicatedImages = [...images, ...images]
