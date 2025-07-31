@@ -39,16 +39,6 @@ export function ServicesOverview() {
     },
   ]
 
-  const contentVariants = {
-    initial: { y: "calc(100% - 80px)" },
-    hover: { y: "0%" },
-  }
-
-  const textAndButtonVariants = {
-    initial: { opacity: 0 },
-    hover: { opacity: 1 },
-  }
-
   return (
     <section className="py-16 md:py-20 lg:py-24 px-4 bg-background">
       <div className="container mx-auto">
@@ -59,12 +49,12 @@ export function ServicesOverview() {
           </p>
         </div>
 
-        <div className="overflow-x-auto md:overflow-visible pb-4">
-            <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-[calc(100vw*0.8*3)] md:w-full">
+        <div className="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8">
+            <div className="flex space-x-6 md:space-x-0 overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 w-full md:contents">
               {services.map((service, index) => (
                 <motion.div
                   key={index}
-                  className="relative group rounded-lg overflow-hidden shadow-lg h-[450px] w-full"
+                  className="relative group rounded-lg overflow-hidden shadow-lg h-[450px] w-[80vw] sm:w-[60vw] md:w-auto flex-shrink-0"
                   whileHover="hover"
                   initial="initial"
                   variants={{
@@ -90,7 +80,7 @@ export function ServicesOverview() {
                   >
                     <h3 className="text-2xl font-bold text-white mb-2 font-heading">{service.title}</h3>
                     
-                    <div className="opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                    <div className="md:opacity-0 group-hover:md:opacity-100 transition-opacity duration-300 delay-100">
                       <p
                         className="text-primary-foreground/80"
                       >
