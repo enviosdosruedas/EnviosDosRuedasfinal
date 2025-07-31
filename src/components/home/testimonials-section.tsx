@@ -46,11 +46,11 @@ export function TestimonialsSection() {
   }
 
   return (
-    <section className="py-20 px-4 bg-white">
+    <section className="py-20 px-4 bg-background">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Lo que Dicen Nuestros Clientes</h2>
-          <p className="text-xl text-gray-600">
+          <h2 className="text-4xl md:text-5xl font-bold font-heading text-foreground mb-4">Lo que Dicen Nuestros Clientes</h2>
+          <p className="text-xl text-muted-foreground font-sans">
             La satisfacción de nuestros clientes es nuestra mejor carta de presentación
           </p>
         </div>
@@ -58,17 +58,17 @@ export function TestimonialsSection() {
         <div className="relative">
           <Card className="bg-gradient-to-r from-blue-50 to-yellow-50 border-0 shadow-xl overflow-hidden">
             <CardContent className="p-8 md:p-12">
-              <Quote className="w-12 h-12 text-yellow-400 mb-6 mx-auto" />
+              <Quote className="w-12 h-12 text-secondary/50 mb-6 mx-auto" />
 
               <div className="text-center min-h-[200px] md:min-h-[150px] flex flex-col justify-center">
-                <p className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed italic">
+                <p className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed italic font-sans">
                   "{testimonials[currentTestimonial].text}"
                 </p>
               </div>
 
               <div className="flex items-center justify-center mb-6">
                 {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                  <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
+                  <Star key={i} className="w-6 h-6 fill-secondary text-secondary" />
                 ))}
               </div>
 
@@ -82,8 +82,8 @@ export function TestimonialsSection() {
                   className="rounded-full object-cover"
                 />
                 <div>
-                  <h4 className="text-lg font-semibold text-gray-800 text-center sm:text-left">{testimonials[currentTestimonial].name}</h4>
-                  <p className="text-gray-600 text-center sm:text-left">{testimonials[currentTestimonial].business}</p>
+                  <h4 className="text-lg font-semibold font-heading text-foreground text-center sm:text-left">{testimonials[currentTestimonial].name}</h4>
+                  <p className="text-muted-foreground text-center sm:text-left font-sans">{testimonials[currentTestimonial].business}</p>
                 </div>
               </div>
             </CardContent>
@@ -94,7 +94,7 @@ export function TestimonialsSection() {
             onClick={prevTestimonial}
             variant="outline"
             size="icon"
-            className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200 rounded-full"
+            className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-card shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200 rounded-full"
           >
             <ChevronLeft className="w-5 h-5" />
           </Button>
@@ -103,7 +103,7 @@ export function TestimonialsSection() {
             onClick={nextTestimonial}
             variant="outline"
             size="icon"
-            className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200 rounded-full"
+            className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-card shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200 rounded-full"
           >
             <ChevronRight className="w-5 h-5" />
           </Button>
@@ -116,7 +116,7 @@ export function TestimonialsSection() {
               key={index}
               onClick={() => setCurrentTestimonial(index)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentTestimonial ? "bg-yellow-400 scale-125" : "bg-gray-300 hover:bg-gray-400"
+                index === currentTestimonial ? "bg-secondary scale-125" : "bg-muted hover:bg-muted-foreground/50"
               }`}
               aria-label={`Ir al testimonio ${index + 1}`}
             />

@@ -49,13 +49,15 @@ export function StatsSection() {
       if (!isInView) return
 
       let startValue = 0
-      const duration = 2000 // 2 seconds
+      const duration = 2500 // Slower animation
       const startTime = Date.now()
+
+      const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
       const animate = () => {
         const now = Date.now()
         const elapsedTime = now - startTime
-        const progress = Math.min(elapsedTime / duration, 1)
+        const progress = easeOutCubic(Math.min(elapsedTime / duration, 1))
         
         let currentValue = progress * (target - startValue) + startValue
         
@@ -67,7 +69,7 @@ export function StatsSection() {
 
         setCurrent(currentValue)
 
-        if (progress < 1) {
+        if (elapsedTime < duration) {
           requestAnimationFrame(animate)
         } else {
           setCurrent(target)
@@ -97,14 +99,16 @@ export function StatsSection() {
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, rotateY: -90 },
+    hidden: { opacity: 0, rotateY: -90, scale: 0.9 },
     visible: { 
       opacity: 1, 
       rotateY: 0,
+      scale: 1,
       transition: {
         type: 'spring',
-        stiffness: 100,
-        damping: 15
+        stiffness: 80,
+        damping: 15,
+        duration: 0.7
       }
     },
   };
@@ -119,7 +123,7 @@ export function StatsSection() {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold font-heading text-primary-foreground mb-4">Números que Hablan</h2>
-          <p className="text-xl text-primary-foreground/80 max-w-3xl mx-auto">
+          <p className="text-xl text-primary-foreground/80 max-w-3xl mx-auto font-sans">
             Nuestra experiencia y compromiso se reflejan en cada estadística
           </p>
         </motion.div>
@@ -145,7 +149,7 @@ export function StatsSection() {
                       <AnimatedNumber target={stat.number} suffix={stat.suffix} />
                     </div>
                     <h3 className="text-xl font-semibold font-heading text-primary-foreground mb-2">{stat.label}</h3>
-                    <p className="text-primary-foreground/70 text-sm">{stat.description}</p>
+                    <p className="text-primary-foreground/70 text-sm font-sans">{stat.description}</p>
                   </CardContent>
                 </Card>
               </motion.div>
