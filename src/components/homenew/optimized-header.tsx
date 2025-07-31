@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet"
-import { Menu, X, Home, CalculatorIcon, Mail, ChevronDown } from "lucide-react"
+import { Menu, X, Home, Calculator as CalculatorIcon, Mail, ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
 import { navGroups } from "@/lib/navigation"
@@ -166,7 +166,7 @@ export function OptimizedHeader() {
                   }}
                 />
                 <Image
-                  src="/placeholder.svg?height=40&width=40&text=Logo"
+                  src="/LogoEnviosDosRuedas.webp"
                   alt="Envios DosRuedas Logo"
                   width={isScrolled ? 36 : 44}
                   height={isScrolled ? 36 : 44}
@@ -205,7 +205,9 @@ export function OptimizedHeader() {
               Inicio
             </NavLink>
 
-            {navGroups.map((group) => (
+            {navGroups.map((group) => {
+                const GroupIcon = group.icon;
+                return (
               <motion.div key={group.label} whileHover={{ scale: 1.02 }} className="relative">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -226,8 +228,7 @@ export function OptimizedHeader() {
                         />
                       )}
                       <span className="relative z-10 flex items-center">
-                        {/* @ts-expect-error */}
-                        <group.icon className="w-4 h-4 mr-2" />
+                        <GroupIcon className="w-4 h-4 mr-2" />
                         {group.label}
                         <ChevronDown className="w-4 h-4 ml-1 opacity-70" />
                       </span>
@@ -249,7 +250,6 @@ export function OptimizedHeader() {
                         <DropdownMenuItem key={item.href} asChild>
                           <motion.div
                             whileHover={{ x: 4, backgroundColor: "rgba(251, 191, 36, 0.1)" }}
-                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.05 }}
@@ -273,7 +273,7 @@ export function OptimizedHeader() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </motion.div>
-            ))}
+            )})}
 
             <NavLink href="/contacto" isActive={isActive("/contacto")}>
               <Mail className="w-4 h-4 mr-2" />
@@ -328,7 +328,7 @@ export function OptimizedHeader() {
                   <div className="relative">
                     <div className="absolute inset-0 rounded-full bg-gradient-to-r from-secondary/30 to-secondary/10 blur-sm" />
                     <Image
-                      src="/placeholder.svg?height=36&width=36&text=Logo"
+                      src="/LogoEnviosDosRuedas.webp"
                       alt="Logo"
                       width={36}
                       height={36}
@@ -362,7 +362,9 @@ export function OptimizedHeader() {
                   </SheetClose>
                 </motion.div>
 
-                {navGroups.map((group) => (
+                {navGroups.map((group) => {
+                    const GroupIcon = group.icon;
+                    return (
                   <motion.div key={group.label} variants={mobileNavItemVariants}>
                     <motion.button
                       onClick={() => toggleMobileSection(group.label)}
@@ -376,8 +378,7 @@ export function OptimizedHeader() {
                       whileTap={{ scale: 0.98 }}
                     >
                       <div className="flex items-center space-x-4">
-                        {/* @ts-expect-error */}
-                        <group.icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
+                        <GroupIcon className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
                         <span className="font-medium text-base">{group.label}</span>
                       </div>
                       <motion.div
@@ -429,7 +430,7 @@ export function OptimizedHeader() {
                       )}
                     </AnimatePresence>
                   </motion.div>
-                ))}
+                )})}
 
                 <motion.div variants={mobileNavItemVariants}>
                   <SheetClose asChild>
