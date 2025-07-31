@@ -53,19 +53,24 @@ export function ServicesOverview() {
     <section className="py-16 md:py-20 lg:py-24 px-4 bg-background">
       <div className="container mx-auto">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">Nuestros Servicios Principales</h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-primary mb-3 sm:mb-4">Nuestros Servicios Principales</h2>
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
           Soluciones adaptadas a cada necesidad, desde entregas urgentes hasta servicios dedicados para tu negocio.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, index) => (
             <motion.div
               key={index}
               className="relative group rounded-lg overflow-hidden shadow-lg h-[450px]"
               whileHover="hover"
               initial="initial"
+              variants={{
+                initial: { y: 0 },
+                hover: { y: -5 },
+              }}
+              transition={{ type: "spring", stiffness: 100 }}
             >
               <div className="absolute inset-0">
                 <Image
@@ -82,14 +87,14 @@ export function ServicesOverview() {
               <motion.div
                 className="relative z-10 p-6 flex flex-col h-full justify-end"
                 variants={contentVariants}
-                transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
+                transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
               >
-                <h3 className="text-2xl font-bold text-white mb-2">{service.title}</h3>
+                <h3 className="text-2xl font-bold text-white mb-2 font-heading">{service.title}</h3>
                 
                 <motion.p
                   variants={textAndButtonVariants}
                   transition={{ delay: 0.1, duration: 0.4 }}
-                  className="text-white/80"
+                  className="text-primary-foreground/80"
                 >
                   {service.description}
                 </motion.p>
@@ -98,7 +103,7 @@ export function ServicesOverview() {
                   variants={textAndButtonVariants}
                   transition={{ delay: 0.2, duration: 0.4 }}
                 >
-                  <Button asChild variant="secondary" className="mt-4">
+                  <Button asChild variant="secondary" className="mt-4 font-semibold">
                     <Link href={service.link}>Conocer Más</Link>
                   </Button>
                 </motion.div>
