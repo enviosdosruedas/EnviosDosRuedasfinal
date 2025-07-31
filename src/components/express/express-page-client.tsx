@@ -14,7 +14,7 @@ export function ExpressPageClient() {
     <>
       <HeroSection
         title={
-          <span className="text-yellow-400">Mensajería - Envíos Express</span>
+          <span className="text-secondary">Mensajería - Envíos Express</span>
         }
         description={
           <>
@@ -22,7 +22,7 @@ export function ExpressPageClient() {
               Servicio de mensajería rápido y confiable para entregas el mismo día en Mar del Plata. Ideal para documentos y paquetes con máxima prioridad.
             </p>
             <div className="mt-3 sm:mt-4 md:mt-6">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-primary-foreground mb-0.5 sm:mb-1">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-primary-foreground mb-0.5 sm:mb-1 font-heading">
                 Envios DosRuedas
               </h2>
               <p className="text-xs sm:text-sm md:text-base text-primary-foreground/80">
@@ -42,7 +42,7 @@ export function ExpressPageClient() {
         textColorClassName="text-primary-foreground"
         layout="center-stacked"
         textAlignment="text-center"
-        titleClassName="text-4xl sm:text-5xl md:text-6xl font-bold"
+        titleClassName="text-4xl sm:text-5xl md:text-6xl font-bold font-heading"
         minHeight="min-h-[65vh] sm:min-h-[70vh] md:min-h-[75vh]"
         className="py-12 sm:py-16 md:py-20"
       />
