@@ -137,9 +137,6 @@ export function NeuralHorizonHero() {
             mouse.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
         };
         
-        window.addEventListener('resize', handleResize);
-        window.addEventListener('mousemove', handleMouseMove);
-
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -157,6 +154,9 @@ export function NeuralHorizonHero() {
         if (containerRef.current) {
             observer.observe(containerRef.current);
         }
+
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('mousemove', handleMouseMove);
 
         return () => {
             window.removeEventListener('resize', handleResize);
@@ -195,17 +195,20 @@ export function NeuralHorizonHero() {
                 transition={{ duration: 0.8, ease: "easeOut" }}
             >
                 <motion.div 
-                    className="mb-6"
+                    className="mb-6 p-1 rounded-full relative bg-primary/30 animate-float"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.2, type: "spring", stiffness: 150 }}
                 >
+                    <div className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-yellow-400 via-pink-500 to-blue-400 animate-spin-slow" 
+                         style={{animation: 'spin-slow 8s linear infinite'}}
+                    />
                     <Image
                         src="/LogoEnviosDosRuedas.webp"
                         alt="Envios DosRuedas Logo"
                         width={180}
                         height={180}
-                        className="rounded-full shadow-2xl"
+                        className="rounded-full shadow-2xl relative z-10"
                         priority
                     />
                 </motion.div>
