@@ -6,6 +6,7 @@ import { FlexPricingRanges } from "@/components/envios-flex/flex-pricing-ranges"
 import { HowItWorks } from "@/components/envios-flex/how-it-works"
 import { Requirements } from "@/components/envios-flex/requirements"
 import { EnviosFlexCta } from "@/components/envios-flex/envios-flex-cta"
+import { CarruselRedes } from "@/components/homenew/carrusel-redes"
 import { Footer } from "@/components/homenew/footer"
 import type { Metadata } from "next"
 
@@ -30,6 +31,7 @@ export default function EnviosFlexPage() {
         <Requirements />
         <EnviosFlexCta />
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   )

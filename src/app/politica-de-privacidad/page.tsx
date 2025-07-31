@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { CarruselRedes } from "@/components/homenew/carrusel-redes";
 import { Footer } from "@/components/homenew/footer";
 import { HeroSection } from "@/components/ui/HeroSection";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -113,6 +114,7 @@ export default function PoliticaDePrivacidadPage() {
           </Card>
         </div>
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   );

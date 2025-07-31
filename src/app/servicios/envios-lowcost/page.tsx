@@ -5,6 +5,7 @@ import { PricingComparison } from "@/components/lowcost/pricing-comparison"
 import { LowcostBenefits } from "@/components/lowcost/lowcost-benefits"
 import { HowLowcostWorks } from "@/components/lowcost/how-lowcost-works"
 import { LowcostCta } from "@/components/lowcost/lowcost-cta"
+import { CarruselRedes } from "@/components/homenew/carrusel-redes"
 import { Footer } from "@/components/homenew/footer"
 import type { Metadata } from "next"
 
@@ -28,6 +29,7 @@ export default function EnviosLowCostPage() {
         <HowLowcostWorks />
         <LowcostCta />
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   )

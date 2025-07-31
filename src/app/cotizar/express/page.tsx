@@ -1,6 +1,7 @@
 
 import type { Metadata } from 'next';
 import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { CarruselRedes } from "@/components/homenew/carrusel-redes";
 import { Footer } from "@/components/homenew/footer";
 import CalculatorHero from '@/components/calculator/calculator-hero';
 import ExpressCalculator from '@/components/calculator/express-calculator';
@@ -27,6 +28,7 @@ export default function CotizarExpressPage() {
         <CalculatorTips />
         <CalculatorContact />
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   );

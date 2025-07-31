@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { CarruselRedes } from "@/components/homenew/carrusel-redes";
 import { Footer } from "@/components/homenew/footer";
 import { ExpressPageClient } from "@/components/express/express-page-client";
 
@@ -17,6 +18,7 @@ export default function EnviosExpressPage() {
       <main className="flex-grow">
         <ExpressPageClient />
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   );

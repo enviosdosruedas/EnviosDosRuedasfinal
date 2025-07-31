@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { CarruselRedes } from "@/components/homenew/carrusel-redes";
 import { Footer } from "@/components/homenew/footer";
 import { ContactPageClient } from "@/components/contact/contact-page-client";
 
@@ -17,6 +18,7 @@ export default function ContactPage() {
       <main className="flex-grow">
         <ContactPageClient />
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   );

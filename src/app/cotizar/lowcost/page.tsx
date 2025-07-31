@@ -1,6 +1,7 @@
 
 import type { Metadata } from 'next';
 import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { CarruselRedes } from "@/components/homenew/carrusel-redes";
 import { Footer } from "@/components/homenew/footer";
 import LowCostCalculatorHero from '@/components/calculator/lowcost-calculator-hero';
 import LowCostCalculator from '@/components/calculator/lowcost-calculator';
@@ -27,6 +28,7 @@ export default function CotizarLowCostPage() {
         <CalculatorTips />
         <CalculatorContact />
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   );

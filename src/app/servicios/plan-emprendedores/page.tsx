@@ -4,6 +4,7 @@ import { PlanInformation } from "@/components/entrepreneur/plan-information"
 import { EntrepreneurBenefits } from "@/components/entrepreneur/entrepreneur-benefits"
 import { EntrepreneurPricingRanges } from "@/components/entrepreneur/entrepreneur-pricing-ranges"
 import { EntrepreneurCta } from "@/components/entrepreneur/entrepreneur-cta"
+import { CarruselRedes } from "@/components/homenew/carrusel-redes"
 import { Footer } from "@/components/homenew/footer"
 import type { Metadata } from "next"
 
@@ -26,6 +27,7 @@ export default function EntrepreneurPlanPage() {
         <EntrepreneurPricingRanges />
         <EntrepreneurCta />
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   )

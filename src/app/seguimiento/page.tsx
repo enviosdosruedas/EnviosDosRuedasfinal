@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { CarruselRedes } from "@/components/homenew/carrusel-redes";
 import { Footer } from "@/components/homenew/footer";
 import { OrderStatus } from "@/components/tracking/order-status";
 import { DriverInfo } from "@/components/tracking/driver-info";
@@ -201,6 +202,7 @@ export default function SeguimientoPage() {
           </div>
         )}
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   );

@@ -3,6 +3,7 @@
 
 import { OptimizedHeader } from "@/components/homenew/optimized-header";
 import { GenerarEnvioForm } from "@/components/ordenes/GenerarEnvioForm";
+import { CarruselRedes } from "@/components/homenew/carrusel-redes";
 import { Footer } from "@/components/homenew/footer"; 
 // Toaster is already in RootLayout, so it's removed from here to avoid redundancy.
 
@@ -13,6 +14,7 @@ export default function OrdenesPage() {
       <main className="flex-grow container mx-auto px-2 sm:px-4 py-8">
         <GenerarEnvioForm />
       </main>
+      <CarruselRedes />
       <Footer />
       {/* <Toaster /> Removed as it's in RootLayout */}
     </div>

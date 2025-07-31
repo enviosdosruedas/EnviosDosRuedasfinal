@@ -5,6 +5,7 @@ import { CompanyValues } from "@/components/about/company-values"
 import { CompanyStory } from "@/components/about/company-story"
 import { TeamSection } from "@/components/about/team-section"
 import { MissionVision } from "@/components/about/mission-vision"
+import { CarruselRedes } from "@/components/homenew/carrusel-redes"
 import { Footer } from "@/components/homenew/footer"
 import type { Metadata } from "next"
 
@@ -27,6 +28,7 @@ export default function AboutPage() {
         <TeamSection />
         <MissionVision />
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   )

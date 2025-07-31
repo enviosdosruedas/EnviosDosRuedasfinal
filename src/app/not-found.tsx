@@ -1,15 +1,16 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { OptimizedHeader } from "@/components/homenew/optimized-header"
+import { CarruselRedes } from "@/components/homenew/carrusel-redes"
 import { Footer } from "@/components/homenew/footer"
 import { NotFoundIllustration } from "@/components/error/not-found-illustration"
 import { Home, ArrowLeft } from "lucide-react"
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <OptimizedHeader />
-      <main className="flex-1">
+      <main className="flex-grow">
         <section className="py-20 px-4">
           <div className="container mx-auto text-center">
             <NotFoundIllustration />
@@ -39,6 +40,7 @@ export default function NotFound() {
           </div>
         </section>
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   )

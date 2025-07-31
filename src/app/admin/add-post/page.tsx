@@ -1,5 +1,6 @@
 // src/app/admin/add-post/page.tsx
 import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { CarruselRedes } from "@/components/homenew/carrusel-redes";
 import { Footer } from "@/components/homenew/footer";
 import { AddPostForm } from "@/components/admin/AddPostForm";
 
@@ -11,6 +12,7 @@ export default function AddSocialPostPage() {
         <h1 className="text-3xl font-bold text-center mb-8 text-primary">Agregar Nueva Publicación Social</h1>
         <AddPostForm />
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   );

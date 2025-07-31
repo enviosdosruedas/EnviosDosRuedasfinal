@@ -1,5 +1,6 @@
 // src/app/admin/ordenes/page.tsx
 import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { CarruselRedes } from "@/components/homenew/carrusel-redes";
 import { Footer } from "@/components/homenew/footer";
 import prisma from "@/lib/prisma";
 import { OrdenesTable } from "@/components/admin/ordenes/OrdenesTable";
@@ -62,6 +63,7 @@ export default async function AdminOrdenesPage() {
         </div>
         <OrdenesTable orders={formattedOrders} />
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   );

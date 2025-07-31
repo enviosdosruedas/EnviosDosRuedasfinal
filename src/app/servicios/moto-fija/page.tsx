@@ -5,6 +5,7 @@ import { ServiceFeatures } from "@/components/moto-fija/service-features"
 import { IdealClients } from "@/components/moto-fija/ideal-clients"
 import { PricingPlans } from "@/components/moto-fija/pricing-plans"
 import { MotoFijaCta } from "@/components/moto-fija/moto-fija-cta"
+import { CarruselRedes } from "@/components/homenew/carrusel-redes"
 import { Footer } from "@/components/homenew/footer"
 import type { Metadata } from "next"
 
@@ -28,6 +29,7 @@ export default function MotoFijaPage() {
         <PricingPlans />
         <MotoFijaCta />
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   )

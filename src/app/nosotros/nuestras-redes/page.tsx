@@ -8,6 +8,7 @@ import { NewsletterSignup } from "@/components/social/newsletter-signup";
 import { Footer } from "@/components/homenew/footer";
 import { getAllPosts } from "@/lib/social/posts";
 import type { Metadata } from "next";
+import { CarruselRedes } from "@/components/homenew/carrusel-redes";
 
 export const metadata: Metadata = {
     title: "Conéctate en Redes Sociales",
@@ -30,6 +31,7 @@ export default async function SocialNetworksPage() {
         <SocialBenefits />
         <NewsletterSignup />
       </main>
+      <CarruselRedes />
       <Footer />
     </div>
   );
