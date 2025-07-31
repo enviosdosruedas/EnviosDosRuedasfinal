@@ -1,3 +1,4 @@
+
 // src/components/home/NeuralHorizonHero.tsx
 'use client';
 
@@ -34,15 +35,15 @@ export function NeuralHorizonHero() {
 
         const nodeGeometry = new THREE.IcosahedronGeometry(0.2, 1);
         const nodeMaterial = new THREE.MeshStandardMaterial({
-            color: 0x3B82F6,
+            color: 0x1E40AF, // Primary Color
             metalness: 0.3,
             roughness: 0.6,
         });
         const accentMaterial = new THREE.MeshStandardMaterial({
-            color: 0xF59E0B,
+            color: 0xF9A825, // Secondary Color
             metalness: 0.5,
             roughness: 0.4,
-            emissive: 0xF59E0B,
+            emissive: 0xF9A825, // Secondary Color
             emissiveIntensity: 0.3,
         });
         
@@ -184,12 +185,12 @@ export function NeuralHorizonHero() {
     }, [setupScene]);
 
     return (
-        <section className="h-screen w-full relative flex items-center justify-center">
-            <div ref={containerRef} className="absolute top-0 left-0 w-full h-full bg-[#1E40AF]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1E40AF] via-[#1E40AF]/80 to-transparent z-0" />
+        <section className="h-screen w-full relative flex items-center justify-center bg-primary">
+            <div ref={containerRef} className="absolute top-0 left-0 w-full h-full" />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent z-0" />
             
             <motion.div 
-                className="relative z-10 flex flex-col items-center text-center p-4 text-white"
+                className="relative z-10 flex flex-col items-center text-center p-4 text-primary-foreground"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
@@ -200,7 +201,7 @@ export function NeuralHorizonHero() {
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.2, type: "spring", stiffness: 150 }}
                 >
-                    <div className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-yellow-400 via-pink-500 to-blue-400 animate-spin-slow" 
+                    <div className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-yellow-400 via-pink-500 to-blue-400" 
                          style={{animation: 'spin-slow 8s linear infinite'}}
                     />
                     <Image
@@ -208,13 +209,13 @@ export function NeuralHorizonHero() {
                         alt="Envios DosRuedas Logo"
                         width={180}
                         height={180}
-                        className="rounded-full shadow-2xl relative z-10"
+                        className="w-32 h-32 sm:w-44 sm:h-44 rounded-full shadow-2xl relative z-10"
                         priority
                     />
                 </motion.div>
                 
                 <motion.h1 
-                    className="text-4xl md:text-6xl font-bold text-[#F9A825] mb-4"
+                    className="text-4xl md:text-6xl font-bold text-secondary mb-4 font-heading"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4, duration: 0.6 }}
@@ -223,7 +224,7 @@ export function NeuralHorizonHero() {
                 </motion.h1>
 
                 <motion.p 
-                    className="max-w-2xl text-lg md:text-xl text-gray-200/90 leading-relaxed mb-8"
+                    className="max-w-2xl text-lg md:text-xl text-primary-foreground/90 leading-relaxed mb-8"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6, duration: 0.6 }}
@@ -237,13 +238,13 @@ export function NeuralHorizonHero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8, duration: 0.6 }}
                 >
-                    <Button asChild size="lg" className="bg-[#F9A825] text-[#1E40AF] hover:bg-[#FBBF24] font-bold shadow-lg transform hover:scale-105 transition-transform">
+                    <Button asChild size="lg" variant="secondary" className="font-bold shadow-lg transform hover:scale-105 transition-transform">
                         <Link href="/cotizar/express">
                             <Calculator className="mr-2 h-5 w-5" />
                             Cotizar Envío
                         </Link>
                     </Button>
-                    <Button asChild size="lg" variant="outline" className="border-[#F9A825] text-[#F9A825] hover:bg-[#F9A825]/10 hover:text-white font-bold shadow-lg transform hover:scale-105 transition-transform">
+                    <Button asChild size="lg" variant="outline" className="border-secondary text-secondary hover:bg-secondary/10 hover:text-white font-bold shadow-lg transform hover:scale-105 transition-transform">
                         <Link href="/contacto">
                             <Mail className="mr-2 h-5 w-5" />
                             Contacto
@@ -254,3 +255,4 @@ export function NeuralHorizonHero() {
         </section>
     );
 }
+
