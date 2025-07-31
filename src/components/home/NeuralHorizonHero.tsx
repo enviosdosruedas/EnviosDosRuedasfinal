@@ -34,16 +34,21 @@ export function NeuralHorizonHero() {
         rendererRef.current = renderer;
 
         const nodeGeometry = new THREE.IcosahedronGeometry(0.2, 1);
+        
+        // Get colors from CSS variables
+        const primaryColorHex = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
+        const secondaryColorHex = getComputedStyle(document.documentElement).getPropertyValue('--secondary').trim();
+
         const nodeMaterial = new THREE.MeshStandardMaterial({
-            color: 0x1E40AF, // Primary Color
+            color: new THREE.Color(primaryColorHex || '#1E40AF'),
             metalness: 0.3,
             roughness: 0.6,
         });
         const accentMaterial = new THREE.MeshStandardMaterial({
-            color: 0xF9A825, // Secondary Color
+            color: new THREE.Color(secondaryColorHex || '#F9A825'),
             metalness: 0.5,
             roughness: 0.4,
-            emissive: 0xF9A825, // Secondary Color
+            emissive: new THREE.Color(secondaryColorHex || '#F9A825'),
             emissiveIntensity: 0.3,
         });
         
@@ -54,7 +59,14 @@ export function NeuralHorizonHero() {
         const regularNodesMesh = new THREE.InstancedMesh(nodeGeometry, nodeMaterial, regularNodesCount);
         const accentNodesMesh = new THREE.InstancedMesh(nodeGeometry, accentMaterial, accentNodesCount);
         
-        const instances: { matrix: THREE.Matrix4; velocity: THREE.Vector3; mesh: THREE.InstancedMesh; index: number }[] = [];
+        const instances: { 
+            matrix: THREE.Matrix4; 
+            velocity: THREE.Vector3; 
+            rotation: THREE.Euler;
+            rotationSpeed: THREE.Vector3;
+            mesh: THREE.InstancedMesh; 
+            index: number 
+        }[] = [];
 
         const setupInstances = (mesh: THREE.InstancedMesh, count: number) => {
             for (let i = 0; i < count; i++) {
@@ -74,6 +86,12 @@ export function NeuralHorizonHero() {
                         (Math.random() - 0.5) * 0.01,
                         (Math.random() - 0.5) * 0.01
                     ),
+                    rotation: new THREE.Euler(0,0,0),
+                    rotationSpeed: new THREE.Vector3(
+                        (Math.random() - 0.5) * 0.01,
+                        (Math.random() - 0.5) * 0.01,
+                        (Math.random() - 0.5) * 0.01
+                    ),
                     mesh,
                     index: i
                 });
@@ -86,17 +104,19 @@ export function NeuralHorizonHero() {
         scene.add(regularNodesMesh);
         scene.add(accentNodesMesh);
         
-        const ambientLight = new THREE.AmbientLight(0x60A5FA, 1);
+        const ambientLight = new THREE.AmbientLight(new THREE.Color(primaryColorHex || '#60A5FA'), 1);
         scene.add(ambientLight);
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
         directionalLight.position.set(5, 5, 5);
         scene.add(directionalLight);
-        const pointLight = new THREE.PointLight(0xFBBF24, 2, 20);
+        const pointLight = new THREE.PointLight(new THREE.Color(secondaryColorHex || '#FBBF24'), 2, 20);
         pointLight.position.set(-10, 5, 10);
         scene.add(pointLight);
 
-        const tempMatrix = new THREE.Matrix4();
         const tempPosition = new THREE.Vector3();
+        const tempQuaternion = new THREE.Quaternion();
+        const tempScale = new THREE.Vector3(1, 1, 1);
+
 
         const animate = () => {
             animationFrameId.current = requestAnimationFrame(animate);
@@ -105,11 +125,17 @@ export function NeuralHorizonHero() {
                 tempPosition.setFromMatrixPosition(instance.matrix);
                 tempPosition.add(instance.velocity);
 
+                instance.rotation.x += instance.rotationSpeed.x;
+                instance.rotation.y += instance.rotationSpeed.y;
+                instance.rotation.z += instance.rotationSpeed.z;
+
+                tempQuaternion.setFromEuler(instance.rotation);
+
                 if (Math.abs(tempPosition.x) > 15) instance.velocity.x *= -1;
                 if (Math.abs(tempPosition.y) > 15) instance.velocity.y *= -1;
                 if (Math.abs(tempPosition.z) > 15) instance.velocity.z *= -1;
                 
-                instance.matrix.setPosition(tempPosition);
+                instance.matrix.compose(tempPosition, tempQuaternion, tempScale);
                 instance.mesh.setMatrixAt(instance.index, instance.matrix);
             });
 
@@ -224,7 +250,7 @@ export function NeuralHorizonHero() {
                 </motion.h1>
 
                 <motion.p 
-                    className="max-w-2xl text-lg md:text-xl text-primary-foreground/90 leading-relaxed mb-8"
+                    className="max-w-2xl text-lg md:text-xl text-primary-foreground/90 leading-relaxed mb-8 font-sans"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6, duration: 0.6 }}
@@ -255,4 +281,3 @@ export function NeuralHorizonHero() {
         </section>
     );
 }
-
