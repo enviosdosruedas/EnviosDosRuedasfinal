@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
@@ -53,13 +54,10 @@ export function ServicesOverview() {
             <motion.div
               key={index}
               className="relative group/card rounded-lg overflow-hidden shadow-lg h-[450px]"
-              whileHover="hover"
-              initial="initial"
-              variants={{
-                initial: { y: 0 },
-                hover: { y: -5 },
-              }}
-              transition={{ type: "spring", stiffness: 100 }}
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <div className="absolute inset-0">
                 <Image
@@ -73,27 +71,11 @@ export function ServicesOverview() {
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
               
-              <motion.div
-                className="relative z-10 p-6 flex flex-col h-full justify-end"
-                variants={{
-                  initial: { y: "calc(100% - 80px)" },
-                  hover: { y: "0%" },
-                }}
-                transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
-              >
+              <div className="relative z-10 p-6 flex flex-col h-full justify-end">
                 <h3 className="text-2xl font-bold text-white mb-2 font-heading">{service.title}</h3>
                 
-                <motion.div
-                  variants={{
-                    initial: { opacity: 0 },
-                    hover: { opacity: 1 },
-                  }}
-                  transition={{ delay: 0.1, duration: 0.4 }}
-                  className="space-y-4"
-                >
-                  <p
-                    className="text-primary-foreground/80"
-                  >
+                <div className="space-y-4">
+                  <p className="text-primary-foreground/80">
                     {service.description}
                   </p>
                   
@@ -102,8 +84,8 @@ export function ServicesOverview() {
                       <Link href={service.link}>Conocer Más</Link>
                     </Button>
                   </div>
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
