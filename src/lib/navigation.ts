@@ -13,6 +13,9 @@ import {
   Bike,
   TrendingUp,
   ShoppingCart,
+  Info,
+  HelpCircle,
+  Share2,
   type LucideIcon,
 } from "lucide-react";
 import type React from "react";
@@ -57,9 +60,9 @@ export const navGroups: NavGroup[] = [
     icon: Users,
     basePath: "/nosotros",
     items: [
-      { href: "/nosotros/sobre-nosotros", label: "Sobre Nosotros" },
-      { href: "/nosotros/preguntas-frecuentes", label: "Preguntas Frecuentes" },
-      { href: "/nosotros/nuestras-redes", label: "Nuestras Redes" },
+      { href: "/nosotros/sobre-nosotros", label: "Sobre Nosotros", icon: Info },
+      { href: "/nosotros/preguntas-frecuentes", label: "Preguntas Frecuentes", icon: HelpCircle },
+      { href: "/nosotros/nuestras-redes", label: "Nuestras Redes", icon: Share2 },
     ],
   },
 ];
