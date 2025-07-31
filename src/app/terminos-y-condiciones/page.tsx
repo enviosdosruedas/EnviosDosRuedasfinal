@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { Footer } from "@/components/homenew/footer";
 import { HeroSection } from "@/components/ui/HeroSection";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, Handshake } from "lucide-react";
@@ -58,7 +58,7 @@ export default function TerminosYCondicionesPage() {
   ];
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Header />
+      <OptimizedHeader />
       <main className="flex-grow">
         <HeroSection
           preTitle={

@@ -1,11 +1,11 @@
 // src/app/nosotros/nuestras-redes/page.tsx
-import { Header } from "@/components/header";
+import { OptimizedHeader } from "@/components/homenew/optimized-header";
 import { SocialHero } from "@/components/social/social-hero";
 import { SocialConnect } from "@/components/social/social-connect";
 import { SocialBenefits } from "@/components/social/social-benefits";
 import { SocialFeed } from "@/components/social/social-feed";
 import { NewsletterSignup } from "@/components/social/newsletter-signup";
-import { Footer } from "@/components/footer";
+import { Footer } from "@/components/homenew/footer";
 import { getAllPosts } from "@/lib/social/posts";
 import type { Metadata } from "next";
 
@@ -22,7 +22,7 @@ export default async function SocialNetworksPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <OptimizedHeader />
       <main className="flex-grow">
         <SocialHero />
         <SocialConnect />

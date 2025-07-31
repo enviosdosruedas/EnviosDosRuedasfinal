@@ -1,7 +1,7 @@
 
 import type { Metadata } from 'next';
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { Footer } from "@/components/homenew/footer";
 import CalculatorHero from '@/components/calculator/calculator-hero';
 import ExpressCalculator from '@/components/calculator/express-calculator';
 import PricingInfo from '@/components/calculator/pricing-info';
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function CotizarExpressPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <Header />
+      <OptimizedHeader />
       <main className="flex-grow">
         <CalculatorHero />
         <ExpressCalculator />

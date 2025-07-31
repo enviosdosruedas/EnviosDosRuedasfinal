@@ -1,11 +1,11 @@
-import { Header } from "@/components/header"
+import { OptimizedHeader } from "@/components/homenew/optimized-header"
 import { AboutHero } from "@/components/about/about-hero"
 import { WhoWeAre } from "@/components/about/who-we-are"
 import { CompanyValues } from "@/components/about/company-values"
 import { CompanyStory } from "@/components/about/company-story"
 import { TeamSection } from "@/components/about/team-section"
 import { MissionVision } from "@/components/about/mission-vision"
-import { Footer } from "@/components/footer"
+import { Footer } from "@/components/homenew/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="min-h-screen">
-      <Header />
+      <OptimizedHeader />
       <main>
         <AboutHero />
         <WhoWeAre />

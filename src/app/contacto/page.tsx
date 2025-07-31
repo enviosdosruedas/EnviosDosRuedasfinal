@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { Footer } from "@/components/homenew/footer";
 import { ContactPageClient } from "@/components/contact/contact-page-client";
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Header />
+      <OptimizedHeader />
       <main className="flex-grow">
         <ContactPageClient />
       </main>

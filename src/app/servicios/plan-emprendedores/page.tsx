@@ -1,10 +1,10 @@
-import { Header } from "@/components/header"
+import { OptimizedHeader } from "@/components/homenew/optimized-header"
 import { EntrepreneurHero } from "@/components/entrepreneur/entrepreneur-hero"
 import { PlanInformation } from "@/components/entrepreneur/plan-information"
 import { EntrepreneurBenefits } from "@/components/entrepreneur/entrepreneur-benefits"
 import { EntrepreneurPricingRanges } from "@/components/entrepreneur/entrepreneur-pricing-ranges"
 import { EntrepreneurCta } from "@/components/entrepreneur/entrepreneur-cta"
-import { Footer } from "@/components/footer"
+import { Footer } from "@/components/homenew/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function EntrepreneurPlanPage() {
   return (
     <div className="min-h-screen">
-      <Header />
+      <OptimizedHeader />
       <main>
         <EntrepreneurHero />
         <PlanInformation />

@@ -1,8 +1,8 @@
-import { Header } from "@/components/header"
+import { OptimizedHeader } from "@/components/homenew/optimized-header"
 import { FaqHero } from "@/components/faq/faq-hero"
 import { FaqCategories } from "@/components/faq/faq-categories"
 import { FaqContactCta } from "@/components/faq/faq-contact-cta"
-import { Footer } from "@/components/footer"
+import { Footer } from "@/components/homenew/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function FaqPage() {
   return (
     <div className="min-h-screen">
-      <Header />
+      <OptimizedHeader />
       <main>
         <FaqHero />
         <FaqCategories />

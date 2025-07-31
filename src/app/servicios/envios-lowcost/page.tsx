@@ -1,11 +1,11 @@
-import { Header } from "@/components/header"
+import { OptimizedHeader } from "@/components/homenew/optimized-header"
 import { LowcostHero } from "@/components/lowcost/lowcost-hero"
 import { LowcostContent } from "@/components/lowcost/lowcost-content"
 import { PricingComparison } from "@/components/lowcost/pricing-comparison"
 import { LowcostBenefits } from "@/components/lowcost/lowcost-benefits"
 import { HowLowcostWorks } from "@/components/lowcost/how-lowcost-works"
 import { LowcostCta } from "@/components/lowcost/lowcost-cta"
-import { Footer } from "@/components/footer"
+import { Footer } from "@/components/homenew/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function EnviosLowCostPage() {
   return (
     <div className="min-h-screen">
-      <Header />
+      <OptimizedHeader />
       <main>
         <LowcostHero />
         <LowcostContent />

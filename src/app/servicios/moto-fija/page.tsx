@@ -1,11 +1,11 @@
-import { Header } from "@/components/header"
+import { OptimizedHeader } from "@/components/homenew/optimized-header"
 import { MotoFijaHero } from "@/components/moto-fija/moto-fija-hero"
 import { MotoFijaContent } from "@/components/moto-fija/moto-fija-content"
 import { ServiceFeatures } from "@/components/moto-fija/service-features"
 import { IdealClients } from "@/components/moto-fija/ideal-clients"
 import { PricingPlans } from "@/components/moto-fija/pricing-plans"
 import { MotoFijaCta } from "@/components/moto-fija/moto-fija-cta"
-import { Footer } from "@/components/footer"
+import { Footer } from "@/components/homenew/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function MotoFijaPage() {
   return (
     <div className="min-h-screen">
-      <Header />
+      <OptimizedHeader />
       <main>
         <MotoFijaHero />
         <MotoFijaContent />

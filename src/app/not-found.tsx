@@ -1,14 +1,14 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
+import { OptimizedHeader } from "@/components/homenew/optimized-header"
+import { Footer } from "@/components/homenew/footer"
 import { NotFoundIllustration } from "@/components/error/not-found-illustration"
 import { Home, ArrowLeft } from "lucide-react"
 
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
+      <OptimizedHeader />
       <main className="flex-1">
         <section className="py-20 px-4">
           <div className="container mx-auto text-center">

@@ -1,4 +1,4 @@
-import { Header } from "@/components/header"
+import { OptimizedHeader } from "@/components/homenew/optimized-header"
 import { EnviosFlexHero } from "@/components/envios-flex/envios-flex-hero"
 import { EnviosFlexContent } from "@/components/envios-flex/envios-flex-content"
 import { MercadoLibreBenefits } from "@/components/envios-flex/mercadolibre-benefits"
@@ -6,7 +6,7 @@ import { FlexPricingRanges } from "@/components/envios-flex/flex-pricing-ranges"
 import { HowItWorks } from "@/components/envios-flex/how-it-works"
 import { Requirements } from "@/components/envios-flex/requirements"
 import { EnviosFlexCta } from "@/components/envios-flex/envios-flex-cta"
-import { Footer } from "@/components/footer"
+import { Footer } from "@/components/homenew/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function EnviosFlexPage() {
   return (
     <div className="min-h-screen">
-      <Header />
+      <OptimizedHeader />
       <main>
         <EnviosFlexHero />
         <EnviosFlexContent />

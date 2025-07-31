@@ -2,8 +2,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { Footer } from "@/components/homenew/footer";
 import { OrderStatus } from "@/components/tracking/order-status";
 import { DriverInfo } from "@/components/tracking/driver-info";
 import { UpdatesTimeline } from "@/components/tracking/updates-timeline";
@@ -102,7 +102,7 @@ export default function SeguimientoPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Header />
+      <OptimizedHeader />
 
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="text-center mb-6">
