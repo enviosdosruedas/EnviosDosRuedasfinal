@@ -1,154 +1,140 @@
-
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Coins, MapPin, ArrowRightCircle, HelpCircle } from "lucide-react";
-import { preciosLowCost, type PrecioRango } from "@/lib/precioslowcost";
-import Image from "next/image";
+import { ArrowRight, BadgeCheck, Tags } from "lucide-react";
+import Link from "next/link";
+import { preciosLowCost } from "@/lib/precioslowcost";
+import { preciosExpress } from "@/lib/preciosexpress";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 export function PricingComparison() {
-  // Filtrar los rangos para mostrar solo hasta 12.99 km
-  const displayedPriceRanges = preciosLowCost.filter(
-    (rango) => rango.distancia_max_km < 13
-  );
+  const comparisonRanges = preciosLowCost
+    .filter(rango => rango.distancia_max_km < 13)
+    .map(lowCostRango => {
+      const expressRango = preciosExpress.find(
+        (expressRango) =>
+          expressRango.distancia_min_km === lowCostRango.distancia_min_km &&
+          expressRango.distancia_max_km === lowCostRango.distancia_max_km
+      );
+      return {
+        ...lowCostRango,
+        precio_express: expressRango ? expressRango.precio_rango : null,
+      };
+    });
 
-  const formatKmDisplay = (km: number, isMaxBoundaryInTitleOrRange: boolean = false) => {
-    const kmFixed = parseFloat(km.toFixed(2)); 
-
-    if (isMaxBoundaryInTitleOrRange && String(kmFixed.toFixed(2)).endsWith('.99')) {
+  const formatKmDisplay = (km: number) => {
+    const kmFixed = parseFloat(km.toFixed(2));
+    if (String(kmFixed.toFixed(2)).endsWith('.99')) {
       return Math.ceil(kmFixed).toString();
     }
-    
     return Number.isInteger(kmFixed) ? kmFixed.toFixed(0) : kmFixed.toFixed(2).replace(".", ",");
   };
 
-  const lowCostTiers = displayedPriceRanges.map((rango: PrecioRango) => {
-    const titleMaxKmFormatted = formatKmDisplay(rango.distancia_max_km, true);
-    const rangeMinKmFormatted = formatKmDisplay(rango.distancia_min_km);
-    const rangeMaxKmFormatted = formatKmDisplay(rango.distancia_max_km, true);
+  const tableVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.07 },
+    },
+  };
 
-    return {
-      name: `Hasta ${titleMaxKmFormatted} km`,
-      icon: MapPin, 
-      price: `$${rango.precio_rango.toLocaleString("es-AR", {
-        minimumFractionDigits: rango.precio_rango % 1 === 0 ? 0 : 2,
-        maximumFractionDigits: 2,
-      })}`,
-      distanceRange: `${rangeMinKmFormatted} km - ${rangeMaxKmFormatted} km`,
-      description: `Para envíos dentro de este rango de distancia.`,
-      features: [
-        "Servicio económico y confiable",
-        "Entrega en el día solicitando antes de 13hs",
-        "Seguimiento incluido",
-      ],
-      color: "border-green-200 bg-green-50",
-      badgeText: "Tarifa Low Cost",
-      badgeColor: "bg-green-600",
-    };
-  });
-
-  const handleWhatsAppClick = () => {
-    const phoneNumber = "5492236602699";
-    const message = "Hola, necesito cotizar un envío Low Cost de más de 13 km.";
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-      message
-    )}`;
-    window.open(whatsappUrl, "_blank");
+  const rowVariants = {
+    hidden: { opacity: 0, x: -30 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
   };
 
   return (
-    <section className="py-16 px-4 bg-gray-50">
-      <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            Tarifas Envíos Low Cost por Distancia
+    <section className="py-20 md:py-28 bg-gray-50 dark:bg-slate-900/50">
+      <div className="container mx-auto px-4">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-primary dark:text-white font-heading mb-4">
+            Ahorrá en Cada Envío: Compará Nuestras Tarifas
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Encuentra el precio de tu envío Low Cost según la distancia.
-            Transparencia y ahorro garantizado.
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Mirá la diferencia y empezá a optimizar tus costos de logística hoy mismo.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {lowCostTiers.map((tier, index) => {
-            return (
-              <Card
-                key={index}
-                className={`relative ${tier.color} border-2 hover:shadow-lg transition-shadow duration-300 flex flex-col`}
-              >
-                <Badge
-                  className={`absolute -top-3 left-1/2 transform -translate-x-1/2 ${tier.badgeColor} text-white px-3 py-1 text-xs`}
-                >
-                  {tier.badgeText}
-                </Badge>
-                <CardHeader className="text-center pb-4 pt-8">
-                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-green-200">
-                    <Coins className="w-8 h-8 text-green-600" />
-                  </div>
-                  <CardTitle className="text-2xl font-bold text-gray-800">
-                    {tier.name}
-                  </CardTitle>
-                  <p className="text-sm text-gray-500">
-                    {tier.distanceRange}
-                  </p>
-                  <div className="text-3xl font-bold text-green-700 my-2">
-                    {tier.price}
-                  </div>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <p className="text-gray-600 mb-4 text-center text-sm">
-                    {tier.description}
-                  </p>
-                  <ul className="space-y-2 text-sm">
-                    {tier.features.map((feature, featureIndex) => (
-                      <li
-                        key={featureIndex}
-                        className="flex items-center text-gray-700"
-                      >
-                        <ArrowRightCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            );
-          })}
-
-          {/* Card especial para distancias mayores */}
-          <Card className="relative border-blue-200 bg-blue-50 border-2 hover:shadow-lg transition-shadow duration-300 flex flex-col">
-            <Badge
-                className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-3 py-1 text-xs"
+        <motion.div
+          className="max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden border border-gray-200 dark:border-slate-700">
+            <motion.table
+              className="w-full text-left"
+              variants={tableVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
             >
-                Cotización Especial
-            </Badge>
-            <CardHeader className="text-center pb-4 pt-8">
-              <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-blue-200">
-                <HelpCircle className="w-8 h-8 text-blue-600" />
+              <thead className="bg-gray-100 dark:bg-slate-700/50">
+                <tr>
+                  <th className="p-5 font-semibold text-sm text-gray-600 dark:text-gray-300">Rango de Distancia</th>
+                  <th className="p-5 font-semibold text-sm text-gray-600 dark:text-gray-300 text-center">Tarifa Express</th>
+                  <th className="p-5 font-semibold text-sm text-gray-600 dark:text-gray-300 text-center relative">
+                    <div className="flex items-center justify-center gap-2">
+                      <Tags className="w-4 h-4 text-secondary" />
+                      Tarifa Low Cost
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonRanges.map((rango, index) => (
+                  <motion.tr
+                    key={index}
+                    className="border-t border-gray-200 dark:border-slate-700"
+                    variants={rowVariants}
+                  >
+                    <td className="p-5 font-medium text-gray-800 dark:text-gray-100">
+                      {`Hasta ${formatKmDisplay(rango.distancia_max_km)} km`}
+                    </td>
+                    <td className="p-5 text-center text-gray-500 dark:text-gray-400 line-through">
+                      {rango.precio_express ? `$${rango.precio_express.toLocaleString("es-AR")}` : "-"}
+                    </td>
+                    <td className="p-5 text-center bg-secondary/5 dark:bg-secondary/10">
+                      <div className="flex items-center justify-center gap-2">
+                        <span className="font-bold text-lg text-primary dark:text-secondary">
+                          {`$${rango.precio_rango.toLocaleString("es-AR")}`}
+                        </span>
+                        {index === 2 && (
+                          <span className="hidden sm:inline-block text-xs font-semibold bg-secondary text-black px-2 py-1 rounded-full">
+                            Popular
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </motion.table>
+            <div className="p-6 border-t border-gray-200 dark:border-slate-700 bg-gray-100 dark:bg-slate-700/50">
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-4 text-center">
+                <p className="text-sm text-gray-600 dark:text-gray-300">¿Necesitás una cotización para tu envío específico?</p>
+                <Button asChild size="sm">
+                  <Link href="/cotizar/lowcost">
+                    Calcular Envío Low Cost
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
               </div>
-              <CardTitle className="text-2xl font-bold text-gray-800">
-                Más de 13 km
-              </CardTitle>
-              <p className="text-sm text-gray-500">
-                Envíos de Larga Distancia
-              </p>
-            </CardHeader>
-            <CardContent className="flex-grow flex flex-col justify-between">
-              <p className="text-gray-600 mb-4 text-center text-sm">
-                Para envíos que superen los 13 km, ofrecemos cotizaciones personalizadas para asegurar el mejor precio.
-              </p>
-              <Button
-                onClick={handleWhatsAppClick}
-                className="w-full bg-green-500 hover:bg-green-600 text-white mt-4"
-              >
-                <Image src="/icon/icon-whatsapp.svg" alt="WhatsApp Icon" width={20} height={20} className="w-5 h-5 mr-2" />
-                Consultar por WhatsApp
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

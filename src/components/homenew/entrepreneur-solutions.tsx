@@ -34,11 +34,11 @@ export function EntrepreneurSolutions() {
     {
       icon: Users,
       title: "Moto Fija para Negocios",
-      description: "Repartidor dedicado exclusivamente para tu empresa",
-      features: ["Repartidor exclusivo", "Horarios personalizados", "Rutas optimizadas", "Seguimiento GPS"],
+      description: "Un repartidor exclusivo para tu empresa, garantizando puntualidad y eficiencia.",
+      features: ["Repartidor 100% dedicado", "Horarios y rutas a medida", "Optimización de costos", "Seguimiento GPS"],
       link: "/servicios/moto-fija",
-      gradient: "from-green-500 via-green-600 to-green-700",
-      glowColor: "green-500/20",
+      gradient: "from-slate-700 via-slate-800 to-slate-900",
+      glowColor: "slate-500/20",
       image: "/cards/card3.png",
       badge: "Dedicado",
     },
@@ -132,7 +132,7 @@ export function EntrepreneurSolutions() {
               backgroundClip: "text",
             }}
           >
-            Soluciones Especiales para <span className="text-secondary">Emprendedores</span>
+            Soluciones a la Medida de tu <span className="text-secondary">Negocio</span>
           </motion.h2>
 
           <motion.p
@@ -142,9 +142,9 @@ export function EntrepreneurSolutions() {
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            Diseñamos servicios específicos para ayudar a crecer tu negocio online. Desde{" "}
-            <span className="text-primary font-semibold">tarifas preferenciales</span> hasta{" "}
-            <span className="text-secondary font-semibold">integración con plataformas</span> de venta.
+            Potenciamos tu e-commerce y operaciones locales con servicios diseñados para el éxito.
+            <span className="text-primary font-semibold"> Tarifas preferenciales</span>,
+            <span className="text-secondary font-semibold"> integración tecnológica</span> y la confianza que necesitás para crecer.
           </motion.p>
         </motion.div>
 
@@ -229,21 +229,21 @@ export function EntrepreneurSolutions() {
 
                     {/* Features Section */}
                     <div className="p-6 bg-white">
-                      <div className="grid grid-cols-2 gap-2">
+                      <ul className="space-y-3">
                         {solution.features.slice(0, 4).map((feature, featureIndex) => (
-                          <motion.div
+                          <motion.li
                             key={featureIndex}
-                            className="flex items-center text-xs text-gray-600"
+                            className="flex items-center text-sm text-gray-700"
                             initial={{ opacity: 0, x: -10 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 * featureIndex, duration: 0.3 }}
                           >
-                            <CheckCircle className="w-3 h-3 text-green-500 mr-2 flex-shrink-0" />
-                            <span className="truncate">{feature}</span>
-                          </motion.div>
+                            <CheckCircle className="w-4 h-4 text-green-500 mr-3 flex-shrink-0" />
+                            <span>{feature}</span>
+                          </motion.li>
                         ))}
-                      </div>
+                      </ul>
                     </div>
 
                     {/* Hover glow effect */}
