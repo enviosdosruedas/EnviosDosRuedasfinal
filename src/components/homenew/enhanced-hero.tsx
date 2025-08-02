@@ -97,10 +97,10 @@ export function EnhancedHero() {
     })
 
     const accentMaterial = new THREE.MeshStandardMaterial({
-      color: new THREE.Color("#EC4899"),
+      color: new THREE.Color("#38BDF8"), // Light Blue
       metalness: 0.5,
       roughness: 0.4,
-      emissive: new THREE.Color("#DB2777"),
+      emissive: new THREE.Color("#0EA5E9"), // Sky Blue
       emissiveIntensity: 0.3,
     })
 
@@ -167,7 +167,7 @@ export function EnhancedHero() {
     pointLight2.position.set(15, -10, 5)
     scene.add(pointLight2)
 
-    const pointLight3 = new THREE.PointLight(0xec4899, 1, 15)
+    const pointLight3 = new THREE.PointLight(0x38bdf8, 1, 15)
     pointLight3.position.set(0, 15, -10)
     scene.add(pointLight3)
 
@@ -428,12 +428,12 @@ export function EnhancedHero() {
           transition={{ delay: 0.6, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-yellow-400/20 to-blue-400/20 border border-white/20 backdrop-blur-sm mb-4"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-secondary/20 to-primary/20 border border-white/20 backdrop-blur-sm mb-4"
             whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
           >
-            <Sparkles className="w-4 h-4 text-yellow-400" />
-            <span className="text-sm font-medium text-white/90">Tu Solución Confiable</span>
-            <Zap className="w-4 h-4 text-blue-400" />
+            <Sparkles className="w-4 h-4 text-secondary" />
+            <span className="text-sm font-medium text-white/90">Entregas Rápidas, Negocios Exitosos</span>
+            <Zap className="w-4 h-4 text-primary" />
           </motion.div>
 
           <motion.h1
@@ -450,7 +450,7 @@ export function EnhancedHero() {
               backgroundSize: "200% 200%",
             }}
           >
-            Envios DosRuedas
+            Tu Aliado en Logística Urbana
           </motion.h1>
         </motion.div>
 
@@ -461,10 +461,9 @@ export function EnhancedHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          Somos tu solución confiable en servicios de mensajería y delivery en Mar del Plata. Ofrecemos soluciones{" "}
-          <span className="text-yellow-400 font-medium">rápidas</span>,
-          <span className="text-blue-400 font-medium"> seguras</span> y
-          <span className="text-purple-400 font-medium"> económicas</span> para todas tus necesidades de envío.
+          Optimizamos la logística de tu e-commerce o negocio local en Mar del Plata con entregas en el día.
+          <span className="text-secondary font-medium"> Rapidez</span>,
+          <span className="text-blue-400 font-medium"> confianza</span> y la mejor tecnología para que tus envíos lleguen siempre a tiempo.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -478,11 +477,11 @@ export function EnhancedHero() {
             <Button
               asChild
               size="lg"
-              className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-black font-bold shadow-2xl px-8 py-4 text-lg rounded-full border-2 border-yellow-400/50 hover:border-yellow-300 transition-all duration-300"
+              className="bg-gradient-to-r from-secondary to-yellow-400 hover:from-yellow-400 hover:to-secondary text-black font-bold shadow-2xl px-8 py-4 text-lg rounded-full border-2 border-yellow-400/50 hover:border-yellow-300 transition-all duration-300"
             >
               <Link href="/cotizar/express" className="flex items-center gap-3">
                 <Calculator className="w-5 h-5" />
-                Cotizar Envío
+                Cotizar Ahora
                 <motion.div animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}>
                   →
                 </motion.div>
@@ -497,9 +496,9 @@ export function EnhancedHero() {
               variant="outline"
               className="border-2 border-white/30 text-white hover:bg-white/10 hover:text-white font-bold shadow-2xl px-8 py-4 text-lg rounded-full backdrop-blur-sm transition-all duration-300 bg-transparent"
             >
-              <Link href="/contacto" className="flex items-center gap-3">
-                <Mail className="w-5 h-5" />
-                Contacto
+              <Link href="/servicios/envios-express" className="flex items-center gap-3">
+                <Zap className="w-5 h-5" />
+                Nuestros Servicios
               </Link>
             </Button>
           </motion.div>

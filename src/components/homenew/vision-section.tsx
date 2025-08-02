@@ -145,15 +145,14 @@ export function VisionSection() {
               backgroundClip: "text",
             }}
           >
-            Nuestra <span className="text-secondary">Visión Global</span>
+            Resultados que Inspiran <span className="text-secondary">Confianza</span>
           </motion.h2>
 
           <motion.p
             variants={itemVariants}
             className="text-lg md:text-xl text-primary-foreground/80 max-w-3xl text-center font-sans leading-relaxed"
           >
-            Datos que respaldan nuestra calidad y compromiso. Descubre por qué somos la{" "}
-            <span className="text-secondary font-semibold">solución confiable</span> para tus envíos en Mar del Plata.
+            Nuestros números hablan por sí solos. Descubrí por qué cientos de empresas y emprendedores en Mar del Plata nos eligen cada día.
           </motion.p>
         </motion.div>
 
@@ -214,7 +213,7 @@ export function VisionSection() {
                       alt={`Banner de emprendedores ${(index % 3) + 1}`}
                       width={400}
                       height={300}
-                      className="w-full h-auto object-cover filter grayscale hover:grayscale-0 transition-all duration-500 transform hover:scale-110"
+                      className="w-full h-auto object-cover transition-all duration-500 transform hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
                   </div>

@@ -1,57 +1,97 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+"use client";
+
+import { motion } from "framer-motion";
+import { ClipboardList, Route, Package, ShieldCheck } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function HowLowcostWorks() {
   const steps = [
     {
-      step: "1",
-      title: "Solicita tu Envío",
-      description: "Completa el formulario con los detalles de tu envío y elige la fecha de entrega.",
+      icon: ClipboardList,
+      title: "1. Solicitá tu Envío",
+      description: "Completá el formulario con los detalles y programá tu entrega con al menos 24hs de anticipación.",
     },
     {
-      step: "2",
-      title: "Programamos la Ruta",
-      description: "Agrupamos tu envío con otros en la misma zona para optimizar costos.",
+      icon: Route,
+      title: "2. Optimizamos la Ruta",
+      description: "Agrupamos tu envío con otros en la misma zona para maximizar la eficiencia y reducir costos.",
     },
     {
-      step: "3",
-      title: "Recolectamos",
-      description: "Pasamos a buscar tu paquete en el horario acordado, sin costo adicional.",
+      icon: Package,
+      title: "3. Retiramos tu Paquete",
+      description: "Uno de nuestros riders pasará a buscar tu paquete puntualmente en la dirección y fecha acordada.",
     },
     {
-      step: "4",
-      title: "Entregamos",
-      description: "Entrega en el día solicitando antes de 13hs",
+      icon: ShieldCheck,
+      title: "4. Entregamos con Seguridad",
+      description: "Tu paquete se entrega de forma segura, manteniendo la calidad y confianza de siempre.",
     },
-  ]
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2, delayChildren: 0.2 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 100, damping: 15 },
+    },
+  };
 
   return (
-    <section className="py-16 px-4 bg-gray-50">
-      <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-12">
-          <Badge className="bg-blue-600 text-white hover:bg-blue-700 mb-6 px-4 py-2 text-sm font-medium">
-            Proceso Optimizado
-          </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">¿Cómo Funciona Low Cost?</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Nuestro proceso optimizado te permite ahorrar dinero sin complicaciones
+    <section className="py-20 md:py-28 bg-white dark:bg-slate-900">
+      <div className="container mx-auto px-4">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-primary dark:text-white font-heading mb-4">
+            Así de Fácil es Ahorrar
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Nuestro proceso optimizado está diseñado para ser simple para vos y eficiente para nosotros.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {steps.map((step, index) => (
-            <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300">
-              <CardContent className="p-6">
-                <div className="w-16 h-16 bg-yellow-500 text-gray-900 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
-                  {step.step}
+        <div className="relative">
+          {/* Connecting line */}
+          <div className="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 dark:bg-slate-700 -translate-y-1/2" />
+
+          <motion.div
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-10"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+          >
+            {steps.map((step, index) => (
+              <motion.div
+                key={index}
+                className="relative text-center"
+                variants={itemVariants}
+              >
+                <div className="relative bg-white dark:bg-slate-900 inline-block">
+                  <div className="w-20 h-20 bg-gray-100 dark:bg-slate-800 text-primary dark:text-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold border-4 border-white dark:border-slate-900 ring-4 ring-gray-200 dark:ring-slate-700">
+                    <step.icon className="w-8 h-8" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-3">{step.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{step.description}</p>
-              </CardContent>
-            </Card>
-          ))}
+                <h3 className="text-xl font-semibold text-primary dark:text-white mb-3">{step.title}</h3>
+                <p className="text-muted-foreground leading-relaxed px-4">{step.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -17,19 +17,19 @@ export function CarruselRedes() {
       name: "Facebook",
       icon: Facebook,
       href: "https://facebook.com/enviosdosruedas",
-      color: "from-blue-600 to-blue-700",
-      bgColor: "bg-blue-50",
-      hoverColor: "hover:bg-blue-100",
-      description: "Síguenos en Facebook",
+      color: "from-primary to-blue-600",
+      bgColor: "bg-primary/5",
+      hoverColor: "hover:bg-primary/10",
+      description: "Novedades y comunidad",
     },
     {
       name: "Instagram",
       icon: Instagram,
       href: "https://instagram.com/enviosdosruedas",
-      color: "from-pink-500 via-purple-500 to-orange-500",
-      bgColor: "bg-pink-50",
-      hoverColor: "hover:bg-pink-100",
-      description: "Síguenos en Instagram",
+      color: "from-secondary to-yellow-500",
+      bgColor: "bg-secondary/5",
+      hoverColor: "hover:bg-secondary/10",
+      description: "El día a día de nuestros envíos",
     },
     {
       name: "WhatsApp",
@@ -37,9 +37,9 @@ export function CarruselRedes() {
       onClick: handleWhatsAppClick,
       href: "#",
       color: "from-green-500 to-green-600",
-      bgColor: "bg-green-50",
-      hoverColor: "hover:bg-green-100",
-      description: "Chateá con nosotros",
+      bgColor: "bg-green-500/5",
+      hoverColor: "hover:bg-green-500/10",
+      description: "Contacto directo y rápido",
     },
   ]
 
@@ -109,11 +109,11 @@ export function CarruselRedes() {
               backgroundClip: "text",
             }}
           >
-            Seguinos en Nuestras <span className="text-secondary">Redes Sociales</span>
+            Conectá con Nuestra <span className="text-secondary">Comunidad</span>
           </motion.h2>
 
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Mantente al día con nuestras novedades, promociones y consejos de envío. ¡Únete a nuestra comunidad!
+            Enterate de nuestras últimas novedades, promociones exclusivas y el detrás de escena de tus envíos.
           </p>
         </motion.div>
 

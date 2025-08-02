@@ -1,126 +1,121 @@
+"use client";
 
-"use client"
-
-import { Button } from "@/components/ui/button"
-import { Check } from "lucide-react"
-import Link from "next/link"
-import { motion } from "framer-motion"
-import Image from "next/image"
+import { motion } from "framer-motion";
+import { Calculator, Package, ShieldCheck, ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export function ExpressContent() {
-  const features = [
+  const steps = [
     {
-      title: "Entrega el mismo día",
-      description: "Para pedidos realizados antes de las 15:00, garantizamos la entrega en el mismo día.",
+      icon: Calculator,
+      title: "1. Cotizá y Programá",
+      description: "Ingresá los detalles de tu envío en nuestra calculadora online y elegí el horario de retiro que más te convenga.",
     },
     {
-      title: "Rango horario personalizado",
-      description: "Elige el rango horario que mejor se adapte a tus necesidades para recibir o enviar tu paquete.",
+      icon: Package,
+      title: "2. Retiramos tu Paquete",
+      description: "Uno de nuestros riders profesionales pasará a buscar tu paquete puntualmente en la dirección y hora acordadas.",
     },
     {
-      title: "Servicio prioritario",
-      description: "Tus envíos tienen prioridad sobre otros servicios, asegurando la máxima rapidez.",
+      icon: ShieldCheck,
+      title: "3. Entrega Rápida y Segura",
+      description: "Tu envío se entrega directamente, con seguimiento en tiempo real y confirmación de entrega para tu tranquilidad.",
     },
-  ]
+  ];
 
-  const handleWhatsAppClick = () => {
-    const phoneNumber = "5492236602699"
-    const message = "Hola, me gustaría consultar sobre el servicio de Envíos Express."
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
-    window.open(whatsappUrl, "_blank")
-  }
-
-  const sectionVariants = {
+  const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2, delayChildren: 0.2 },
+    },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 100 } },
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 100, damping: 15 },
+    },
+  };
+
+  const imageVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+    },
   };
 
   return (
-    <section className="py-12 md:py-16 lg:py-20 px-4 bg-white">
-      <div className="container mx-auto max-w-7xl">
-        <motion.div 
-          className="grid lg:grid-cols-2 gap-10 md:gap-12 items-center"
+    <section className="py-20 md:py-28 bg-white dark:bg-slate-900">
+      <div className="container mx-auto px-4">
+        <motion.div
+          className="grid lg:grid-cols-2 gap-16 items-center"
+          variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          variants={sectionVariants}
         >
-          {/* Left Content */}
-          <motion.div variants={itemVariants}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-800 mb-4 sm:mb-6">
-              Entregas rápidas y eficientes para tus necesidades
-            </h2>
-            <p className="text-base sm:text-lg text-gray-700 mb-6 sm:mb-8 leading-relaxed">
-            Nuestro servicio Express está diseñado para aquellas situaciones donde el tiempo es crucial. Garantizamos la entrega el mismo día para todos los pedidos realizados antes de las 15:00, con la posibilidad de elegir un rango horario específico.
-            </p>
+          {/* Left Content - Steps */}
+          <div className="space-y-10">
+            <motion.div variants={itemVariants}>
+              <h2 className="text-3xl md:text-4xl font-bold text-primary dark:text-white font-heading mb-4">
+                Tu Envío Express en 3 Simples Pasos
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Simplificamos la logística para que puedas enviar lo que necesites, cuando lo necesites, sin complicaciones.
+              </p>
+            </motion.div>
 
-            {/* Features */}
-            <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
-              {features.map((feature, index) => (
-                <motion.div 
-                  key={index} 
-                  className="flex items-start"
-                  custom={index}
+            <div className="space-y-8">
+              {steps.map((step, index) => (
+                <motion.div
+                  key={index}
+                  className="flex items-start gap-6"
                   variants={itemVariants}
                 >
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 bg-green-500 rounded-full flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0 mt-1">
-                    <Check className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                  <div className="flex-shrink-0 w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center">
+                    <step.icon className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-blue-800 mb-1 sm:mb-2">{feature.title}</h3>
-                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{feature.description}</p>
+                    <h3 className="text-xl font-semibold text-primary dark:text-white mb-2">{step.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{step.description}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
 
-            {/* CTA Buttons */}
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4"
-              variants={itemVariants}
-            >
-              <Button
-                asChild
-                size="lg"
-                className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base"
-              >
-                <Link href="/cotizar/express">Cotiza tu Envío</Link>
-              </Button>
-              <Button
-                onClick={handleWhatsAppClick}
-                variant="outline"
-                size="lg"
-                className="border-green-500 text-green-600 hover:bg-green-50 px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base"
-              >
-                <Image src="/icon/icon-whatsapp-verde.svg" alt="WhatsApp Icon" width={20} height={20} className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                Consultar por WhatsApp
+            <motion.div variants={itemVariants}>
+              <Button asChild size="lg" className="mt-6">
+                <Link href="/cotizar/express">
+                  Comenzar mi Envío
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
             </motion.div>
-          </motion.div>
+          </div>
 
-          {/* Right Content - Large Branding */}
-          <motion.div 
-            className="flex justify-center lg:justify-end mt-8 lg:mt-0"
-            variants={itemVariants}
-            initial={{opacity: 0, x: 20}}
-            animate={{opacity:1, x: 0}}
+          {/* Right Content - Image */}
+          <motion.div
+            variants={imageVariants}
+            className="relative h-[500px] w-full hidden lg:block"
           >
-            <div className="text-center lg:text-right">
-              <div className="space-y-1 sm:space-y-2">
-                <div className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-transparent bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text">
-                  ENVIOS
-                </div>
-                <div className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-gray-800">DOS RUEDAS</div>
-              </div>
-            </div>
+            <Image
+              src="/servicios/moto-cta.jpg"
+              alt="Repartidor de EnviosDosRuedas preparando un paquete para entrega express"
+              fill
+              className="object-cover rounded-3xl shadow-2xl"
+              sizes="50vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-3xl" />
           </motion.div>
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

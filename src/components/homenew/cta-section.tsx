@@ -85,13 +85,11 @@ export function CtaSection() {
                     backgroundClip: "text",
                   }}
                 >
-                  ¿Listos para tu <span className="text-secondary">Próximo Envío</span>?
+                  Impulsá tu Negocio <span className="text-secondary">Hoy Mismo</span>
                 </motion.h2>
 
                 <p className="text-lg md:text-xl text-white/80 mb-8 max-w-lg leading-relaxed">
-                  En Envios DosRuedas estamos listos para ayudarte con tus necesidades de{" "}
-                  <span className="text-secondary font-semibold">mensajería y paquetería</span>. Contáctanos hoy mismo o
-                  calcula tu envío.
+                  No dejes que la logística te detenga. Cotizá tu envío en segundos o contactanos para diseñar un plan a la medida de tu empresa.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -103,7 +101,7 @@ export function CtaSection() {
                     >
                       <Link href="/cotizar/express" className="flex items-center gap-3">
                         <Calculator className="w-5 h-5" />
-                        Solicitar Cotización
+                        Cotizar Mi Envío
                         <motion.div
                           animate={{ x: [0, 4, 0] }}
                           transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
@@ -146,8 +144,8 @@ export function CtaSection() {
                     <div className="text-sm text-white/70">A Tiempo</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-secondary">24/7</div>
-                    <div className="text-sm text-white/70">Soporte</div>
+                    <div className="text-2xl font-bold text-secondary">100%</div>
+                    <div className="text-sm text-white/70">Seguridad</div>
                   </div>
                 </motion.div>
               </div>

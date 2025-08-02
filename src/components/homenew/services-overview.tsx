@@ -1,11 +1,10 @@
 
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Truck, Clock, Shield, MapPin, Zap, Package } from "lucide-react"
+import { Truck, Zap, Package, CheckCircle } from "lucide-react"
 import Link from "next/link"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 
 export function ServicesOverview() {
@@ -13,8 +12,8 @@ export function ServicesOverview() {
     {
       icon: Zap,
       title: "Envíos Express",
-      description: "Entregas el mismo día para cuando necesitas velocidad máxima.",
-      features: ["Entrega en en el día (Solicitalo antes de 15hs)", "Seguimiento en tiempo real", "Prioridad máxima"],
+      description: "Entregas urgentes en minutos. La solución perfecta para cuando el tiempo apremia.",
+      features: ["Entrega en el día (antes de 15hs)", "Seguimiento en tiempo real", "Máxima prioridad"],
       link: "/servicios/envios-express",
       imageUrl: "/servicios/enviosexpress.jpg",
       imageHint: "fast motorcycle"
@@ -22,69 +21,120 @@ export function ServicesOverview() {
     {
       icon: Package,
       title: "Envíos Low Cost",
-      description: "La opción más económica sin sacrificar calidad ni seguridad.",
-      features: ["Entrega en el día solicitando antes de 13hs", "Rutas optimizadas", "Precio más bajo"],
+      description: "La opción más inteligente para tus envíos programados. Calidad y ahorro garantizados.",
+      features: ["Entrega en 24hs", "Rutas optimizadas", "El mejor precio del mercado"],
       link: "/servicios/envios-lowcost",
       imageUrl: "/servicios/envios_low_cost.jpg",
       imageHint: "saving money"
     },
     {
       icon: Truck,
-      title: "Moto Fija",
-      description: "Servicio dedicado para tu negocio con repartidor exclusivo.",
-      features: ["Repartidor dedicado", "Horarios personalizados", "Ideal para negocios"],
+      title: "Moto Fija para Empresas",
+      description: "Un repartidor exclusivo para tu negocio. Optimiza tus entregas recurrentes.",
+      features: ["Repartidor 100% dedicado", "Horarios y rutas a medida", "Ideal para alto volumen"],
       link: "/servicios/moto-fija",
       imageUrl: "/servicios/moto_fija.jpg",
       imageHint: "dedicated courier"
     },
   ]
 
+  const cardVariants = {
+    initial: { y: 50, opacity: 0 },
+    animate: { y: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
+  const contentVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.1 } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0 },
+  };
+
   return (
-    <section className="py-16 md:py-20 lg:py-24 px-4 bg-background">
-      <div className="container mx-auto">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-primary mb-3 sm:mb-4">Nuestros Servicios Principales</h2>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-          Soluciones adaptadas a cada necesidad, desde entregas urgentes hasta servicios dedicados para tu negocio.
+    <section className="py-20 md:py-28 bg-gray-50 dark:bg-gray-900/50">
+      <div className="container mx-auto px-4">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-primary mb-4">
+            Tu Logística, Simplificada
+          </h2>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+            Descubrí cómo podemos potenciar tu negocio. Ofrecemos velocidad, economía y un servicio dedicado para que solo te concentres en crecer.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <motion.div
               key={index}
-              className="relative group/card rounded-lg overflow-hidden shadow-lg h-[450px]"
-              initial={{ y: 20, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
+              variants={cardVariants}
+              initial="initial"
+              whileInView="animate"
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ delay: index * 0.1 }}
+              className="group relative rounded-xl overflow-hidden shadow-2xl h-[480px] bg-slate-800"
             >
-              <div className="absolute inset-0">
-                <Image
-                  src={service.imageUrl}
-                  alt={`Imagen de fondo para ${service.title}`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover/card:scale-105"
-                  data-ai-hint={service.imageHint}
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+              <Image
+                src={service.imageUrl}
+                alt={`Imagen de fondo para ${service.title}`}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:rotate-1"
+                data-ai-hint={service.imageHint}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent transition-all duration-500 group-hover:from-black/90 group-hover:via-black/70" />
+              <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 group-hover:ring-white/20 transition-all duration-500" />
               
-              <div className="relative z-10 p-6 flex flex-col h-full justify-end">
-                <h3 className="text-2xl font-bold text-white mb-2 font-heading">{service.title}</h3>
+              <div className="relative z-10 p-6 flex flex-col h-full justify-end text-white">
+                <motion.div>
+                  <service.icon className="w-10 h-10 mb-4 text-secondary transition-all duration-500 group-hover:scale-110 group-hover:text-yellow-300" />
+                  <h3 className="text-2xl font-bold mb-2 font-heading">{service.title}</h3>
+                </motion.div>
                 
-                <div className="space-y-4">
-                  <p className="text-primary-foreground/80">
-                    {service.description}
-                  </p>
-                  
-                  <div>
-                    <Button asChild variant="secondary" className="mt-4 font-semibold">
-                      <Link href={service.link}>Conocer Más</Link>
-                    </Button>
-                  </div>
-                </div>
+                <AnimatePresence>
+                  <motion.div
+                    className="overflow-hidden"
+                    variants={{
+                      collapsed: { height: 0, opacity: 0 },
+                      expanded: { height: "auto", opacity: 1 },
+                    }}
+                    initial="collapsed"
+                    animate={ "expanded"}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <motion.div
+                      variants={contentVariants}
+                      initial="hidden"
+                      animate={"visible"}
+                      className="space-y-4 pt-4"
+                    >
+                      <motion.p variants={itemVariants} className="text-primary-foreground/80">
+                        {service.description}
+                      </motion.p>
+                      <motion.ul variants={itemVariants} className="space-y-2">
+                        {service.features.map((feature, i) => (
+                          <li key={i} className="flex items-center gap-3">
+                            <CheckCircle className="w-5 h-5 text-secondary flex-shrink-0" />
+                            <span className="text-sm text-primary-foreground/90">{feature}</span>
+                          </li>
+                        ))}
+                      </motion.ul>
+                      <motion.div variants={itemVariants}>
+                        <Button asChild variant="secondary" className="mt-4 font-semibold w-full sm:w-auto">
+                          <Link href={service.link}>Conocer Más</Link>
+                        </Button>
+                      </motion.div>
+                    </motion.div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </motion.div>
           ))}

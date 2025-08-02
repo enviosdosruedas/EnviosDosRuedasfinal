@@ -1,64 +1,91 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Calendar, MapPin, TrendingUp, Award } from "lucide-react"
+"use client";
+
+import { motion } from "framer-motion";
+import { Calendar, MapPin, TrendingUp, Award, GitCommitHorizontal } from "lucide-react";
+import { useInView } from "react-intersection-observer";
 
 export function CompanyStory() {
   const milestones = [
     {
       icon: Calendar,
       year: "2020",
-      title: "Nuestros Inicios",
-      description: "Comenzamos como un pequeño servicio de mensajería local con una sola moto y mucha pasión.",
+      title: "El Comienzo",
+      description: "Con una moto y una gran visión, nace Envios DosRuedas para ofrecer una solución de mensajería pensada para Mar del Plata.",
     },
     {
       icon: TrendingUp,
       year: "2021",
-      title: "Crecimiento",
-      description: "Expandimos nuestra flota y comenzamos a ofrecer servicios especializados para emprendedores.",
+      title: "Crecimiento Sostenido",
+      description: "Expandimos nuestra flota y lanzamos los primeros servicios especializados para e-commerce y emprendedores locales.",
     },
     {
       icon: Award,
       year: "2022",
-      title: "Reconocimiento",
-      description: "Alcanzamos las 4.9 estrellas en Google Reviews y nos convertimos en referentes locales.",
+      title: "Consolidación y Confianza",
+      description: "Alcanzamos las 4.9 estrellas en Google, convirtiéndonos en un referente de confianza y calidad en la ciudad.",
     },
     {
       icon: MapPin,
       year: "2024",
-      title: "Expansión",
-      description: "Hoy cubrimos toda Mar del Plata y localidades cercanas con un equipo de profesionales.",
+      title: "Liderando el Camino",
+      description: "Hoy, nuestro equipo de profesionales cubre toda Mar del Plata y alrededores, impulsando cientos de negocios.",
     },
-  ]
+  ];
 
   return (
-    <section className="py-16 px-4 bg-muted/50">
-      <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading">Nuestra Historia</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Desde nuestros humildes comienzos hasta convertirnos en la empresa de confianza en Mar del Plata
+    <section className="py-20 md:py-28 bg-gray-50 dark:bg-slate-800/50">
+      <div className="container mx-auto px-4">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-primary dark:text-white font-heading mb-4">
+            Un Viaje Impulsado por la Pasión
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Desde nuestros humildes comienzos hasta convertirnos en el aliado logístico de confianza en Mar del Plata.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="relative max-w-2xl mx-auto">
+          {/* Vertical line */}
+          <div className="absolute left-6 top-0 h-full w-0.5 bg-gray-200 dark:bg-slate-700" />
+
           {milestones.map((milestone, index) => {
-            const IconComponent = milestone.icon
+            const { ref, inView } = useInView({
+              triggerOnce: true,
+              threshold: 0.5,
+            });
+
             return (
-              <Card key={index} className="relative overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
-                      <IconComponent className="w-6 h-6 text-secondary" />
+              <motion.div
+                key={index}
+                ref={ref}
+                className="flex items-start gap-8 mb-12"
+                initial={{ opacity: 0, x: -30 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <div className="relative z-10">
+                  <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center border-4 border-gray-200 dark:border-slate-700">
+                    <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center">
+                      <milestone.icon className="w-5 h-5" />
                     </div>
-                    <span className="text-2xl font-bold text-secondary">{milestone.year}</span>
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-3 font-heading">{milestone.title}</h3>
+                </div>
+                <div className="pt-2">
+                  <p className="text-sm font-semibold text-secondary mb-1">{milestone.year}</p>
+                  <h3 className="text-xl font-bold text-primary dark:text-white mb-2">{milestone.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{milestone.description}</p>
-                </CardContent>
-              </Card>
-            )
+                </div>
+              </motion.div>
+            );
           })}
         </div>
       </div>
     </section>
-  )
+  );
 }
