@@ -47,7 +47,7 @@ export function CarruselRedes() {
   const duplicatedNetworks = [...socialNetworks, ...socialNetworks, ...socialNetworks, ...socialNetworks]
 
   return (
-    <section className="relative py-16 md:py-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 overflow-hidden">
+    <section className="relative py-16 md:py-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 overflow-hidden font-sans">
       {/* Background decorations */}
       <div className="absolute inset-0">
         {[...Array(8)].map((_, i) => (
@@ -92,7 +92,7 @@ export function CarruselRedes() {
           </motion.div>
 
           <motion.h2
-            className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-foreground mb-4"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold font-display text-foreground mb-4"
             animate={{
               backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
             }}
@@ -112,7 +112,7 @@ export function CarruselRedes() {
             Seguinos en Nuestras <span className="text-secondary">Redes Sociales</span>
           </motion.h2>
 
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-sans">
             Mantente al día con nuestras novedades, promociones y consejos de envío. ¡Únete a nuestra comunidad!
           </p>
         </motion.div>
@@ -170,7 +170,7 @@ export function CarruselRedes() {
                     </h3>
 
                     {/* Description */}
-                    <p className="text-gray-600 text-sm leading-relaxed">{network.description}</p>
+                    <p className="text-gray-600 text-sm leading-relaxed font-sans">{network.description}</p>
 
                     {/* Hover indicator */}
                     <motion.div
@@ -196,7 +196,7 @@ export function CarruselRedes() {
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          <p className="text-gray-600">
+          <p className="text-gray-600 font-sans">
             ¿Tenés alguna consulta? <span className="text-primary font-semibold">¡Escribinos por WhatsApp!</span>
           </p>
         </motion.div>
