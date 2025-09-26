@@ -1,3 +1,4 @@
+
 'use client';
 
 import { HeroSection } from "@/components/ui/HeroSection";
@@ -35,8 +36,8 @@ export function ContactPageClient() {
           }
           description={
             <>
-              <h2 className="text-2xl md:text-3xl text-primary-foreground/90 mb-4 font-semibold">Envios DosRuedas</h2>
-              <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">Somos tu solución confiable en servicios de mensajería y delivery en Mar del Plata. Contáctanos y obtén una respuesta rápida.</p>
+              <h2 className="text-2xl md:text-3xl text-primary-foreground/90 mb-4 font-semibold font-display">Envios DosRuedas</h2>
+              <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed font-sans">Somos tu solución confiable en servicios de mensajería y delivery en Mar del Plata. Contáctanos y obtén una respuesta rápida.</p>
             </>
           }
           backgroundType="image"
@@ -47,7 +48,7 @@ export function ContactPageClient() {
           textAlignment="text-center"
           minHeight="min-h-[40vh] sm:min-h-[50vh]"
           contentMaxWidth="max-w-3xl"
-          titleClassName="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold"
+          titleClassName="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display"
           descriptionClassName="text-base sm:text-lg md:text-xl"
           className="py-10 sm:py-12 md:py-16"
         />
