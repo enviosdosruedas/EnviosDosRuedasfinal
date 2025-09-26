@@ -33,8 +33,8 @@ export function IdealClients() {
     <section className="py-16 px-4 bg-white">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">¿Para Quién es Ideal?</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-display">¿Para Quién es Ideal?</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto font-sans">
             El servicio de Moto Fija está diseñado para negocios con necesidades específicas de delivery
           </p>
         </div>
@@ -50,13 +50,13 @@ export function IdealClients() {
                       <IconComponent className="w-6 h-6 text-yellow-600" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold text-gray-800 mb-2">{client.title}</h3>
-                      <p className="text-gray-600 leading-relaxed mb-4">{client.description}</p>
+                      <h3 className="text-xl font-semibold text-gray-800 mb-2 font-display">{client.title}</h3>
+                      <p className="text-gray-600 leading-relaxed mb-4 font-sans">{client.description}</p>
                     </div>
                   </div>
                   <div className="ml-16">
-                    <h4 className="font-semibold text-gray-700 mb-2">Beneficios específicos:</h4>
-                    <ul className="space-y-1">
+                    <h4 className="font-semibold text-gray-700 mb-2 font-display">Beneficios específicos:</h4>
+                    <ul className="space-y-1 font-sans">
                       {client.benefits.map((benefit, benefitIndex) => (
                         <li key={benefitIndex} className="text-sm text-gray-600 flex items-center">
                           <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></div>
