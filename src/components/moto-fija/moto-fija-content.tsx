@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button"
 import { Check } from "lucide-react"
 import Link from "next/link"
@@ -12,11 +13,14 @@ export function MotoFijaContent() {
   ]
 
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="py-16 px-4 bg-white font-sans">
       <div className="container mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-6 font-display">
+              Servicio de Moto Fija
+            </h2>
             <p className="text-lg text-gray-700 mb-8 leading-relaxed">
               Optimiza tus entregas regulares con nuestro servicio de delivery con moto fija. Asignamos un repartidor
               exclusivo para tu negocio, garantizando puntualidad, conocimiento de tus rutas y un servicio
@@ -46,7 +50,7 @@ export function MotoFijaContent() {
           {/* Right Content - Large Branding */}
           <div className="flex justify-center lg:justify-end">
             <div className="text-center lg:text-right">
-              <div className="space-y-2">
+              <div className="space-y-2 font-display">
                 <div className="text-6xl md:text-7xl lg:text-8xl font-bold text-transparent bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text">
                   ENVIOS
                 </div>
