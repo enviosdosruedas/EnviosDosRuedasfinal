@@ -3,12 +3,7 @@
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Sparkles, Zap } from "lucide-react"
-
-// const pacifico = Pacifico({
-//   subsets: ["latin"],
-//   weight: ["400"],
-//   variable: "--font-pacifico",
-// })
+import Image from "next/image"
 
 function ElegantShape({
   className,
@@ -99,8 +94,8 @@ export default function HeroGeometric({
   }
 
   return (
-    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030303]">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#095FBA]/[0.05] via-transparent to-[#FBC50D]/[0.05] blur-3xl" />
+    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030812]">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#095FBA]/[0.1] via-transparent to-[#0B6FC3]/[0.05] blur-3xl" />
 
       <div className="absolute inset-0 overflow-hidden">
         <ElegantShape
@@ -117,7 +112,7 @@ export default function HeroGeometric({
           width={500}
           height={120}
           rotate={-15}
-          gradient="from-[#FBC50D]/[0.15]"
+          gradient="from-[#2BAECF]/[0.15]"
           className="right-[-5%] md:right-[0%] top-[70%] md:top-[75%]"
         />
 
@@ -144,7 +139,7 @@ export default function HeroGeometric({
           width={150}
           height={40}
           rotate={-25}
-          gradient="from-[#BDB883]/[0.15]"
+          gradient="from-[#095FBA]/[0.15]"
           className="left-[20%] md:left-[25%] top-[5%] md:top-[10%]"
         />
       </div>
@@ -156,11 +151,16 @@ export default function HeroGeometric({
             variants={fadeUpVariants}
             initial="hidden"
             animate="visible"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.08] mb-8 md:mb-12"
+            className="mb-8 md:mb-12 flex flex-col items-center"
           >
-            <Sparkles className="w-4 h-4 text-[#FBC50D]" />
-            <span className="text-sm font-medium text-white/90">{badge}</span>
-            <Zap className="w-4 h-4 text-[#2BAECF]" />
+            <div className="hidden md:block mb-6">
+                 <Image src="/LogoEnviosDosRuedas.webp" alt="Logo" width={100} height={100} className="rounded-full" />
+            </div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.08]">
+                <Sparkles className="w-4 h-4 text-[#FBC50D]" />
+                <span className="text-sm font-medium text-white/90">{badge}</span>
+                <Zap className="w-4 h-4 text-[#2BAECF]" />
+            </div>
           </motion.div>
 
           <motion.div custom={1} variants={fadeUpVariants} initial="hidden" animate="visible">
@@ -174,7 +174,7 @@ export default function HeroGeometric({
           </motion.div>
 
           <motion.div custom={2} variants={fadeUpVariants} initial="hidden" animate="visible">
-            <p className="text-base sm:text-lg md:text-xl text-white/40 mb-8 leading-relaxed font-light tracking-wide max-w-xl mx-auto px-4 font-sans">
+            <p className="text-base sm:text-lg md:text-xl text-white/60 mb-8 leading-relaxed font-light tracking-wide max-w-xl mx-auto px-4 font-sans">
               Somos tu solución confiable en servicios de mensajería y delivery en Mar del Plata. Ofrecemos soluciones
               rápidas, seguras y económicas para todas tus necesidades de envío.
             </p>
@@ -182,7 +182,7 @@ export default function HeroGeometric({
         </div>
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-[#030303]/80 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#030812] via-transparent to-[#030812]/80 pointer-events-none" />
     </div>
   )
 }
