@@ -123,12 +123,12 @@ export function VisionSection() {
             whileHover={{ scale: 1.05, backgroundColor: "rgba(251, 191, 36, 0.2)" }}
           >
             <TrendingUp className="w-4 h-4 text-secondary" />
-            <span className="text-sm font-medium text-primary-foreground/90">Creciendo Juntos</span>
+            <span className="text-sm font-medium text-primary-foreground/90 font-sans">Creciendo Juntos</span>
             <Heart className="w-4 h-4 text-secondary" />
           </motion.div>
 
           <motion.h2
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center font-heading"
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center font-display"
             animate={{
               backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
             }}
@@ -175,7 +175,7 @@ export function VisionSection() {
               </motion.div>
 
               <motion.div
-                className="text-3xl md:text-4xl font-bold text-secondary mb-2 font-heading"
+                className="text-3xl md:text-4xl font-bold text-secondary mb-2 font-display"
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
@@ -184,9 +184,9 @@ export function VisionSection() {
                 {stat.number}
               </motion.div>
 
-              <h3 className="text-lg font-semibold text-primary-foreground mb-2 font-heading">{stat.label}</h3>
+              <h3 className="text-lg font-semibold text-primary-foreground mb-2 font-display">{stat.label}</h3>
 
-              <p className="text-sm text-primary-foreground/70 leading-relaxed">{stat.description}</p>
+              <p className="text-sm text-primary-foreground/70 leading-relaxed font-sans">{stat.description}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -226,7 +226,7 @@ export function VisionSection() {
 
         {/* CTA Section */}
         <motion.div variants={itemVariants} className="text-center space-y-6">
-          <motion.p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto" variants={itemVariants}>
+          <motion.p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto font-sans" variants={itemVariants}>
             ¿Listo para formar parte de nuestra familia de clientes satisfechos?
           </motion.p>
 
