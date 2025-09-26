@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from "@/components/ui/card"
 import { FileText, Heart, Briefcase, Gift } from "lucide-react"
 
@@ -33,8 +34,8 @@ export function UrgentScenarios() {
     <section className="py-16 px-4 bg-gray-50">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">¿Cuándo Necesitas Express?</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-display">¿Cuándo Necesitas Express?</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto font-sans">
             Situaciones donde cada minuto cuenta y la rapidez es fundamental
           </p>
         </div>
@@ -50,13 +51,13 @@ export function UrgentScenarios() {
                       <IconComponent className="w-6 h-6 text-yellow-600" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold text-gray-800 mb-2">{scenario.title}</h3>
-                      <p className="text-gray-600 leading-relaxed mb-4">{scenario.description}</p>
+                      <h3 className="text-xl font-semibold text-gray-800 mb-2 font-display">{scenario.title}</h3>
+                      <p className="text-gray-600 leading-relaxed mb-4 font-sans">{scenario.description}</p>
                     </div>
                   </div>
                   <div className="ml-16">
-                    <h4 className="font-semibold text-gray-700 mb-2">Ejemplos comunes:</h4>
-                    <ul className="space-y-1">
+                    <h4 className="font-semibold text-gray-700 mb-2 font-display">Ejemplos comunes:</h4>
+                    <ul className="space-y-1 font-sans">
                       {scenario.examples.map((example, exampleIndex) => (
                         <li key={exampleIndex} className="text-sm text-gray-600 flex items-center">
                           <div className="w-1.5 h-1.5 bg-red-500 rounded-full mr-2"></div>
