@@ -2,8 +2,8 @@
 "use client"
 
 import type React from "react"
-import { useActionState, useEffect } from 'react'; // Corrected: useActionState and useEffect from 'react'
-import { useFormStatus } from 'react-dom'; // Corrected: useFormStatus from 'react-dom'
+import { useActionState, useEffect } from 'react';
+import { useFormStatus } from 'react-dom';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -14,22 +14,18 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Send, CheckCircle, Loader2, User, MailIcon as Mail, Phone, MessageSquare, Briefcase } from "lucide-react" // Aliased MailIcon to Mail
+import { Send, CheckCircle, Loader2, User, MailIcon as Mail, Phone, MessageSquare, Briefcase } from "lucide-react"
 import { submitContactForm } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { motion } from "framer-motion";
 
-const contactFormSchema = z.object({
+const contactSchema = z.object({
   name: z.string().min(2, { message: 'El nombre es requerido y debe tener al menos 2 caracteres.' }),
   email: z.string().email({ message: 'Por favor, introduce un email válido.' }),
   message: z.string().min(10, { message: 'El mensaje debe tener al menos 10 caracteres.' }).max(1000, { message: 'El mensaje no debe exceder los 1000 caracteres.'}),
-  // Adding other fields to the schema so they can be optionally used, even if not in the server action
-  lastName: z.string().optional(),
-  phone: z.string().optional(),
-  service: z.string().optional(),
 });
 
-type ContactFormValues = z.infer<typeof contactFormSchema>;
+type ContactFormValues = z.infer<typeof contactSchema>;
 
 const initialState = {
   message: undefined,
@@ -63,20 +59,16 @@ export function ContactForm() {
   const { toast } = useToast();
 
   const form = useForm<ContactFormValues>({
-    resolver: zodResolver(contactFormSchema),
+    resolver: zodResolver(contactSchema),
     defaultValues: {
       name: '',
-      lastName: '',
       email: '',
-      phone: '',
-      service: '',
       message: '',
     },
     errors: state?.fieldErrors ? state.fieldErrors as any : {},
   });
 
    useEffect(() => {
-    // Ensure state.timestamp is checked
     if (state?.timestamp && state.timestamp > (initialState.timestamp ?? 0)) {
         if (state.message) {
           toast({
@@ -136,7 +128,7 @@ export function ContactForm() {
       <CardContent className="pt-2 sm:pt-4">
         <Form {...form}>
             <form action={formAction} className="space-y-5 sm:space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+            
               <FormField
                 control={form.control}
                 name="name"
@@ -150,21 +142,7 @@ export function ContactForm() {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="lastName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center"><User className="w-4 h-4 mr-2 text-muted-foreground"/>Apellido</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Tu apellido" {...field} className="h-11 text-base"/>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
+              
             <FormField
               control={form.control}
               name="email"
@@ -178,47 +156,7 @@ export function ContactForm() {
                 </FormItem>
               )}
             />
-
-            <FormField
-              control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center"><Phone className="w-4 h-4 mr-2 text-muted-foreground"/>Teléfono (Opcional)</FormLabel>
-                  <FormControl>
-                    <Input type="tel" placeholder="Ej: 223-000-0000" {...field} className="h-11 text-base"/>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="service"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center"><Briefcase className="w-4 h-4 mr-2 text-muted-foreground"/>Servicio de Interés (Opcional)</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger className="h-11 text-base">
-                        <SelectValue placeholder="Selecciona un servicio" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="envios-express">Envíos Express</SelectItem>
-                      <SelectItem value="envios-lowcost">Envíos LowCost</SelectItem>
-                      <SelectItem value="moto-fija">Moto Fija</SelectItem>
-                      <SelectItem value="plan-emprendedores">Plan Emprendedores</SelectItem>
-                      <SelectItem value="envios-flex">Envíos Flex MercadoLibre</SelectItem>
-                      <SelectItem value="otro">Otro / Consulta General</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
+            
             <FormField
               control={form.control}
               name="message"
