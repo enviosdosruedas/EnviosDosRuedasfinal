@@ -40,7 +40,7 @@ const mobileNavItemVariants = {
 }
 
 const NavLink = ({ href, children, isActive }: { href: string; children: React.ReactNode; isActive: boolean }) => (
-  <motion.div whileHover={{ scale: 1.02, y: -1 }} whileTap={{ scale: 0.98 }} className="relative">
+  <motion.div whileHover={{ scale: 1.02, y: -1 }} whileTap={{ scale: 0.98 }} className="relative font-sans">
     <Button
       variant="ghost"
       size="sm"
@@ -156,7 +156,7 @@ export function OptimizedHeader() {
               <div className="transition-all duration-500">
                 <motion.h1
                   className={cn(
-                    "font-bold text-secondary transition-all duration-500 tracking-tight",
+                    "font-display font-bold text-secondary transition-all duration-500 tracking-tight",
                     isScrolled ? "text-lg" : "text-xl",
                   )}
                   animate={{
@@ -167,7 +167,7 @@ export function OptimizedHeader() {
                 </motion.h1>
                 <motion.p
                   className={cn(
-                    "text-xs text-primary-foreground/80 -mt-0.5 transition-all duration-500 font-medium",
+                    "text-xs text-primary-foreground/80 -mt-0.5 transition-all duration-500 font-sans font-medium",
                     isScrolled ? "opacity-0 h-0 scale-95" : "opacity-100 h-auto scale-100",
                   )}
                 >
@@ -178,7 +178,7 @@ export function OptimizedHeader() {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-2">
+          <nav className="hidden lg:flex items-center space-x-2 font-sans">
             <NavLink href="/" isActive={isActive("/", true)}>
               <Home className="w-4 h-4 mr-2" />
               Inicio
@@ -222,7 +222,7 @@ export function OptimizedHeader() {
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     />
                   )}
-                  <DropdownMenuContent className="bg-background/95 backdrop-blur-xl border border-border/50 shadow-2xl mt-2 w-64 rounded-xl overflow-hidden">
+                  <DropdownMenuContent className="bg-background/95 backdrop-blur-xl border border-border/50 shadow-2xl mt-2 w-64 rounded-xl overflow-hidden font-sans">
                     {group.items.map((item, index) => {
                       const Icon = item.icon
                       return (
@@ -314,12 +314,12 @@ export function OptimizedHeader() {
                       className="rounded-full relative z-10 ring-2 ring-secondary/30"
                     />
                   </div>
-                  <span className="text-lg font-bold text-secondary">Envios DosRuedas</span>
+                  <span className="text-lg font-bold font-display text-secondary">Envios DosRuedas</span>
                 </SheetTitle>
               </SheetHeader>
 
               <motion.div
-                className="flex-grow overflow-y-auto p-6 space-y-3"
+                className="flex-grow overflow-y-auto p-6 space-y-3 font-sans"
                 variants={mobileNavVariants}
                 initial="hidden"
                 animate="visible"
