@@ -1,6 +1,7 @@
 import { OptimizedHeader } from "@/components/homenew/optimized-header"
 import { EnhancedHero } from "@/components/homenew/enhanced-hero"
 import HeroNuevo from "@/components/homenew/hero-nuevo"
+import HeroAnimado from "@/components/homenew/hero-animado"
 import SliderServicios from "@/components/homenew/slider-servicios"
 import { ServicesOverview } from "@/components/homenew/services-overview"
 import { VisionSection } from "@/components/homenew/vision-section"
@@ -13,7 +14,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       <OptimizedHeader />
-<HeroNuevo />
+<HeroAnimado />
 <SliderServicios />
       <ServicesOverview />
       <VisionSection />
