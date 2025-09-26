@@ -91,18 +91,18 @@ export function ContactInfo() {
               <CardContent className="p-6 sm:p-8 text-center">
                 <div className="flex items-center justify-center mb-2 sm:mb-3">
                     <Home className="w-7 h-7 sm:w-8 sm:h-8 text-primary mr-2 sm:mr-3" />
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">Envios DosRuedas</h2>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary font-display">Envios DosRuedas</h2>
                 </div>
-                <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">Mensajería y Delivery</p>
+                <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 font-sans">Mensajería y Delivery</p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center mb-4 sm:mb-6 gap-2 sm:gap-3">
                   <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
-                  <span className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">223-660-2699</span>
+                  <span className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground font-display">223-660-2699</span>
                 </div>
 
                 <Button
                   onClick={handleWhatsAppClick}
-                  className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 text-sm sm:px-6 sm:py-2.5 sm:text-base font-semibold rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                  className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 text-sm sm:px-6 sm:py-2.5 sm:text-base font-semibold rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 font-sans"
                 >
                   <Image src="/icon/icon-whatsapp.svg" alt="WhatsApp Icon" width={20} height={20} className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                   Contactar por WhatsApp
@@ -129,14 +129,14 @@ export function ContactInfo() {
                       <div className={`w-14 h-14 sm:w-16 sm:h-16 ${method.iconBg} rounded-full flex items-center justify-center mx-auto mb-4 transform group-hover:scale-110 transition-transform duration-300`}>
                         {IconComponent && <IconComponent className={`w-7 h-7 sm:w-8 sm:h-8 ${method.iconColor}`} />}
                       </div>
-                      <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-1">{method.title}</h3>
-                      <p className="text-xs sm:text-sm text-muted-foreground mb-4 flex-grow">{method.description}</p>
+                      <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-1 font-display">{method.title}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-4 flex-grow font-sans">{method.description}</p>
                       <Button
                         onClick={method.onClick}
                         asChild={!!method.href}
                         variant="outline"
                         size="sm"
-                        className={`mt-auto ${method.colorClasses} transition-all duration-300 w-full text-xs sm:text-sm`}
+                        className={`mt-auto ${method.colorClasses} transition-all duration-300 w-full text-xs sm:text-sm font-sans`}
                       >
                         {method.href ? (
                           <a href={method.href} target={method.href.startsWith("mailto:") ? "_self" : "_blank"} rel="noopener noreferrer">
