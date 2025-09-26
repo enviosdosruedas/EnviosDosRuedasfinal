@@ -76,19 +76,19 @@ export default function LowCostCalculator() {
   };
 
   return (
-    <section className="w-full py-12 md:py-16 bg-background">
-      <div className="container mx-auto px-4 md:px-6 max-w-3xl">
+    <section className="w-full py-12 md:py-16 bg-background font-sans">
+      <div className="container mx-auto px-4 md:px-6 max-w-2xl lg:max-w-3xl">
         <Card className="shadow-xl">
           <CardHeader>
-            <CardTitle className="text-2xl md:text-3xl text-primary">Calcula tu Envío Low Cost</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-2xl md:text-3xl text-primary font-display">Calcula tu Envío Low Cost</CardTitle>
+            <CardDescription className="font-sans">
               Ingresa las direcciones de origen y destino para obtener una cotización para envíos programados.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="origin" className="text-base">Dirección de Origen</Label>
+                <Label htmlFor="origin" className="text-base font-sans">Dirección de Origen</Label>
                 <Input
                   id="origin"
                   type="text"
@@ -96,11 +96,11 @@ export default function LowCostCalculator() {
                   value={origin}
                   onChange={(e) => setOrigin(e.target.value)}
                   required
-                  className="text-base"
+                  className="text-base font-sans"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="destination" className="text-base">Dirección de Destino</Label>
+                <Label htmlFor="destination" className="text-base font-sans">Dirección de Destino</Label>
                 <Input
                   id="destination"
                   type="text"
@@ -108,10 +108,10 @@ export default function LowCostCalculator() {
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
                   required
-                  className="text-base"
+                  className="text-base font-sans"
                 />
               </div>
-              <Button type="submit" className="w-full text-base py-3" size="lg" disabled={isCalculating}>
+              <Button type="submit" className="w-full text-base py-3 font-sans" size="lg" disabled={isCalculating}>
                 {isCalculating ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
@@ -136,15 +136,15 @@ export default function LowCostCalculator() {
             {quoteDetails && !isCalculating && (
               <Card className="mt-8 bg-primary/5 border-primary/20">
                 <CardHeader>
-                  <CardTitle className="text-xl md:text-2xl text-primary flex items-center">
+                  <CardTitle className="text-xl md:text-2xl text-primary flex items-center font-display">
                     <PackageCheck className="mr-3 h-7 w-7" />
                     Tu Cotización Low Cost
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="font-sans">
                     Basado en la distancia y tiempo estimados para tu envío económico.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-3 text-base">
+                <CardContent className="space-y-3 text-base font-sans">
                   <div className="flex justify-between items-center">
                     <span className="font-semibold text-foreground">Distancia:</span>
                     <span className="text-foreground">{quoteDetails.distanceText || 'N/A'}</span>
@@ -155,20 +155,20 @@ export default function LowCostCalculator() {
                   </div>
                   <hr className="my-2 border-border" />
                   <div className="flex justify-between items-center">
-                    <span className="font-semibold text-xl text-primary">Precio Estimado:</span>
+                    <span className="font-semibold text-xl text-primary font-display">Precio Estimado:</span>
                     {quoteDetails.price !== null ? (
-                      <span className="text-xl font-bold text-primary">${quoteDetails.price.toLocaleString('es-AR')}</span>
+                      <span className="text-xl font-bold text-primary font-display">${quoteDetails.price.toLocaleString('es-AR')}</span>
                     ) : (
-                      <span className="text-xl font-bold text-amber-600">Consultar</span>
+                      <span className="text-xl font-bold text-amber-600 font-display">Consultar</span>
                     )}
                   </div>
                   {quoteDetails.price === null && (
-                    <p className="text-sm text-amber-700 text-center pt-2">
+                    <p className="text-sm text-amber-700 text-center pt-2 font-sans">
                       La distancia excede nuestros rangos de precios estándar o no pudo ser calculada. Por favor, contáctanos para una cotización personalizada.
                     </p>
                   )}
                 </CardContent>
-                <CardFooter className="flex flex-col sm:flex-row gap-3 pt-6">
+                <CardFooter className="flex flex-col sm:flex-row gap-3 pt-6 font-sans">
                   <Button 
                     size="lg" 
                     className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white" 
