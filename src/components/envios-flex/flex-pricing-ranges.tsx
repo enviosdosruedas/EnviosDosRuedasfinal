@@ -55,10 +55,10 @@ export function FlexPricingRanges() {
         <section className="py-16 px-4 bg-white">
             <div className="container mx-auto max-w-6xl">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-display">
                         Tarifas para Envíos Flex
                     </h2>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                    <p className="text-lg text-gray-600 max-w-2xl mx-auto font-sans">
                         Precios competitivos para tus ventas de Mercado Libre, basados en nuestra estructura de costos optimizada.
                     </p>
                 </div>
@@ -71,7 +71,7 @@ export function FlexPricingRanges() {
                                 className={`relative ${tier.color} border-2 hover:shadow-lg transition-shadow duration-300 flex flex-col`}
                             >
                                 <Badge
-                                    className={`absolute -top-3 left-1/2 transform -translate-x-1/2 ${tier.badgeColor} text-white px-3 py-1 text-xs`}
+                                    className={`absolute -top-3 left-1/2 transform -translate-x-1/2 ${tier.badgeColor} text-white px-3 py-1 text-xs font-sans`}
                                 >
                                     {tier.badgeText}
                                 </Badge>
@@ -79,17 +79,17 @@ export function FlexPricingRanges() {
                                     <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-yellow-300">
                                         <Coins className="w-8 h-8 text-yellow-600" />
                                     </div>
-                                    <CardTitle className="text-2xl font-bold text-gray-800">
+                                    <CardTitle className="text-2xl font-bold text-gray-800 font-display">
                                         {tier.name}
                                     </CardTitle>
-                                    <p className="text-sm text-gray-500">
+                                    <p className="text-sm text-gray-500 font-sans">
                                         {tier.distanceRange}
                                     </p>
-                                    <div className="text-3xl font-bold text-yellow-700 my-2">
+                                    <div className="text-3xl font-bold text-yellow-700 my-2 font-display">
                                         {tier.price}
                                     </div>
                                 </CardHeader>
-                                <CardContent className="flex-grow">
+                                <CardContent className="flex-grow font-sans">
                                     <p className="text-gray-600 mb-4 text-center text-sm">
                                         {tier.description}
                                     </p>
@@ -111,7 +111,7 @@ export function FlexPricingRanges() {
 
                     <Card className="relative border-gray-300 bg-gray-100 border-2 hover:shadow-lg transition-shadow duration-300 flex flex-col">
                         <Badge
-                            className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-700 text-white px-3 py-1 text-xs"
+                            className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-700 text-white px-3 py-1 text-xs font-sans"
                         >
                             Cotización Personalizada
                         </Badge>
@@ -119,14 +119,14 @@ export function FlexPricingRanges() {
                             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-gray-300">
                                 <HelpCircle className="w-8 h-8 text-gray-700" />
                             </div>
-                            <CardTitle className="text-2xl font-bold text-gray-800">
+                            <CardTitle className="text-2xl font-bold text-gray-800 font-display">
                                 Más de 13 km
                             </CardTitle>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-gray-500 font-sans">
                                 Zonas Extendidas
                             </p>
                         </CardHeader>
-                        <CardContent className="flex-grow flex flex-col justify-between">
+                        <CardContent className="flex-grow flex flex-col justify-between font-sans">
                             <p className="text-gray-600 mb-4 text-center text-sm">
                                 Para zonas más alejadas o envíos Flex que superen los 13 km, contáctanos para una cotización a medida.
                             </p>
