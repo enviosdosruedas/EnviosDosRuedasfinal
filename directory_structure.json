@@ -1,0 +1,1454 @@
+{
+    "name": "src",
+    "type": "directory",
+    "path": "/home/user/studio/src",
+    "children": [
+        {
+            "name": "hooks",
+            "type": "directory",
+            "path": "/home/user/studio/src/hooks",
+            "children": [
+                {
+                    "name": "useGoogleMaps.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/hooks/useGoogleMaps.ts"
+                },
+                {
+                    "name": "use-toast.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/hooks/use-toast.ts"
+                },
+                {
+                    "name": "use-mobile.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/hooks/use-mobile.tsx"
+                }
+            ]
+        },
+        {
+            "name": "lib",
+            "type": "directory",
+            "path": "/home/user/studio/src/lib",
+            "children": [
+                {
+                    "name": "social",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/lib/social",
+                    "children": [
+                        {
+                            "name": "posts.ts",
+                            "type": "file",
+                            "path": "/home/user/studio/src/lib/social/posts.ts"
+                        }
+                    ]
+                },
+                {
+                    "name": "preciosexpress.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/lib/preciosexpress.ts"
+                },
+                {
+                    "name": "precioslowcost.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/lib/precioslowcost.ts"
+                },
+                {
+                    "name": "navigation.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/lib/navigation.ts"
+                },
+                {
+                    "name": "motofija.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/lib/motofija.ts"
+                },
+                {
+                    "name": "utils.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/lib/utils.ts"
+                },
+                {
+                    "name": "prisma.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/lib/prisma.ts"
+                }
+            ]
+        },
+        {
+            "name": "components",
+            "type": "directory",
+            "path": "/home/user/studio/src/components",
+            "children": [
+                {
+                    "name": "about",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/about",
+                    "children": [
+                        {
+                            "name": "about-hero.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/about/about-hero.tsx"
+                        },
+                        {
+                            "name": "team-section.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/about/team-section.tsx"
+                        },
+                        {
+                            "name": "company-story.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/about/company-story.tsx"
+                        },
+                        {
+                            "name": "who-we-are.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/about/who-we-are.tsx"
+                        },
+                        {
+                            "name": "mission-vision.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/about/mission-vision.tsx"
+                        },
+                        {
+                            "name": "company-values.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/about/company-values.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "contact",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/contact",
+                    "children": [
+                        {
+                            "name": "contact-page-client.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/contact/contact-page-client.tsx"
+                        },
+                        {
+                            "name": "contact-info.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/contact/contact-info.tsx"
+                        },
+                        {
+                            "name": "contact-form.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/contact/contact-form.tsx"
+                        },
+                        {
+                            "name": "contact-hero.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/contact/contact-hero.tsx"
+                        },
+                        {
+                            "name": "business-hours.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/contact/business-hours.tsx"
+                        },
+                        {
+                            "name": "contact-map.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/contact/contact-map.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "express",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/express",
+                    "children": [
+                        {
+                            "name": "express-page-client.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/express/express-page-client.tsx"
+                        },
+                        {
+                            "name": "express-pricing-ranges.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/express/express-pricing-ranges.tsx"
+                        },
+                        {
+                            "name": "express-hero.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/express/express-hero.tsx"
+                        },
+                        {
+                            "name": "urgent-scenarios.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/express/urgent-scenarios.tsx"
+                        },
+                        {
+                            "name": "express-benefits.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/express/express-benefits.tsx"
+                        },
+                        {
+                            "name": "express-content.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/express/express-content.tsx"
+                        },
+                        {
+                            "name": "time-slots.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/express/time-slots.tsx"
+                        },
+                        {
+                            "name": "express-cta.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/express/express-cta.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "sections",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/sections",
+                    "children": [
+                        {
+                            "name": "ai-summary-section.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/sections/ai-summary-section.tsx"
+                        },
+                        {
+                            "name": "contact-section.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/sections/contact-section.tsx"
+                        },
+                        {
+                            "name": "calculator-section.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/sections/calculator-section.tsx"
+                        },
+                        {
+                            "name": "cta-section.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/sections/cta-section.tsx"
+                        },
+                        {
+                            "name": "services-section.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/sections/services-section.tsx"
+                        },
+                        {
+                            "name": "trust-section.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/sections/trust-section.tsx"
+                        },
+                        {
+                            "name": "hero-section.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/sections/hero-section.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "tracking",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/tracking",
+                    "children": [
+                        {
+                            "name": "social-footer.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/tracking/social-footer.tsx"
+                        },
+                        {
+                            "name": "tracking-header.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/tracking/tracking-header.tsx"
+                        },
+                        {
+                            "name": "interactive-tracking-map.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/tracking/interactive-tracking-map.tsx"
+                        },
+                        {
+                            "name": "route-tracker.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/tracking/route-tracker.tsx"
+                        },
+                        {
+                            "name": "order-status.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/tracking/order-status.tsx"
+                        },
+                        {
+                            "name": "tracking-map.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/tracking/tracking-map.tsx"
+                        },
+                        {
+                            "name": "order-details.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/tracking/order-details.tsx"
+                        },
+                        {
+                            "name": "updates-timeline.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/tracking/updates-timeline.tsx"
+                        },
+                        {
+                            "name": "driver-info.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/tracking/driver-info.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "home",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/home",
+                    "children": [
+                        {
+                            "name": "anterior",
+                            "type": "directory",
+                            "path": "/home/user/studio/src/components/home/anterior",
+                            "children": [
+                                {
+                                    "name": "NeuralHorizonHero.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/components/home/anterior/NeuralHorizonHero.tsx"
+                                },
+                                {
+                                    "name": "services-overview.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/components/home/anterior/services-overview.tsx"
+                                },
+                                {
+                                    "name": "stats-section.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/components/home/anterior/stats-section.tsx"
+                                },
+                                {
+                                    "name": "HeroVisual.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/components/home/anterior/HeroVisual.tsx"
+                                },
+                                {
+                                    "name": "vision-section.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/components/home/anterior/vision-section.tsx"
+                                },
+                                {
+                                    "name": "testimonials-section.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/components/home/anterior/testimonials-section.tsx"
+                                },
+                                {
+                                    "name": "hero-section.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/components/home/anterior/hero-section.tsx"
+                                },
+                                {
+                                    "name": "entrepreneur-solutions.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/components/home/anterior/entrepreneur-solutions.tsx"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "page.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/home/page.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "admin",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/admin",
+                    "children": [
+                        {
+                            "name": "ordenes",
+                            "type": "directory",
+                            "path": "/home/user/studio/src/components/admin/ordenes",
+                            "children": [
+                                {
+                                    "name": "OrdenesTable.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/components/admin/ordenes/OrdenesTable.tsx"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "AddPostForm.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/admin/AddPostForm.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "lowcost",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/lowcost",
+                    "children": [
+                        {
+                            "name": "pricing-comparison.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/lowcost/pricing-comparison.tsx"
+                        },
+                        {
+                            "name": "lowcost-benefits.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/lowcost/lowcost-benefits.tsx"
+                        },
+                        {
+                            "name": "lowcost-content.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/lowcost/lowcost-content.tsx"
+                        },
+                        {
+                            "name": "lowcost-hero.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/lowcost/lowcost-hero.tsx"
+                        },
+                        {
+                            "name": "how-lowcost-works.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/lowcost/how-lowcost-works.tsx"
+                        },
+                        {
+                            "name": "lowcost-cta.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/lowcost/lowcost-cta.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "homenew",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/homenew",
+                    "children": [
+                        {
+                            "name": "slider-servicios.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/homenew/slider-servicios.tsx"
+                        },
+                        {
+                            "name": "carrusel-redes.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/homenew/carrusel-redes.tsx"
+                        },
+                        {
+                            "name": "services-overview.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/homenew/services-overview.tsx"
+                        },
+                        {
+                            "name": "hero-nuevo.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/homenew/hero-nuevo.tsx"
+                        },
+                        {
+                            "name": "cta-section.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/homenew/cta-section.tsx"
+                        },
+                        {
+                            "name": "vision-section.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/homenew/vision-section.tsx"
+                        },
+                        {
+                            "name": "optimized-header.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/homenew/optimized-header.tsx"
+                        },
+                        {
+                            "name": "enhanced-hero.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/homenew/enhanced-hero.tsx"
+                        },
+                        {
+                            "name": "footer.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/homenew/footer.tsx"
+                        },
+                        {
+                            "name": "hero-animado.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/homenew/hero-animado.tsx"
+                        },
+                        {
+                            "name": "entrepreneur-solutions.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/homenew/entrepreneur-solutions.tsx"
+                        },
+                        {
+                            "name": "rotating-card.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/homenew/rotating-card.tsx"
+                        },
+                        {
+                            "name": "theme-provider.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/homenew/theme-provider.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "calculator",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/calculator",
+                    "children": [
+                        {
+                            "name": "route-map.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/calculator/route-map.tsx"
+                        },
+                        {
+                            "name": "lowcost-calculator-hero.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/calculator/lowcost-calculator-hero.tsx"
+                        },
+                        {
+                            "name": "map-features.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/calculator/map-features.tsx"
+                        },
+                        {
+                            "name": "pricing-info.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/calculator/pricing-info.tsx"
+                        },
+                        {
+                            "name": "calculator-hero.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/calculator/calculator-hero.tsx"
+                        },
+                        {
+                            "name": "calculator-contact.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/calculator/calculator-contact.tsx"
+                        },
+                        {
+                            "name": "lowcost-calculator.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/calculator/lowcost-calculator.tsx"
+                        },
+                        {
+                            "name": "calculator-tips.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/calculator/calculator-tips.tsx"
+                        },
+                        {
+                            "name": "express-calculator.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/calculator/express-calculator.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "ui",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/ui",
+                    "children": [
+                        {
+                            "name": "drawer.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/drawer.tsx"
+                        },
+                        {
+                            "name": "card.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/card.tsx"
+                        },
+                        {
+                            "name": "progress.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/progress.tsx"
+                        },
+                        {
+                            "name": "tabs.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/tabs.tsx"
+                        },
+                        {
+                            "name": "pagination.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/pagination.tsx"
+                        },
+                        {
+                            "name": "toggle-group.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/toggle-group.tsx"
+                        },
+                        {
+                            "name": "label.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/label.tsx"
+                        },
+                        {
+                            "name": "popover.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/popover.tsx"
+                        },
+                        {
+                            "name": "calendar.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/calendar.tsx"
+                        },
+                        {
+                            "name": "alert.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/alert.tsx"
+                        },
+                        {
+                            "name": "skeleton.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/skeleton.tsx"
+                        },
+                        {
+                            "name": "dialog.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/dialog.tsx"
+                        },
+                        {
+                            "name": "slider.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/slider.tsx"
+                        },
+                        {
+                            "name": "avatar.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/avatar.tsx"
+                        },
+                        {
+                            "name": "tooltip.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/tooltip.tsx"
+                        },
+                        {
+                            "name": "menubar.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/menubar.tsx"
+                        },
+                        {
+                            "name": "collapsible.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/collapsible.tsx"
+                        },
+                        {
+                            "name": "badge.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/badge.tsx"
+                        },
+                        {
+                            "name": "table.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/table.tsx"
+                        },
+                        {
+                            "name": "separator.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/separator.tsx"
+                        },
+                        {
+                            "name": "alert-dialog.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/alert-dialog.tsx"
+                        },
+                        {
+                            "name": "button.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/button.tsx"
+                        },
+                        {
+                            "name": "radio-group.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/radio-group.tsx"
+                        },
+                        {
+                            "name": "carousel.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/carousel.tsx"
+                        },
+                        {
+                            "name": "toggle.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/toggle.tsx"
+                        },
+                        {
+                            "name": "toaster.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/toaster.tsx"
+                        },
+                        {
+                            "name": "checkbox.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/checkbox.tsx"
+                        },
+                        {
+                            "name": "hover-card.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/hover-card.tsx"
+                        },
+                        {
+                            "name": "select.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/select.tsx"
+                        },
+                        {
+                            "name": "breadcrumb.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/breadcrumb.tsx"
+                        },
+                        {
+                            "name": "aspect-ratio.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/aspect-ratio.tsx"
+                        },
+                        {
+                            "name": "sonner.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/sonner.tsx"
+                        },
+                        {
+                            "name": "resizable.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/resizable.tsx"
+                        },
+                        {
+                            "name": "dropdown-menu.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/dropdown-menu.tsx"
+                        },
+                        {
+                            "name": "navigation-menu.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/navigation-menu.tsx"
+                        },
+                        {
+                            "name": "switch.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/switch.tsx"
+                        },
+                        {
+                            "name": "chart.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/chart.tsx"
+                        },
+                        {
+                            "name": "input.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/input.tsx"
+                        },
+                        {
+                            "name": "textarea.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/textarea.tsx"
+                        },
+                        {
+                            "name": "context-menu.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/context-menu.tsx"
+                        },
+                        {
+                            "name": "input-otp.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/input-otp.tsx"
+                        },
+                        {
+                            "name": "scroll-area.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/scroll-area.tsx"
+                        },
+                        {
+                            "name": "toast.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/toast.tsx"
+                        },
+                        {
+                            "name": "sheet.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/sheet.tsx"
+                        },
+                        {
+                            "name": "HeroSection.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/HeroSection.tsx"
+                        },
+                        {
+                            "name": "use-toast.ts",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/use-toast.ts"
+                        },
+                        {
+                            "name": "form.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/form.tsx"
+                        },
+                        {
+                            "name": "use-mobile.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/use-mobile.tsx"
+                        },
+                        {
+                            "name": "command.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/command.tsx"
+                        },
+                        {
+                            "name": "sidebar.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/sidebar.tsx"
+                        },
+                        {
+                            "name": "accordion.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ui/accordion.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "social",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/social",
+                    "children": [
+                        {
+                            "name": "social-benefits.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/social/social-benefits.tsx"
+                        },
+                        {
+                            "name": "newsletter-signup.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/social/newsletter-signup.tsx"
+                        },
+                        {
+                            "name": "social-hero.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/social/social-hero.tsx"
+                        },
+                        {
+                            "name": "social-connect.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/social/social-connect.tsx"
+                        },
+                        {
+                            "name": "social-feed.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/social/social-feed.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "moto-fija",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/moto-fija",
+                    "children": [
+                        {
+                            "name": "moto-fija-content.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/moto-fija/moto-fija-content.tsx"
+                        },
+                        {
+                            "name": "pricing-plans.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/moto-fija/pricing-plans.tsx"
+                        },
+                        {
+                            "name": "moto-fija-cta.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/moto-fija/moto-fija-cta.tsx"
+                        },
+                        {
+                            "name": "service-features.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/moto-fija/service-features.tsx"
+                        },
+                        {
+                            "name": "moto-fija-hero.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/moto-fija/moto-fija-hero.tsx"
+                        },
+                        {
+                            "name": "ideal-clients.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/moto-fija/ideal-clients.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "entrepreneur",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/entrepreneur",
+                    "children": [
+                        {
+                            "name": "entrepreneur-hero.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/entrepreneur/entrepreneur-hero.tsx"
+                        },
+                        {
+                            "name": "entrepreneur-benefits.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/entrepreneur/entrepreneur-benefits.tsx"
+                        },
+                        {
+                            "name": "entrepreneur-pricing-ranges.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/entrepreneur/entrepreneur-pricing-ranges.tsx"
+                        },
+                        {
+                            "name": "success-stories.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/entrepreneur/success-stories.tsx"
+                        },
+                        {
+                            "name": "entrepreneur-cta.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/entrepreneur/entrepreneur-cta.tsx"
+                        },
+                        {
+                            "name": "plan-information.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/entrepreneur/plan-information.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "faq",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/faq",
+                    "children": [
+                        {
+                            "name": "faq-item.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/faq/faq-item.tsx"
+                        },
+                        {
+                            "name": "faq-categories.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/faq/faq-categories.tsx"
+                        },
+                        {
+                            "name": "faq-contact-cta.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/faq/faq-contact-cta.tsx"
+                        },
+                        {
+                            "name": "faq-hero.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/faq/faq-hero.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "error",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/error",
+                    "children": [
+                        {
+                            "name": "not-found-illustration.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/error/not-found-illustration.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "ordenes",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/ordenes",
+                    "children": [
+                        {
+                            "name": "GenerarEnvioForm.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ordenes/GenerarEnvioForm.tsx"
+                        },
+                        {
+                            "name": "ShipmentCreationForm.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ordenes/ShipmentCreationForm.tsx"
+                        },
+                        {
+                            "name": "ClientSearchForm.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ordenes/ClientSearchForm.tsx"
+                        },
+                        {
+                            "name": "ClientRegistrationForm.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/ordenes/ClientRegistrationForm.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "envios-flex",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/envios-flex",
+                    "children": [
+                        {
+                            "name": "mercadolibre-benefits.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/envios-flex/mercadolibre-benefits.tsx"
+                        },
+                        {
+                            "name": "requirements.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/envios-flex/requirements.tsx"
+                        },
+                        {
+                            "name": "envios-flex-content.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/envios-flex/envios-flex-content.tsx"
+                        },
+                        {
+                            "name": "envios-flex-cta.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/envios-flex/envios-flex-cta.tsx"
+                        },
+                        {
+                            "name": "envios-flex-hero.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/envios-flex/envios-flex-hero.tsx"
+                        },
+                        {
+                            "name": "how-it-works.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/envios-flex/how-it-works.tsx"
+                        },
+                        {
+                            "name": "flex-pricing-ranges.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/envios-flex/flex-pricing-ranges.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "layout",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/components/layout",
+                    "children": [
+                        {
+                            "name": "header.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/layout/header.tsx"
+                        },
+                        {
+                            "name": "footer.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/components/layout/footer.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "services-preview.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/components/services-preview.tsx"
+                },
+                {
+                    "name": "delivery-form.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/components/delivery-form.tsx"
+                },
+                {
+                    "name": "header.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/components/header.tsx"
+                },
+                {
+                    "name": "InteractiveBackground.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/components/InteractiveBackground.tsx"
+                },
+                {
+                    "name": "vision-section.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/components/vision-section.tsx"
+                },
+                {
+                    "name": "hero-section.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/components/hero-section.tsx"
+                },
+                {
+                    "name": "footer.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/components/footer.tsx"
+                },
+                {
+                    "name": "AboutSectionnuevo.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/components/AboutSectionnuevo.tsx"
+                },
+                {
+                    "name": "pickup-form.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/components/pickup-form.tsx"
+                },
+                {
+                    "name": "order-summary.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/components/order-summary.tsx"
+                },
+                {
+                    "name": "theme-provider.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/components/theme-provider.tsx"
+                }
+            ]
+        },
+        {
+            "name": "styles",
+            "type": "directory",
+            "path": "/home/user/studio/src/styles",
+            "children": [
+                {
+                    "name": "globals.css",
+                    "type": "file",
+                    "path": "/home/user/studio/src/styles/globals.css"
+                }
+            ]
+        },
+        {
+            "name": "ai",
+            "type": "directory",
+            "path": "/home/user/studio/src/ai",
+            "children": [
+                {
+                    "name": "flows",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/ai/flows",
+                    "children": [
+                        {
+                            "name": "summarize-testimonials.ts",
+                            "type": "file",
+                            "path": "/home/user/studio/src/ai/flows/summarize-testimonials.ts"
+                        }
+                    ]
+                },
+                {
+                    "name": "dev.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/ai/dev.ts"
+                },
+                {
+                    "name": "genkit.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/ai/genkit.ts"
+                }
+            ]
+        },
+        {
+            "name": "types",
+            "type": "directory",
+            "path": "/home/user/studio/src/types",
+            "children": [
+                {
+                    "name": "order-actions.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/types/order-actions.ts"
+                },
+                {
+                    "name": "social-post.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/types/social-post.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/types/index.ts"
+                }
+            ]
+        },
+        {
+            "name": "app",
+            "type": "directory",
+            "path": "/home/user/studio/src/app",
+            "children": [
+                {
+                    "name": "cotizar",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/app/cotizar",
+                    "children": [
+                        {
+                            "name": "express",
+                            "type": "directory",
+                            "path": "/home/user/studio/src/app/cotizar/express",
+                            "children": [
+                                {
+                                    "name": "page.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/app/cotizar/express/page.tsx"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "lowcost",
+                            "type": "directory",
+                            "path": "/home/user/studio/src/app/cotizar/lowcost",
+                            "children": [
+                                {
+                                    "name": "page.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/app/cotizar/lowcost/page.tsx"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "politica-de-privacidad",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/app/politica-de-privacidad",
+                    "children": [
+                        {
+                            "name": "page.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/app/politica-de-privacidad/page.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "terminos-y-condiciones",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/app/terminos-y-condiciones",
+                    "children": [
+                        {
+                            "name": "page.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/app/terminos-y-condiciones/page.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "admin",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/app/admin",
+                    "children": [
+                        {
+                            "name": "add-post",
+                            "type": "directory",
+                            "path": "/home/user/studio/src/app/admin/add-post",
+                            "children": [
+                                {
+                                    "name": "page.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/app/admin/add-post/page.tsx"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "ordenes",
+                            "type": "directory",
+                            "path": "/home/user/studio/src/app/admin/ordenes",
+                            "children": [
+                                {
+                                    "name": "page.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/app/admin/ordenes/page.tsx"
+                                },
+                                {
+                                    "name": "actions.ts",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/app/admin/ordenes/actions.ts"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "actions.ts",
+                            "type": "file",
+                            "path": "/home/user/studio/src/app/admin/actions.ts"
+                        }
+                    ]
+                },
+                {
+                    "name": "seguimiento",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/app/seguimiento",
+                    "children": [
+                        {
+                            "name": "page.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/app/seguimiento/page.tsx"
+                        },
+                        {
+                            "name": "actions.ts",
+                            "type": "file",
+                            "path": "/home/user/studio/src/app/seguimiento/actions.ts"
+                        }
+                    ]
+                },
+                {
+                    "name": "nosotros",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/app/nosotros",
+                    "children": [
+                        {
+                            "name": "sobre-nosotros",
+                            "type": "directory",
+                            "path": "/home/user/studio/src/app/nosotros/sobre-nosotros",
+                            "children": [
+                                {
+                                    "name": "page.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/app/nosotros/sobre-nosotros/page.tsx"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "preguntas-frecuentes",
+                            "type": "directory",
+                            "path": "/home/user/studio/src/app/nosotros/preguntas-frecuentes",
+                            "children": [
+                                {
+                                    "name": "page.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/app/nosotros/preguntas-frecuentes/page.tsx"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "nuestras-redes",
+                            "type": "directory",
+                            "path": "/home/user/studio/src/app/nosotros/nuestras-redes",
+                            "children": [
+                                {
+                                    "name": "page.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/app/nosotros/nuestras-redes/page.tsx"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "contacto",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/app/contacto",
+                    "children": [
+                        {
+                            "name": "page.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/app/contacto/page.tsx"
+                        }
+                    ]
+                },
+                {
+                    "name": "servicios",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/app/servicios",
+                    "children": [
+                        {
+                            "name": "plan-emprendedores",
+                            "type": "directory",
+                            "path": "/home/user/studio/src/app/servicios/plan-emprendedores",
+                            "children": [
+                                {
+                                    "name": "page.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/app/servicios/plan-emprendedores/page.tsx"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "envios-express",
+                            "type": "directory",
+                            "path": "/home/user/studio/src/app/servicios/envios-express",
+                            "children": [
+                                {
+                                    "name": "page.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/app/servicios/envios-express/page.tsx"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "envios-lowcost",
+                            "type": "directory",
+                            "path": "/home/user/studio/src/app/servicios/envios-lowcost",
+                            "children": [
+                                {
+                                    "name": "page.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/app/servicios/envios-lowcost/page.tsx"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "enviosflex",
+                            "type": "directory",
+                            "path": "/home/user/studio/src/app/servicios/enviosflex",
+                            "children": [
+                                {
+                                    "name": "page.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/app/servicios/enviosflex/page.tsx"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "moto-fija",
+                            "type": "directory",
+                            "path": "/home/user/studio/src/app/servicios/moto-fija",
+                            "children": [
+                                {
+                                    "name": "page.tsx",
+                                    "type": "file",
+                                    "path": "/home/user/studio/src/app/servicios/moto-fija/page.tsx"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "ordenes",
+                    "type": "directory",
+                    "path": "/home/user/studio/src/app/ordenes",
+                    "children": [
+                        {
+                            "name": "page.tsx",
+                            "type": "file",
+                            "path": "/home/user/studio/src/app/ordenes/page.tsx"
+                        },
+                        {
+                            "name": "actions.ts",
+                            "type": "file",
+                            "path": "/home/user/studio/src/app/ordenes/actions.ts"
+                        }
+                    ]
+                },
+                {
+                    "name": "page.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/app/page.tsx"
+                },
+                {
+                    "name": "favicon.ico",
+                    "type": "file",
+                    "path": "/home/user/studio/src/app/favicon.ico"
+                },
+                {
+                    "name": "not-found.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/app/not-found.tsx"
+                },
+                {
+                    "name": "actions.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/app/actions.ts"
+                },
+                {
+                    "name": "globals.css",
+                    "type": "file",
+                    "path": "/home/user/studio/src/app/globals.css"
+                },
+                {
+                    "name": "robots.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/app/robots.ts"
+                },
+                {
+                    "name": "sitemap.ts",
+                    "type": "file",
+                    "path": "/home/user/studio/src/app/sitemap.ts"
+                },
+                {
+                    "name": "layout.tsx",
+                    "type": "file",
+                    "path": "/home/user/studio/src/app/layout.tsx"
+                }
+            ]
+        }
+    ]
+}
