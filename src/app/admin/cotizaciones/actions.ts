@@ -1,4 +1,3 @@
-
 // src/app/admin/cotizaciones/actions.ts
 'use server';
 
@@ -19,11 +18,68 @@ const PriceRangeSchema = z.object({
   path: ['distanciaMaxKm'],
 });
 
+const MultiplePriceRangesSchema = z.object({
+    updates: z.array(z.object({
+        id: z.coerce.number().int(),
+        precioRango: z.coerce.number().positive('El precio debe ser un número positivo.'),
+    })),
+});
+
+
 export interface PriceRangeState {
   message?: string;
   error?: string;
   fieldErrors?: Partial<Record<keyof z.infer<typeof PriceRangeSchema>, string[]>>;
 }
+
+export interface MultiplePriceRangesState {
+    message?: string;
+    error?: string;
+    errors?: { id: number, message: string }[];
+}
+
+export async function updateMultiplePriceRanges(
+  prevState: MultiplePriceRangesState,
+  formData: FormData
+): Promise<MultiplePriceRangesState> {
+  const updatesRaw = JSON.parse(formData.get('updates') as string);
+  
+  const validatedFields = MultiplePriceRangesSchema.safeParse({ updates: updatesRaw });
+
+  if (!validatedFields.success) {
+    // This is a more complex error to map, we'll return a general error for now
+    console.error(validatedFields.error);
+    return {
+      error: 'Hubo un error de validación con los datos enviados.',
+    };
+  }
+
+  const { updates } = validatedFields.data;
+
+  try {
+    // Use a transaction to ensure all updates succeed or none do
+    await prisma.$transaction(
+      updates.map(update =>
+        prisma.priceRange.update({
+          where: { id: update.id },
+          data: {
+            precioRango: new Prisma.Decimal(update.precioRango),
+          },
+        })
+      )
+    );
+
+    revalidatePath('/admin/cotizaciones');
+    return {
+      message: `${updates.length} tarifa(s) actualizada(s) exitosamente.`,
+    };
+  } catch (e: unknown) {
+    console.error(e);
+    const errorMessage = e instanceof Error ? e.message : 'Error desconocido al guardar.';
+    return { error: `Hubo un error al actualizar las tarifas: ${errorMessage}` };
+  }
+}
+
 
 async function upsertPriceRange(
   formData: FormData
