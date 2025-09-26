@@ -10,26 +10,26 @@ export function LowcostCta() {
       <div className="container mx-auto max-w-4xl">
         <Card className="bg-background">
           <CardContent className="p-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">¿Listo para Ahorrar en tus Envíos?</h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-display">¿Listo para Ahorrar en tus Envíos?</h2>
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto font-sans">
               Obtén una cotización personalizada y descubre cuánto puedes ahorrar con nuestro servicio Low Cost.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold">
+              <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold font-sans">
                 <Link href="/cotizar/lowcost">
                   <Calculator className="w-5 h-5 mr-2" />
                   Cotizar Ahora
                 </Link>
               </Button>
-              <Button variant="outline" size="lg">
+              <Button variant="outline" size="lg" className="font-sans">
                 Ver Ejemplos de Precios
               </Button>
             </div>
 
             <div className="border-t pt-6">
-              <p className="text-sm text-muted-foreground mb-4">¿Tienes preguntas sobre nuestros precios? Contáctanos:</p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <p className="text-sm text-muted-foreground mb-4 font-sans">¿Tienes preguntas sobre nuestros precios? Contáctanos:</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center font-sans">
                 <Button variant="ghost" size="sm" className="text-green-600 hover:text-green-700">
                   <Image src="/icon/icon-whatsapp.svg" alt="WhatsApp Icon" width={16} height={16} className="w-4 h-4 mr-2" />
                   WhatsApp: 223-660-2699
