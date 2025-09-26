@@ -19,8 +19,7 @@ export default function RotatingCard({
           <img
             src={frontImageSrc || "/placeholder.svg"}
             alt="Delante - EnviosDosruedas"
-            className="w-full h-full object-cover rounded-[18px]"
-            style={{ maxWidth: "250px", maxHeight: "250px" }}
+            className="w-full h-full object-contain rounded-[18px]"
           />
         </div>
 
@@ -29,8 +28,7 @@ export default function RotatingCard({
           <img
             src={backImageSrc || "/placeholder.svg"}
             alt="Detras - EnviosDosruedas"
-            className="w-full h-full object-cover rounded-[18px]"
-            style={{ maxWidth: "250px", maxHeight: "250px" }}
+            className="w-full h-full object-contain rounded-[18px]"
           />
         </div>
       </div>
@@ -41,11 +39,13 @@ export default function RotatingCard({
           display: flex;
           justify-content: center;
           align-items: center;
+          width: 100%;
+          height: 100%;
         }
         
         .credit-card {
-          width: 250px;
-          height: 250px;
+          width: 100%;
+          height: 100%;
           position: relative;
           transform-style: preserve-3d;
           animation: elegantRotate 15s linear infinite;
@@ -57,7 +57,7 @@ export default function RotatingCard({
             0 40px 80px rgba(0, 0, 0, 0.5),
             0 0 0 1px rgba(255, 255, 255, 0.15),
             inset 0 1px 0 rgba(255, 255, 255, 0.25),
-            0 0 30px rgba(255, 193, 7, 0.1);
+            0 0 30px rgba(251, 193, 7, 0.1);
         }
         
         .card-face {
@@ -69,7 +69,7 @@ export default function RotatingCard({
           border-radius: 18px;
           transform-style: preserve-3d;
           backface-visibility: hidden;
-          border: 2px solid rgba(255, 193, 7, 0.2);
+          border: 2px solid rgba(251, 193, 7, 0.2);
         }
         
         .card-front {
@@ -95,13 +95,6 @@ export default function RotatingCard({
           }
           100% {
             transform: rotateY(360deg) rotateX(0deg) rotateZ(0deg) scale(1);
-          }
-        }
-        
-        @media (max-width: 640px) {
-          .credit-card {
-            width: 200px;
-            height: 200px;
           }
         }
       `}</style>

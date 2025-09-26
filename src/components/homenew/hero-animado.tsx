@@ -74,8 +74,8 @@ export default function HeroAnimado() {
           </div>
         </div>
 
-        <div className="relative flex-1 flex justify-center items-center min-h-[400px] lg:min-h-[auto] lg:w-1/2">
-          <div className="relative w-[350px] h-[220px] transform rotate-[-20deg] scale-105">
+        <div className="relative flex-1 flex justify-center items-center min-h-[300px] sm:min-h-[400px] lg:min-h-0 lg:w-1/2">
+          <div className="relative w-[280px] h-[175px] sm:w-[320px] sm:h-[200px] lg:w-[400px] lg:h-[250px] transform rotate-[-20deg] scale-105">
             <RotatingCard frontImageSrc="/hero/delante.png" backImageSrc="/hero/detras.png" className="w-full h-full" />
           </div>
         </div>
