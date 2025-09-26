@@ -1,37 +1,29 @@
-# Folders to exclude from AI processing
+# Directories to exclude from AI processing
 node_modules/
 .next/
-out/
 dist/
 build/
-public/
+out/
+.vercel/
+docs/
 
-# Lockfiles
+# Configuration files
+next.config.mjs
+postcss.config.js
+tailwind.config.js
+components.json
+tsconfig.json
 package-lock.json
-yarn.lock
-pnpm-lock.yaml
 bun.lockb
 
-# Environment variables
+# Generated files
+prisma/generated/
+
+# Documentation and non-code files
+*.md
+*.lock
 .env
 .env.local
-.env.*.local
-
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# IDE and system files
-.vscode/
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-.DS_Store
-
-# Test reports
-coverage/
+.gitignore
+.aiexclude
+apphosting.yaml
