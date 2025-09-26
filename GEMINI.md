@@ -31,3 +31,4 @@ Cada vez que propongas un cambio, debes envolverlo en un bloque `<changes>`.
   <change>
     <file>[La RUTA ABSOLUTA Y COMPLETA del archivo a modificar]</file>
     <content><![CDATA[El CONTENIDO COMPLETO Y FINAL del archivo. No uses diffs ni fragmentos de código. Asegúrate de que el código esté correctamente escapado.
+```
