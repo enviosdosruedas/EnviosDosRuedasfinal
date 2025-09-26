@@ -3,7 +3,7 @@
 interface RotatingCardProps {
   frontImageSrc?: string
   backImageSrc?: string
-  className?: string // Add className prop for external styling
+  className?: string
 }
 
 export default function RotatingCard({
