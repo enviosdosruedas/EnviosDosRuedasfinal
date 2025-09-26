@@ -4,18 +4,11 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import RotatingCard from "@/components/homenew/rotating-card"
 import { ArrowRightIcon, PlayIcon, Sparkles, Zap } from "lucide-react"
-import { Space_Mono } from "next/font/google"
 import Image from "next/image"
-
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-space-mono",
-})
 
 export default function HeroAnimado() {
   return (
-    <div className={`min-h-screen relative text-white ${spaceMono.variable} font-mono`}>
+    <div className="min-h-screen relative text-white font-sans">
       <Image
         src="/bannerenvios.png"
         alt="Fondo de banner de envíos"
@@ -33,7 +26,7 @@ export default function HeroAnimado() {
             <Zap className="w-4 h-4 text-blue-400" />
           </div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 tracking-wide text-white">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 tracking-wide text-white font-display">
             Servicio de mensajería y delivery
             <span className="block text-secondary mt-2">Envios Dosruedas</span>
           </h1>
@@ -57,7 +50,7 @@ export default function HeroAnimado() {
               Ver Servicios
             </Link>
           </div>
-                  </div>
+        </div>
 
         <div className="relative flex-1 flex justify-center items-center min-h-[300px] sm:min-h-[400px] lg:min-h-0 lg:w-1/2">
           <div className="relative w-[280px] h-[175px] sm:w-[320px] sm:h-[200px] lg:w-[400px] lg:h-[250px] transform-gpu scale-105">
