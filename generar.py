@@ -1,75 +1,89 @@
-#!/usr/bin/env python
 import os
 import json
 
-def get_dir_structure(rootpath, include_content=False):
+def get_directory_structure_json(start_path='src'):
     """
-    Recursively walks a directory and returns a dictionary representing the structure.
-    Optionally includes the content of .ts and .tsx files.
+    Devuelve la estructura de un directorio como una cadena JSON.
+
+    Args:
+        start_path (str): La ruta del directorio desde donde comenzar a listar.
+                          Por defecto es 'src'.
+
+    Returns:
+        str: Una cadena JSON que representa la estructura del directorio,
+             o None si el directorio no existe o no es un directorio.
     """
-    dir_dict = {
-        'name': os.path.basename(rootpath),
-        'type': 'directory',
-        'children': []
+    if not os.path.exists(start_path):
+        print(f"Error: El directorio '{start_path}' no existe.")
+        return None
+
+    if not os.path.isdir(start_path):
+        print(f"Error: '{start_path}' no es un directorio.")
+        return None
+
+    # Objeto raíz que contendrá toda la estructura
+    structure = {
+        "name": os.path.basename(os.path.abspath(start_path)),
+        "type": "directory",
+        "path": os.path.abspath(start_path),
+        "children": []
     }
 
-    try:
-        # Sort the directory contents for consistent output
-        dir_contents = sorted(os.listdir(rootpath))
-    except OSError:
-        # If the directory is not accessible, return the empty structure
-        return dir_dict
+    # Un diccionario para mantener un rastro de los directorios por su ruta
+    # para poder añadir hijos correctamente.
+    directory_map = {os.path.abspath(start_path): structure}
 
-    for item in dir_contents:
-        item_path = os.path.join(rootpath, item)
-        if os.path.isdir(item_path):
-            dir_dict['children'].append(get_dir_structure(item_path, include_content))
-        else:
-            file_info = {'name': item, 'type': 'file'}
-            # If content is requested, read .ts and .tsx files
-            if include_content and (item.endswith('.ts') or item.endswith('.tsx')):
-                try:
-                    with open(item_path, 'r', encoding='utf-8') as f:
-                        file_info['content'] = f.read()
-                except Exception as e:
-                    file_info['content'] = f"Error reading file: {e}"
-            dir_dict['children'].append(file_info)
+    for root, dirs, files in os.walk(start_path):
+        current_abs_root = os.path.abspath(root)
+        
+        # Recuperar el nodo del directorio actual del mapa
+        current_node = directory_map[current_abs_root]
+        
+        # Añadir subdirectorios
+        for d in dirs:
+            dir_abs_path = os.path.abspath(os.path.join(root, d))
+            dir_node = {
+                "name": d,
+                "type": "directory",
+                "path": dir_abs_path,
+                "children": []
+            }
+            current_node["children"].append(dir_node)
+            directory_map[dir_abs_path] = dir_node # Añadir al mapa para futuras referencias
 
-    return dir_dict
+        # Añadir archivos
+        for f in files:
+            file_abs_path = os.path.abspath(os.path.join(root, f))
+            file_node = {
+                "name": f,
+                "type": "file",
+                "path": file_abs_path
+            }
+            current_node["children"].append(file_node)
+            
+    return json.dumps(structure, indent=4)
 
-def main():
-    """
-    Main function to generate the JSON files describing the 'src' directory.
-    """
-    src_path = 'src'
-    output_structure_only_path = 'estructura.json'
-    output_with_content_path = 'estructura_y_contenido.json'
+if __name__ == "__main__":
+    # Ejemplo de uso:
+    # Asegúrate de que el directorio 'src' exista en la misma ubicación que este script,
+    # o cambia 'src' por la ruta al directorio que deseas analizar.
 
-    if not os.path.isdir(src_path):
-        print(f"Error: Source directory '{src_path}' not found in the current location.")
-        return
+    # Para probar, puedes crear un directorio 'src' y algunos archivos/subdirectorios:
+    # Por ejemplo:
+    # src/
+    # ├── main.py
+    # ├── models/
+    # │   └── user.py
+    # └── views/
+    #     └── index.html
 
-    # --- Generate structure without content ---
-    print(f"Generating directory structure for '{src_path}'...")
-    structure_only = get_dir_structure(src_path, include_content=False)
-    try:
-        with open(output_structure_only_path, 'w', encoding='utf-8') as f:
-            json.dump(structure_only, f, indent=2)
-        print(f"Successfully created '{output_structure_only_path}'")
-    except IOError as e:
-        print(f"Error writing to file '{output_structure_only_path}': {e}")
+    json_output = get_directory_structure_json('src')
 
+    if json_output:
+        print("Estructura del directorio en formato JSON:\n")
+        print(json_output)
 
-    # --- Generate structure with content for .ts/.tsx files ---
-    print(f"\nGenerating directory structure with file content for '{src_path}'...")
-    structure_with_content = get_dir_structure(src_path, include_content=True)
-    try:
-        with open(output_with_content_path, 'w', encoding='utf-8') as f:
-            json.dump(structure_with_content, f, indent=2)
-        print(f"Successfully created '{output_with_content_path}'")
-    except IOError as e:
-        print(f"Error writing to file '{output_with_content_path}': {e}")
-
-
-if __name__ == '__main__':
-    main()
+        # También puedes guardar el resultado en un archivo:
+        with open('directory_structure.json', 'w', encoding='utf-8') as f:
+            f.write(json_output)
+        print("\nEstructura guardada en 'directory_structure.json'")
