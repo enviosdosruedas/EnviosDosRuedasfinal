@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { OptimizedHeader } from "@/components/homenew/optimized-header";
 import { Footer } from "@/components/homenew/footer";
 import prisma from "@/lib/prisma";
-import { ServiceTypeEnum } from '@prisma/client';
+import { ServiceTypeEnum, type PriceRange as PrismaPriceRange } from '@prisma/client';
 import { EditablePriceTable } from '@/components/admin/cotizaciones/EditablePriceTable';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,10 +18,17 @@ export const metadata: Metadata = {
   },
 };
 
+// Define a client-safe type with numbers instead of Decimals
+type PriceRangeClient = Omit<PrismaPriceRange, 'distanciaMinKm' | 'distanciaMaxKm' | 'precioRango'> & {
+  distanciaMinKm: number;
+  distanciaMaxKm: number;
+  precioRango: number;
+};
+
 // Disable caching for this admin page to always get fresh data
 export const revalidate = 0;
 
-async function getPriceRangesGrouped() {
+async function getPriceRangesGrouped(): Promise<Record<ServiceTypeEnum, PriceRangeClient[]>> {
   const priceRanges = await prisma.priceRange.findMany({
     orderBy: {
       distanciaMinKm: 'asc',
@@ -34,6 +41,7 @@ async function getPriceRangesGrouped() {
     if (!acc[serviceType]) {
       acc[serviceType] = [];
     }
+    // Correctly map to the client-safe type
     acc[serviceType].push({
       ...pr,
       distanciaMinKm: pr.distanciaMinKm.toNumber(),
@@ -41,8 +49,9 @@ async function getPriceRangesGrouped() {
       precioRango: pr.precioRango.toNumber(),
     });
     return acc;
-  }, {} as Record<ServiceTypeEnum, (typeof priceRanges[0] & { distanciaMinKm: number, distanciaMaxKm: number, precioRango: number })[]>);
+  }, {} as Record<ServiceTypeEnum, PriceRangeClient[]>);
 
+  // Ensure all service types have an entry, even if empty
   return {
     [ServiceTypeEnum.EXPRESS]: groupedRanges[ServiceTypeEnum.EXPRESS] || [],
     [ServiceTypeEnum.LOW_COST]: groupedRanges[ServiceTypeEnum.LOW_COST] || [],
