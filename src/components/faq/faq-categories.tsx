@@ -125,7 +125,7 @@ export function FaqCategories() {
   const activeFaq = faqData.find((faq) => faq.category === activeCategory)
 
   return (
-    <section className="py-16 px-4 bg-gray-50">
+    <section className="py-16 px-4 bg-gray-50 font-sans">
       <div className="container mx-auto max-w-6xl">
         {/* Category Buttons */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
@@ -151,7 +151,7 @@ export function FaqCategories() {
 
         {/* FAQ Items */}
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center font-display">
             {categories.find((cat) => cat.id === activeCategory)?.label}
           </h2>
 

@@ -21,7 +21,7 @@ export function FaqItem({ question, answer, defaultOpen = false }: FaqItemProps)
           className="w-full text-left p-6 flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
           aria-expanded={isOpen}
         >
-          <h3 className="text-lg font-semibold text-gray-800 pr-4">{question}</h3>
+          <h3 className="text-lg font-semibold text-gray-800 pr-4 font-sans">{question}</h3>
           {isOpen ? (
             <ChevronUp className="w-5 h-5 text-blue-600 flex-shrink-0" />
           ) : (
@@ -32,7 +32,7 @@ export function FaqItem({ question, answer, defaultOpen = false }: FaqItemProps)
         {isOpen && (
           <div className="px-6 pb-6">
             <div className="pt-2 border-t border-gray-100">
-              <p className="text-gray-600 leading-relaxed">{answer}</p>
+              <p className="text-gray-600 leading-relaxed font-sans">{answer}</p>
             </div>
           </div>
         )}
