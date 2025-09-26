@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image"
 
 interface RotatingCardProps {
   frontImageSrc?: string
@@ -16,19 +17,25 @@ export default function RotatingCard({
       <div className="credit-card">
         {/* Front Face */}
         <div className="card-face card-front">
-          <img
+          <Image
             src={frontImageSrc || "/placeholder.svg"}
             alt="Delante - EnviosDosruedas"
+            fill
+            sizes="(max-width: 640px) 280px, (max-width: 1024px) 320px, 400px"
             className="w-full h-full object-contain rounded-[18px]"
+            priority
           />
         </div>
 
         {/* Back Face */}
         <div className="card-face card-back">
-          <img
+          <Image
             src={backImageSrc || "/placeholder.svg"}
             alt="Detras - EnviosDosruedas"
+            fill
+            sizes="(max-width: 640px) 280px, (max-width: 1024px) 320px, 400px"
             className="w-full h-full object-contain rounded-[18px]"
+            priority
           />
         </div>
       </div>

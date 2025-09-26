@@ -214,6 +214,7 @@ export function VisionSection() {
                       alt={`Banner de emprendedores ${(index % 3) + 1}`}
                       width={400}
                       height={300}
+                      sizes="(max-width: 768px) 35vw, 380px"
                       className="w-full h-auto object-cover filter grayscale hover:grayscale-0 transition-all duration-500 transform hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
