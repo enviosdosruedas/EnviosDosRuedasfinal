@@ -28,8 +28,8 @@ export function BusinessHours() {
       <div className="container mx-auto">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10 md:mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">Horarios de Atención</h2>
-            <p className="text-base sm:text-lg text-muted-foreground">Estamos disponibles para atenderte en los siguientes horarios.</p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4 font-display">Horarios de Atención</h2>
+            <p className="text-base sm:text-lg text-muted-foreground font-sans">Estamos disponibles para atenderte en los siguientes horarios.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
@@ -43,13 +43,13 @@ export function BusinessHours() {
             >
               <Card className="hover:shadow-lg transition-shadow duration-300 h-full border-border">
                 <CardHeader className="pb-3 sm:pb-4">
-                  <CardTitle className="flex items-center text-lg sm:text-xl text-primary">
+                  <CardTitle className="flex items-center text-lg sm:text-xl text-primary font-display">
                     <Calendar className="w-5 h-5 sm:w-6 sm:h-6 mr-2" />
                     Horarios Regulares
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
+                  <div className="space-y-3 font-sans">
                     {schedule.map((item, index) => (
                       <div
                         key={index}
