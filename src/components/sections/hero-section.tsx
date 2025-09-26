@@ -11,14 +11,14 @@ export function HeroSection() {
             Envios DosRuedas 1806
           </h2>
           <p className="text-lg text-foreground mb-4">
-            Tu Aliado en Entregas RÃ¡pidas y Seguras en la Ciudad.
+            Tu Aliado en Entregas Rápidas y Seguras en la Ciudad.
           </p>
           <p className="text-md text-muted-foreground mb-8">
-            Soluciones de mensajerÃ­a y paqueterÃ­a Ã¡giles, confiables y ecolÃ³gicas, adaptadas a tus necesidades.
+            Soluciones de mensajería y paquetería ágiles, confiables y ecológicas, adaptadas a tus necesidades.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              <Link href="#calculator">Cotiza tu EnvÃ­o Ahora</Link>
+              <Link href="#calculator">Cotiza tu Envío Ahora</Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary/10">
               <Link href="#services">Ver Servicios</Link>

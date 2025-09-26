@@ -5,22 +5,22 @@ const services = [
   {
     icon: <Bike className="h-10 w-10 text-primary mb-4" />,
     title: "Entrega Express en Bicicleta",
-    description: "Para paquetes pequeÃ±os y prioritarios en la ciudad. RÃ¡pido, ecolÃ³gico y eficiente.",
+    description: "Para paquetes pequeños y prioritarios en la ciudad. Rápido, ecológico y eficiente.",
   },
   {
     icon: <CalendarClock className="h-10 w-10 text-primary mb-4" />,
-    title: "MensajerÃ­a Programada",
-    description: "Planifica tus envÃ­os recurrentes o importantes con antelaciÃ³n para tu total tranquilidad.",
+    title: "Mensajería Programada",
+    description: "Planifica tus envíos recurrentes o importantes con antelación para tu total tranquilidad.",
   },
   {
     icon: <FileText className="h-10 w-10 text-primary mb-4" />,
-    title: "GestiÃ³n de Documentos",
-    description: "Entrega segura y confidencial de documentos importantes, contratos y mÃ¡s.",
+    title: "Gestión de Documentos",
+    description: "Entrega segura y confidencial de documentos importantes, contratos y más.",
   },
   {
     icon: <Package className="h-10 w-10 text-primary mb-4" />,
-    title: "PaqueterÃ­a Ligera",
-    description: "EnvÃ­os de paquetes de hasta 5kg dentro de la zona metropolitana con seguimiento en tiempo real.",
+    title: "Paquetería Ligera",
+    description: "Envíos de paquetes de hasta 5kg dentro de la zona metropolitana con seguimiento en tiempo real.",
   },
 ];
 
