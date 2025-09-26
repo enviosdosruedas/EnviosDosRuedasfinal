@@ -81,18 +81,18 @@ export default function PoliticaDePrivacidadPage() {
           backgroundColor="bg-gray-50 dark:bg-gray-900"
           textColorClassName="text-foreground"
           minHeight="min-h-fit"
-          className="py-12 md:py-16"
-          titleClassName="text-3xl md:text-4xl font-bold"
+          className="py-12 md:py-16 font-sans"
+          titleClassName="text-3xl md:text-4xl font-bold font-display"
         />
 
         <div className="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
           <Card className="shadow-lg">
             <CardHeader>
-               <CardTitle className="flex items-center gap-3 text-2xl">
+               <CardTitle className="flex items-center gap-3 text-2xl font-display">
                  <FileText className="h-6 w-6 text-primary" />
                  Detalles de nuestra política
                </CardTitle>
-                <div className="text-sm text-muted-foreground pt-2">
+                <div className="text-sm text-muted-foreground pt-2 font-sans">
                     <p>Última actualización: 1 de Agosto de 2024</p>
                     <p>
                         Bienvenido a Envios DosRuedas. Nos comprometemos a proteger tu privacidad y a manejar tus datos personales de manera transparente y segura.
@@ -102,8 +102,8 @@ export default function PoliticaDePrivacidadPage() {
             <CardContent className="space-y-6 prose prose-lg dark:prose-invert max-w-none">
               {sections.map((section) => (
                 <div key={section.title}>
-                  <h3 className="font-semibold text-xl mb-2 text-primary">{section.title}</h3>
-                  <div className="space-y-2 text-base text-muted-foreground">
+                  <h3 className="font-semibold text-xl mb-2 text-primary font-display">{section.title}</h3>
+                  <div className="space-y-2 text-base text-muted-foreground font-sans">
                     {section.content.map((paragraph, index) => (
                       <p key={index}>{paragraph}</p>
                     ))}
