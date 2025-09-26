@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import { useGoogleMaps } from '@/hooks/useGoogleMaps';
 import { RouteTracker } from './route-tracker';
 import { Button } from '@/components/ui/button';
-import { RefreshCw, MapPin, Navigation, AlertTriangle } from 'lucide-react';
+import { RefreshCw, MapPin, Navigation, AlertTriangle, Loader2 } from 'lucide-react';
+import { GoogleMap } from '@react-google-maps/api';
 
 interface Location {
   lat: number;
@@ -27,7 +28,7 @@ export function InteractiveTrackingMap({
   driverLocation,
   orderId
 }: InteractiveTrackingMapProps) {
-  const { mapRef, map, isLoaded, error: mapError } = useGoogleMaps({ center });
+  const { map, isLoaded, error: mapError } = useGoogleMaps({ center });
   const [isTracking, setIsTracking] = useState(true); 
   const [lastUpdate, setLastUpdate] = useState(new Date());
   
@@ -138,32 +139,30 @@ export function InteractiveTrackingMap({
       </div>
 
       <div className="relative flex-grow">
-        <div
-          ref={mapRef}
-          className="w-full h-full"
-          style={{ minHeight: '300px' }} 
-        />
-
-        {!isLoaded && !mapError && (
-          <div className="absolute inset-0 bg-gray-100 flex items-center justify-center z-10">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
-              <p className="text-sm text-gray-600">Cargando mapa...</p>
+        {!isLoaded && !mapError ? (
+            <div className="absolute inset-0 bg-gray-100 flex items-center justify-center z-10">
+                <div className="text-center">
+                <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-2" />
+                <p className="text-sm text-gray-600">Cargando mapa...</p>
+                </div>
             </div>
-          </div>
-        )}
-
-        {isLoaded && map && (
-          <RouteTracker
-            map={map}
-            isLoaded={isLoaded}
-            routePoints={routePoints}
-            driverLocation={driverLocation}
-          />
+        ) : (
+             <GoogleMap
+                mapContainerStyle={{ width: '100%', height: '100%', minHeight: '300px' }}
+                center={center}
+                zoom={13}
+            >
+                {isLoaded && map && (
+                <RouteTracker
+                    map={map}
+                    isLoaded={isLoaded}
+                    routePoints={routePoints}
+                    driverLocation={driverLocation}
+                />
+                )}
+            </GoogleMap>
         )}
       </div>
     </div>
   );
 }
-
-    
