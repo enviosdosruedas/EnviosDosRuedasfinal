@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -178,7 +179,7 @@ export default function SeguimientoPage() {
                 orderId={String(trackingData.order.id)} 
                 orderSummary={{
                   items: 1, 
-                  subtotal: formatCurrency(trackingData.order.shippingCost), 
+                  subtotal: formatCurrency(trackingData.order.shippingCost),
                   total: formatCurrency(trackingData.order.totalCost),
                 }}
               />

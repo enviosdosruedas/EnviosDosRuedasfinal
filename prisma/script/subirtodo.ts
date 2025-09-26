@@ -1,68 +1,73 @@
 /**
- * @fileoverview Script para poblar la base de datos con datos iniciales desde un archivo JSON.
+ * @fileoverview Script para poblar la base de datos con datos de archivos JSON.
  *
- * Este script lee datos de `prisma/datos/datosparasubir.json` y los inserta en la base de datos
- * utilizando Prisma Client. Está diseñado para ser robusto, manejando cada conjunto de datos
- * en una transacción separada para garantizar la integridad de los datos.
+ * Este script lee todos los modelos definidos en `prisma/schema.prisma`, busca
+ * un archivo JSON correspondiente para cada modelo en el directorio `prisma/datos`,
+ * y luego inserta los datos en la base de datos.
  *
  * Características:
- * - Carga datos para los modelos: PriceRange, Repartidor, Client, Order, y SocialPost.
- * - Utiliza `createMany` para una inserción masiva eficiente, omitiendo duplicados.
+ * - Detección automática de todos los modelos de Prisma.
+ * - Carga de datos desde archivos JSON individuales (ej. `Client.json`, `Order.json`).
+ * - Utiliza `createMany` con `skipDuplicates` para una inserción masiva y segura.
+ * - Manejo automático de la conversión de fechas en formato ISO a objetos `Date`.
  * - Proporciona retroalimentación detallada en la consola sobre el progreso.
- * - Manejo de errores para la lectura de archivos y operaciones de base de datos.
- * - Función principal asíncrona para orquestar la carga de datos.
- * - Se desconecta de la base de datos al finalizar, ya sea con éxito o con errores.
  *
  * Para ejecutar este script:
- * npx tsx prisma/script/subirtodo.ts
+ * bunx tsx prisma/script/subirtodo.ts
  */
 'use strict';
 
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
 
 const prisma = new PrismaClient();
 
-/**
- * Interfaz que define la estructura del archivo JSON de datos.
- */
-interface ISeedData {
-  priceRanges: any[];
-  repartidores: any[];
-  clients: any[];
-  orders: any[];
-  socialPosts: any[];
+// Función para transformar los valores antes de la inserción.
+// Convierte strings en formato ISO 8601 a objetos Date.
+function reviveDates(key: string, value: any): any {
+  const isoDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/;
+  if (typeof value === 'string' && isoDateRegex.test(value)) {
+    return new Date(value);
+  }
+  return value;
 }
 
 /**
  * Carga los datos de un modelo específico a la base de datos.
- * Utiliza una transacción para asegurar la atomicidad de la operación.
- * @template T
- * @param {string} modelName - El nombre del modelo en Prisma (ej. "priceRange").
- * @param {T[]} data - El array de datos a cargar.
+ * @param {string} modelName - El nombre del modelo en Prisma (ej. "Client").
  */
-async function seedModel<T>(modelName: keyof PrismaClient, data: T[]) {
-  const model = prisma[modelName] as any;
-  if (!data || data.length === 0) {
-    console.log(`🟡 No hay datos para el modelo ${String(modelName)}, omitiendo.`);
+async function seedModel(modelName: Prisma.ModelName) {
+  const model = (prisma as any)[modelName.charAt(0).toLowerCase() + modelName.slice(1)];
+  const filePath = path.join(__dirname, '..', 'datos', `${modelName}.json`);
+
+  if (!fs.existsSync(filePath)) {
+    console.log(`🟡 No se encontró el archivo para el modelo ${modelName}. Omitiendo.`);
     return;
   }
 
-  console.log(`⏳ Iniciando carga para el modelo: ${String(modelName)}...`);
-  
+  console.log(`⏳ Iniciando carga para el modelo: ${modelName}...`);
+
   try {
-    // Usamos createMany para una inserción masiva más eficiente.
-    // skipDuplicates evita errores si intentamos insertar registros que ya existen.
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    // Usamos JSON.parse con la función 'reviver' para convertir fechas
+    const data = JSON.parse(fileContent, reviveDates);
+
+    if (!Array.isArray(data) || data.length === 0) {
+      console.log(`⚪️ No hay datos en el archivo para ${modelName}. Omitiendo.`);
+      return;
+    }
+
     const result = await model.createMany({
       data,
       skipDuplicates: true,
     });
     
-    console.log(`✅ ${result.count} registros nuevos agregados a ${String(modelName)}.`);
+    console.log(`✅ ${result.count} registros nuevos agregados a ${modelName}.`);
+
   } catch (error) {
-    console.error(`❌ Error cargando el modelo ${String(modelName)}:`, error);
-    throw error; // Relanzamos el error para que la función principal lo capture.
+    console.error(`❌ Error cargando el modelo ${modelName}:`, error);
+    // Continuar con el siguiente modelo aunque uno falle
   }
 }
 
@@ -71,57 +76,27 @@ async function seedModel<T>(modelName: keyof PrismaClient, data: T[]) {
  */
 async function main() {
   console.log('🚀 Iniciando el script de carga de datos...');
+  
+  // 1. Obtener todos los nombres de los modelos del esquema de Prisma
+  const modelNames = Object.values(Prisma.ModelName);
 
-  try {
-    // 1. Leer y parsear el archivo JSON
-    const jsonPath = path.join(__dirname, '..', 'datos', 'datosparasubir.json');
-    console.log(`📄 Leyendo datos desde: ${jsonPath}`);
-    const jsonData = fs.readFileSync(jsonPath, 'utf-8');
-    const { 
-      priceRanges, 
-      repartidores, 
-      clients, 
-      orders, 
-      socialPosts 
-    }: ISeedData = JSON.parse(jsonData);
+  console.log(`🔍 Modelos encontrados: ${modelNames.join(', ')}`);
 
-    // Convertir campos de fecha de string a objeto Date
-    const parseDates = (items: any[], dateFields: string[]) => {
-      return items.map(item => {
-        const newItem = { ...item };
-        for (const field of dateFields) {
-          if (newItem[field]) {
-            newItem[field] = new Date(newItem[field]);
-          }
-        }
-        return newItem;
-      });
-    };
+  // 2. Cargar datos para cada modelo secuencialmente
+  for (const modelName of modelNames) {
+    await seedModel(modelName);
+  }
 
-    const datedPriceRanges = parseDates(priceRanges, ['createdAt', 'updatedAt']);
-    const datedRepartidores = parseDates(repartidores, ['createdAt', 'updatedAt']);
-    const datedClients = parseDates(clients, ['createdAt', 'updatedAt']);
-    const datedOrders = parseDates(orders, ['pickupDate', 'pickupDateTime', 'deliveryDate', 'deliveryDateTime', 'createdAt', 'updatedAt']);
-    const datedSocialPosts = parseDates(socialPosts, ['timestamp', 'createdAt', 'updatedAt']);
+  console.log('\n🎉 ¡Proceso de carga de datos completado!');
+}
 
-    // 2. Cargar datos para cada modelo secuencialmente
-    await seedModel('priceRange', datedPriceRanges);
-    await seedModel('repartidor', datedRepartidores);
-    await seedModel('client', datedClients);
-    await seedModel('order', datedOrders);
-    await seedModel('socialPost', datedSocialPosts);
-
-    console.log('\n🎉 ¡Todos los datos han sido cargados exitosamente!');
-
-  } catch (error) {
-    console.error('\n🔥 Ha ocurrido un error durante el proceso de carga:', error);
+main()
+  .catch((error) => {
+    console.error('\n🔥 Ha ocurrido un error inesperado durante el proceso de carga:', error);
     process.exit(1);
-  } finally {
+  })
+  .finally(async () => {
     // 3. Desconectar Prisma Client
     await prisma.$disconnect();
     console.log('🚪 Desconectado de la base de datos.');
-  }
-}
-
-// Ejecutar la función principal
-main();
+  });

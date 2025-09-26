@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Juan Perez",
+    "phone": "2231112233",
+    "email": "juan.perez@example.com",
+    "userAuthId": "auth_user_1",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:20.063Z",
+    "updatedAt": "2025-06-21T06:23:24.248Z"
+  },
+  {
+    "id": 2,
+    "name": "Maria Gomez",
+    "phone": "2234445566",
+    "email": "maria.gomez@example.com",
+    "userAuthId": "auth_user_2",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:20.265Z",
+    "updatedAt": "2025-06-21T06:23:24.428Z"
+  },
+  {
+    "id": 3,
+    "name": "Carlos Lopez",
+    "phone": "2237778899",
+    "email": "carlos.lopez@example.com",
+    "userAuthId": null,
+    "isActive": false,
+    "createdAt": "2025-06-21T05:44:20.448Z",
+    "updatedAt": "2025-06-21T06:23:24.605Z"
+  }
+]
