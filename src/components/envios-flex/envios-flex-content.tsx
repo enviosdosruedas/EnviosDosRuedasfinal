@@ -22,12 +22,12 @@ export function EnviosFlexContent() {
   ]
 
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="py-16 px-4 bg-white font-sans">
       <div className="container mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-6">Envios Flex Mercado Libre</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-6 font-display">Envios Flex Mercado Libre</h2>
             <p className="text-lg text-gray-700 mb-8 leading-relaxed">
             ¿Vendés por Mercado Libre? Potenciá tus ventas con Envios Flex. Entregamos tus productos en el día o al día siguiente, mejorando tu reputación y la satisfacción de tus compradores. Nos integramos fácilmente a tu operatoria.
             </p>
@@ -42,7 +42,7 @@ export function EnviosFlexContent() {
                       <IconComponent className="w-6 h-6 text-blue-600" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold text-gray-800 mb-2">{feature.title}</h3>
+                      <h3 className="text-xl font-semibold text-gray-800 mb-2 font-display">{feature.title}</h3>
                       <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                     </div>
                   </div>
