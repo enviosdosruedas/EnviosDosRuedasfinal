@@ -39,8 +39,8 @@ export function ServiceFeatures() {
     <section className="py-16 px-4 bg-gray-50">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Características del Servicio</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-display">Características del Servicio</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto font-sans">
             Descubre todas las ventajas de tener un servicio de delivery dedicado para tu negocio
           </p>
         </div>
@@ -54,8 +54,8 @@ export function ServiceFeatures() {
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                     <IconComponent className="w-6 h-6 text-blue-600" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-3">{feature.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-3 font-display">{feature.title}</h3>
+                  <p className="text-gray-600 leading-relaxed font-sans">{feature.description}</p>
                 </CardContent>
               </Card>
             )
