@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from "@/components/ui/card"
 import { User, Bike, Headphones, Settings } from "lucide-react"
 
@@ -6,25 +7,25 @@ export function TeamSection() {
     {
       icon: User,
       title: "Equipo Directivo",
-      description: "Liderazgo comprometido con la excelencia en el servicio y la satisfacciÃ³n del cliente.",
+      description: "Liderazgo comprometido con la excelencia en el servicio y la satisfacción del cliente.",
       count: "3",
     },
     {
       icon: Bike,
       title: "Repartidores",
-      description: "Profesionales capacitados que conocen cada rincÃ³n de Mar del Plata para entregas eficientes.",
+      description: "Profesionales capacitados que conocen cada rincón de Mar del Plata para entregas eficientes.",
       count: "15+",
     },
     {
       icon: Headphones,
-      title: "AtenciÃ³n al Cliente",
+      title: "Atención al Cliente",
       description: "Equipo dedicado a resolver consultas y brindar soporte personalizado las 24 horas.",
       count: "5",
     },
     {
       icon: Settings,
-      title: "Soporte TÃ©cnico",
-      description: "Especialistas en logÃ­stica y tecnologÃ­a que optimizan nuestros procesos continuamente.",
+      title: "Soporte Técnico",
+      description: "Especialistas en logística y tecnología que optimizan nuestros procesos continuamente.",
       count: "4",
     },
   ]
@@ -35,7 +36,7 @@ export function TeamSection() {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-display">Nuestro Equipo</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Un equipo de profesionales apasionados por brindar el mejor servicio de mensajerÃ­a y delivery
+            Un equipo de profesionales apasionados por brindar el mejor servicio de mensajería y delivery
           </p>
         </div>
 

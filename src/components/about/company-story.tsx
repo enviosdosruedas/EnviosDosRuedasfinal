@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from "@/components/ui/card"
 import { Calendar, MapPin, TrendingUp, Award } from "lucide-react"
 
@@ -7,7 +8,7 @@ export function CompanyStory() {
       icon: Calendar,
       year: "2020",
       title: "Nuestros Inicios",
-      description: "Comenzamos como un pequeÃ±o servicio de mensajerÃ­a local con una sola moto y mucha pasiÃ³n.",
+      description: "Comenzamos como un pequeño servicio de mensajería local con una sola moto y mucha pasión.",
     },
     {
       icon: TrendingUp,
@@ -24,7 +25,7 @@ export function CompanyStory() {
     {
       icon: MapPin,
       year: "2024",
-      title: "ExpansiÃ³n",
+      title: "Expansión",
       description: "Hoy cubrimos toda Mar del Plata y localidades cercanas con un equipo de profesionales.",
     },
   ]

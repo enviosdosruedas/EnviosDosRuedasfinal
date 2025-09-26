@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from "@/components/ui/card"
 import { Target, Eye, Lightbulb } from "lucide-react"
 
@@ -12,10 +13,10 @@ export function MissionVision() {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Target className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4 font-display">Nuestra MisiÃ³n</h3>
+              <h3 className="text-2xl font-bold text-foreground mb-4 font-display">Nuestra Misión</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Conectar personas y negocios en Mar del Plata a travÃ©s de un servicio de mensajerÃ­a y delivery
-                confiable, rÃ¡pido y accesible, contribuyendo al crecimiento de nuestra comunidad local.
+                Conectar personas y negocios en Mar del Plata a través de un servicio de mensajería y delivery
+                confiable, rápido y accesible, contribuyendo al crecimiento de nuestra comunidad local.
               </p>
             </CardContent>
           </Card>
@@ -26,10 +27,10 @@ export function MissionVision() {
               <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Eye className="w-8 h-8 text-secondary" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4 font-display">Nuestra VisiÃ³n</h3>
+              <h3 className="text-2xl font-bold text-foreground mb-4 font-display">Nuestra Visión</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Ser la empresa lÃ­der en servicios de mensajerÃ­a y delivery en la regiÃ³n, reconocida por nuestra
-                excelencia, innovaciÃ³n y compromiso con la satisfacciÃ³n del cliente.
+                Ser la empresa líder en servicios de mensajería y delivery en la región, reconocida por nuestra
+                excelencia, innovación y compromiso con la satisfacción del cliente.
               </p>
             </CardContent>
           </Card>
@@ -40,10 +41,10 @@ export function MissionVision() {
               <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Lightbulb className="w-8 h-8 text-green-500" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4 font-display">InnovaciÃ³n</h3>
+              <h3 className="text-2xl font-bold text-foreground mb-4 font-display">Innovación</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Incorporamos constantemente nuevas tecnologÃ­as y metodologÃ­as para mejorar nuestros servicios y ofrecer
-                soluciones cada vez mÃ¡s eficientes a nuestros clientes.
+                Incorporamos constantemente nuevas tecnologías y metodologías para mejorar nuestros servicios y ofrecer
+                soluciones cada vez más eficientes a nuestros clientes.
               </p>
             </CardContent>
           </Card>
