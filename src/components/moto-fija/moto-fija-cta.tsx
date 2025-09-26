@@ -10,13 +10,15 @@ export function MotoFijaCta() {
       <div className="container mx-auto max-w-4xl">
         <Card className="bg-white">
           <CardContent className="p-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">¿Listo para Optimizar tus Entregas?</h2>
-            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-display">
+              ¿Listo para Optimizar tus Entregas?
+            </h2>
+            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto font-sans">
               Contáctanos para una consulta personalizada y descubre cómo el servicio de Moto Fija puede transformar la
               logística de tu negocio.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 font-sans">
               <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold">
                 <Link href="/contacto">
                   <Calendar className="w-5 h-5 mr-2" />
@@ -28,7 +30,7 @@ export function MotoFijaCta() {
               </Button>
             </div>
 
-            <div className="border-t pt-6">
+            <div className="border-t pt-6 font-sans">
               <p className="text-sm text-gray-600 mb-4">¿Necesitas más información? Estamos aquí para ayudarte:</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="ghost" size="sm" className="text-green-600 hover:text-green-700">
