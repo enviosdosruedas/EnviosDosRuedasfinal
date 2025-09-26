@@ -59,7 +59,7 @@ export default function RotatingCard({
           border-radius: 18px;
           margin: 0 auto;
           will-change: transform;
-          background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+          background: transparent;
           box-shadow: 
             0 40px 80px rgba(0, 0, 0, 0.5),
             0 0 0 1px rgba(255, 255, 255, 0.15),
