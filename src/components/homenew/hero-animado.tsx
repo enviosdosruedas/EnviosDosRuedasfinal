@@ -34,8 +34,8 @@ export default function HeroAnimado() {
           </div>
 
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 tracking-wide text-white">
-            Servicio confiable de mensajería y delivery
-            <span className="block text-secondary mt-2">EnviosDosruedas</span>
+            Servicio de mensajería y delivery
+            <span className="block text-secondary mt-2">Envios Dosruedas</span>
           </h1>
 
           <p className="text-lg md:text-xl text-white/80 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
@@ -57,22 +57,7 @@ export default function HeroAnimado() {
               Ver Servicios
             </Link>
           </div>
-
-          <div className="flex flex-wrap justify-center lg:justify-start gap-x-12 gap-y-6 text-center lg:text-left">
-            <div>
-              <div className="text-4xl font-bold tracking-wide text-white">500+</div>
-              <div className="text-white/70 text-sm font-normal">Entregas Diarias</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold tracking-wide text-white">24/7</div>
-              <div className="text-white/70 text-sm font-normal">Servicio Disponible</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold tracking-wide text-white">100%</div>
-              <div className="text-white/70 text-sm font-normal">Mar del Plata</div>
-            </div>
-          </div>
-        </div>
+                  </div>
 
         <div className="relative flex-1 flex justify-center items-center min-h-[300px] sm:min-h-[400px] lg:min-h-0 lg:w-1/2">
           <div className="relative w-[280px] h-[175px] sm:w-[320px] sm:h-[200px] lg:w-[400px] lg:h-[250px] transform-gpu scale-105">

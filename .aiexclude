@@ -20,7 +20,6 @@ bun.lockb
 prisma/generated/
 
 # Documentation and non-code files
-*.md
 *.lock
 .env
 .env.local
