@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useEffect, useRef, useState } from "react"
@@ -184,6 +185,7 @@ export default function SliderServicios() {
               key={index}
               onClick={() => { swiperRef.current?.slideToLoop(index); setProgress(0) }}
               className={`relative group transition-all duration-300 ${index === activeIndex ? "scale-110" : "scale-100 hover:scale-105"}`}
+              aria-label={`Ir a la diapositiva ${index + 1}`}
             >
               <div className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${index === activeIndex ? "border-white bg-white" : "border-white/40 bg-transparent hover:border-white/60"}`} />
               {index === activeIndex && (
