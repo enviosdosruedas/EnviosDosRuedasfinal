@@ -52,10 +52,10 @@ export function ExpressContent() {
         >
           {/* Left Content */}
           <motion.div variants={itemVariants}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-800 mb-4 sm:mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-800 mb-4 sm:mb-6 font-display">
               Entregas rápidas y eficientes para tus necesidades
             </h2>
-            <p className="text-base sm:text-lg text-gray-700 mb-6 sm:mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg text-gray-700 mb-6 sm:mb-8 leading-relaxed font-sans">
             Nuestro servicio Express está diseñado para aquellas situaciones donde el tiempo es crucial. Garantizamos la entrega el mismo día para todos los pedidos realizados antes de las 15:00, con la posibilidad de elegir un rango horario específico.
             </p>
 
@@ -72,8 +72,8 @@ export function ExpressContent() {
                     <Check className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-blue-800 mb-1 sm:mb-2">{feature.title}</h3>
-                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{feature.description}</p>
+                    <h3 className="text-lg sm:text-xl font-semibold text-blue-800 mb-1 sm:mb-2 font-display">{feature.title}</h3>
+                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-sans">{feature.description}</p>
                   </div>
                 </motion.div>
               ))}
@@ -81,7 +81,7 @@ export function ExpressContent() {
 
             {/* CTA Buttons */}
             <motion.div 
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 font-sans"
               variants={itemVariants}
             >
               <Button
@@ -105,7 +105,7 @@ export function ExpressContent() {
 
           {/* Right Content - Large Branding */}
           <motion.div 
-            className="flex justify-center lg:justify-end mt-8 lg:mt-0"
+            className="flex justify-center lg:justify-end mt-8 lg:mt-0 font-display"
             variants={itemVariants}
             initial={{opacity: 0, x: 20}}
             animate={{opacity:1, x: 0}}
