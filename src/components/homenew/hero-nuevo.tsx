@@ -74,7 +74,7 @@ function ElegantShape({
 export default function HeroGeometric({
   badge = "Tu Solución Confiable",
   title1 = "Servicio de mensajería y delivery",
-  title2 = "EnviosDosruedas",
+  title2 = "Envios Dosruedas",
 }: {
   badge?: string
   title1?: string
