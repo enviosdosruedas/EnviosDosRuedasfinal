@@ -1,4 +1,3 @@
-
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
@@ -43,8 +42,8 @@ export function ServicesOverview() {
     <section className="py-16 md:py-20 lg:py-24 px-4 bg-background">
       <div className="container mx-auto">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-primary mb-3 sm:mb-4">Nuestros Servicios Principales</h2>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-primary mb-3 sm:mb-4">Nuestros Servicios Principales</h2>
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto font-sans">
           Soluciones adaptadas a cada necesidad, desde entregas urgentes hasta servicios dedicados para tu negocio.
           </p>
         </div>
@@ -72,15 +71,15 @@ export function ServicesOverview() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
               
               <div className="relative z-10 p-6 flex flex-col h-full justify-end">
-                <h3 className="text-2xl font-bold text-white mb-2 font-heading">{service.title}</h3>
+                <h3 className="text-2xl font-bold text-white mb-2 font-display">{service.title}</h3>
                 
                 <div className="space-y-4">
-                  <p className="text-primary-foreground/80">
+                  <p className="text-primary-foreground/80 font-sans">
                     {service.description}
                   </p>
                   
                   <div>
-                    <Button asChild variant="secondary" className="mt-4 font-semibold">
+                    <Button asChild variant="secondary" className="mt-4 font-semibold font-sans">
                       <Link href={service.link}>Conocer Más</Link>
                     </Button>
                   </div>
