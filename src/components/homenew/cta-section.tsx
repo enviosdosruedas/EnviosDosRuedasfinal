@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -63,12 +64,12 @@ export function CtaSection() {
                   whileHover={{ scale: 1.05, backgroundColor: "rgba(251, 191, 36, 0.2)" }}
                 >
                   <Sparkles className="w-4 h-4 text-secondary" />
-                  <span className="text-sm font-medium text-white/90">¡Empezá Ahora!</span>
+                  <span className="text-sm font-medium text-white/90 font-sans">¡Empezá Ahora!</span>
                   <Zap className="w-4 h-4 text-secondary" />
                 </motion.div>
 
                 <motion.h2
-                  className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-white mb-6"
+                  className="text-3xl md:text-4xl lg:text-5xl font-bold font-display text-white mb-6"
                   animate={{
                     backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                   }}
@@ -88,7 +89,7 @@ export function CtaSection() {
                   ¿Listos para tu <span className="text-secondary">Próximo Envío</span>?
                 </motion.h2>
 
-                <p className="text-lg md:text-xl text-white/80 mb-8 max-w-lg leading-relaxed">
+                <p className="text-lg md:text-xl text-white/80 mb-8 max-w-lg leading-relaxed font-sans">
                   En Envios DosRuedas estamos listos para ayudarte con tus necesidades de{" "}
                   <span className="text-secondary font-semibold">mensajería y paquetería</span>. Contáctanos hoy mismo o
                   calcula tu envío.
@@ -137,16 +138,16 @@ export function CtaSection() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.3, duration: 0.6 }}
                 >
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-secondary">5000+</div>
+                  <div className="text-center font-sans">
+                    <div className="text-2xl font-bold text-secondary font-display">5000+</div>
                     <div className="text-sm text-white/70">Clientes</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-secondary">98%</div>
+                  <div className="text-center font-sans">
+                    <div className="text-2xl font-bold text-secondary font-display">98%</div>
                     <div className="text-sm text-white/70">A Tiempo</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-secondary">24/7</div>
+                  <div className="text-center font-sans">
+                    <div className="text-2xl font-bold text-secondary font-display">24/7</div>
                     <div className="text-sm text-white/70">Soporte</div>
                   </div>
                 </motion.div>
