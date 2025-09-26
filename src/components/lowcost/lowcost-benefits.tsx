@@ -39,8 +39,8 @@ export function LowcostBenefits() {
     <section className="py-16 px-4 bg-white">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">¿Por Qué Elegir Low Cost?</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-display">¿Por Qué Elegir Low Cost?</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto font-sans">
             Descubre todas las ventajas de nuestro servicio de envíos económicos sin sacrificar calidad
           </p>
         </div>
@@ -54,8 +54,8 @@ export function LowcostBenefits() {
                   <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
                     <IconComponent className="w-6 h-6 text-yellow-600" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-3">{benefit.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-3 font-display">{benefit.title}</h3>
+                  <p className="text-gray-600 leading-relaxed font-sans">{benefit.description}</p>
                 </CardContent>
               </Card>
             )
