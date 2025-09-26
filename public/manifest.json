@@ -1,17 +1,12 @@
 {
   "name": "Envios DosRuedas",
   "short_name": "DosRuedas",
-  "description": "Tu Solución Confiable para Envíos. Servicios de mensajería y delivery en Mar del Plata.",
+  "description": "Servicio confiable de mensajería y delivery en moto en Mar del Plata.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F0F4F7",
-  "theme_color": "#2563EB",
+  "background_color": "#1E40AF",
+  "theme_color": "#1E40AF",
   "icons": [
-    {
-      "src": "/LogoEnviosDosRuedas.webp",
-      "sizes": "180x180",
-      "type": "image/webp"
-    },
     {
       "src": "/icons/icon-192x192.png",
       "sizes": "192x192",
@@ -20,6 +15,11 @@
     {
       "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
       "type": "image/png"
     }
   ]
