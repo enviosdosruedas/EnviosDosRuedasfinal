@@ -112,7 +112,7 @@ export function ShipmentCreationForm({ initialClientData, onOrderCreated, onBack
     form.reset(defaultFormValues);
     setQuoteDetails(null); 
     setShowMap(false);
-  }, [defaultFormValues, form.reset]);
+  }, [defaultFormValues, form]);
 
 
   const handleCalculateQuote = async () => {
@@ -157,11 +157,6 @@ export function ShipmentCreationForm({ initialClientData, onOrderCreated, onBack
     }
   };
   
-  const handleRouteCalculatedForQuote = (distance: string, duration: string) => {
-    // This callback is part of RouteMap, it might be used to update state if needed here
-    // But quoteShipment action handles its own logic including pricing.
-  };
-
 
   async function onSubmit(data: ShipmentCreationFormValues) {
     if (!quoteDetails || quoteDetails.price === null) {
@@ -203,9 +198,6 @@ export function ShipmentCreationForm({ initialClientData, onOrderCreated, onBack
       deliveryDate: data.deliveryDate,
       deliveryTimeFrom: data.deliveryTimeFrom,
       deliveryTimeTo: data.deliveryTimeTo,
-
-      pickupDateTime: parse(`${format(data.pickupDate, 'yyyy-MM-dd')}T${data.pickupTimeFrom}:00`, "yyyy-MM-dd'T'HH:mm:ss", new Date()),
-      deliveryDateTime: parse(`${format(data.deliveryDate, 'yyyy-MM-dd')}T${data.deliveryTimeFrom}:00`, "yyyy-MM-dd'T'HH:mm:ss", new Date()),
       
       shippingCost: quoteDetails.price, 
       totalCost: quoteDetails.price, 
@@ -249,8 +241,14 @@ export function ShipmentCreationForm({ initialClientData, onOrderCreated, onBack
     }
   }
   
-  const originAddressForMap = form.watch('originAddress');
-  const destinationAddressForMap = form.watch('destinationAddress');
+  const mapCoordinates = useMemo(() => {
+    if (!quoteDetails) return null;
+    return {
+      origin: { lat: quoteDetails.originLat, lng: quoteDetails.originLng },
+      destination: { lat: quoteDetails.destinationLat, lng: quoteDetails.destinationLng },
+    };
+  }, [quoteDetails]);
+
   const pickupDateValue = form.watch('pickupDate');
 
   return (
@@ -431,20 +429,18 @@ export function ShipmentCreationForm({ initialClientData, onOrderCreated, onBack
               </FormItem>
             )} />
             <Button type="button" onClick={handleCalculateQuote} 
-            disabled={isQuoting || !originAddressForMap || !destinationAddressForMap} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground h-10">
+            disabled={isQuoting || !form.getValues('originAddress') || !form.getValues('destinationAddress')} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground h-10">
               {isQuoting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CalculatorIcon className="mr-2 h-4 w-4" />}
               {isQuoting ? 'Calculando...' : 'Calcular Ruta y Precio'}
             </Button>
           </CardContent>
         </Card>
         
-        {showMap && originAddressForMap && destinationAddressForMap && (
+        {showMap && mapCoordinates && (
           <div className="rounded-lg overflow-hidden shadow-md">
             <RouteMap
-              originAddress={originAddressForMap}
-              destinationAddress={destinationAddressForMap}
-              isCalculating={isQuoting} 
-              onRouteCalculated={handleRouteCalculatedForQuote} 
+              origin={mapCoordinates.origin}
+              destination={mapCoordinates.destination}
             />
           </div>
         )}

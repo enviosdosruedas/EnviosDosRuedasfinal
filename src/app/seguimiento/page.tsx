@@ -78,7 +78,7 @@ export default function SeguimientoPage() {
     setIsLoading(false);
   };
   
-  const formatCurrency = (value: number | bigint | undefined | null): string => {
+  const formatCurrency = (value: number | null | undefined): string => {
     if (value === undefined || value === null) return "$0.00";
     const numValue = typeof value === 'bigint' ? Number(value) : value;
     return `$${numValue.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;

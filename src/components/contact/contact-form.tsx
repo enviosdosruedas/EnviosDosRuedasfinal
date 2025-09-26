@@ -21,11 +21,12 @@ import { motion } from "framer-motion";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, { message: 'El nombre es requerido y debe tener al menos 2 caracteres.' }),
-  lastName: z.string().min(2, { message: 'El apellido es requerido y debe tener al menos 2 caracteres.' }).optional().or(z.literal('')),
   email: z.string().email({ message: 'Por favor, introduce un email válido.' }),
-  phone: z.string().optional().or(z.literal('')),
-  service: z.string().optional(),
   message: z.string().min(10, { message: 'El mensaje debe tener al menos 10 caracteres.' }).max(1000, { message: 'El mensaje no debe exceder los 1000 caracteres.'}),
+  // Adding other fields to the schema so they can be optionally used, even if not in the server action
+  lastName: z.string().optional(),
+  phone: z.string().optional(),
+  service: z.string().optional(),
 });
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
@@ -75,14 +76,15 @@ export function ContactForm() {
   });
 
    useEffect(() => {
-    if (state?.timestamp && state.timestamp > (initialState.timestamp || 0)) { // Check if state is new
+    // Ensure state.timestamp is checked
+    if (state?.timestamp && state.timestamp > (initialState.timestamp ?? 0)) {
         if (state.message) {
           toast({
             title: "Mensaje Enviado",
             description: state.message,
             className: "bg-green-100 border-green-400 text-green-700",
           });
-          form.reset(); // Reset form on successful submission
+          form.reset();
         }
         if (state.error) {
           toast({
@@ -101,15 +103,15 @@ export function ContactForm() {
         if (state.fieldErrors) {
           const fieldErrors = state.fieldErrors;
           (Object.keys(fieldErrors) as Array<keyof ContactFormValues>).forEach((key) => {
-            if (form.getFieldState(key)) { // Check if field exists in form
-                 form.setError(key, { type: 'server', message: fieldErrors[key]?.join(', ') });
+            if (form.getFieldState(key) && fieldErrors[key]) {
+                 form.setError(key, { type: 'server', message: fieldErrors[key]!.join(', ') });
             }
           });
         }
     }
   }, [state, toast, form]);
 
-  if (state?.message && state.timestamp > (initialState.timestamp || 0)) {
+  if (state?.message && state.timestamp && state.timestamp > (initialState.timestamp ?? 0)) {
     return (
        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <Card className="max-w-2xl mx-auto shadow-lg border-green-300 bg-green-50">

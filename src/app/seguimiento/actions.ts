@@ -2,10 +2,22 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import type { Order } from '@prisma/client';
+import type { Order as PrismaOrder } from '@prisma/client';
+
+// Define a type for the order with Decimal fields converted to numbers
+type FormattedOrder = Omit<PrismaOrder, 'originLat' | 'originLng' | 'destinationLat' | 'destinationLng' | 'quotedPrice' | 'shippingCost' | 'totalCost'> & {
+  originLat: number | null;
+  originLng: number | null;
+  destinationLat: number | null;
+  destinationLng: number | null;
+  quotedPrice: number | null;
+  shippingCost: number | null;
+  totalCost: number | null;
+};
+
 
 export interface TrackingData {
-  order: Order;
+  order: FormattedOrder;
   pickupLocation: { lat: number; lng: number } | null;
   deliveryLocation: { lat: number; lng: number } | null;
   driverLocation: { lat: number; lng: number } | null; // Simulated
@@ -43,7 +55,7 @@ export async function getOrderTrackingDetails(orderId: string): Promise<{ succes
       return { success: false, error: `Pedido con ID "${orderId}" no encontrado.` };
     }
 
-    const plainOrderObject = {
+    const plainOrderObject: FormattedOrder = {
       ...order,
       // Convert all Decimal fields to numbers so they can be passed to client components
       originLat: order.originLat?.toNumber() ?? null,
@@ -74,7 +86,7 @@ export async function getOrderTrackingDetails(orderId: string): Promise<{ succes
 
 
     const trackingData: TrackingData = {
-      order: plainOrderObject as any, // Cast to bypass strict type check for Decimal fields. The runtime object is what matters.
+      order: plainOrderObject,
       pickupLocation,
       deliveryLocation,
       driverLocation,

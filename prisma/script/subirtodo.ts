@@ -45,11 +45,11 @@ interface ISeedData {
 async function seedModel<T>(modelName: keyof PrismaClient, data: T[]) {
   const model = prisma[modelName] as any;
   if (!data || data.length === 0) {
-    console.log(`🟡 No hay datos para el modelo ${modelName}, omitiendo.`);
+    console.log(`🟡 No hay datos para el modelo ${String(modelName)}, omitiendo.`);
     return;
   }
 
-  console.log(`⏳ Iniciando carga para el modelo: ${modelName}...`);
+  console.log(`⏳ Iniciando carga para el modelo: ${String(modelName)}...`);
   
   try {
     // Usamos createMany para una inserción masiva más eficiente.
@@ -59,9 +59,9 @@ async function seedModel<T>(modelName: keyof PrismaClient, data: T[]) {
       skipDuplicates: true,
     });
     
-    console.log(`✅ ${result.count} registros nuevos agregados a ${modelName}.`);
+    console.log(`✅ ${result.count} registros nuevos agregados a ${String(modelName)}.`);
   } catch (error) {
-    console.error(`❌ Error cargando el modelo ${modelName}:`, error);
+    console.error(`❌ Error cargando el modelo ${String(modelName)}:`, error);
     throw error; // Relanzamos el error para que la función principal lo capture.
   }
 }

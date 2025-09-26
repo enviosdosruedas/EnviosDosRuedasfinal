@@ -85,14 +85,6 @@ export interface SaveShipmentInput {
   deliveryTimeFrom: string; 
   deliveryTimeTo: string;
   
-  // These are derived in the action, not expected from client for this version
-  // pickupDateTime?: Date; 
-  // deliveryDateTime?: Date;
-
-  // These seem like aliases, primary address fields are used
-  // pickupStreetAddress?: string; 
-  // deliveryAddress_form?: string; 
-  
   shippingCost?: number; 
   totalCost?: number; 
 }

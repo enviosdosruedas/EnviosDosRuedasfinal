@@ -7,8 +7,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '../ui/skeleton';
 
-// Use a more specific type from google.maps namespace if available
-// For simplicity, using a generic literal type that's compatible.
+
 interface LatLngLiteral {
   lat: number;
   lng: number;
