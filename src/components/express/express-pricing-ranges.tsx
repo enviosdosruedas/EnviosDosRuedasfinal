@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -64,10 +63,10 @@ export function ExpressPricingRanges() {
   };
 
   return (
-    <section className="py-12 md:py-16 lg:py-20 px-4 bg-gray-50">
+    <section className="py-12 md:py-16 lg:py-20 px-4 bg-gray-50 font-sans">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-4xl font-bold text-gray-800 mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-4xl font-bold text-gray-800 mb-4 font-display">
             Tarifas Envíos Express.
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
@@ -97,21 +96,21 @@ export function ExpressPricingRanges() {
                   <div className={`w-14 h-14 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-3 border-2 ${tier.iconBorderColor}`}>
                     <Zap className={`w-7 h-7 sm:w-8 sm:h-8 ${tier.iconColor}`} />
                   </div>
-                  <CardTitle className="text-xl sm:text-2xl font-bold text-gray-800">
+                  <CardTitle className="text-xl sm:text-2xl font-bold text-gray-800 font-display">
                     {tier.name}
                   </CardTitle>
-                  <p className="text-xs sm:text-sm text-gray-500">
+                  <p className="text-xs sm:text-sm text-gray-500 font-sans">
                     {tier.distanceRange}
                   </p>
-                  <div className={`text-2xl sm:text-3xl font-bold ${tier.priceColor} my-1`}>
+                  <div className={`text-2xl sm:text-3xl font-bold ${tier.priceColor} my-1 font-display`}>
                     {tier.price}
                   </div>
                 </CardHeader>
                 <CardContent className="flex-grow">
-                  <p className="text-gray-600 mb-3 text-center text-xs sm:text-sm">
+                  <p className="text-gray-600 mb-3 text-center text-xs sm:text-sm font-sans">
                     {tier.description}
                   </p>
-                  <ul className="space-y-1.5 text-xs sm:text-sm">
+                  <ul className="space-y-1.5 text-xs sm:text-sm font-sans">
                     {tier.features.map((feature, featureIndex) => (
                       <li
                         key={featureIndex}
@@ -144,20 +143,20 @@ export function ExpressPricingRanges() {
                 <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-3 border-2 border-gray-300">
                   <Calculator className="w-7 h-7 sm:w-8 sm:h-8 text-gray-700" />
                 </div>
-                <CardTitle className="text-xl sm:text-2xl font-bold text-gray-800">
+                <CardTitle className="text-xl sm:text-2xl font-bold text-gray-800 font-display">
                   Distancias Mayores
                 </CardTitle>
-                <p className="text-xs sm:text-sm text-gray-500">
+                <p className="text-xs sm:text-sm text-gray-500 font-sans">
                   o Cotización Exacta con Mapa
                 </p>
               </CardHeader>
               <CardContent className="flex-grow flex flex-col justify-between">
-                <p className="text-gray-600 mb-3 text-center text-xs sm:text-sm">
+                <p className="text-gray-600 mb-3 text-center text-xs sm:text-sm font-sans">
                   Para envíos que superen los rangos mostrados o para una cotización precisa con visualización de ruta, utiliza nuestro cotizador Express.
                 </p>
                 <Button
                   asChild
-                  className="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold mt-3 py-2.5 text-sm sm:text-base"
+                  className="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold mt-3 py-2.5 text-sm sm:text-base font-sans"
                   size="lg"
                 >
                   <Link href="/cotizar/express">
@@ -172,7 +171,7 @@ export function ExpressPricingRanges() {
          <Card className="mt-8 md:mt-12 bg-yellow-50 border-yellow-300">
           <CardContent className="p-4 sm:p-6 flex items-start space-x-3">
             <AlertTriangle className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-600 flex-shrink-0 mt-0.5" />
-            <div>
+            <div className="font-sans">
               <h4 className="font-semibold text-yellow-800 text-sm sm:text-base">Nota Importante sobre Tarifas Express:</h4>
               <p className="text-xs sm:text-sm text-yellow-700">
                 Los precios mostrados son para los rangos iniciales y están sujetos a confirmación. El Cotizador Express proporciona el precio final más preciso basado en la distancia exacta, tiempo estimado y posibles factores adicionales (hora pico, tamaño del paquete).
