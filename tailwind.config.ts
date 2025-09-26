@@ -88,8 +88,8 @@ const config: Config = {
         "spin-slow": "spin-slow 8s linear infinite",
       },
       fontFamily: {
-        sans: ["var(--font-inter)"],
-        heading: ["var(--font-manrope)"],
+        sans: ["var(--font-roboto)", "sans-serif"],
+        display: ["var(--font-orbitron)", "monospace"],
       },
     },
   },

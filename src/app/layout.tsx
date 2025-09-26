@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Inter, Manrope,  Roboto, Orbitron } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
@@ -14,6 +14,18 @@ const manrope = Manrope({
   weight: ["700", "800"],
   variable: "--font-manrope",
 });
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-roboto",
+})
+
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  variable: "--font-orbitron",
+})
+
 
 export const metadata: Metadata = {
   title: 'EnviosDosRuedas | Mensajería y Delivery Express en Mar del Plata',
