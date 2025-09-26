@@ -20,8 +20,8 @@ export function Requirements() {
     <section className="py-16 px-4 bg-gray-50">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Requisitos y Restricciones</h2>
-          <p className="text-lg text-gray-600">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-display">Requisitos y Restricciones</h2>
+          <p className="text-lg text-gray-600 font-sans">
             Asegúrate de cumplir con estos requisitos para poder acceder a Envios Flex
           </p>
         </div>
@@ -30,11 +30,11 @@ export function Requirements() {
           {/* Requirements */}
           <Card>
             <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-green-700 mb-6 flex items-center">
+              <h3 className="text-2xl font-bold text-green-700 mb-6 flex items-center font-display">
                 <CheckCircle className="w-6 h-6 mr-2" />
                 Requisitos
               </h3>
-              <ul className="space-y-4">
+              <ul className="space-y-4 font-sans">
                 {requirements.map((requirement, index) => (
                   <li key={index} className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
@@ -48,11 +48,11 @@ export function Requirements() {
           {/* Restrictions */}
           <Card>
             <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-orange-700 mb-6 flex items-center">
+              <h3 className="text-2xl font-bold text-orange-700 mb-6 flex items-center font-display">
                 <AlertCircle className="w-6 h-6 mr-2" />
                 Restricciones
               </h3>
-              <ul className="space-y-4">
+              <ul className="space-y-4 font-sans">
                 {restrictions.map((restriction, index) => (
                   <li key={index} className="flex items-start">
                     <AlertCircle className="w-5 h-5 text-orange-500 mr-3 mt-0.5 flex-shrink-0" />
