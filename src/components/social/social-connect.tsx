@@ -36,10 +36,10 @@ export function SocialConnect() {
   ]
 
   return (
-    <section className="py-16 px-4 bg-gray-50">
+    <section className="py-16 px-4 bg-gray-50 font-sans">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-4">¡Conéctate con nosotros!</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-4 font-display">¡Conéctate con nosotros!</h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Sigue nuestras redes sociales para acceder a promociones exclusivas, actualizaciones y más.
           </p>
@@ -60,7 +60,7 @@ export function SocialConnect() {
                       )}
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold text-gray-800">{network.name}</h3>
+                      <h3 className="text-xl font-semibold text-gray-800 font-display">{network.name}</h3>
                       <p className="text-sm text-gray-500">{network.followers} {network.name !== "WhatsApp" && network.name !== "Email" ? "seguidores" : ""}</p>
                     </div>
                   </div>
