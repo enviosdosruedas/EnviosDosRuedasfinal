@@ -276,26 +276,24 @@ export function OptimizedHeader() {
           {/* Mobile Menu Button */}
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-primary-foreground hover:text-secondary hover:bg-primary-foreground/10 transition-all duration-300 rounded-full"
-                  aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
-                >
-                  <AnimatePresence initial={false} mode="wait">
-                    <motion.div
-                      key={isMenuOpen ? "x" : "menu"}
-                      initial={{ rotate: isMenuOpen ? -90 : 90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: isMenuOpen ? 90 : -90, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    >
-                      {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                    </motion.div>
-                  </AnimatePresence>
-                </Button>
-              </motion.div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-primary-foreground hover:text-secondary hover:bg-primary-foreground/10 transition-all duration-300 rounded-full"
+                aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+              >
+                <AnimatePresence initial={false} mode="wait">
+                  <motion.div
+                    key={isMenuOpen ? "x" : "menu"}
+                    initial={{ rotate: isMenuOpen ? -90 : 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: isMenuOpen ? 90 : -90, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                  </motion.div>
+                </AnimatePresence>
+              </Button>
             </SheetTrigger>
 
             <SheetContent
