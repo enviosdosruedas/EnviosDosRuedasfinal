@@ -1,6 +1,7 @@
 import { OptimizedHeader } from "@/components/homenew/optimized-header"
 import { EnhancedHero } from "@/components/homenew/enhanced-hero"
 import HeroNuevo from "@/components/homenew/hero-nuevo"
+import SliderServicios from "@/components/homenew/slider-servicios"
 import { ServicesOverview } from "@/components/homenew/services-overview"
 import { VisionSection } from "@/components/homenew/vision-section"
 import { EntrepreneurSolutions } from "@/components/homenew/entrepreneur-solutions"
@@ -14,6 +15,7 @@ export default function HomePage() {
       <OptimizedHeader />
       <EnhancedHero />
 <HeroNuevo />
+<SliderServicios />
       <ServicesOverview />
       <VisionSection />
       <EntrepreneurSolutions />
