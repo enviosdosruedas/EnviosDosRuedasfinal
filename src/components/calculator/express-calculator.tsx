@@ -76,19 +76,19 @@ export default function ExpressCalculator() {
   };
 
   return (
-    <section className="w-full py-12 md:py-16 bg-background">
+    <section className="w-full py-12 md:py-16 bg-background font-sans">
       <div className="container mx-auto px-4 md:px-6 max-w-2xl lg:max-w-3xl">
         <Card className="shadow-xl">
           <CardHeader>
-            <CardTitle className="text-2xl md:text-3xl text-primary">Calcula tu Envío Express</CardTitle>
-            <CardDescription className="text-base md:text-lg mt-1">
+            <CardTitle className="text-2xl md:text-3xl text-primary font-display">Calcula tu Envío Express</CardTitle>
+            <CardDescription className="text-base md:text-lg mt-1 font-sans">
               Ingresa las direcciones de origen y destino para obtener una cotización instantánea.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
               <div className="space-y-1.5">
-                <Label htmlFor="origin" className="text-sm md:text-base">Dirección de Origen</Label>
+                <Label htmlFor="origin" className="text-sm md:text-base font-sans">Dirección de Origen</Label>
                 <Input
                   id="origin"
                   type="text"
@@ -96,11 +96,11 @@ export default function ExpressCalculator() {
                   value={origin}
                   onChange={(e) => setOrigin(e.target.value)}
                   required
-                  className="text-sm md:text-base"
+                  className="text-sm md:text-base font-sans"
                 />
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="destination" className="text-sm md:text-base">Dirección de Destino</Label>
+                <Label htmlFor="destination" className="text-sm md:text-base font-sans">Dirección de Destino</Label>
                 <Input
                   id="destination"
                   type="text"
@@ -108,10 +108,10 @@ export default function ExpressCalculator() {
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
                   required
-                  className="text-sm md:text-base"
+                  className="text-sm md:text-base font-sans"
                 />
               </div>
-              <Button type="submit" className="w-full text-base py-2.5 md:py-3" size="lg" disabled={isCalculating}>
+              <Button type="submit" className="w-full text-base py-2.5 md:py-3 font-sans" size="lg" disabled={isCalculating}>
                 {isCalculating ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
@@ -136,15 +136,15 @@ export default function ExpressCalculator() {
             {quoteDetails && !isCalculating && (
               <Card className="mt-6 md:mt-8 bg-primary/5 border-primary/20">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-xl md:text-2xl text-primary flex items-center">
+                  <CardTitle className="text-xl md:text-2xl text-primary flex items-center font-display">
                     <PackageCheck className="mr-2 md:mr-3 h-6 w-6 md:h-7 md:w-7" />
                     Tu Cotización Express
                   </CardTitle>
-                  <CardDescription className="text-sm md:text-base mt-1">
+                  <CardDescription className="text-sm md:text-base mt-1 font-sans">
                     Basado en la distancia y tiempo estimados para tu envío.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-2 text-sm md:text-base">
+                <CardContent className="space-y-2 text-sm md:text-base font-sans">
                   <div className="flex justify-between items-center">
                     <span className="font-semibold text-foreground">Distancia:</span>
                     <span className="text-foreground">{quoteDetails.distanceText || 'N/A'}</span>
@@ -155,15 +155,15 @@ export default function ExpressCalculator() {
                   </div>
                   <hr className="my-2 border-border" />
                   <div className="flex justify-between items-center">
-                    <span className="font-semibold text-lg md:text-xl text-primary">Precio Estimado:</span>
+                    <span className="font-semibold text-lg md:text-xl text-primary font-display">Precio Estimado:</span>
                     {quoteDetails.price !== null ? (
-                      <span className="text-lg md:text-xl font-bold text-primary">${quoteDetails.price.toLocaleString('es-AR')}</span>
+                      <span className="text-lg md:text-xl font-bold text-primary font-display">${quoteDetails.price.toLocaleString('es-AR')}</span>
                     ) : (
-                      <span className="text-lg md:text-xl font-bold text-amber-600">Consultar</span>
+                      <span className="text-lg md:text-xl font-bold text-amber-600 font-display">Consultar</span>
                     )}
                   </div>
                   {quoteDetails.price === null && (
-                    <p className="text-xs md:text-sm text-amber-700 text-center pt-1">
+                    <p className="text-xs md:text-sm text-amber-700 text-center pt-1 font-sans">
                       Distancia excede rangos estándar o no pudo ser calculada. Contáctanos para cotización.
                     </p>
                   )}
@@ -171,14 +171,14 @@ export default function ExpressCalculator() {
                 <CardFooter className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-4 md:pt-6">
                   <Button 
                     size="lg" 
-                    className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white text-sm md:text-base" 
+                    className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white text-sm md:text-base font-sans" 
                     disabled={quoteDetails.price === null}
                     onClick={() => alert('Funcionalidad "Confirmar Envío" pendiente de implementación.')}
                   >
                     <ThumbsUp className="mr-2 h-4 w-4 md:h-5 md:w-5" />
                     Confirmar Envío Express
                   </Button>
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto text-sm md:text-base" onClick={handleNewQuote}>
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto text-sm md:text-base font-sans" onClick={handleNewQuote}>
                     <RotateCcw className="mr-2 h-4 w-4 md:h-5 md:w-5" />
                     Nueva Cotización
                   </Button>
