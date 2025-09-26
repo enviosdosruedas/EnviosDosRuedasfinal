@@ -7,7 +7,7 @@ export function EnviosFlexHero() {
   return (
     <HeroSection
       preTitle={
-        <Badge className="bg-blue-600 text-white hover:bg-blue-700 mb-6 px-4 py-2 text-sm font-medium">
+        <Badge className="bg-blue-600 text-white hover:bg-blue-700 mb-6 px-4 py-2 text-sm font-medium font-sans">
           Beneficio Emprendedores
         </Badge>
       }
@@ -22,15 +22,15 @@ export function EnviosFlexHero() {
       }
       description={
         <>
-          <h2 className="text-2xl md:text-3xl text-primary-foreground/90 mt-6 mb-2 font-semibold">Envios DosRuedas</h2>
+          <h2 className="text-2xl md:text-3xl text-primary-foreground/90 mt-6 mb-2 font-semibold font-display">Envios DosRuedas</h2>
           <div className="max-w-4xl mx-auto space-y-2">
-            <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
+            <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed font-sans">
               Potencia tus ventas online con envíos profesionales y entregas en el día.
             </p>
-            <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
+            <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed font-sans">
               Optimiza tus entregas con nuestro servicio especializado.
             </p>
-            <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
+            <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed font-sans">
               Ofrece envíos en el día para tus ventas antes de las 15hs.
             </p>
           </div>
@@ -45,7 +45,7 @@ export function EnviosFlexHero() {
       textAlignment="text-center"
       minHeight="min-h-[60vh]"
       className="py-12 md:py-16"
-      titleClassName="mb-4"
+      titleClassName="mb-4 font-display"
       descriptionClassName="mb-8"
     />
   );
