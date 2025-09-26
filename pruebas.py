@@ -99,11 +99,8 @@ def main():
         description="Busca caracteres mal codificados en archivos .ts y .tsx.",
         formatter_class=argparse.RawTextHelpFormatter
     )
-    parser.add_argument(
-        'directories',
-        nargs='+',
-        help="Uno o más directorios para escanear (ej. src/app src/components)."
-    )
+    
+    # Se eliminan los directorios como argumento posicional
     parser.add_argument(
         '--char',
         default='Ã',
@@ -118,10 +115,13 @@ def main():
     
     args = parser.parse_args()
 
-    logging.info(f"Iniciando búsqueda del carácter '{args.char}' en los directorios: {', '.join(args.directories)}")
+    # Directorios de búsqueda fijados
+    search_directories = ['src/app', 'src/components']
+    
+    logging.info(f"Iniciando búsqueda del carácter '{args.char}' en los directorios: {', '.join(search_directories)}")
     
     misencoded_files = find_misencoded_chars_in_project(
-        root_directories=args.directories,
+        root_directories=search_directories,
         target_char=args.char,
         max_workers=args.workers
     )
@@ -137,14 +137,6 @@ def main():
 if __name__ == "__main__":
     main()
     # Ejemplo de cómo se ejecutaría desde la terminal:
-    # python pruebas.py src/components src/app --char Ã --workers 4
-    #
-    # Para probar sin argumentos, puedes descomentar las siguientes líneas:
-    # default_dirs = ['src/app', 'src/components']
-    # logging.info(f"Ejecutando con directorios por defecto: {default_dirs}")
-    # files = find_misencoded_chars_in_project(default_dirs, 'Ã')
-    # if files:
-    #     print("\nArchivos encontrados:", files)
-    # else:
-    #     print("\nNo se encontraron archivos.")
+    # python pruebas.py --char Ã
+    # python pruebas.py --char Ã --workers 4
 ```
