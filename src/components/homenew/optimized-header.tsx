@@ -1,3 +1,4 @@
+
 "use client"
 
 import type React from "react"
@@ -12,29 +13,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose 
 import { Menu, X, Home, Calculator as CalculatorIcon, Mail, ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
-import { navGroups } from "@/lib/navigation"
-
-// Mock navigation data - replace with your actual navigation structure
-// const navGroups = [
-//   {
-//     label: "Servicios",
-//     icon: Truck,
-//     basePath: "/servicios",
-//     items: [
-//       { href: "/servicios/express", label: "Envío Express", icon: Zap },
-//       { href: "/servicios/estandar", label: "Envío Estándar", icon: Truck },
-//     ],
-//   },
-//   {
-//     label: "Empresa",
-//     icon: Users,
-//     basePath: "/empresa",
-//     items: [
-//       { href: "/empresa/nosotros", label: "Nosotros", icon: Users },
-//       { href: "/empresa/cobertura", label: "Cobertura", icon: Home },
-//     ],
-//   },
-// ]
+import { navGroups, type NavGroup } from "@/lib/navigation"
 
 const mobileNavVariants = {
   hidden: {},
@@ -130,9 +109,9 @@ export function OptimizedHeader() {
     return false
   }
 
-  const isGroupActive = (group: any) => {
+  const isGroupActive = (group: NavGroup) => {
     if (group.basePath && isActive(group.basePath)) return true
-    return group.items.some((item: any) => isActive(item.href))
+    return group.items.some((item) => isActive(item.href))
   }
 
   return (
