@@ -4,27 +4,27 @@ import { Star, ThumbsUp, PackageCheck, Smile, Award, Leaf, Quote } from "lucide-
 
 const testimonials = [
   {
-    name: "Ana Pérez",
+    name: "Ana PÃ©rez",
     avatar: "AP",
     image: "https://placehold.co/100x100.png",
     imageHint: "woman portrait",
-    quote: "¡Servicio increíblemente rápido y confiable! Siempre a tiempo y con una sonrisa. Los recomiendo totalmente.",
+    quote: "Â¡Servicio increÃ­blemente rÃ¡pido y confiable! Siempre a tiempo y con una sonrisa. Los recomiendo totalmente.",
     rating: 5,
   },
   {
-    name: "Carlos López",
+    name: "Carlos LÃ³pez",
     avatar: "CL",
     image: "https://placehold.co/100x100.png",
     imageHint: "man portrait",
-    quote: "La mejor opción para envíos en la ciudad. Muy profesionales y cuidadosos con los paquetes.",
+    quote: "La mejor opciÃ³n para envÃ­os en la ciudad. Muy profesionales y cuidadosos con los paquetes.",
     rating: 5,
   },
   {
-    name: "Laura Gómez",
+    name: "Laura GÃ³mez",
     avatar: "LG",
     image: "https://placehold.co/100x100.png",
     imageHint: "person smiling",
-    quote: "Excelente atención al cliente y mis paquetes siempre llegan en perfecto estado. ¡Gracias Envios DosRuedas!",
+    quote: "Excelente atenciÃ³n al cliente y mis paquetes siempre llegan en perfecto estado. Â¡Gracias Envios DosRuedas!",
     rating: 4,
   },
 ];
@@ -32,8 +32,8 @@ const testimonials = [
 const stats = [
   { icon: <PackageCheck className="h-8 w-8 text-primary" />, value: "5,000+", label: "Entregas Exitosas" },
   { icon: <Smile className="h-8 w-8 text-primary" />, value: "98%", label: "Clientes Satisfechos" },
-  { icon: <Award className="h-8 w-8 text-primary" />, value: "5+", label: "Años de Experiencia" },
-  { icon: <Leaf className="h-8 w-8 text-primary" />, value: "100%", label: "Envíos Ecológicos" },
+  { icon: <Award className="h-8 w-8 text-primary" />, value: "5+", label: "AÃ±os de Experiencia" },
+  { icon: <Leaf className="h-8 w-8 text-primary" />, value: "100%", label: "EnvÃ­os EcolÃ³gicos" },
 ];
 
 export function TrustSection() {
@@ -41,8 +41,8 @@ export function TrustSection() {
     <section id="trust" className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold font-headline text-primary">Nuestros Clientes Confían en Nosotros</h2>
-          <p className="text-lg text-muted-foreground mt-2">Descubre por qué somos la opción preferida para envíos.</p>
+          <h2 className="text-3xl md:text-4xl font-bold font-display text-primary">Nuestros Clientes ConfÃ­an en Nosotros</h2>
+          <p className="text-lg text-muted-foreground mt-2">Descubre por quÃ© somos la opciÃ³n preferida para envÃ­os.</p>
         </div>
 
         <div className="mb-16">
@@ -76,7 +76,7 @@ export function TrustSection() {
         </div>
 
         <div>
-          <h3 className="text-2xl font-semibold text-center mb-8 text-foreground/80">Nuestros Logros en Números</h3>
+          <h3 className="text-2xl font-semibold text-center mb-8 text-foreground/80">Nuestros Logros en NÃºmeros</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat) => (
               <Card key={stat.label} className="text-center p-6 shadow-md hover:shadow-lg transition-shadow">
@@ -84,7 +84,7 @@ export function TrustSection() {
                 <p className="text-3xl font-bold text-primary">{stat.value}</p>
                 <p className="text-sm text-muted-foreground">{stat.label}</p>
               </Card>
-            ))}
+            ))}\
           </div>
         </div>
       </div>

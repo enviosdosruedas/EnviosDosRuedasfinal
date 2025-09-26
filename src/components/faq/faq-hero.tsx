@@ -13,9 +13,9 @@ export function FaqHero() {
       title={<span className="text-secondary">Preguntas Frecuentes</span>}
       description={
         <>
-          <h2 className="text-2xl md:text-3xl text-primary-foreground/90 mt-4 mb-2 font-semibold font-heading">Envios DosRuedas</h2>
+          <h2 className="text-2xl md:text-3xl text-primary-foreground/90 mt-4 mb-2 font-semibold font-display">Envios DosRuedas</h2>
           <p className="text-lg md:text-xl text-primary-foreground/80 max-w-3xl mx-auto leading-relaxed">
-            Encuentra respuestas a las preguntas más comunes sobre nuestros servicios de mensajería y delivery en Mar del Plata.
+            Encuentra respuestas a las preguntas mÃ¡s comunes sobre nuestros servicios de mensajerÃ­a y delivery en Mar del Plata.
           </p>
         </>
       }
@@ -28,7 +28,7 @@ export function FaqHero() {
       textAlignment="text-center"
       minHeight="min-h-[50vh]"
       className="py-12 md:py-16"
-      titleClassName="text-4xl md:text-5xl lg:text-6xl font-bold font-heading"
+      titleClassName="text-4xl md:text-5xl lg:text-6xl font-bold font-display"
     />
   );
 }

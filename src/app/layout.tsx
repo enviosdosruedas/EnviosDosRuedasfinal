@@ -1,19 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Manrope,  Roboto, Orbitron } from "next/font/google";
+import { Roboto, Orbitron } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-inter",
-});
 
-const manrope = Manrope({
-  subsets: ["latin"],
-  weight: ["700", "800"],
-  variable: "--font-manrope",
-});
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -108,7 +98,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${manrope.variable} font-sans antialiased`}
+        className={`${roboto.variable} ${orbitron.variable} font-sans antialiased`}
       >
         {children}
         <Toaster />

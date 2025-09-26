@@ -9,15 +9,15 @@ export function FaqContactCta() {
       <div className="container mx-auto max-w-4xl">
         <Card className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground">
           <CardContent className="p-8 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading">¿No encontraste lo que buscabas?</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 font-display">Â¿No encontraste lo que buscabas?</h2>
             <p className="text-lg mb-8 text-primary-foreground/80">
-              Nuestro equipo está listo para ayudarte con cualquier consulta específica sobre nuestros servicios.
+              Nuestro equipo estÃ¡ listo para ayudarte con cualquier consulta especÃ­fica sobre nuestros servicios.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-green-500 hover:bg-green-600 text-white">
                 <a
-                  href="https://wa.me/5492236602699?text=Hola, tengo una consulta que no encontré en las FAQ"
+                  href="https://wa.me/5492236602699?text=Hola, tengo una consulta que no encontrÃ© en las FAQ"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

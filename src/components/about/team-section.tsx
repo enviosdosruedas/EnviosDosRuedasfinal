@@ -6,25 +6,25 @@ export function TeamSection() {
     {
       icon: User,
       title: "Equipo Directivo",
-      description: "Liderazgo comprometido con la excelencia en el servicio y la satisfacción del cliente.",
+      description: "Liderazgo comprometido con la excelencia en el servicio y la satisfacciÃ³n del cliente.",
       count: "3",
     },
     {
       icon: Bike,
       title: "Repartidores",
-      description: "Profesionales capacitados que conocen cada rincón de Mar del Plata para entregas eficientes.",
+      description: "Profesionales capacitados que conocen cada rincÃ³n de Mar del Plata para entregas eficientes.",
       count: "15+",
     },
     {
       icon: Headphones,
-      title: "Atención al Cliente",
+      title: "AtenciÃ³n al Cliente",
       description: "Equipo dedicado a resolver consultas y brindar soporte personalizado las 24 horas.",
       count: "5",
     },
     {
       icon: Settings,
-      title: "Soporte Técnico",
-      description: "Especialistas en logística y tecnología que optimizan nuestros procesos continuamente.",
+      title: "Soporte TÃ©cnico",
+      description: "Especialistas en logÃ­stica y tecnologÃ­a que optimizan nuestros procesos continuamente.",
       count: "4",
     },
   ]
@@ -33,9 +33,9 @@ export function TeamSection() {
     <section className="py-16 px-4 bg-background">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading">Nuestro Equipo</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-display">Nuestro Equipo</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Un equipo de profesionales apasionados por brindar el mejor servicio de mensajería y delivery
+            Un equipo de profesionales apasionados por brindar el mejor servicio de mensajerÃ­a y delivery
           </p>
         </div>
 
@@ -53,7 +53,7 @@ export function TeamSection() {
                       {role.count}
                     </div>
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-3 font-heading">{role.title}</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-3 font-display">{role.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{role.description}</p>
                 </CardContent>
               </Card>

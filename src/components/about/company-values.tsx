@@ -6,22 +6,22 @@ export function CompanyValues() {
     {
       icon: Heart,
       title: "Compromiso",
-      description: "Nos comprometemos con cada envío como si fuera nuestro, garantizando el mejor servicio posible.",
+      description: "Nos comprometemos con cada envÃ­o como si fuera nuestro, garantizando el mejor servicio posible.",
     },
     {
       icon: Zap,
       title: "Rapidez",
-      description: "Entendemos que el tiempo es valioso, por eso optimizamos cada ruta para entregas más rápidas.",
+      description: "Entendemos que el tiempo es valioso, por eso optimizamos cada ruta para entregas mÃ¡s rÃ¡pidas.",
     },
     {
       icon: Shield,
       title: "Confiabilidad",
-      description: "Tu tranquilidad es nuestra prioridad. Cada paquete está  monitoreado en tiempo real.",
+      description: "Tu tranquilidad es nuestra prioridad. Cada paquete estÃ¡  monitoreado en tiempo real.",
     },
     {
       icon: Users,
-      title: "Cercanía",
-      description: "Somos una empresa local que entiende las necesidades específicas de Mar del Plata y su gente.",
+      title: "CercanÃ­a",
+      description: "Somos una empresa local que entiende las necesidades especÃ­ficas de Mar del Plata y su gente.",
     },
   ]
 
@@ -29,9 +29,9 @@ export function CompanyValues() {
     <section className="py-16 px-4 bg-background">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading">Nuestros Valores</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-display">Nuestros Valores</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Los principios que guían nuestro trabajo diario y nos permiten brindar un servicio excepcional
+            Los principios que guÃ­an nuestro trabajo diario y nos permiten brindar un servicio excepcional
           </p>
         </div>
 
@@ -44,7 +44,7 @@ export function CompanyValues() {
                   <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <IconComponent className="w-8 h-8 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-3 font-heading">{value.title}</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-3 font-display">{value.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{value.description}</p>
                 </CardContent>
               </Card>

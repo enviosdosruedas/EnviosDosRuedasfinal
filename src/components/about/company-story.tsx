@@ -7,7 +7,7 @@ export function CompanyStory() {
       icon: Calendar,
       year: "2020",
       title: "Nuestros Inicios",
-      description: "Comenzamos como un pequeño servicio de mensajería local con una sola moto y mucha pasión.",
+      description: "Comenzamos como un pequeÃ±o servicio de mensajerÃ­a local con una sola moto y mucha pasiÃ³n.",
     },
     {
       icon: TrendingUp,
@@ -24,7 +24,7 @@ export function CompanyStory() {
     {
       icon: MapPin,
       year: "2024",
-      title: "Expansión",
+      title: "ExpansiÃ³n",
       description: "Hoy cubrimos toda Mar del Plata y localidades cercanas con un equipo de profesionales.",
     },
   ]
@@ -33,7 +33,7 @@ export function CompanyStory() {
     <section className="py-16 px-4 bg-muted/50">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading">Nuestra Historia</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-display">Nuestra Historia</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Desde nuestros humildes comienzos hasta convertirnos en la empresa de confianza en Mar del Plata
           </p>
@@ -51,7 +51,7 @@ export function CompanyStory() {
                     </div>
                     <span className="text-2xl font-bold text-secondary">{milestone.year}</span>
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-3 font-heading">{milestone.title}</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-3 font-display">{milestone.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{milestone.description}</p>
                 </CardContent>
               </Card>

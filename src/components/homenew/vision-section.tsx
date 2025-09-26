@@ -21,25 +21,25 @@ export function VisionSection() {
       icon: Users,
       number: "5000+",
       label: "Clientes Satisfechos",
-      description: "Empresas y emprendedores confían en nosotros",
+      description: "Empresas y emprendedores confÃ­an en nosotros",
     },
     {
       icon: Clock,
       number: "98%",
       label: "Entregas a Tiempo",
-      description: "Puntualidad garantizada en cada envío",
+      description: "Puntualidad garantizada en cada envÃ­o",
     },
     {
       icon: Shield,
       number: "100%",
-      label: "Envíos Seguros",
-      description: "Protección total de tus paquetes",
+      label: "EnvÃ­os Seguros",
+      description: "ProtecciÃ³n total de tus paquetes",
     },
     {
       icon: Award,
       number: "7+",
-      label: "Años de Experiencia",
-      description: "Líderes en mensajería en Mar del Plata",
+      label: "AÃ±os de Experiencia",
+      description: "LÃ­deres en mensajerÃ­a en Mar del Plata",
     },
   ]
 
@@ -128,7 +128,7 @@ export function VisionSection() {
           </motion.div>
 
           <motion.h2
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center font-heading"
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center font-display"
             animate={{
               backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
             }}
@@ -145,15 +145,15 @@ export function VisionSection() {
               backgroundClip: "text",
             }}
           >
-            Nuestra <span className="text-secondary">Visión Global</span>
+            Nuestra <span className="text-secondary">VisiÃ³n Global</span>
           </motion.h2>
 
           <motion.p
             variants={itemVariants}
             className="text-lg md:text-xl text-primary-foreground/80 max-w-3xl text-center font-sans leading-relaxed"
           >
-            Datos que respaldan nuestra calidad y compromiso. Descubre por qué somos la{" "}
-            <span className="text-secondary font-semibold">solución confiable</span> para tus envíos en Mar del Plata.
+            Datos que respaldan nuestra calidad y compromiso. Descubre por quÃ© somos la{" "}
+            <span className="text-secondary font-semibold">soluciÃ³n confiable</span> para tus envÃ­os en Mar del Plata.
           </motion.p>
         </motion.div>
 
@@ -175,7 +175,7 @@ export function VisionSection() {
               </motion.div>
 
               <motion.div
-                className="text-3xl md:text-4xl font-bold text-secondary mb-2 font-heading"
+                className="text-3xl md:text-4xl font-bold text-secondary mb-2 font-display"
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
@@ -184,7 +184,7 @@ export function VisionSection() {
                 {stat.number}
               </motion.div>
 
-              <h3 className="text-lg font-semibold text-primary-foreground mb-2 font-heading">{stat.label}</h3>
+              <h3 className="text-lg font-semibold text-primary-foreground mb-2 font-display">{stat.label}</h3>
 
               <p className="text-sm text-primary-foreground/70 leading-relaxed">{stat.description}</p>
             </motion.div>
@@ -227,7 +227,7 @@ export function VisionSection() {
         {/* CTA Section */}
         <motion.div variants={itemVariants} className="text-center space-y-6">
           <motion.p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto" variants={itemVariants}>
-            ¿Listo para formar parte de nuestra familia de clientes satisfechos?
+            Â¿Listo para formar parte de nuestra familia de clientes satisfechos?
           </motion.p>
 
           <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
@@ -237,7 +237,7 @@ export function VisionSection() {
               className="bg-gradient-to-r from-secondary to-secondary/90 hover:from-secondary/90 hover:to-secondary/80 text-secondary-foreground font-bold px-8 py-4 text-lg rounded-full shadow-2xl hover:shadow-secondary/25 border border-secondary/20"
             >
               <Link href="/nosotros/sobre-nosotros" className="flex items-center gap-3">
-                Conocé más sobre nosotros
+                ConocÃ© mÃ¡s sobre nosotros
                 <motion.div animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}>
                   <ArrowRight className="w-5 h-5" />
                 </motion.div>

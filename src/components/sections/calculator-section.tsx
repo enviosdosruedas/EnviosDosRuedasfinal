@@ -31,7 +31,7 @@ export function CalculatorSection() {
         (length && (isNaN(numLength) || numLength <= 0)) ||
         (width && (isNaN(numWidth) || numWidth <= 0)) ||
         (height && (isNaN(numHeight) || numHeight <= 0))) {
-      setError('Por favor, introduce valores válidos para peso y dimensiones (si aplican). El peso debe ser mayor a 0.');
+      setError('Por favor, introduce valores vÃ¡lidos para peso y dimensiones (si aplican). El peso debe ser mayor a 0.');
       return;
     }
     if (!origin.trim() || !destination.trim()) {
@@ -43,7 +43,7 @@ export function CalculatorSection() {
     // Simple calculation logic (example)
     // Base rate: $50
     // Weight factor: $10 per kg
-    // Size factor: $0.01 per cm³ (if dimensions provided)
+    // Size factor: $0.01 per cmÂ³ (if dimensions provided)
     let cost = 50;
     cost += numWeight * 10;
 
@@ -64,12 +64,12 @@ export function CalculatorSection() {
     <section id="calculator" className="py-16 md:py-24 bg-primary/5">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold font-headline text-primary">Calculadora de Costos de Envío</h2>
-          <p className="text-lg text-muted-foreground mt-2">Obtén una estimación instantánea para tu envío.</p>
+          <h2 className="text-3xl md:text-4xl font-bold font-display text-primary">Calculadora de Costos de EnvÃ­o</h2>
+          <p className="text-lg text-muted-foreground mt-2">ObtÃ©n una estimaciÃ³n instantÃ¡nea para tu envÃ­o.</p>
         </div>
         <Card className="max-w-2xl mx-auto shadow-xl">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Calculator className="h-6 w-6 text-primary"/> Ingresa los Detalles del Envío</CardTitle>
+            <CardTitle className="flex items-center gap-2"><Calculator className="h-6 w-6 text-primary"/> Ingresa los Detalles del EnvÃ­o</CardTitle>
             <CardDescription>Completa los campos para estimar el costo.</CardDescription>
           </CardHeader>
           <form onSubmit={calculateCost}>
@@ -77,11 +77,11 @@ export function CalculatorSection() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <Label htmlFor="origin">Origen</Label>
-                  <Input id="origin" placeholder="Ciudad, Código Postal" value={origin} onChange={(e) => setOrigin(e.target.value)} required />
+                  <Input id="origin" placeholder="Ciudad, CÃ³digo Postal" value={origin} onChange={(e) => setOrigin(e.target.value)} required />
                 </div>
                 <div>
                   <Label htmlFor="destination">Destino</Label>
-                  <Input id="destination" placeholder="Ciudad, Código Postal" value={destination} onChange={(e) => setDestination(e.target.value)} required />
+                  <Input id="destination" placeholder="Ciudad, CÃ³digo Postal" value={destination} onChange={(e) => setDestination(e.target.value)} required />
                 </div>
               </div>
               <div>
