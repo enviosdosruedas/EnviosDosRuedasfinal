@@ -8,10 +8,10 @@ export function PricingPlans() {
   const plans = motoFijaPlans;
 
   return (
-    <section className="py-16 px-4 bg-gray-50">
+    <section className="py-16 px-4 bg-gray-50 font-sans">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Planes y Tarifas</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-display">Planes y Tarifas</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Elige el plan que mejor se adapte a las necesidades de tu negocio
           </p>
@@ -32,9 +32,9 @@ export function PricingPlans() {
                 </Badge>
               )}
               <CardHeader className="text-center pb-4">
-                <CardTitle className="text-2xl font-bold text-gray-800">{plan.name}</CardTitle>
+                <CardTitle className="text-2xl font-bold text-gray-800 font-display">{plan.name}</CardTitle>
                 <div className="text-sm text-gray-500 mb-2">{plan.duration}</div>
-                <div className="text-3xl font-bold text-blue-600 my-2">{plan.price}</div>
+                <div className="text-3xl font-bold text-blue-600 my-2 font-display">{plan.price}</div>
                 <p className="text-gray-600">{plan.description}</p>
               </CardHeader>
               <CardContent>
