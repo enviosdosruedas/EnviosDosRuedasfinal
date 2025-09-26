@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -62,10 +61,10 @@ export function PricingComparison() {
     <section className="py-16 px-4 bg-gray-50">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-display">
             Tarifas Envíos Low Cost por Distancia
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto font-sans">
             Encuentra el precio de tu envío Low Cost según la distancia.
             Transparencia y ahorro garantizado.
           </p>
@@ -76,7 +75,7 @@ export function PricingComparison() {
             return (
               <Card
                 key={index}
-                className={`relative ${tier.color} border-2 hover:shadow-lg transition-shadow duration-300 flex flex-col`}
+                className={`relative ${tier.color} border-2 hover:shadow-lg transition-shadow duration-300 flex flex-col font-sans`}
               >
                 <Badge
                   className={`absolute -top-3 left-1/2 transform -translate-x-1/2 ${tier.badgeColor} text-white px-3 py-1 text-xs`}
@@ -87,13 +86,13 @@ export function PricingComparison() {
                   <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-green-200">
                     <Coins className="w-8 h-8 text-green-600" />
                   </div>
-                  <CardTitle className="text-2xl font-bold text-gray-800">
+                  <CardTitle className="text-2xl font-bold text-gray-800 font-display">
                     {tier.name}
                   </CardTitle>
                   <p className="text-sm text-gray-500">
                     {tier.distanceRange}
                   </p>
-                  <div className="text-3xl font-bold text-green-700 my-2">
+                  <div className="text-3xl font-bold text-green-700 my-2 font-display">
                     {tier.price}
                   </div>
                 </CardHeader>
@@ -118,7 +117,7 @@ export function PricingComparison() {
           })}
 
           {/* Card especial para distancias mayores */}
-          <Card className="relative border-blue-200 bg-blue-50 border-2 hover:shadow-lg transition-shadow duration-300 flex flex-col">
+          <Card className="relative border-blue-200 bg-blue-50 border-2 hover:shadow-lg transition-shadow duration-300 flex flex-col font-sans">
             <Badge
                 className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-3 py-1 text-xs"
             >
@@ -128,7 +127,7 @@ export function PricingComparison() {
               <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-blue-200">
                 <HelpCircle className="w-8 h-8 text-blue-600" />
               </div>
-              <CardTitle className="text-2xl font-bold text-gray-800">
+              <CardTitle className="text-2xl font-bold text-gray-800 font-display">
                 Más de 13 km
               </CardTitle>
               <p className="text-sm text-gray-500">
