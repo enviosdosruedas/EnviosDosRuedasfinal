@@ -22,12 +22,12 @@ export function LowcostContent() {
   ]
 
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="py-16 px-4 bg-white font-sans">
       <div className="container mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content - Large Branding */}
           <div className="flex justify-center lg:justify-start">
-            <div className="text-center lg:text-left">
+            <div className="text-center lg:text-left font-display">
               <div className="space-y-2">
                 <div className="text-6xl md:text-7xl lg:text-8xl font-bold text-transparent bg-gradient-to-r from-blue-400 to-teal-500 bg-clip-text">
                   ENVIOS
@@ -39,7 +39,7 @@ export function LowcostContent() {
 
           {/* Right Content */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-6">Mensajería y Envíos Low Cost</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-6 font-display">Mensajería y Envíos Low Cost</h2>
             <p className="text-lg text-gray-700 mb-8 leading-relaxed">
             ¿No tenés apuro? Ahorrá en tus envíos con nuestro servicio de mensajería low cost. Programamos tus entregas en rutas optimizadas para ofrecerte el mejor precio sin sacrificar la seguridad y confiabilidad.
             </p>
@@ -54,7 +54,7 @@ export function LowcostContent() {
                       <IconComponent className="w-6 h-6 text-blue-600" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold text-blue-800 mb-2">{feature.title}</h3>
+                      <h3 className="text-xl font-semibold text-blue-800 mb-2 font-display">{feature.title}</h3>
                       <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                     </div>
                   </div>
