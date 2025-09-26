@@ -63,7 +63,7 @@ export function ServicesOverview() {
                   src={service.imageUrl}
                   alt={`Imagen de fondo para ${service.title}`}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 33vw"
                   className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover/card:scale-105"
                   data-ai-hint={service.imageHint}
                 />
