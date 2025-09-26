@@ -139,4 +139,3 @@ if __name__ == "__main__":
     # Ejemplo de cómo se ejecutaría desde la terminal:
     # python pruebas.py --char Ã
     # python pruebas.py --char Ã --workers 4
-```

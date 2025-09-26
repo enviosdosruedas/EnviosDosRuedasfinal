@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect } from "react"
@@ -92,15 +93,15 @@ export function Footer() {
                   />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-secondary group-hover:text-yellow-300 transition-colors duration-300 font-heading">
+                  <h3 className="text-xl font-bold text-secondary group-hover:text-yellow-300 transition-colors duration-300 font-display">
                     Envios DosRuedas
                   </h3>
-                  <p className="text-xs text-primary-foreground/70 -mt-0.5">Tu Solución Confiable</p>
+                  <p className="text-xs text-primary-foreground/70 -mt-0.5 font-sans">Tu Solución Confiable</p>
                 </div>
               </Link>
             </motion.div>
 
-            <p className="text-sm mb-6 leading-relaxed text-primary-foreground/80">
+            <p className="text-sm mb-6 leading-relaxed text-primary-foreground/80 font-sans">
               Tu solución confiable para mensajería y delivery en Mar del Plata y alrededores. Ofrecemos servicios
               rápidos, seguros y económicos.
             </p>
@@ -129,7 +130,7 @@ export function Footer() {
           </motion.div>
 
           {/* Navigation Menus */}
-          {navGroups.map((group, groupIndex) => (
+          {navGroups.slice(0, 2).map((group, groupIndex) => (
             <motion.div
               key={group.label}
               initial={{ opacity: 0, y: 20 }}
@@ -138,7 +139,7 @@ export function Footer() {
               transition={{ delay: 0.2 + groupIndex * 0.1, duration: 0.6 }}
             >
               <div className="relative mb-6">
-                <h4 className="font-heading text-lg font-bold text-primary-foreground mb-2">{group.label}</h4>
+                <h4 className="font-display text-lg font-bold text-primary-foreground mb-2">{group.label}</h4>
                 <motion.div
                   className="h-0.5 w-12 bg-gradient-to-r from-secondary to-secondary/50 rounded-full"
                   initial={{ scaleX: 0 }}
@@ -147,7 +148,7 @@ export function Footer() {
                   transition={{ delay: 0.3 + groupIndex * 0.1, duration: 0.5 }}
                 />
               </div>
-              <ul className="space-y-3">
+              <ul className="space-y-3 font-sans">
                 {group.items.map((item, itemIndex) => {
                   const Icon = item.icon
                   return (
@@ -185,7 +186,7 @@ export function Footer() {
             transition={{ delay: 0.4, duration: 0.6 }}
           >
             <div className="relative mb-6">
-              <h4 className="font-heading text-lg font-bold text-primary-foreground mb-2">Contacto Rápido</h4>
+              <h4 className="font-display text-lg font-bold text-primary-foreground mb-2">Contacto Rápido</h4>
               <motion.div
                 className="h-0.5 w-12 bg-gradient-to-r from-secondary to-secondary/50 rounded-full"
                 initial={{ scaleX: 0 }}
@@ -194,7 +195,7 @@ export function Footer() {
                 transition={{ delay: 0.5, duration: 0.5 }}
               />
             </div>
-            <ul className="space-y-4">
+            <ul className="space-y-4 font-sans">
               {[
                 { Icon: MapPin, text: "Mar del Plata, Argentina" },
                 { Icon: Phone, text: "223-660-2699", href: "tel:2236602699" },
@@ -239,7 +240,7 @@ export function Footer() {
           viewport={{ once: true }}
           transition={{ delay: 0.7, duration: 0.6 }}
         >
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 font-sans">
             <div className="flex items-center gap-4">
               {currentYear !== null && (
                 <p className="text-sm text-primary-foreground/70">
