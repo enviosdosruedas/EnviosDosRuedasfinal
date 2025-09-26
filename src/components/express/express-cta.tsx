@@ -22,13 +22,13 @@ export function ExpressCta() {
             <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Zap className="w-8 h-8 text-red-600" />
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">¿Necesitas un Envío?</h2>
-            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-display">¿Necesitas un Envío?</h2>
+            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto font-sans">
             No esperes más. Nuestro equipo está listo para manejar tu envío express y garantizar que llegue a tiempo. ¡Cada minuto cuenta!
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white font-semibold">
+              <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white font-semibold font-sans">
                 <Link href="/cotizar/express">
                   <Zap className="w-5 h-5 mr-2" />
                   Cotizar Express Ahora
@@ -37,7 +37,7 @@ export function ExpressCta() {
               <Button
                 onClick={handleWhatsAppClick}
                 size="lg"
-                className="bg-green-500 hover:bg-green-600 text-white font-semibold"
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold font-sans"
               >
                 <Image src="/icon/icon-whatsapp.svg" alt="WhatsApp Icon" width={20} height={20} className="w-5 h-5 mr-2" />
                 WhatsApp Prioritario
