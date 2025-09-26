@@ -71,7 +71,7 @@ export function EntrepreneurSolutions() {
   }
 
   return (
-    <section className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-blue-50/50 to-slate-100 overflow-hidden">
+    <section className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-blue-50/50 to-slate-100 overflow-hidden font-sans">
       {/* Background decorations */}
       <div className="absolute inset-0">
         {[...Array(6)].map((_, i) => (
@@ -115,7 +115,7 @@ export function EntrepreneurSolutions() {
           </motion.div>
 
           <motion.h2
-            className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-foreground mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-foreground mb-6"
             animate={{
               backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
             }}
@@ -221,7 +221,7 @@ export function EntrepreneurSolutions() {
                        {/* Content overlay */}
                       <div className="absolute bottom-0 left-0 right-0 p-6">
                         <div className="space-y-2">
-                          <h3 className="text-xl font-bold text-white leading-tight">{solution.title}</h3>
+                          <h3 className="text-xl font-bold text-white leading-tight font-display">{solution.title}</h3>
                           <p className="text-sm text-zinc-200 line-clamp-2 leading-relaxed">{solution.description}</p>
                         </div>
                       </div>
