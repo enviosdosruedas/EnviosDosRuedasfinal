@@ -1,11 +1,10 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { TrendingUp, Users, Package, Sparkles, ArrowUpRight, CheckCircle } from "lucide-react"
+import { TrendingUp, Users, Package, Sparkles, ArrowUpRight } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { cn } from "@/lib/utils"
 
 export function EntrepreneurSolutions() {
   const solutions = [
@@ -13,7 +12,6 @@ export function EntrepreneurSolutions() {
       icon: TrendingUp,
       title: "Plan Emprendedores",
       description: "Tarifas preferenciales y servicios adaptados para hacer crecer tu negocio online",
-      features: ["Tarifas LowCost", "Facturación mensual", "Soporte dedicado", "Reportes detallados"],
       link: "/servicios/plan-emprendedores",
       image: "/cards/card1.png",
       badge: "Emprendedores",
@@ -23,7 +21,6 @@ export function EntrepreneurSolutions() {
       icon: Package,
       title: "Envíos Flex MercadoLibre",
       description: "Integración perfecta con MercadoLibre para potenciar tus ventas",
-      features: ["Entregas el mismo día", "Mejora tu reputación", "Tarifas LowCost", "API integrada"],
       link: "/servicios/enviosflex",
       image: "/cards/card2.png",
       badge: "MercadoLibre",
@@ -33,7 +30,6 @@ export function EntrepreneurSolutions() {
       icon: Users,
       title: "Moto Fija para Negocios",
       description: "Repartidor dedicado exclusivamente para tu empresa",
-      features: ["Repartidor exclusivo", "Horarios personalizados", "Rutas optimizadas", "Seguimiento GPS"],
       link: "/servicios/moto-fija",
       image: "/cards/card3.png",
       badge: "Dedicado",
@@ -159,7 +155,6 @@ export function EntrepreneurSolutions() {
                 variants={itemVariants}
                 className="relative group/card rounded-lg overflow-hidden shadow-lg h-[450px]"
               >
-                <Link href={solution.link} className="block w-full h-full">
                   <div className="absolute inset-0">
                     <Image
                       src={solution.image}
@@ -173,6 +168,7 @@ export function EntrepreneurSolutions() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                   
                   <div className="relative z-10 p-6 flex flex-col h-full justify-end text-white">
+                    <Link href={solution.link} className="absolute inset-0" aria-label={solution.title}></Link>
                       <div className="flex justify-between items-start mb-4">
                         <span className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-black/30 backdrop-blur-md shadow-lg border border-white/20">
                           {solution.badge}
@@ -190,7 +186,6 @@ export function EntrepreneurSolutions() {
                           </div>
                       </div>
                   </div>
-                </Link>
               </motion.div>
             )
           })}
