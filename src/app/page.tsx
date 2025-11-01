@@ -3,7 +3,7 @@ import HeroAnimado from "@/components/homenew/hero-animado"
 import SliderServicios from "@/components/homenew/slider-servicios"
 import { ServicesOverview } from "@/components/homenew/services-overview"
 import { VisionSection } from "@/components/homenew/vision-section"
-import { EntrepreneurSolutions } from "@/components/homenew/entrepreneur-solutions"
+import { EmprendedoresHome } from "@/components/homenew/emprendedores-home"
 import { CtaSection } from "@/components/homenew/cta-section"
 import { CarruselRedes } from "@/components/homenew/carrusel-redes"
 import { Footer } from "@/components/homenew/footer"
@@ -16,7 +16,7 @@ export default function HomePage() {
       <VisionSection />
       <ServicesOverview />
       <CtaSection />
-      <EntrepreneurSolutions />
+      <EmprendedoresHome />
       <SliderServicios />
       <CarruselRedes />
       <Footer />
