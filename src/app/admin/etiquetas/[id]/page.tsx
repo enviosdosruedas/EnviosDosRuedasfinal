@@ -8,11 +8,17 @@ import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
 import { Package } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { ServiceTypeEnum, Etiqueta } from "@prisma/client";
 
 
 interface PageProps {
   params: { id: string };
 }
+
+type FormattedEtiquetaType = Omit<Etiqueta, 'montoACobrar'> & {
+  montoACobrar: number | null;
+};
+
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = params;
@@ -59,7 +65,7 @@ export default async function EtiquetaPage({ params }: PageProps) {
     }
   }
 
-  const formattedEtiqueta = etiqueta ? {
+  const formattedEtiqueta: FormattedEtiquetaType | null = etiqueta ? {
     ...etiqueta,
     montoACobrar: etiqueta.montoACobrar?.toNumber() ?? null,
   } : null;
