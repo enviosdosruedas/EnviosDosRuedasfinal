@@ -38,7 +38,9 @@ export async function login(
 
   if (username === ADMIN_USER && password === ADMIN_PASS) {
     // Set a session cookie
-    cookies().set('admin-auth-token', 'your-secret-session-token', {
+    (await
+      // Set a session cookie
+      cookies()).set('admin-auth-token', 'your-secret-session-token', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       maxAge: 60 * 60 * 24, // 1 day
@@ -56,6 +58,6 @@ export async function login(
 }
 
 export async function logout() {
-  cookies().delete('admin-auth-token');
+  (await cookies()).delete('admin-auth-token');
   redirect('/admin/login');
 }
