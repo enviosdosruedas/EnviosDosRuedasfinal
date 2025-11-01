@@ -69,7 +69,6 @@ export function EntrepreneurSolutions() {
 
   return (
     <section className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-blue-50/50 to-slate-100 overflow-hidden font-sans">
-      {/* Background decorations */}
       <div className="absolute inset-0">
         {[...Array(6)].map((_, i) => (
           <motion.div
@@ -197,7 +196,6 @@ export function EntrepreneurSolutions() {
           })}
         </motion.div>
 
-        {/* Bottom CTA */}
         <motion.div
           className="text-center mt-16"
           initial={{ opacity: 0, y: 30 }}
