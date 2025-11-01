@@ -48,7 +48,6 @@ const mobileNavItemVariants = {
   },
 }
 
-// --- CORRECCIÓN: El componente NavLink ahora acepta 'scrolled' ---
 const NavLink = ({
   href,
   children,
@@ -58,7 +57,7 @@ const NavLink = ({
   href: string
   children: React.ReactNode
   isActive: boolean
-  scrolled: boolean // Prop 'scrolled' añadida
+  scrolled: boolean
 }) => (
   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
     <Link
@@ -67,11 +66,7 @@ const NavLink = ({
         "flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200",
         isActive
           ? "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary"
-          : // --- CORRECCIÓN: Cambia el color del texto basado en 'scrolled' ---
-            cn(
-              scrolled ? "text-foreground" : "text-primary-foreground",
-              "hover:text-secondary hover:bg-primary-foreground/10",
-            ),
+          : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/10",
       )}
     >
       {children}
@@ -96,7 +91,6 @@ export function OptimizedHeader() {
       setScrolled(window.scrollY > 10)
     }
     window.addEventListener("scroll", handleScroll)
-    // Ejecutar una vez al cargar por si la página carga con scroll
     handleScroll() 
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -106,7 +100,7 @@ export function OptimizedHeader() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-white/95 backdrop-blur-sm shadow-md"
+          ? "bg-primary/95 backdrop-blur-sm shadow-md border-b border-primary-foreground/10"
           : "bg-transparent",
       )}
       initial={{ y: -100 }}
@@ -126,11 +120,10 @@ export function OptimizedHeader() {
               className="h-12 w-12 md:h-14 md:w-14"
             />
           </motion.div>
-          {/* --- CORRECCIÓN: Color de texto del logo --- */}
           <span
             className={cn(
               "hidden text-lg font-bold sm:inline-block transition-colors duration-300",
-              scrolled ? "text-foreground" : "text-primary-foreground",
+              "text-primary-foreground",
             )}
           >
             Envíos Dos Ruedas
@@ -139,7 +132,6 @@ export function OptimizedHeader() {
 
         {/* Desktop Navigation (lg) */}
         <nav className="hidden items-center space-x-2 lg:flex">
-          {/* --- CORRECCIÓN: Pasando 'scrolled' a NavLink --- */}
           <NavLink href="/" isActive={isActive("/")} scrolled={scrolled}>
             <Home className="mr-2 h-4 w-4" />
             Inicio
@@ -156,11 +148,7 @@ export function OptimizedHeader() {
                       "flex cursor-pointer items-center space-x-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200",
                       groupIsActive
                         ? "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary"
-                        : // --- CORRECCIÓN: Color de texto del Dropdown ---
-                          cn(
-                            scrolled ? "text-foreground" : "text-primary-foreground",
-                            "hover:text-secondary hover:bg-primary-foreground/10",
-                          ),
+                        : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/10",
                     )}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -170,7 +158,7 @@ export function OptimizedHeader() {
                     <ChevronDown className="h-4 w-4" />
                   </motion.div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="mt-2 w-56 backdrop-blur-md">
+                <DropdownMenuContent className="mt-2 w-56 bg-popover/80 backdrop-blur-lg border-primary-foreground/10 text-popover-foreground">
                   {group.items.map((item) => {
                     const ItemIcon = item.icon
                     return (
@@ -193,7 +181,6 @@ export function OptimizedHeader() {
             )
           })}
 
-          {/* --- CORRECCIÓN: Pasando 'scrolled' a NavLink --- */}
           <NavLink href="/contacto" isActive={isActive("/contacto")} scrolled={scrolled}>
             <Mail className="mr-2 h-4 w-4" />
             Contacto
@@ -217,17 +204,16 @@ export function OptimizedHeader() {
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
-                {/* --- CORRECCIÓN: Color del icono de Menú --- */}
                 <Menu
                   className={cn(
                     "h-6 w-6 transition-colors duration-300",
-                    scrolled ? "text-foreground" : "text-primary-foreground",
+                    "text-primary-foreground",
                   )}
                 />
                 <span className="sr-only">Abrir menú</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] bg-white pt-10">
+            <SheetContent side="right" className="w-[300px] bg-primary text-primary-foreground pt-10">
               <SheetHeader className="mb-6 flex flex-row items-center space-x-2">
                 <Image
                   src="/LogoEnviosDosRuedas.webp"
@@ -235,13 +221,11 @@ export function OptimizedHeader() {
                   width={40}
                   height={40}
                 />
-                {/* --- CORRECCIÓN: Color del título del Sheet --- */}
-                <SheetTitle className="text-foreground">
+                <SheetTitle className="text-secondary">
                   Envíos Dos Ruedas
                 </SheetTitle>
               </SheetHeader>
 
-              {/* --- SECCIÓN MÓVIL OPTIMIZADA CON COLORES CORREGIDOS --- */}
               <motion.div
                 className="flex h-full flex-col"
                 variants={mobileNavVariants}
@@ -257,8 +241,7 @@ export function OptimizedHeader() {
                         "flex items-center space-x-4 py-4 px-4 rounded-xl transition-all duration-300 w-full text-left group",
                         isActive("/")
                           ? "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary font-semibold shadow-lg"
-                          : // --- CORRECCIÓN: Color de texto móvil ---
-                            "text-foreground hover:text-secondary hover:bg-black/5",
+                          : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/5",
                       )}
                     >
                       <Home className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
@@ -281,8 +264,7 @@ export function OptimizedHeader() {
                               "py-4 px-4 rounded-xl transition-all duration-300 w-full justify-between group",
                               groupIsActive
                                 ? "text-secondary font-semibold [&[data-state=open]]:bg-gradient-to-r [&[data-state=open]]:from-secondary/20 [&[data-state=open]]:to-secondary/10"
-                                : // --- CORRECCIÓN: Color de texto móvil ---
-                                  "text-foreground hover:text-secondary hover:bg-black/5",
+                                : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/5",
                               "hover:no-underline",
                             )}
                           >
@@ -303,8 +285,7 @@ export function OptimizedHeader() {
                                         "flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 w-full text-left",
                                         isActive(item.href)
                                           ? "bg-secondary/10 text-secondary font-medium"
-                                          : // --- CORRECCIÓN: Color de texto móvil ---
-                                            "text-foreground/80 hover:text-secondary hover:bg-black/5",
+                                          : "text-primary-foreground/80 hover:text-secondary hover:bg-primary-foreground/5",
                                       )}
                                     >
                                       {ItemIcon && <ItemIcon className="w-4 h-4" />}
@@ -330,8 +311,7 @@ export function OptimizedHeader() {
                         "flex items-center space-x-4 py-4 px-4 rounded-xl transition-all duration-300 w-full text-left group",
                         isActive("/contacto")
                           ? "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary font-semibold shadow-lg"
-                          : // --- CORRECCIÓN: Color de texto móvil ---
-                            "text-foreground hover:text-secondary hover:bg-black/5",
+                          : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/5",
                       )}
                     >
                       <Mail className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
@@ -348,7 +328,6 @@ export function OptimizedHeader() {
                         size="lg"
                         className="w-full bg-gradient-to-r from-secondary to-secondary/90 hover:from-secondary/90 hover:to-secondary/80 text-secondary-foreground shadow-lg font-semibold rounded-xl"
                       >
-                        {/* El icono aquí hereda 'text-secondary-foreground', que es oscuro y correcto */}
                         <CalculatorIcon className="w-5 h-5 mr-3" />
                         Cotizar Envío
                       </Button>
