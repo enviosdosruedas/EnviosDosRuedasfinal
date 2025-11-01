@@ -17,7 +17,6 @@ import { Menu, X, Home, Calculator as CalculatorIcon, Mail, ChevronDown } from "
 import { cn } from "@/lib/utils"
 import { motion } from "framer-motion"
 import { navGroups, type NavGroup } from "@/lib/navigation"
-
 import {
   Accordion,
   AccordionContent,
@@ -49,17 +48,30 @@ const mobileNavItemVariants = {
   },
 }
 
-const NavLink = ({ href, children, isActive, isScrolled }: { href: string; children: React.ReactNode; isActive: boolean; isScrolled: boolean }) => (
+// --- CORRECCIÓN: El componente NavLink ahora acepta 'scrolled' ---
+const NavLink = ({
+  href,
+  children,
+  isActive,
+  scrolled,
+}: {
+  href: string
+  children: React.ReactNode
+  isActive: boolean
+  scrolled: boolean // Prop 'scrolled' añadida
+}) => (
   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
     <Link
       href={href}
       className={cn(
-        "px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200",
+        "flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200",
         isActive
           ? "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary"
-          : isScrolled
-          ? "text-foreground hover:text-secondary hover:bg-muted"
-          : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/10",
+          : // --- CORRECCIÓN: Cambia el color del texto basado en 'scrolled' ---
+            cn(
+              scrolled ? "text-foreground" : "text-primary-foreground",
+              "hover:text-secondary hover:bg-primary-foreground/10",
+            ),
       )}
     >
       {children}
@@ -84,6 +96,8 @@ export function OptimizedHeader() {
       setScrolled(window.scrollY > 10)
     }
     window.addEventListener("scroll", handleScroll)
+    // Ejecutar una vez al cargar por si la página carga con scroll
+    handleScroll() 
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -112,17 +126,21 @@ export function OptimizedHeader() {
               className="h-12 w-12 md:h-14 md:w-14"
             />
           </motion.div>
-          <span className={cn(
-            "hidden text-lg font-bold sm:inline-block transition-colors duration-300",
-            scrolled ? "text-primary" : "text-primary-foreground"
-            )}>
+          {/* --- CORRECCIÓN: Color de texto del logo --- */}
+          <span
+            className={cn(
+              "hidden text-lg font-bold sm:inline-block transition-colors duration-300",
+              scrolled ? "text-foreground" : "text-primary-foreground",
+            )}
+          >
             Envíos Dos Ruedas
           </span>
         </Link>
 
         {/* Desktop Navigation (lg) */}
         <nav className="hidden items-center space-x-2 lg:flex">
-          <NavLink href="/" isActive={isActive("/")} isScrolled={scrolled}>
+          {/* --- CORRECCIÓN: Pasando 'scrolled' a NavLink --- */}
+          <NavLink href="/" isActive={isActive("/")} scrolled={scrolled}>
             <Home className="mr-2 h-4 w-4" />
             Inicio
           </NavLink>
@@ -138,9 +156,11 @@ export function OptimizedHeader() {
                       "flex cursor-pointer items-center space-x-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200",
                       groupIsActive
                         ? "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary"
-                        : scrolled
-                        ? "text-foreground hover:text-secondary hover:bg-muted"
-                        : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/10",
+                        : // --- CORRECCIÓN: Color de texto del Dropdown ---
+                          cn(
+                            scrolled ? "text-foreground" : "text-primary-foreground",
+                            "hover:text-secondary hover:bg-primary-foreground/10",
+                          ),
                     )}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -150,7 +170,7 @@ export function OptimizedHeader() {
                     <ChevronDown className="h-4 w-4" />
                   </motion.div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="mt-2 w-56 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-slate-200/50 dark:border-slate-700/50">
+                <DropdownMenuContent className="mt-2 w-56 backdrop-blur-md">
                   {group.items.map((item) => {
                     const ItemIcon = item.icon
                     return (
@@ -173,7 +193,8 @@ export function OptimizedHeader() {
             )
           })}
 
-          <NavLink href="/contacto" isActive={isActive("/contacto")} isScrolled={scrolled}>
+          {/* --- CORRECCIÓN: Pasando 'scrolled' a NavLink --- */}
+          <NavLink href="/contacto" isActive={isActive("/contacto")} scrolled={scrolled}>
             <Mail className="mr-2 h-4 w-4" />
             Contacto
           </NavLink>
@@ -181,7 +202,7 @@ export function OptimizedHeader() {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               asChild
-              className="ml-4 bg-gradient-to-r from-secondary to-yellow-500 hover:from-secondary/90 hover:to-yellow-500/90 font-semibold text-secondary-foreground shadow-lg"
+              className="ml-4 bg-gradient-to-r from-secondary to-secondary/90 font-semibold text-secondary-foreground shadow-lg"
             >
               <Link href="/cotizar/express">
                 <CalculatorIcon className="mr-2 h-4 w-4" />
@@ -196,11 +217,17 @@ export function OptimizedHeader() {
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
-                <Menu className={cn("h-6 w-6 transition-colors duration-300", scrolled ? "text-primary" : "text-primary-foreground")} />
+                {/* --- CORRECCIÓN: Color del icono de Menú --- */}
+                <Menu
+                  className={cn(
+                    "h-6 w-6 transition-colors duration-300",
+                    scrolled ? "text-foreground" : "text-primary-foreground",
+                  )}
+                />
                 <span className="sr-only">Abrir menú</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] bg-white dark:bg-slate-950 pt-10">
+            <SheetContent side="right" className="w-[300px] bg-white pt-10">
               <SheetHeader className="mb-6 flex flex-row items-center space-x-2">
                 <Image
                   src="/LogoEnviosDosRuedas.webp"
@@ -208,17 +235,20 @@ export function OptimizedHeader() {
                   width={40}
                   height={40}
                 />
-                <SheetTitle className="text-primary dark:text-primary-foreground">
+                {/* --- CORRECCIÓN: Color del título del Sheet --- */}
+                <SheetTitle className="text-foreground">
                   Envíos Dos Ruedas
                 </SheetTitle>
               </SheetHeader>
 
+              {/* --- SECCIÓN MÓVIL OPTIMIZADA CON COLORES CORREGIDOS --- */}
               <motion.div
                 className="flex h-full flex-col"
                 variants={mobileNavVariants}
                 initial="hidden"
                 animate="visible"
               >
+                {/* Enlace de Inicio */}
                 <motion.div variants={mobileNavItemVariants}>
                   <SheetClose asChild>
                     <Link
@@ -226,8 +256,9 @@ export function OptimizedHeader() {
                       className={cn(
                         "flex items-center space-x-4 py-4 px-4 rounded-xl transition-all duration-300 w-full text-left group",
                         isActive("/")
-                          ? "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary font-semibold shadow-inner"
-                          : "text-foreground dark:text-primary-foreground hover:text-secondary hover:bg-muted dark:hover:bg-slate-800",
+                          ? "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary font-semibold shadow-lg"
+                          : // --- CORRECCIÓN: Color de texto móvil ---
+                            "text-foreground hover:text-secondary hover:bg-black/5",
                       )}
                     >
                       <Home className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
@@ -236,6 +267,7 @@ export function OptimizedHeader() {
                   </SheetClose>
                 </motion.div>
 
+                {/* Grupos de Navegación (Acordeón) */}
                 <Accordion type="multiple" className="w-full">
                   {navGroups.map((group) => {
                     const GroupIcon = group.icon
@@ -247,9 +279,10 @@ export function OptimizedHeader() {
                           <AccordionTrigger
                             className={cn(
                               "py-4 px-4 rounded-xl transition-all duration-300 w-full justify-between group",
-                              groupIsActive && !group.basePath // Only for groups without a direct page
-                                ? "text-secondary font-semibold"
-                                : "text-foreground dark:text-primary-foreground hover:text-secondary hover:bg-muted dark:hover:bg-slate-800",
+                              groupIsActive
+                                ? "text-secondary font-semibold [&[data-state=open]]:bg-gradient-to-r [&[data-state=open]]:from-secondary/20 [&[data-state=open]]:to-secondary/10"
+                                : // --- CORRECCIÓN: Color de texto móvil ---
+                                  "text-foreground hover:text-secondary hover:bg-black/5",
                               "hover:no-underline",
                             )}
                           >
@@ -270,7 +303,8 @@ export function OptimizedHeader() {
                                         "flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 w-full text-left",
                                         isActive(item.href)
                                           ? "bg-secondary/10 text-secondary font-medium"
-                                          : "text-muted-foreground dark:text-slate-400 hover:text-secondary hover:bg-muted dark:hover:bg-slate-800",
+                                          : // --- CORRECCIÓN: Color de texto móvil ---
+                                            "text-foreground/80 hover:text-secondary hover:bg-black/5",
                                       )}
                                     >
                                       {ItemIcon && <ItemIcon className="w-4 h-4" />}
@@ -287,6 +321,7 @@ export function OptimizedHeader() {
                   })}
                 </Accordion>
 
+                {/* Enlace de Contacto */}
                 <motion.div variants={mobileNavItemVariants} className="mt-2">
                   <SheetClose asChild>
                     <Link
@@ -294,8 +329,9 @@ export function OptimizedHeader() {
                       className={cn(
                         "flex items-center space-x-4 py-4 px-4 rounded-xl transition-all duration-300 w-full text-left group",
                         isActive("/contacto")
-                          ? "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary font-semibold shadow-inner"
-                          : "text-foreground dark:text-primary-foreground hover:text-secondary hover:bg-muted dark:hover:bg-slate-800",
+                          ? "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary font-semibold shadow-lg"
+                          : // --- CORRECCIÓN: Color de texto móvil ---
+                            "text-foreground hover:text-secondary hover:bg-black/5",
                       )}
                     >
                       <Mail className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
@@ -304,13 +340,15 @@ export function OptimizedHeader() {
                   </SheetClose>
                 </motion.div>
 
+                {/* Botón de Cotizar */}
                 <motion.div variants={mobileNavItemVariants} className="mt-auto pt-6 pb-10">
                   <SheetClose asChild>
                     <Link href="/cotizar/express" className="block w-full">
                       <Button
                         size="lg"
-                        className="w-full bg-gradient-to-r from-secondary to-yellow-500 hover:from-secondary/90 hover:to-yellow-500/90 text-secondary-foreground shadow-lg font-semibold rounded-xl"
+                        className="w-full bg-gradient-to-r from-secondary to-secondary/90 hover:from-secondary/90 hover:to-secondary/80 text-secondary-foreground shadow-lg font-semibold rounded-xl"
                       >
+                        {/* El icono aquí hereda 'text-secondary-foreground', que es oscuro y correcto */}
                         <CalculatorIcon className="w-5 h-5 mr-3" />
                         Cotizar Envío
                       </Button>
