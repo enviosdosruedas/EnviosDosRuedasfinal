@@ -1,9 +1,8 @@
-
 // src/components/admin/AdminDashboard.tsx
 'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ListOrdered, PlusCircle, BarChart2, Ticket } from "lucide-react";
+import { ListOrdered, PlusCircle, BarChart2, Ticket, Wand2 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -39,6 +38,14 @@ const adminSections = [
     icon: PlusCircle,
     color: "text-purple-500",
     bgColor: "bg-purple-50",
+  },
+  {
+    title: "Generador de Prompts IA",
+    description: "Crea prompts para generar imágenes de marca.",
+    href: "/admin/crea-imagenes",
+    icon: Wand2,
+    color: "text-teal-500",
+    bgColor: "bg-teal-50",
   },
 ];
 
