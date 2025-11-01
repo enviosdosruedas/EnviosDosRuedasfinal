@@ -155,37 +155,37 @@ export function EntrepreneurSolutions() {
                 variants={itemVariants}
                 className="relative group/card rounded-lg overflow-hidden shadow-lg h-[450px]"
               >
-                  <div className="absolute inset-0">
-                    <Image
-                      src={solution.image}
-                      alt={solution.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover/card:scale-105"
-                      data-ai-hint={solution.imageHint}
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                  
-                  <div className="relative z-10 p-6 flex flex-col h-full justify-end text-white">
-                    <Link href={solution.link} className="absolute inset-0" aria-label={solution.title}></Link>
-                      <div className="flex justify-between items-start mb-4">
-                        <span className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-black/30 backdrop-blur-md shadow-lg border border-white/20">
-                          {solution.badge}
-                        </span>
-                        <div className="w-12 h-12 bg-black/30 backdrop-blur-md rounded-xl flex items-center justify-center shadow-lg border border-white/20">
-                          <IconComponent className="w-6 h-6 text-white" />
-                        </div>
+                <div className="absolute inset-0">
+                  <Image
+                    src={solution.image}
+                    alt={solution.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover/card:scale-105"
+                    data-ai-hint={solution.imageHint}
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                
+                <div className="relative z-10 p-6 flex flex-col h-full justify-end text-white">
+                    <Link href={solution.link} className="absolute inset-0 z-20" aria-label={solution.title}></Link>
+                    <div className="flex justify-between items-start mb-4">
+                      <span className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-black/30 backdrop-blur-md shadow-lg border border-white/20">
+                        {solution.badge}
+                      </span>
+                      <div className="w-12 h-12 bg-black/30 backdrop-blur-md rounded-xl flex items-center justify-center shadow-lg border border-white/20">
+                        <IconComponent className="w-6 h-6 text-white" />
                       </div>
+                    </div>
 
-                      <div className="mt-auto">
-                          <h3 className="text-xl font-bold leading-tight font-display mb-2">{solution.title}</h3>
-                          <p className="text-sm text-zinc-300 line-clamp-2 leading-relaxed mb-4">{solution.description}</p>
-                          <div className="flex items-center text-sm font-semibold text-secondary group-hover/card:underline">
-                            Conocer más <ArrowUpRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover/card:-translate-y-0.5 group-hover/card:translate-x-0.5" />
-                          </div>
-                      </div>
-                  </div>
+                    <div className="mt-auto">
+                        <h3 className="text-xl font-bold leading-tight font-display mb-2">{solution.title}</h3>
+                        <p className="text-sm text-zinc-300 line-clamp-2 leading-relaxed mb-4">{solution.description}</p>
+                        <div className="flex items-center text-sm font-semibold text-secondary group-hover/card:underline">
+                          Conocer más <ArrowUpRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover/card:-translate-y-0.5 group-hover/card:translate-x-0.5" />
+                        </div>
+                    </div>
+                </div>
               </motion.div>
             )
           })}
