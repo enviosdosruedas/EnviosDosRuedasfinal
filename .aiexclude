@@ -6,7 +6,6 @@ build/
 out/
 .vercel/
 docs/
-public/
 prisma/
 
 # Configuration files
