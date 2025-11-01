@@ -51,10 +51,11 @@
   }
 }
 
-@layer base {
-  * {
+* {
     @apply border-border;
-  }
+}
+
+@layer base {
   body {
     @apply bg-background text-foreground;
   }

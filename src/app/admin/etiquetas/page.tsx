@@ -1,4 +1,3 @@
-
 // src/app/admin/etiquetas/page.tsx
 import { OptimizedHeader } from "@/components/homenew/optimized-header";
 import { Footer } from "@/components/homenew/footer";
@@ -21,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 // Revalidate data to ensure it's fresh
-export const revalidate = 60;
+export const revalidate = 0; // Revalidate on every request
 
 export default async function AdminEtiquetasPage() {
   const etiquetas = await prisma.etiqueta.findMany({

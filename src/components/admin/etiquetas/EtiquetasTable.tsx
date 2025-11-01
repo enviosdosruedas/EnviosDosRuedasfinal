@@ -1,4 +1,3 @@
-
 // src/components/admin/etiquetas/EtiquetasTable.tsx
 'use client';
 
@@ -13,14 +12,13 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import type { Etiqueta as PrismaEtiqueta, ServiceTypeEnum } from "@prisma/client";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 
-// The formatted etiqueta type that the component will receive
 type FormattedEtiqueta = Omit<PrismaEtiqueta, 'montoACobrar'> & {
   montoACobrar: number | null;
 };
@@ -32,11 +30,13 @@ interface EtiquetasTableProps {
 const serviceTypeMap: Record<ServiceTypeEnum, string> = {
   [ServiceTypeEnum.EXPRESS]: 'Express',
   [ServiceTypeEnum.LOW_COST]: 'Low Cost',
+  [ServiceTypeEnum.PUNTO_DE_RETIRO]: 'Punto de Retiro',
 };
 
-const serviceTypeVariantMap: { [key in ServiceTypeEnum]: "default" | "secondary" } = {
+const serviceTypeVariantMap: { [key in ServiceTypeEnum]: "default" | "secondary" | "outline" } = {
   [ServiceTypeEnum.EXPRESS]: 'default',
   [ServiceTypeEnum.LOW_COST]: 'secondary',
+  [ServiceTypeEnum.PUNTO_DE_RETIRO]: 'outline',
 };
 
 export function EtiquetasTable({ etiquetas }: EtiquetasTableProps) {
@@ -71,7 +71,7 @@ export function EtiquetasTable({ etiquetas }: EtiquetasTableProps) {
         <TableCaption>Un listado de las etiquetas más recientes.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[80px]">ID</TableHead>
+            <TableHead className="w-[120px]">N° Orden</TableHead>
             <TableHead>Remitente</TableHead>
             <TableHead>Destinatario</TableHead>
             <TableHead>Tipo</TableHead>
@@ -83,7 +83,7 @@ export function EtiquetasTable({ etiquetas }: EtiquetasTableProps) {
         <TableBody>
           {etiquetas.map((etiqueta) => (
             <TableRow key={etiqueta.id}>
-              <TableCell className="font-medium">#{etiqueta.id}</TableCell>
+              <TableCell className="font-medium">{etiqueta.orderNumber || `#${etiqueta.id}`}</TableCell>
               <TableCell>{etiqueta.remitenteNombre}</TableCell>
               <TableCell>{etiqueta.destinatarioNombre}</TableCell>
               <TableCell>

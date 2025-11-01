@@ -1,4 +1,3 @@
-
 // src/app/admin/etiquetas/[id]/page.tsx
 
 import { OptimizedHeader } from "@/components/homenew/optimized-header";
@@ -36,7 +35,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `Editar Etiqueta #${etiqueta.id}`,
+    title: `Editar Etiqueta #${etiqueta.orderNumber || etiqueta.id}`,
     description: `Editando detalles para la etiqueta de envío de ${etiqueta.remitenteNombre} a ${etiqueta.destinatarioNombre}.`,
     robots: { index: false, follow: false },
   };
@@ -74,7 +73,7 @@ export default async function EtiquetaPage({ params }: PageProps) {
                 <div className="flex items-center justify-center gap-3">
                     <Package className="w-7 h-7 text-primary" />
                     <CardTitle className="text-2xl sm:text-3xl font-bold text-primary">
-                        {isNew ? 'Generar Nueva Etiqueta de Envío' : `Editando Etiqueta #${id}`}
+                        {isNew ? 'Generar Nueva Etiqueta de Envío' : `Editando Etiqueta #${formattedEtiqueta?.orderNumber || id}`}
                     </CardTitle>
                 </div>
                  <CardDescription>
