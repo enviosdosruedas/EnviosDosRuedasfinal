@@ -19,6 +19,7 @@ export function EntrepreneurSolutions() {
       glowColor: "blue-500/20",
       image: "/cards/card1.png",
       badge: "Emprendedores",
+      imageHint: "growing business",
     },
     {
       icon: Package,
@@ -30,6 +31,7 @@ export function EntrepreneurSolutions() {
       glowColor: "yellow-500/20",
       image: "/cards/card2.png",
       badge: "MercadoLibre",
+      imageHint: "ecommerce delivery",
     },
     {
       icon: Users,
@@ -41,6 +43,7 @@ export function EntrepreneurSolutions() {
       glowColor: "green-500/20",
       image: "/cards/card3.png",
       badge: "Dedicado",
+      imageHint: "dedicated courier",
     },
   ]
 
@@ -179,6 +182,7 @@ export function EntrepreneurSolutions() {
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        data-ai-hint={solution.imageHint}
                       />
                        {/* Gradient overlay */}
                       <div
