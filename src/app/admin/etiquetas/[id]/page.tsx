@@ -17,6 +17,7 @@ interface PageProps {
 
 type FormattedEtiquetaType = Omit<Etiqueta, 'montoACobrar'> & {
   montoACobrar: number | null;
+  orderNumber: string | null;
 };
 
 
@@ -50,7 +51,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function EtiquetaPage({ params }: PageProps) {
   const { id } = params;
   const isNew = id === 'nueva';
-  let etiqueta = null;
+  let etiqueta: Etiqueta | null = null;
 
   if (!isNew) {
     const numericId = parseInt(id);
@@ -68,6 +69,7 @@ export default async function EtiquetaPage({ params }: PageProps) {
   const formattedEtiqueta: FormattedEtiquetaType | null = etiqueta ? {
     ...etiqueta,
     montoACobrar: etiqueta.montoACobrar?.toNumber() ?? null,
+    orderNumber: etiqueta.orderNumber ?? null,
   } : null;
 
   return (
