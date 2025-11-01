@@ -1,10 +1,11 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { TrendingUp, Users, Package, Sparkles, ArrowUpRight } from "lucide-react"
+import { TrendingUp, Users, Package, Sparkles, ArrowUpRight, CheckCircle } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import { cn } from "@/lib/utils"
 
 export function EmprendedoresHome() {
   const solutions = [
@@ -12,6 +13,7 @@ export function EmprendedoresHome() {
       icon: TrendingUp,
       title: "Plan Emprendedores",
       description: "Tarifas preferenciales y servicios adaptados para hacer crecer tu negocio online",
+      features: ["Tarifas LowCost", "Facturación mensual", "Soporte dedicado", "Reportes detallados"],
       link: "/servicios/plan-emprendedores",
       image: "/cards/card1.png",
       badge: "Emprendedores",
@@ -21,6 +23,7 @@ export function EmprendedoresHome() {
       icon: Package,
       title: "Envíos Flex MercadoLibre",
       description: "Integración perfecta con MercadoLibre para potenciar tus ventas",
+      features: ["Entregas el mismo día", "Mejora tu reputación", "Tarifas LowCost", "API integrada"],
       link: "/servicios/enviosflex",
       image: "/cards/card2.png",
       badge: "MercadoLibre",
@@ -30,6 +33,7 @@ export function EmprendedoresHome() {
       icon: Users,
       title: "Moto Fija para Negocios",
       description: "Repartidor dedicado exclusivamente para tu empresa",
+      features: ["Repartidor exclusivo", "Horarios personalizados", "Rutas optimizadas", "Seguimiento GPS"],
       link: "/servicios/moto-fija",
       image: "/cards/card3.png",
       badge: "Dedicado",
@@ -65,6 +69,7 @@ export function EmprendedoresHome() {
 
   return (
     <section className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-blue-50/50 to-slate-100 overflow-hidden font-sans">
+      {/* Background decorations */}
       <div className="absolute inset-0">
         {[...Array(6)].map((_, i) => (
           <motion.div
@@ -141,7 +146,7 @@ export function EmprendedoresHome() {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-6xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -150,48 +155,97 @@ export function EmprendedoresHome() {
           {solutions.map((solution, index) => {
             const IconComponent = solution.icon
             return (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="relative group/card rounded-lg overflow-hidden shadow-lg h-[450px]"
-              >
-                <Link href={solution.link} className="block w-full h-full">
-                  <div className="absolute inset-0">
+              <motion.div key={index} variants={itemVariants} className="h-full">
+                <Link href={solution.link} className="block w-full group">
+                  <motion.div
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={cn(
+                      "relative overflow-hidden rounded-2xl h-[420px]",
+                      "border border-zinc-200/50 shadow-lg",
+                      "transition-all duration-300",
+                      "hover:shadow-2xl hover:border-zinc-300/50",
+                    )}
+                  >
+                    
+                    {/* 1. Imagen de fondo (en capa 0) */}
                     <Image
                       src={solution.image}
                       alt={solution.title}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover/card:scale-105"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105 z-0"
                       data-ai-hint={solution.imageHint}
                     />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                  
-                  <div className="relative z-10 p-6 flex flex-col h-full justify-end text-white">
-                      <div className="flex justify-between items-start mb-4">
-                        <span className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-black/30 backdrop-blur-md shadow-lg border border-white/20">
+                    
+                    {/* --- INICIO DE LA CORRECCIÓN --- */}
+                    {/* 2. Se eliminó el DIV del gradiente que estaba aquí (z-10) */}
+                    {/* --- FIN DE LA CORRECCIÓN --- */}
+
+
+                    {/* 3. Contenido (en capa 20, sobre la imagen) */}
+                    <div className="relative z-20 flex flex-col h-full p-6 text-white"> 
+                    
+                      {/* Badge */}
+                      <div className="flex justify-between items-start">
+                        <span
+                          className={cn(
+                            "px-3 py-1.5 rounded-lg text-xs font-semibold",
+                            "bg-black/30 backdrop-blur-md", // Estos badges tienen su propio fondo
+                            "shadow-lg border border-white/20",
+                          )}
+                        >
                           {solution.badge}
                         </span>
-                        <div className="w-12 h-12 bg-black/30 backdrop-blur-md rounded-xl flex items-center justify-center shadow-lg border border-white/20">
+                        <motion.div
+                          className={`w-12 h-12 bg-black/30 backdrop-blur-md rounded-xl flex items-center justify-center shadow-lg border border-white/20`} // Este ícono también
+                          whileHover={{ rotate: 15, scale: 1.1 }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                        >
                           <IconComponent className="w-6 h-6 text-white" />
-                        </div>
+                        </motion.div>
                       </div>
 
                       <div className="mt-auto">
-                          <h3 className="text-xl font-bold leading-tight font-display mb-2">{solution.title}</h3>
-                          <p className="text-sm text-zinc-300 line-clamp-2 leading-relaxed mb-4">{solution.description}</p>
-                          <div className="flex items-center text-sm font-semibold text-secondary group-hover/card:underline">
-                            Conocer más <ArrowUpRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover/card:-translate-y-0.5 group-hover/card:translate-x-0.5" />
-                          </div>
+                        {/* --- INICIO DE LA CORRECCIÓN DE LEGIBILIDAD --- */}
+                        <h3 className="text-xl font-bold leading-tight font-display mb-2 drop-shadow-lg">{solution.title}</h3>
+                        <p className="text-sm text-zinc-300 line-clamp-2 leading-relaxed mb-4 drop-shadow-lg">{solution.description}</p>
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-2 drop-shadow-lg">
+                        {/* --- FIN DE LA CORRECCIÓN DE LEGIBILIDAD --- */}
+
+                          {solution.features.slice(0, 4).map((feature, featureIndex) => (
+                            <motion.div
+                              key={featureIndex}
+                              className="flex items-center text-xs"
+                              initial={{ opacity: 0, x: -10 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: 0.1 * featureIndex, duration: 0.3 }}
+                            >
+                              <CheckCircle className="w-3 h-3 text-green-400 mr-2 flex-shrink-0" />
+                              <span className="truncate">{feature}</span>
+                            </motion.div>
+                          ))}
+                        </div>
+                        <div
+                          className={cn(
+                            "p-2.5 rounded-full absolute bottom-6 right-6",
+                            "bg-white/10 backdrop-blur-md",
+                            "group-hover:bg-white/20 transition-colors duration-300",
+                          )}
+                        >
+                          <ArrowUpRight className="w-5 h-5 text-white group-hover:-rotate-12 transition-transform duration-300" />
+                        </div>
                       </div>
-                  </div>
+                    </div>
+                  </motion.div>
                 </Link>
               </motion.div>
             )
           })}
         </motion.div>
 
+        {/* Bottom CTA */}
         <motion.div
           className="text-center mt-16"
           initial={{ opacity: 0, y: 30 }}
