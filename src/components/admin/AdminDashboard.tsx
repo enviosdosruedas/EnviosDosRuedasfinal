@@ -3,7 +3,7 @@
 'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ListOrdered, PlusCircle, BarChart2 } from "lucide-react";
+import { ListOrdered, PlusCircle, BarChart2, Ticket } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -23,6 +23,14 @@ const adminSections = [
     icon: BarChart2,
     color: "text-green-500",
     bgColor: "bg-green-50",
+  },
+   {
+    title: "Gestión de Etiquetas",
+    description: "Crea y administra etiquetas de envío.",
+    href: "/admin/etiquetas",
+    icon: Ticket,
+    color: "text-orange-500",
+    bgColor: "bg-orange-50",
   },
   {
     title: "Agregar Publicación",
