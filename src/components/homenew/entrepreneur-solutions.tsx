@@ -15,8 +15,6 @@ export function EntrepreneurSolutions() {
       description: "Tarifas preferenciales y servicios adaptados para hacer crecer tu negocio online",
       features: ["Tarifas LowCost", "Facturación mensual", "Soporte dedicado", "Reportes detallados"],
       link: "/servicios/plan-emprendedores",
-      gradient: "from-blue-500 via-blue-600 to-blue-700",
-      glowColor: "blue-500/20",
       image: "/cards/card1.png",
       badge: "Emprendedores",
       imageHint: "growing business",
@@ -27,8 +25,6 @@ export function EntrepreneurSolutions() {
       description: "Integración perfecta con MercadoLibre para potenciar tus ventas",
       features: ["Entregas el mismo día", "Mejora tu reputación", "Tarifas LowCost", "API integrada"],
       link: "/servicios/enviosflex",
-      gradient: "from-secondary via-yellow-500 to-yellow-600",
-      glowColor: "yellow-500/20",
       image: "/cards/card2.png",
       badge: "MercadoLibre",
       imageHint: "ecommerce delivery",
@@ -39,8 +35,6 @@ export function EntrepreneurSolutions() {
       description: "Repartidor dedicado exclusivamente para tu empresa",
       features: ["Repartidor exclusivo", "Horarios personalizados", "Rutas optimizadas", "Seguimiento GPS"],
       link: "/servicios/moto-fija",
-      gradient: "from-green-500 via-green-600 to-green-700",
-      glowColor: "green-500/20",
       image: "/cards/card3.png",
       badge: "Dedicado",
       imageHint: "dedicated courier",
@@ -168,93 +162,78 @@ export function EntrepreneurSolutions() {
                     whileTap={{ scale: 0.98 }}
                     className={cn(
                       "relative overflow-hidden rounded-2xl h-[420px]",
-                      "bg-white/80 backdrop-blur-xl",
                       "border border-zinc-200/50 shadow-lg",
                       "transition-all duration-300",
                       "hover:shadow-2xl hover:border-zinc-300/50",
                     )}
                   >
                     {/* Image Section */}
-                    <div className="relative h-[280px] overflow-hidden">
+                    <div className="absolute inset-0">
                       <Image
                         src={solution.image}
                         alt={solution.title}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                         data-ai-hint={solution.imageHint}
                       />
                        {/* Gradient overlay */}
                       <div
-                        className={cn("absolute inset-0", `bg-gradient-to-t from-black/90 via-black/40 to-transparent`)}
+                        className={cn("absolute inset-0", `bg-gradient-to-t from-black/80 via-black/40 to-transparent`)}
                       />
-                       {/* Badge */}
-                      <div className="absolute top-4 right-4">
-                        <span
-                          className={cn(
-                            "px-3 py-1.5 rounded-lg text-xs font-semibold",
-                            "bg-white/90 text-zinc-800 backdrop-blur-md",
-                            "shadow-lg border border-white/20",
-                          )}
-                        >
-                          {solution.badge}
-                        </span>
-                      </div>
-                       {/* Icon */}
-                      <div className="absolute top-4 left-4">
-                        <motion.div
-                          className={`w-12 h-12 bg-gradient-to-r ${solution.gradient} rounded-xl flex items-center justify-center shadow-lg`}
-                          whileHover={{ rotate: 360, scale: 1.1 }}
-                          transition={{ duration: 0.6, ease: "easeInOut" }}
-                        >
-                          <IconComponent className="w-6 h-6 text-white" />
-                        </motion.div>
-                      </div>
-                       {/* Arrow button */}
-                      <div className="absolute bottom-4 right-4">
-                        <div
-                          className={cn(
-                            "p-2.5 rounded-full",
-                            "bg-white/10 backdrop-blur-md",
-                            "group-hover:bg-white/20 transition-colors duration-300",
-                          )}
-                        >
-                          <ArrowUpRight className="w-5 h-5 text-white group-hover:-rotate-12 transition-transform duration-300" />
-                        </div>
-                      </div>
-                       {/* Content overlay */}
-                      <div className="absolute bottom-0 left-0 right-0 p-6">
-                        <div className="space-y-2">
-                          <h3 className="text-xl font-bold text-white leading-tight font-display">{solution.title}</h3>
-                          <p className="text-sm text-zinc-200 line-clamp-2 leading-relaxed">{solution.description}</p>
-                        </div>
-                      </div>
                     </div>
 
-                    {/* Features Section */}
-                    <div className="p-6 bg-white">
-                      <div className="grid grid-cols-2 gap-2">
-                        {solution.features.slice(0, 4).map((feature, featureIndex) => (
-                          <motion.div
-                            key={featureIndex}
-                            className="flex items-center text-xs text-gray-600"
-                            initial={{ opacity: 0, x: -10 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 * featureIndex, duration: 0.3 }}
-                          >
-                            <CheckCircle className="w-3 h-3 text-green-500 mr-2 flex-shrink-0" />
-                            <span className="truncate">{feature}</span>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
+                    <div className="relative z-10 flex flex-col h-full p-6 text-white">
+                        {/* Badge */}
+                        <div className="flex justify-between items-start">
+                             <span
+                                className={cn(
+                                    "px-3 py-1.5 rounded-lg text-xs font-semibold",
+                                    "bg-black/30 backdrop-blur-md",
+                                    "shadow-lg border border-white/20",
+                                )}
+                                >
+                                {solution.badge}
+                            </span>
+                             <motion.div
+                                className={`w-12 h-12 bg-black/30 backdrop-blur-md rounded-xl flex items-center justify-center shadow-lg border border-white/20`}
+                                whileHover={{ rotate: 15, scale: 1.1 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                            >
+                                <IconComponent className="w-6 h-6 text-white" />
+                            </motion.div>
+                        </div>
+                       
 
-                    {/* Hover glow effect */}
-                    <motion.div
-                      className={`absolute inset-0 bg-gradient-to-br ${solution.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none`}
-                      whileHover={{ opacity: 0.1 }}
-                    />
+                        <div className="mt-auto">
+                            <h3 className="text-xl font-bold leading-tight font-display mb-2">{solution.title}</h3>
+                            <p className="text-sm text-zinc-300 line-clamp-2 leading-relaxed mb-4">{solution.description}</p>
+                            <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                                {solution.features.slice(0, 4).map((feature, featureIndex) => (
+                                <motion.div
+                                    key={featureIndex}
+                                    className="flex items-center text-xs"
+                                    initial={{ opacity: 0, x: -10 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.1 * featureIndex, duration: 0.3 }}
+                                >
+                                    <CheckCircle className="w-3 h-3 text-green-400 mr-2 flex-shrink-0" />
+                                    <span className="truncate">{feature}</span>
+                                </motion.div>
+                                ))}
+                            </div>
+                             <div
+                                className={cn(
+                                    "p-2.5 rounded-full absolute bottom-6 right-6",
+                                    "bg-white/10 backdrop-blur-md",
+                                    "group-hover:bg-white/20 transition-colors duration-300",
+                                )}
+                                >
+                                <ArrowUpRight className="w-5 h-5 text-white group-hover:-rotate-12 transition-transform duration-300" />
+                            </div>
+                        </div>
+                    </div>
                   </motion.div>
                 </Link>
               </motion.div>
