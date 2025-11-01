@@ -177,7 +177,7 @@ export function EntrepreneurSolutions() {
                     {/* Image Section */}
                     <div className="relative h-[280px] overflow-hidden">
                       <Image
-                        src={solution.image || "/placeholder.svg"}
+                        src={solution.image}
                         alt={solution.title}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
