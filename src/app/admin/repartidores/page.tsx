@@ -41,7 +41,7 @@ async function getEtiquetas(): Promise<FormattedEtiqueta[]> {
      montoACobrar: etiqueta.montoACobrar?.toNumber() ?? null,
      status: (etiqueta.status as EtiquetaStatus) || EtiquetaStatus.PENDIENTE,
      orderNumber: etiqueta.orderNumber || null,
-     repartidorId: etiqueta.repartidorId, // Add this line
+     repartidorId: etiqueta.repartidorId,
    }));
  }
 
