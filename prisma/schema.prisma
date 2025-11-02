@@ -1,55 +1,75 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider     = "postgresql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model Order {
-  id                      Int      @id @default(autoincrement())
-  clientId                Int?
-  clientNameAtOrder       String
-  clientPhoneAtOrder      String
-  pickupStreetAddress     String?
-  deliveryAddress         String?
-  status                  String   @default("pendiente") // pendiente, en_curso, entregado, cancelado
-  serviceType             ServiceTypeEnum
-  quotedPrice             Decimal? @db.Decimal(10, 2)
-  shippingCost            Decimal? @db.Decimal(10, 2)
-  totalCost               Decimal? @db.Decimal(10, 2)
-  pickupDate              DateTime? @db.Date
-  pickupTimeFrom          String? // HH:MM
-  pickupTimeTo            String? // HH:MM
-  deliveryDate            DateTime? @db.Date
-  deliveryTimeFrom        String? // HH:MM
-  deliveryTimeTo          String? // HH:MM
-  originLat               Decimal? @db.Decimal(10, 7)
-  originLng               Decimal? @db.Decimal(10, 7)
-  destinationLat          Decimal? @db.Decimal(10, 7)
-  destinationLng          Decimal? @db.Decimal(10, 7)
-  distanceText            String?
-  durationText            String?
-  createdAt               DateTime @default(now())
-  updatedAt               DateTime @updatedAt
-  originFullName          String?
-  originPhone             String?
-  destinationContactName  String?
-  destinationContactPhone String?
-  destinationContactEmail String?
-  originAddress           String?
-  destinationAddress      String?
-  pickupDateTime          DateTime?
-  deliveryDateTime        DateTime?
+// --------------------------------------
+// ENUMERACIONES
+// --------------------------------------
 
-  client Client? @relation(fields: [clientId], references: [id])
+enum Role {
+  USER
+  ADMIN
+  REPARTIDOR
+}
 
-  @@index([clientId])
+enum OrderStatusEnum {
+  PENDIENTE
+  EN_CURSO
+  ENTREGADO
+  CANCELADO
+  DEVUELTO
+}
+
+enum ServiceTypeEnum {
+  EXPRESS
+  LOW_COST
+  PUNTO_DE_RETIRO
+}
+
+enum SocialPlatformEnum {
+  facebook
+  instagram
+  whatsapp
+}
+
+enum EtiquetaStatus {
+  PENDIENTE
+  IMPRESA
+}
+
+// --------------------------------------
+// MODELOS DE DATOS
+// --------------------------------------
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+}
+
+model Repartidor {
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String   @unique
+  email     String?  @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Client {
@@ -59,65 +79,52 @@ model Client {
   phone       String   @unique
   email       String?  @unique
   address     String
-  addressLat  Decimal? @db.Decimal(10, 7)
-  addressLng  Decimal? @db.Decimal(10, 7)
+  addressLat  Decimal?
+  addressLng  Decimal?
+  isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  isActive    Boolean  @default(true)
   orders      Order[]
-  repartidor  Repartidor[]
 }
 
-model Repartidor {
-  id              Int      @id @default(autoincrement())
-  name            String
-  lastName        String
-  phone           String   @unique
-  vehicleType     String // MOTO, BICI, AUTO
-  licensePlate    String?  @unique
-  isActive        Boolean  @default(true)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  currentLat      Decimal? @db.Decimal(10, 7)
-  currentLng      Decimal? @db.Decimal(10, 7)
-  lastSeen        DateTime?
-  Client          Client?  @relation(fields: [clientId], references: [id])
-  clientId        Int?
-}
-
-model PriceRange {
-  id             Int             @id @default(autoincrement())
-  distanciaMinKm Decimal         @dbDecimal(6, 2)
-  distanciaMaxKm Decimal         @dbDecimal(6, 2)
-  precioRango    Decimal         @dbDecimal(10, 2)
-  serviceType    ServiceTypeEnum
-  isActive       Boolean         @default(true)
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-
-  @@unique([distanciaMinKm, distanciaMaxKm, serviceType])
-}
-
-model SocialPost {
-  id          Int                @id @default(autoincrement())
-  platform    SocialPlatformEnum
-  userName    String
-  userAvatar  String?
-  userUrl     String?
-  content     String             @db.Text
-  postUrl     String             @unique
-  imageUrl    String?
-  imageHint   String?
-  likes       Int?
-  comments    Int?
-  shares      Int?
-  timestamp   DateTime
-  createdAt   DateTime           @default(now())
-  updatedAt   DateTime           @updatedAt
+model Order {
+  id                      Int               @id @default(autoincrement())
+  clientId                Int?
+  client                  Client?           @relation(fields: [clientId], references: [id])
+  clientNameAtOrder       String
+  clientPhoneAtOrder      String
+  status                  OrderStatusEnum   @default(PENDIENTE)
+  serviceType             ServiceTypeEnum
+  originFullName          String
+  originPhone             String
+  originAddress           String
+  originLat               Decimal?
+  originLng               Decimal?
+  destinationContactName  String
+  destinationContactPhone String
+  destinationContactEmail String?
+  destinationAddress      String
+  destinationLat          Decimal?
+  destinationLng          Decimal?
+  distanceText            String?
+  durationText            String?
+  pickupDate              DateTime
+  pickupTimeFrom          String
+  pickupTimeTo            String
+  deliveryDate            DateTime
+  deliveryTimeFrom        String
+  deliveryTimeTo          String
+  pickupDateTime          DateTime
+  deliveryDateTime        DateTime
+  quotedPrice             Decimal?          @db.Decimal(10, 2)
+  shippingCost            Decimal?          @db.Decimal(10, 2)
+  totalCost               Decimal?          @db.Decimal(10, 2)
+  createdAt               DateTime          @default(now())
+  updatedAt               DateTime          @updatedAt
 }
 
 model Etiqueta {
-  id                    Int             @id @default(autoinश्चre++)
+  id                    Int             @id @default(autoincrement())
   orderNumber           String?         @unique
   tipoEnvio             ServiceTypeEnum
   remitenteNombre       String
@@ -130,20 +137,38 @@ model Etiqueta {
   destinatarioNotas     String?
   deliveryStartTime     String?
   deliveryEndTime       String?
-  status                String          @default("PENDIENTE") // PENDIENTE, IMPRESA, EN_CAMINO, ENTREGADO, CANCELADO
+  status                EtiquetaStatus  @default(PENDIENTE)
   createdAt             DateTime        @default(now())
   updatedAt             DateTime        @updatedAt
 }
 
+model PriceRange {
+  id             Int             @id @default(autoincrement())
+  distanciaMinKm Decimal         @db.Decimal(10, 2)
+  distanciaMaxKm Decimal         @db.Decimal(10, 2)
+  precioRango    Decimal         @db.Decimal(10, 2)
+  serviceType    ServiceTypeEnum
+  isActive       Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
 
-enum ServiceTypeEnum {
-  EXPRESS
-  LOW_COST
-  PUNTO_DE_RETIRO
+  @@unique([distanciaMinKm, distanciaMaxKm, serviceType])
 }
 
-enum SocialPlatformEnum {
-  facebook
-  instagram
-  whatsapp
+model SocialPost {
+  id         Int                @id @default(autoincrement())
+  platform   SocialPlatformEnum
+  userName   String
+  userAvatar String?
+  userUrl    String?
+  content    String             @db.Text
+  postUrl    String             @unique
+  imageUrl   String?
+  imageHint  String?
+  timestamp  DateTime
+  likes      Int?
+  comments   Int?
+  shares     Int?
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
 }
