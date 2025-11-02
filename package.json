@@ -76,7 +76,7 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.66.0",
     "react-resizable-panels": "^2.1.9",
-    "react-zxing": "^2.0.0",
+    "react-zxing": "^2.1.0",
     "recharts": "^2.15.4",
     "sonner": "^1.7.4",
     "swiper": "12.0.2",
