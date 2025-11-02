@@ -50,8 +50,8 @@ export function LoginClientForm() {
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: "",
-      password: "",
+      username: "EnviosAdmin",
+      password: "Vendetta_3317_10",
     },
   });
 
