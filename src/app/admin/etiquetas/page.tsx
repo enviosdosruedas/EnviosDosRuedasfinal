@@ -1,7 +1,7 @@
 // src/app/admin/etiquetas/page.tsx
 import prisma from "@/lib/prisma";
 import type { Metadata } from 'next';
-import { Etiqueta } from "@prisma/client";
+import { Etiqueta, EtiquetaStatus } from "@prisma/client";
 import { EtiquetasClientPage } from "@/components/admin/etiquetas/EtiquetasClientPage";
 
 export const metadata: Metadata = {
@@ -16,8 +16,9 @@ export const metadata: Metadata = {
 // Revalidate data on every request to ensure it's fresh
 export const revalidate = 0;
 
-type FormattedEtiqueta = Omit<Etiqueta, 'montoACobrar'> & {
+export type FormattedEtiqueta = Omit<Etiqueta, 'montoACobrar'> & {
   montoACobrar: number | null;
+  status: EtiquetaStatus;
 };
 
 async function getEtiquetas(): Promise<FormattedEtiqueta[]> {

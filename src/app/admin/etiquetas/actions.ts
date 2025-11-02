@@ -3,9 +3,14 @@
 
 import { z } from 'zod';
 import prisma from '@/lib/prisma';
-import { Prisma, ServiceTypeEnum, EtiquetaStatus } from '@prisma/client';
+import { Prisma, ServiceTypeEnum } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+
+export enum EtiquetaStatus {
+    PENDIENTE = 'PENDIENTE',
+    IMPRESA = 'IMPRESA',
+}
 
 const timeStringToMinutes = (time: string) => {
   if (!time || !time.includes(':')) return 0;
