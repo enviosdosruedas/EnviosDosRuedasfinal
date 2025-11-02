@@ -7,7 +7,7 @@ import Link from "next/link";
 import { PlusCircle, Ticket, Printer } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Etiqueta } from "@prisma/client";
-import { EtiquetaPrintLayout } from '@/components/admin/etiquetas/EtiquetaPrintLayout';
+import { EtiquetaPrintLayout } from "@/components/admin/etiquetas/EtiquetaPrintLayout";
 import { EtiquetasTable } from "@/components/admin/etiquetas/EtiquetasTable";
 
 type FormattedEtiqueta = Omit<Etiqueta, 'montoACobrar'> & {
@@ -87,33 +87,15 @@ export function EtiquetasClientPage({ initialEtiquetas }: EtiquetasClientPagePro
              <div className="print-only">
                 {etiquetaToPrint && <EtiquetaPrintLayout etiqueta={etiquetaToPrint} />}
                 {isPrintingAll && (
-                    <div className="space-y-4">
+                    <div className="labels-container">
                         {etiquetas.map((e, index) => (
-                            <EtiquetaPrintLayout key={e.id} etiqueta={e} isLast={index === etiquetas.length - 1} />
+                            <div key={e.id} className="printable-label-wrapper">
+                                <EtiquetaPrintLayout etiqueta={e} isLast={index === etiquetas.length - 1} />
+                            </div>
                         ))}
                     </div>
                 )}
              </div>
-            <style jsx global>{`
-                @media print {
-                  .no-print {
-                    display: none !important;
-                  }
-                  .print-only {
-                    display: block !important;
-                  }
-                  body {
-                    background-color: #fff !important;
-                  }
-                  main {
-                    padding-top: 0 !important;
-                    padding-bottom: 0 !important;
-                  }
-                }
-                .print-only {
-                  display: none;
-                }
-            `}</style>
         </>
     );
 }

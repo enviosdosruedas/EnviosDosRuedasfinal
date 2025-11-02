@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 import { AdminHeader } from "@/components/layout/AdminHeader";
 import { Footer } from "@/components/homenew/footer";
-import { EtiquetaPage as EtiquetaClientPage } from "@/components/admin/etiquetas/EtiquetaPage";
+import { EtiquetaPage } from "@/components/admin/etiquetas/EtiquetaPage";
 
 export const metadata: Metadata = {
   title: "Generar Etiquetas de Envío",
@@ -18,7 +18,7 @@ export default function GenerarEtiquetasPage() {
         <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
             <AdminHeader />
             <main className="flex-grow">
-               <EtiquetaClientPage />
+               <EtiquetaPage />
             </main>
             <Footer />
         </div>

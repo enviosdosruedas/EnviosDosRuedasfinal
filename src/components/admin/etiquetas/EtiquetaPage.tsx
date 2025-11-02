@@ -44,14 +44,15 @@ export function EtiquetaPage() {
       
       {labelData.length > 0 ? (
         <div className="space-y-8">
-          <div className="labels-container print:space-y-4">
+          <div className="labels-container print-only">
             {labelData.map((data, index) => (
-              <ShippingLabel 
-                key={data.orderNumber} 
-                data={data}
-                isMultiple={labelData.length > 1}
-                isLast={index === labelData.length - 1}
-              />
+              <div key={data.orderNumber} className="printable-label-wrapper">
+                <ShippingLabel 
+                  data={data}
+                  isMultiple={labelData.length > 1}
+                  isLast={index === labelData.length - 1}
+                />
+              </div>
             ))}
           </div>
           <div className="flex flex-col md:flex-row gap-4 justify-center no-print">
@@ -66,8 +67,8 @@ export function EtiquetaPage() {
           </div>
         </div>
       ) : (
-        <div className="max-w-4xl mx-auto">
-          <div className="flex justify-center gap-4 mb-8 no-print">
+        <div className="max-w-4xl mx-auto no-print">
+          <div className="flex justify-center gap-4 mb-8">
               <Button onClick={() => setMode('single')} variant={mode === 'single' ? 'default' : 'outline'} size="lg">
                 <Package className="mr-2" /> Generar Una Etiqueta
               </Button>
@@ -95,26 +96,6 @@ export function EtiquetaPage() {
           )}
         </div>
       )}
-       <style jsx global>{`
-          @media print {
-            .no-print {
-              display: none;
-            }
-            .printable-label-wrapper {
-              page-break-after: always;
-            }
-             .printable-label-wrapper:last-child {
-              page-break-after: auto;
-            }
-            body {
-              background-color: #fff;
-            }
-            main {
-              padding: 0;
-              margin: 0;
-            }
-          }
-      `}</style>
     </main>
   );
 }

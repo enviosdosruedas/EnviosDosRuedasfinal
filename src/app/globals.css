@@ -85,3 +85,42 @@ html {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
 }
+
+@layer utilities {
+  .print-only {
+    display: none;
+  }
+  @media print {
+    body {
+      background-color: white !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .no-print {
+      display: none !important;
+    }
+    .print-only {
+      display: block !important;
+    }
+    .printable-area {
+      box-shadow: none !important;
+      border: 1px solid #ccc !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+    }
+    .printable-label-wrapper {
+        break-inside: avoid-page;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .labels-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    @page {
+      size: A4;
+      margin: 10mm;
+    }
+  }
+}
