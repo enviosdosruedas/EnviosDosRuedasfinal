@@ -51,31 +51,19 @@ const statusTextMap: { [key in EtiquetaStatus]: string } = {
 export function EtiquetasTable({ etiquetas, onPrint }: EtiquetasTableProps) {
   const { toast } = useToast();
 
-  const handleDelete = async (etiquetaId: number) => {
-    // Placeholder for delete functionality
-    if (!confirm('¿Estás seguro de que deseas eliminar esta etiqueta? Esta acción no se puede deshacer.')) {
-      return;
-    }
-    toast({
-      title: "Función no implementada",
-      description: "La eliminación de etiquetas aún no está disponible.",
-      variant: "destructive",
-    });
-  };
-
   if (etiquetas.length === 0) {
     return (
-      <div className="text-center py-10 px-4 bg-gray-50 rounded-lg border-2 border-dashed">
-        <h3 className="text-lg font-medium text-gray-800">No hay etiquetas para mostrar</h3>
-        <p className="text-sm text-gray-500 mt-2">Cuando se creen nuevas etiquetas, aparecerán aquí.</p>
+      <div className="text-center py-10 px-4 bg-gray-50 rounded-lg border-2 border-dashed mt-8">
+        <h3 className="text-lg font-medium text-gray-800">No se encontraron etiquetas</h3>
+        <p className="text-sm text-gray-500 mt-2">Prueba a cambiar los filtros o crea una nueva etiqueta.</p>
       </div>
     );
   }
 
   return (
-    <div className="border rounded-lg bg-background">
+    <div className="border rounded-lg bg-background mt-8">
       <Table>
-        <TableCaption>Un listado de las etiquetas más recientes.</TableCaption>
+        <TableCaption>Un listado de las etiquetas que coinciden con tu búsqueda.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[120px]">N° Orden</TableHead>

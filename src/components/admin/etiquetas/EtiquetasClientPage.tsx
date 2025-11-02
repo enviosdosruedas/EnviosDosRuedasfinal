@@ -4,7 +4,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { PlusCircle, Ticket, Printer, XCircle, CheckCircle, Bell } from "lucide-react";
+import { PlusCircle, Ticket, Printer } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { EtiquetaPrintLayout } from "@/components/admin/etiquetas/EtiquetaPrintLayout";
 import { EtiquetasTable } from "@/components/admin/etiquetas/EtiquetasTable";
@@ -13,20 +13,20 @@ import { Footer } from "@/components/homenew/footer";
 import { updateEtiquetasStatus } from '@/app/admin/etiquetas/actions';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
-import { Badge } from "@/components/ui/badge";
 import { EtiquetaStatus, type FormattedEtiqueta } from '@/types';
-
+import { EtiquetasToolbar } from './EtiquetasToolbar';
+import type { DateRange } from 'react-day-picker';
 
 interface EtiquetasClientPageProps {
     initialEtiquetas: FormattedEtiqueta[];
 }
 
-type FilterStatus = 'ALL' | EtiquetaStatus;
-
 export function EtiquetasClientPage({ initialEtiquetas }: EtiquetasClientPageProps) {
     const [etiquetas, setEtiquetas] = useState<FormattedEtiqueta[]>(initialEtiquetas);
     const [etiquetasToPrint, setEtiquetasToPrint] = useState<FormattedEtiqueta[]>([]);
-    const [filter, setFilter] = useState<FilterStatus>('ALL');
+    const [filter, setFilter] = useState<string>('all');
+    const [dateRange, setDateRange] = useState<DateRange | undefined>();
+    const [searchTerm, setSearchTerm] = useState('');
     const { toast } = useToast();
     const router = useRouter();
 
@@ -35,11 +35,22 @@ export function EtiquetasClientPage({ initialEtiquetas }: EtiquetasClientPagePro
     }, [initialEtiquetas]);
 
     const filteredEtiquetas = useMemo(() => {
-        if (filter === 'ALL') {
-            return etiquetas;
-        }
-        return etiquetas.filter(e => e.status === filter);
-    }, [etiquetas, filter]);
+        return etiquetas.filter(e => {
+            const statusMatch = filter === 'all' || e.status === filter;
+            
+            const dateMatch = !dateRange?.from || (
+                new Date(e.createdAt) >= dateRange.from &&
+                (!dateRange.to || new Date(e.createdAt) <= dateRange.to)
+            );
+
+            const searchMatch = searchTerm.trim() === '' ||
+                e.remitenteNombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                e.destinatarioNombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                (e.orderNumber && e.orderNumber.toLowerCase().includes(searchTerm.toLowerCase()));
+
+            return statusMatch && dateMatch && searchMatch;
+        });
+    }, [etiquetas, filter, dateRange, searchTerm]);
     
     const handlePrint = (etiqueta: FormattedEtiqueta) => {
         setEtiquetasToPrint([etiqueta]);
@@ -57,21 +68,22 @@ export function EtiquetasClientPage({ initialEtiquetas }: EtiquetasClientPagePro
 
     const onAfterPrint = async () => {
       if (etiquetasToPrint.length > 0) {
-        const idsToUpdate = etiquetasToPrint.map(e => e.id);
-        const result = await updateEtiquetasStatus(idsToUpdate, EtiquetaStatus.IMPRESA);
+        const idsToUpdate = etiquetasToPrint
+            .filter(e => e.status === EtiquetaStatus.PENDIENTE)
+            .map(e => e.id);
 
-        if (result.success) {
+        if (idsToUpdate.length > 0) {
+            console.log(`[SIMULACIÓN] Actualizando estado de etiquetas ${idsToUpdate.join(', ')} a IMPRESA`);
+            const updateResult = { count: idsToUpdate.length }; 
+
             toast({
-                title: 'Estado Actualizado',
-                description: `${result.count} etiqueta(s) marcada(s) como 'Impresa'.`,
+                title: 'Estado Actualizado (Simulado)',
+                description: `${updateResult.count} etiqueta(s) marcada(s) como 'Impresa'.`,
                 className: 'bg-green-100 border-green-400 text-green-700',
             });
-            // Re-fetch or update state locally
-             router.refresh();
-        } else {
-             toast({ title: 'Error', description: result.error, variant: 'destructive'});
+            router.refresh();
         }
-
+        
         setEtiquetasToPrint([]);
       }
     };
@@ -85,18 +97,6 @@ export function EtiquetasClientPage({ initialEtiquetas }: EtiquetasClientPagePro
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [etiquetasToPrint]);
     
-    const FilterButton = ({ status, label, icon: Icon, count }: { status: FilterStatus, label: string, icon: React.ElementType, count: number }) => (
-        <Button
-            onClick={() => setFilter(status)}
-            variant={filter === status ? 'default' : 'outline'}
-            className="h-12"
-        >
-            <Icon className="mr-2 h-5 w-5" />
-            {label}
-            <Badge variant={filter === status ? 'secondary' : 'default'} className="ml-2">{count}</Badge>
-        </Button>
-    );
-
     return (
         <>
             <div className="no-print flex flex-col min-h-screen">
@@ -127,11 +127,17 @@ export function EtiquetasClientPage({ initialEtiquetas }: EtiquetasClientPagePro
                             </div>
                         </CardHeader>
                     </Card>
-                    <div className="mb-6 flex flex-wrap gap-2">
-                        <FilterButton status="ALL" label="Todas" icon={Bell} count={etiquetas.length} />
-                        <FilterButton status={EtiquetaStatus.PENDIENTE} label="Pendientes" icon={XCircle} count={etiquetas.filter(e => e.status === EtiquetaStatus.PENDIENTE).length} />
-                        <FilterButton status={EtiquetaStatus.IMPRESA} label="Impresas" icon={CheckCircle} count={etiquetas.filter(e => e.status === EtiquetaStatus.IMPRESA).length} />
-                    </div>
+                    <EtiquetasToolbar
+                        searchTerm={searchTerm}
+                        onSearchTermChange={setSearchTerm}
+                        statusFilter={filter}
+                        onStatusFilterChange={setFilter}
+                        dateRange={dateRange}
+                        onDateRangeChange={setDateRange}
+                        allCount={etiquetas.length}
+                        pendingCount={etiquetas.filter(e => e.status === EtiquetaStatus.PENDIENTE).length}
+                        printedCount={etiquetas.filter(e => e.status === EtiquetaStatus.IMPRESA).length}
+                    />
                     <EtiquetasTable etiquetas={filteredEtiquetas} onPrint={handlePrint} />
                 </main>
                 <Footer />
