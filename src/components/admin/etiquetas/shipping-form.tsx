@@ -120,9 +120,9 @@ export function ShippingForm({ onFormSubmit }: ShippingFormProps) {
 
   useEffect(() => {
     if (shippingType === 'Punto de retiro') {
-      form.setValue('receiverAddress', 'Rawson 2860');
+      form.setValue('receiverAddress', '11 de Septiembre 3317, Mar del Plata');
     } else {
-        if(form.getValues('receiverAddress') === 'Rawson 2860'){
+        if(form.getValues('receiverAddress') === '11 de Septiembre 3317, Mar del Plata'){
            form.setValue('receiverAddress', '');
         }
     }

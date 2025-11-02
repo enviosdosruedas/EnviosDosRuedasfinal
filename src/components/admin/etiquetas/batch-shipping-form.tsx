@@ -122,7 +122,7 @@ export function BatchShippingForm({ onFormSubmit }: BatchShippingFormProps) {
       return {
         ...values,
         ...receiver,
-        receiverAddress: receiver.shippingType === 'Punto de retiro' ? 'Rawson 2860' : receiver.receiverAddress,
+        receiverAddress: receiver.shippingType === 'Punto de retiro' ? '11 de Septiembre 3317, Mar del Plata' : receiver.receiverAddress,
         orderNumber,
       };
     });
@@ -223,9 +223,9 @@ export function BatchShippingForm({ onFormSubmit }: BatchShippingFormProps) {
                             onValueChange={(value) => {
                                 selectField.onChange(value);
                                 if (value === 'Punto de retiro') {
-                                    form.setValue(`receivers.${index}.receiverAddress`, 'Rawson 2860');
+                                    form.setValue(`receivers.${index}.receiverAddress`, '11 de Septiembre 3317, Mar del Plata');
                                 } else {
-                                    if(form.getValues(`receivers.${index}.receiverAddress`) === 'Rawson 2860') {
+                                    if(form.getValues(`receivers.${index}.receiverAddress`) === '11 de Septiembre 3317, Mar del Plata') {
                                         form.setValue(`receivers.${index}.receiverAddress`, '');
                                     }
                                 }

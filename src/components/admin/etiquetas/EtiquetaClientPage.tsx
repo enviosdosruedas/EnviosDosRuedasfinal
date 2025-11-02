@@ -4,13 +4,14 @@
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import { EtiquetaForm } from "@/components/admin/etiquetas/EtiquetaForm";
-import { Etiqueta as PrismaEtiqueta } from "@prisma/client";
+import { type Etiqueta as PrismaEtiqueta } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { Printer } from "lucide-react";
 import { EtiquetaPrintLayout } from "@/components/admin/etiquetas/EtiquetaPrintLayout";
 
-type FormattedEtiquetaType = Omit<PrismaEtiqueta, 'montoACobrar'> & {
+type FormattedEtiquetaType = Omit<PrismaEtiqueta, 'montoACobrar' | 'orderNumber'> & {
   montoACobrar: number | null;
+  orderNumber: string | null;
 };
 
 interface EtiquetaClientPageProps {

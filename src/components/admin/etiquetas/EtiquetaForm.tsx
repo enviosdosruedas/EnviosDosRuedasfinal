@@ -66,7 +66,7 @@ const EtiquetaFormSchema = z.object({
 
 type EtiquetaFormValues = z.infer<typeof EtiquetaFormSchema>;
 
-type FormattedEtiquetaType = Omit<PrismaEtiqueta, 'montoACobrar'> & {
+type FormattedEtiquetaType = Omit<PrismaEtiqueta, 'montoACobrar' | 'orderNumber'> & {
   montoACobrar: number | null;
   orderNumber: string | null;
 };
@@ -124,9 +124,10 @@ export function EtiquetaForm({ initialData }: EtiquetaFormProps) {
     if (state?.message) {
       toast({ title: 'Éxito', description: state.message });
       if (isNew && state.etiquetaId) {
+        // Redirect to the edit page of the newly created label
         router.push(`/admin/etiquetas/${state.etiquetaId}`);
-      }
-       if (state.etiquetaId) {
+      } else {
+        // For updates, just refresh the data on the current page
         router.refresh();
       }
     }
