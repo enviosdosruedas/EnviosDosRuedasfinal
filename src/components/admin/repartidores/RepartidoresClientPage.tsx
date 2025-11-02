@@ -15,7 +15,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import { HojaDeRuta } from '@/components/admin/repartidores/HojaDeRuta';
 import type { FormattedEtiqueta } from '@/types';
 import { EtiquetaStatus } from '@/types';
-import { assignEtiquetaToRepartidor } from '@/app/admin/repartidores/actions';
+import { assignEtiquetaByOrderNumber } from '@/app/admin/repartidores/actions';
 import { useToast } from '@/hooks/use-toast';
 
 interface RepartidoresClientPageProps {
@@ -39,15 +39,6 @@ export function RepartidoresClientPage({ initialRepartidores, initialEtiquetas }
         setIsFormOpen(false);
         // Data will be revalidated by the server action, but we could also update state here if needed
         // For now, we rely on the server revalidation which refreshes the page props.
-    };
-
-    const handleAssign = async (etiquetaId: number, repartidorId: number) => {
-        const result = await assignEtiquetaToRepartidor(etiquetaId, repartidorId);
-        if (result.success) {
-            toast({ title: 'Éxito', description: `Etiqueta asignada a ${repartidores.find(r => r.id === repartidorId)?.name}.` });
-        } else {
-            toast({ title: 'Error', description: result.error, variant: 'destructive' });
-        }
     };
 
     const repartidorSeleccionado = selectedRepartidorId 
