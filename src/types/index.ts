@@ -24,12 +24,9 @@ export enum EtiquetaStatus {
     IMPRESA = 'IMPRESA',
 }
 
-export type Etiqueta = PrismaEtiqueta & {
-    status: EtiquetaStatus;
-};
-
 // Client-safe version with numbers instead of Decimals
-export type FormattedEtiqueta = Omit<Etiqueta, 'montoACobrar' | 'orderNumber'> & {
+export type FormattedEtiqueta = Omit<PrismaEtiqueta, 'montoACobrar' | 'orderNumber'> & {
   montoACobrar: number | null;
   orderNumber: string | null;
+  status: EtiquetaStatus;
 };
