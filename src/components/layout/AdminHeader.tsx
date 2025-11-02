@@ -135,43 +135,45 @@ export function AdminHeader() {
             const GroupIcon = item.icon;
             const groupIsActive = isGroupActive(item);
             return (
-              <DropdownMenu key={item.label}>
-                <DropdownMenuTrigger asChild>
-                  <motion.div
-                    className={cn(
-                      "flex cursor-pointer items-center space-x-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-200",
-                       groupIsActive
-                        ? "bg-secondary/10 text-secondary"
-                        : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10",
-                    )}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <GroupIcon className="h-4 w-4" />
-                    <span>{item.label}</span>
-                    <ChevronDown className="h-4 w-4 opacity-70" />
-                  </motion.div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="mt-2 w-56 bg-popover/80 backdrop-blur-lg border-primary-foreground/10 text-popover-foreground">
-                    {item.items.map((subItem) => {
-                       const SubItemIcon = subItem.icon;
-                        return (
-                             <DropdownMenuItem key={subItem.href} asChild>
-                                <Link
-                                    href={subItem.href}
-                                    className={cn(
-                                        "flex items-center space-x-3 py-2.5",
-                                        isActive(subItem.href) ? "text-secondary font-semibold" : "",
-                                    )}
-                                >
-                                    {SubItemIcon && <SubItemIcon className="h-4 w-4" />}
-                                    <span>{subItem.label}</span>
-                                </Link>
-                            </DropdownMenuItem>
-                        )
-                    })}
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <div key={item.label}>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <motion.div
+                      className={cn(
+                        "flex cursor-pointer items-center space-x-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-200",
+                        groupIsActive
+                          ? "bg-secondary/10 text-secondary"
+                          : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10",
+                      )}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <GroupIcon className="h-4 w-4" />
+                      <span>{item.label}</span>
+                      <ChevronDown className="h-4 w-4 opacity-70" />
+                    </motion.div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="mt-2 w-56 bg-popover/80 backdrop-blur-lg border-primary-foreground/10 text-popover-foreground">
+                      {item.items.map((subItem) => {
+                        const SubItemIcon = subItem.icon;
+                          return (
+                              <DropdownMenuItem key={subItem.href} asChild>
+                                  <Link
+                                      href={subItem.href}
+                                      className={cn(
+                                          "flex items-center space-x-3 py-2.5",
+                                          isActive(subItem.href) ? "text-secondary font-semibold" : "",
+                                      )}
+                                  >
+                                      {SubItemIcon && <SubItemIcon className="h-4 w-4" />}
+                                      <span>{subItem.label}</span>
+                                  </Link>
+                              </DropdownMenuItem>
+                          )
+                      })}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             )
           })}
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="ml-4">
@@ -203,9 +205,9 @@ export function AdminHeader() {
                     <Accordion type="multiple" className="w-full">
                     {adminNavItems.map((item) => {
                         if ('href' in item) {
-                             const ItemIcon = item.icon
+                              const ItemIcon = item.icon
                             return (
-                               <motion.div variants={mobileNavItemVariants} key={item.href}>
+                                <motion.div variants={mobileNavItemVariants} key={item.href}>
                                     <SheetClose asChild>
                                     <Link
                                         href={item.href}
@@ -270,7 +272,7 @@ export function AdminHeader() {
                             </motion.div>
                         )
                     })}
-                   </Accordion>
+                    </Accordion>
                 </div>
                 <motion.div variants={mobileNavItemVariants} className="mt-auto pt-6 pb-10">
                   <LogoutButton />
