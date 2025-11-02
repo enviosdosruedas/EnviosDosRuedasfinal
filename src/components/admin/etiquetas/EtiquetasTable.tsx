@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import type { Etiqueta as PrismaEtiqueta, ServiceTypeEnum } from "@prisma/client";
+import { Etiqueta as PrismaEtiqueta, ServiceTypeEnum } from "@prisma/client";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 
