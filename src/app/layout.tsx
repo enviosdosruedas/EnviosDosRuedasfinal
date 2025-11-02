@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Roboto, Orbitron } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
@@ -41,7 +42,6 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   icons: {
-    icon: '/favicon.ico',
     apple: "/icons/apple-touch-icon.png",
   },
 };
