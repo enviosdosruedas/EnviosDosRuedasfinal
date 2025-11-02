@@ -30,7 +30,7 @@ export function CtaGastronomico() {
                 size="lg"
                 className="bg-green-500 hover:bg-green-600 text-white font-bold text-lg px-8 py-7 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
-                <Image src="/icon/icon-whatsapp.svg" alt="WhatsApp Icon" width={24} height={24} className="mr-3" />
+                <Image src="/logo_envios.svg" alt="WhatsApp Icon" width={24} height={24} className="mr-3" />
                 Contactar a Matías por WhatsApp
               </Button>
               <div className="text-center">
