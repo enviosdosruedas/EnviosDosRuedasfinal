@@ -6,90 +6,98 @@ generator client {
 }
 
 datasource db {
-  provider     = "postgresql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model SocialPost {
+  id         Int                 @id @default(autoincrement())
+  platform   SocialPlatformEnum
+  userName   String
+  userAvatar String?
+  userUrl    String?
+  content    String
+  postUrl    String              @unique
+  imageUrl   String?
+  imageHint  String?
+  likes      Int?
+  comments   Int?
+  shares     Int?
+  timestamp  DateTime            @default(now())
+
+  @@index([timestamp])
+}
+
+model Client {
+  id           Int      @id @default(autoincrement())
+  name         String
+  lastName     String?
+  phone        String?   @unique
+  email        String?  @unique
+  address      String
+  addressLat   Decimal? @db.Decimal(10, 8)
+  addressLng   Decimal? @db.Decimal(10, 8)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  orders       Order[]
 }
 
 model Order {
-  id                      Int      @id @default(autoincrement())
+  id                      Int                 @id @default(autoincrement())
   clientId                Int?
-  clientNameAtOrder       String
-  clientPhoneAtOrder      String
+  client                  Client?             @relation(fields: [clientId], references: [id])
   originFullName          String
   originPhone             String
   originAddress           String
-  originLat               Decimal?
-  originLng               Decimal?
+  originLat               Decimal?            @db.Decimal(10, 8)
+  originLng               Decimal?            @db.Decimal(10, 8)
   destinationContactName  String
   destinationContactPhone String
   destinationContactEmail String?
   destinationAddress      String
-  destinationLat          Decimal?
-  destinationLng          Decimal?
+  destinationLat          Decimal?            @db.Decimal(10, 8)
+  destinationLng          Decimal?            @db.Decimal(10, 8)
   serviceType             ServiceTypeEnum
-  quotedPrice             Decimal?
+  status                  OrderStatusEnum     @default(pendiente)
+  quotedPrice             Decimal?            @db.Decimal(10, 2)
   distanceText            String?
   durationText            String?
-  pickupDateTime          DateTime
-  deliveryDateTime        DateTime
-  status                  OrderStatusEnum @default(PENDIENTE)
-  createdAt               DateTime        @default(now())
-  updatedAt               DateTime        @updatedAt
+  clientNameAtOrder       String?
+  clientPhoneAtOrder      String?
   pickupDate              DateTime
   pickupTimeFrom          String
   pickupTimeTo            String
   deliveryDate            DateTime
   deliveryTimeFrom        String
   deliveryTimeTo          String
-  shippingCost            Decimal?
-  totalCost               Decimal?
-
-  client Client? @relation(fields: [clientId], references: [id], onDelete: SetNull)
-
-  @@index([clientId])
-}
-
-model PriceRange {
-  id             Int             @id @default(autoincrement())
-  distanciaMinKm Decimal
-  distanciaMaxKm Decimal
-  precioRango    Decimal
-  serviceType    ServiceTypeEnum
-  isActive       Boolean         @default(true)
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-
-  @@unique([distanciaMinKm, distanciaMaxKm, serviceType])
-}
-
-model SocialPost {
-  id         Int                @id @default(autoincrement())
-  platform   SocialPlatformEnum
-  userName   String
-  userAvatar String?
-  userUrl    String?
-  content    String
-  postUrl    String             @unique
-  imageUrl   String?
-  imageHint  String?
-  timestamp  DateTime
-  likes      Int?
-  comments   Int?
-  shares     Int?
-  createdAt  DateTime           @default(now())
-  updatedAt  DateTime           @updatedAt
+  pickupDateTime          DateTime
+  deliveryDateTime        DateTime
+  shippingCost            Decimal             @db.Decimal(10, 2)
+  totalCost               Decimal             @db.Decimal(10, 2)
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
 }
 
 model Repartidor {
   id        Int      @id @default(autoincrement())
   name      String
   phone     String   @unique
-  email     String?  @unique
-  password  String
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model PriceRange {
+  id              Int             @id @default(autoincrement())
+  distanciaMinKm  Decimal         @db.Decimal(10, 2)
+  distanciaMaxKm  Decimal         @db.Decimal(10, 2)
+  precioRango     Decimal         @db.Decimal(10, 2)
+  serviceType     ServiceTypeEnum
+  isActive        Boolean         @default(true)
+
+  @@unique([distanciaMinKm, distanciaMaxKm, serviceType])
 }
 
 model Etiqueta {
@@ -102,49 +110,35 @@ model Etiqueta {
   destinatarioNombre    String
   destinatarioDireccion String
   destinatarioTelefono  String
-  montoACobrar          Decimal?
+  montoACobrar          Decimal?        @db.Decimal(10, 2)
   destinatarioNotas     String?
   deliveryStartTime     String?
   deliveryEndTime       String?
-  status                String          @default("PENDIENTE") // PENDIENTE, IMPRESA
+  status                EtiquetaStatus  @default(PENDIENTE)
   createdAt             DateTime        @default(now())
   updatedAt             DateTime        @updatedAt
 }
 
-
-model Client {
-  id         Int       @id @default(autoincrement())
-  name       String
-  lastName   String?
-  phone      String?   @unique
-  email      String?   @unique
-  address    String
-  addressLat Decimal?
-  addressLng Decimal?
-  isActive   Boolean   @default(true)
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-
-  orders Order[]
-}
-
-
-enum ServiceTypeEnum {
-  EXPRESS
-  LOW_COST
-  PUNTO_DE_RETIRO
-}
-
-enum OrderStatusEnum {
+enum EtiquetaStatus {
   PENDIENTE
-  ASIGNADO
-  EN_CURSO
-  ENTREGADO
-  CANCELADO
+  IMPRESA
 }
 
 enum SocialPlatformEnum {
   facebook
   instagram
   whatsapp
+}
+
+enum OrderStatusEnum {
+  pendiente
+  en_curso
+  entregado
+  cancelado
+}
+
+enum ServiceTypeEnum {
+  EXPRESS
+  LOW_COST
+  PUNTO_DE_RETIRO
 }
