@@ -6,11 +6,8 @@ import prisma from '@/lib/prisma';
 import { Prisma, ServiceTypeEnum } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { EtiquetaStatus } from './status';
 
-export enum EtiquetaStatus {
-    PENDIENTE = 'PENDIENTE',
-    IMPRESA = 'IMPRESA',
-}
 
 const timeStringToMinutes = (time: string) => {
   if (!time || !time.includes(':')) return 0;

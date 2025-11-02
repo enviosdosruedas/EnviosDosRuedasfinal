@@ -11,11 +11,12 @@ import { EtiquetaPrintLayout } from "@/components/admin/etiquetas/EtiquetaPrintL
 import { EtiquetasTable } from "@/components/admin/etiquetas/EtiquetasTable";
 import { AdminHeader } from "@/components/layout/AdminHeader";
 import { Footer } from "@/components/homenew/footer";
-import { updateEtiquetasStatus, EtiquetaStatus } from '@/app/admin/etiquetas/actions';
+import { updateEtiquetasStatus } from '@/app/admin/etiquetas/actions';
+import { EtiquetaStatus } from '@/app/admin/etiquetas/status';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 
-export type FormattedEtiqueta = Omit<Etiqueta, 'montoACobrar'> & {
+export type FormattedEtiqueta = Omit<Etiqueta, 'montoACobrar' | 'status'> & {
   montoACobrar: number | null;
   status: EtiquetaStatus;
 };

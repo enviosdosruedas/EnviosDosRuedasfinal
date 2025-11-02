@@ -16,11 +16,11 @@ import { Pencil, Printer } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { Etiqueta as PrismaEtiqueta, ServiceTypeEnum } from "@prisma/client";
-import { EtiquetaStatus } from "@/app/admin/etiquetas/actions";
+import { EtiquetaStatus } from '@/app/admin/etiquetas/status';
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 
-export type FormattedEtiqueta = Omit<PrismaEtiqueta, 'montoACobrar'> & {
+export type FormattedEtiqueta = Omit<PrismaEtiqueta, 'montoACobrar' | 'status'> & {
   montoACobrar: number | null;
   status: EtiquetaStatus;
 };
