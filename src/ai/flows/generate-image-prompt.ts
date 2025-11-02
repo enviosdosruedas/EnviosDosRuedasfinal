@@ -54,7 +54,7 @@ const promptTemplate = ai.definePrompt({
     7.  **Estilo y Calidad:** Añade palabras clave que mejoren la calidad de la imagen, como "cinematic lighting", "sharp focus", "dynamic composition", "hyper-realistic", "shot on DSLR", "8k".
 
     **Ejemplo de cómo pensarías:**
-    Si el servicio es 'Envíos Express' y la sección es 'Hero', pensarías en una escena de acción. El repartidor en una moto moderna, desenfoque de movimiento. Colores azul y amarillo en su equipo. El prompt podría ser: "Dynamic action shot of a courier on a modern scooter, speeding through a bustling city street in Mar del Plata, Argentina. The rider wears a sleek blue helmet and a bright yellow delivery backpack. Motion blur effect on the background to convey speed and urgency. Cinematic lighting, sharp focus on the rider, sunny day, 8k, hyper-realistic photography."
+    Si el servicio es 'Envíos Express' y la sección es 'Hero', pensarías en una escena de acción. El repartidor en una moto moderna, desenfoque de movimiento, en una calle que recuerde a Mar del Plata. Colores azul y amarillo en su equipo. El prompt podría ser: "Dynamic action shot of a courier on a modern scooter, speeding through a bustling city street in Mar del Plata, Argentina. The rider wears a sleek blue helmet and a bright yellow delivery backpack. Motion blur effect on the background to convey speed and urgency. Cinematic lighting, sharp focus on the rider, sunny day, 8k, hyper-realistic photography."
 
     Ahora, genera el prompt para la siguiente solicitud:
     - Servicio: {{serviceName}}
