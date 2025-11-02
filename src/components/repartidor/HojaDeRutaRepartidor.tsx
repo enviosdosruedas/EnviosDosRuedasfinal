@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Printer, Search, Truck, Check, X, Loader2, Info } from 'lucide-react';
-import { updateEtiquetaStatus } from '@/app/admin/repartidores/actions';
+import { updateEtiquetaStatus } from '@/app/admin/etiquetas/actions';
 import { useToast } from '@/hooks/use-toast';
 
 interface HojaDeRutaRepartidorProps {
