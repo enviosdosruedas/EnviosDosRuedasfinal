@@ -2,7 +2,7 @@
 'use client';
 
 import { useActionState, useEffect, useState, useTransition } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useToast } from '@/hooks/use-toast';
@@ -13,6 +13,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '@/components/ui/form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Loader2, Wand2, Sparkles, Copy, Check } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -30,10 +31,15 @@ const services = [
 ];
 
 const sections = ['Hero', 'Card', 'Banner', 'General', 'Ilustración'];
+const aspectRatios = ['16:9 (Panorámica)', '1:1 (Cuadrada)', '9:16 (Vertical)'];
+const styles = ['Fotografía Realista', 'Ilustración Digital', 'Arte 3D', 'Estilo Cinematográfico', 'Minimalista'];
 
 const promptGeneratorSchema = z.object({
   sectionType: z.string().min(1, 'El tipo de sección es requerido.'),
   service: z.string().min(1, 'El servicio es requerido.'),
+  aspectRatio: z.string().min(1, 'La relación de aspecto es requerida.'),
+  style: z.string().min(1, 'El estilo es requerido.'),
+  background: z.string().optional(),
   details: z.string().optional(),
 });
 
@@ -61,6 +67,9 @@ export function ImagePromptGenerator() {
     defaultValues: {
       sectionType: '',
       service: '',
+      aspectRatio: '16:9 (Panorámica)',
+      style: 'Fotografía Realista',
+      background: '',
       details: '',
     },
   });
@@ -78,7 +87,7 @@ export function ImagePromptGenerator() {
   const handleFormSubmit = form.handleSubmit((data) => {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
+      formData.append(key, value || '');
     });
     startTransition(() => {
       formAction(formData);
@@ -143,13 +152,60 @@ export function ImagePromptGenerator() {
                 </FormItem>
               )}
             />
+             <FormField
+              control={form.control}
+              name="aspectRatio"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Relación de Aspecto</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl>
+                    <SelectContent>
+                      {aspectRatios.map(ratio => <SelectItem key={ratio} value={ratio}>{ratio}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="style"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Estilo Visual</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl>
+                    <SelectContent>
+                      {styles.map(style => <SelectItem key={style} value={style}>{style}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+             <div className="md:col-span-2">
+                <FormField
+                control={form.control}
+                name="background"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Detalles del Fondo (Opcional)</FormLabel>
+                    <FormControl>
+                        <Input placeholder="Ej: 'fondo de playa difuminado', 'interior de un taller moderno'" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+            </div>
             <div className="md:col-span-2">
               <FormField
                 control={form.control}
                 name="details"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Detalles Adicionales (Opcional)</FormLabel>
+                    <FormLabel>Detalles Adicionales de Contenido (Opcional)</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Ej: 'mostrar un repartidor sonriendo', 'escena nocturna', 'cliente recibiendo el paquete feliz'"
@@ -158,7 +214,7 @@ export function ImagePromptGenerator() {
                       />
                     </FormControl>
                     <FormDescription>
-                      Añade cualquier detalle específico que quieras en la imagen.
+                      Añade cualquier detalle específico sobre la acción o los sujetos en la imagen.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

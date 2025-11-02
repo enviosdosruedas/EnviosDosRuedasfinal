@@ -14,6 +14,9 @@ import { z } from 'genkit';
 const GenerateImagePromptInputSchema = z.object({
   sectionType: z.string().describe("El tipo de sección de la página donde se usará la imagen (ej: Hero, Card, Banner)."),
   serviceName: z.string().describe("El nombre del servicio para el cual es la imagen (ej: Envíos Express, Plan Emprendedores)."),
+  aspectRatio: z.string().describe("La relación de aspecto de la imagen (ej: '16:9' para panorámica, '1:1' para cuadrada)."),
+  style: z.string().describe("El estilo visual deseado para la imagen (ej: 'Fotografía Realista', 'Ilustración Digital')."),
+  background: z.string().optional().describe("Descripción del fondo deseado para la imagen."),
   additionalDetails: z.string().optional().describe("Detalles adicionales o requerimientos específicos del usuario para la imagen."),
 });
 export type GenerateImagePromptInput = z.infer<typeof GenerateImagePromptInputSchema>;
@@ -50,22 +53,28 @@ const promptTemplate = ai.definePrompt({
     4.  **Concepto Central:** El prompt debe reflejar el concepto del servicio y el tipo de sección.
         -   **Servicio:** "{{serviceName}}". Adapta la atmósfera a este servicio (ej: 'Envíos Express' debe ser dinámico y rápido; 'Envíos Low Cost' debe ser planificado y económico; 'Envíos Flex' debe ser sobre e-commerce y MercadoLibre; 'Preguntas Frecuentes' debe ser sobre ayuda y claridad).
         -   **Sección:** "{{sectionType}}". Ajusta la composición (ej: un 'Hero' debe ser panorámico e impactante; una 'Card' debe ser más enfocada y simple; un 'Banner' debe ser alargado).
-    5.  **Detalles Adicionales:** Incorpora los siguientes detalles del usuario: "{{additionalDetails}}".
-    6.  **Inclusión de Texto (si se solicita):** Si el usuario pide agregar texto, especifica claramente el texto a incluir, su ubicación, y que debe usar las tipografías del proyecto ("Orbitron" para títulos, "Roboto" para texto secundario).
-    7.  **Estilo y Calidad:** Añade palabras clave que mejoren la calidad de la imagen, como "cinematic lighting", "sharp focus", "dynamic composition", "hyper-realistic", "shot on DSLR", "8k", "professional photography".
+    5.  **Relación de Aspecto:** Asegúrate de que la descripción de la escena sea coherente con la relación de aspecto solicitada: "{{aspectRatio}}".
+    6.  **Estilo Visual:** Aplica el estilo visual solicitado: "{{style}}". Utiliza palabras clave adecuadas para lograr ese estilo (ej: para 'Fotografía Realista' usa "hyper-realistic, shot on DSLR"; para 'Ilustración Digital' usa "digital illustration, vibrant colors, clean lines").
+    7.  **Fondo:** Incorpora la descripción del fondo: "{{background}}". Si no se especifica, crea un fondo apropiado para el contexto.
+    8.  **Detalles Adicionales:** Incorpora los siguientes detalles del usuario: "{{additionalDetails}}".
+    9.  **Inclusión de Texto (si se solicita):** Si el usuario pide agregar texto, especifica claramente el texto a incluir, su ubicación, y que debe usar las tipografías del proyecto ("Orbitron" para títulos, "Roboto" para texto secundario).
+    10. **Calidad:** Añade siempre palabras clave que mejoren la calidad de la imagen, como "cinematic lighting", "sharp focus", "dynamic composition", "8k", "professional photography".
 
     **Ejemplo de cómo pensarías:**
-    - **Solicitud:** Servicio 'Envíos Express', Sección 'Hero', Detalles 'que se vea veloz y en la costa'.
-    - **Tu Proceso Mental:** Escena de acción. Repartidor en moto moderna, desenfoque de movimiento en una calle costera que recuerde a la rambla de Mar del Plata. Colores azul y amarillo en su equipo.
-    - **Prompt Ejemplo:** "Dynamic action shot of a courier on a modern electric scooter, speeding along a scenic coastal road in Mar del Plata, Argentina. The rider wears a sleek blue helmet and a bright yellow delivery backpack. Motion blur on the background to convey speed and urgency. Cinematic lighting, sharp focus on the rider, sunny day with the sea in the background, 8k, hyper-realistic photography."
+    - **Solicitud:** Servicio 'Envíos Express', Sección 'Hero', Aspecto '16:9', Estilo 'Fotografía Realista', Fondo 'costa de mar del plata', Detalles 'que se vea veloz'.
+    - **Tu Proceso Mental:** Escena de acción. Repartidor en moto moderna, desenfoque de movimiento en una calle costera que recuerde a la rambla de Mar del Plata. Composición panorámica. Colores azul y amarillo en su equipo. Estilo hiperrealista.
+    - **Prompt Ejemplo:** "Dynamic action shot of a courier on a modern electric scooter, speeding along the scenic coastal road of Mar del Plata, Argentina. Aspect ratio 16:9. The rider wears a sleek blue helmet and a bright yellow delivery backpack. Motion blur on the background to convey speed and urgency. Cinematic lighting, sharp focus on the rider, sunny day with the sea in the background, 8k, hyper-realistic photography."
 
-    - **Solicitud:** Servicio 'Envíos Flex', Sección 'Card', Detalles 'vendedor preparando un paquete'.
-    - **Tu Proceso Mental:** Escena de e-commerce. Un emprendedor en su taller/oficina, sonriendo, mientras empaca un producto en una caja con el logo de MercadoLibre y una cinta con los colores de Envios DosRuedas. Ambiente ordenado y profesional.
-    - **Prompt Ejemplo:** "Medium shot of a friendly entrepreneur in their workshop, carefully placing a product into a cardboard box with a Mercado Libre Flex logo. The packing tape is blue and yellow. The scene is well-lit, with a clean and organized background showing shelves with products. Soft, natural lighting, sharp focus on the hands and the package, professional small business environment."
+    - **Solicitud:** Servicio 'Envíos Flex', Sección 'Card', Aspecto '1:1', Estilo 'Ilustración Digital', Fondo 'taller de emprendedor', Detalles 'vendedor preparando un paquete'.
+    - **Tu Proceso Mental:** Escena de e-commerce. Un emprendedor sonriendo mientras empaca un producto. Composición cuadrada. Estilo de ilustración con colores vibrantes.
+    - **Prompt Ejemplo:** "Vibrant digital illustration of a friendly entrepreneur in their workshop, carefully placing a product into a cardboard box with a Mercado Libre Flex logo. Aspect ratio 1:1. The packing tape is blue and yellow. The scene is well-lit, with a clean and organized background showing shelves with products. Clean lines, soft shadows, cheerful atmosphere."
 
     Ahora, genera el prompt para la siguiente solicitud:
     - Servicio: {{serviceName}}
     - Tipo de Sección: {{sectionType}}
+    - Relación de Aspecto: {{aspectRatio}}
+    - Estilo Visual: {{style}}
+    - Fondo: {{background}}
     - Detalles Adicionales: {{additionalDetails}}
   `,
 });
