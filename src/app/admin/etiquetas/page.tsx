@@ -1,8 +1,9 @@
 // src/app/admin/etiquetas/page.tsx
 import prisma from "@/lib/prisma";
 import type { Metadata } from 'next';
-import { Etiqueta, EtiquetaStatus } from "@prisma/client";
+import { type Etiqueta } from "@prisma/client";
 import { EtiquetasClientPage } from "@/components/admin/etiquetas/EtiquetasClientPage";
+import { EtiquetaStatus } from "./status";
 
 export const metadata: Metadata = {
   title: "Gestión de Etiquetas",
@@ -31,6 +32,7 @@ async function getEtiquetas(): Promise<FormattedEtiqueta[]> {
   return etiquetas.map(etiqueta => ({
     ...etiqueta,
     montoACobrar: etiqueta.montoACobrar?.toNumber() ?? null,
+    status: etiqueta.status as EtiquetaStatus, // Ensure status is correctly typed
   }));
 }
 
