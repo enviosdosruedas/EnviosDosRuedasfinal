@@ -4,96 +4,96 @@ import fs from 'fs';
 import path from 'path';
 
 const prisma = new PrismaClient();
-const dataDir = path.join(__dirname, '../datos');
+const dataDir = path.join(__dirname, '..', 'datos');
 
-async function importTable<T>(
-  tableName: keyof PrismaClient,
-  fileName: string,
-  transform?: (data: T) => Omit<T, 'id'>
-) {
-  console.log(`Importando datos para la tabla: ${tableName}...`);
-  const filePath = path.join(dataDir, fileName);
-
+async function importTable(fileName: string, model: keyof PrismaClient) {
+  const filePath = path.join(dataDir, `${fileName}.json`);
   if (!fs.existsSync(filePath)) {
-    console.log(`-> Archivo ${fileName} no encontrado, omitiendo.`);
+    console.log(`Archivo ${fileName}.json no encontrado. Omitiendo importación.`);
     return;
   }
 
-  const fileContent = fs.readFileSync(filePath, 'utf8');
-  const data = JSON.parse(fileContent) as T[];
+  console.log(`Importando datos desde ${fileName}.json a la tabla ${model}...`);
+  const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
-  if (data.length === 0) {
-    console.log(`-> No hay datos en ${fileName} para importar.`);
-    return;
+  if (!Array.isArray(data)) {
+    throw new Error(`El archivo ${fileName}.json no contiene un array.`);
   }
 
-  // Convertir strings de fecha a objetos Date y números a Decimal donde sea necesario
-  const processedData = data.map((item: any) => {
-      const newItem = { ...item };
-      // Eliminar el id autoincremental
-      delete newItem.id;
-      
-      for (const key in newItem) {
-          if (typeof newItem[key] === 'string' && /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(newItem[key])) {
-              newItem[key] = new Date(newItem[key]);
-          }
-           // Prisma maneja la conversión de number a Decimal automáticamente en createMany si el tipo de schema es Decimal
-      }
-      return newItem;
-  });
+  for (const record of data) {
+    // Convertir strings de fecha a objetos Date
+    Object.keys(record).forEach(key => {
+        if (typeof record[key] === 'string') {
+            const date = new Date(record[key]);
+            if (!isNaN(date.getTime()) && record[key].includes('T') && record[key].includes('Z')) {
+                record[key] = date;
+            }
+        }
+        // Asegurarse de que los campos Decimal se manejen como números
+        if (key.toLowerCase().includes('lat') || key.toLowerCase().includes('lng') || key.toLowerCase().includes('precio')) {
+            if (record[key] !== null && typeof record[key] !== 'number') {
+                record[key] = parseFloat(record[key]);
+            }
+        }
+    });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const result = await (prisma[tableName] as any).createMany({
-    data: processedData,
-    skipDuplicates: true, // Por si acaso
-  });
-
-  console.log(`-> ¡${result.count} registros importados a '${tableName}' desde ${fileName}!`);
+    // Corrección para SocialPost: si 'timestamp' es nulo, usar la fecha actual.
+    if (model === 'socialPost' && !record.timestamp) {
+        record.timestamp = new Date();
+    }
+    
+    try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await (prisma[model] as any).create({
+            data: record,
+        });
+    } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+            console.warn(`Registro duplicado omitido en ${model}: ${JSON.stringify(record)}`);
+        } else {
+            console.error(`Error importando registro a ${model}:`, record, error);
+            throw error; // Detener si es un error diferente
+        }
+    }
+  }
+  console.log(` -> ${data.length} registros importados a la tabla ${model}.`);
 }
-
-
-async function clearDatabase() {
-    console.log('Limpiando la base de datos...');
-    // El orden de eliminación es importante para evitar violaciones de claves foráneas
-    await prisma.etiqueta.deleteMany({});
-    console.log('- Tabla Etiqueta limpiada.');
-    await prisma.order.deleteMany({});
-    console.log('- Tabla Order limpiada.');
-    await prisma.client.deleteMany({});
-    console.log('- Tabla Client limpiada.');
-    await prisma.socialPost.deleteMany({});
-    console.log('- Tabla SocialPost limpiada.');
-    await prisma.priceRange.deleteMany({});
-    console.log('- Tabla PriceRange limpiada.');
-    await prisma.repartidor.deleteMany({});
-    console.log('- Tabla Repartidor limpiada.');
-    console.log('¡Base de datos limpiada!');
-}
-
 
 async function main() {
   console.log('Iniciando proceso de importación de datos...');
 
-  // Limpiar la base de datos antes de importar
-  await clearDatabase();
-  
-  console.log('\nComenzando la carga de datos...');
-  // El orden de importación también es importante
-  await importTable('socialPost', 'socialposts.json');
-  await importTable('client', 'clients.json');
-  await importTable('order', 'orders.json');
-  await importTable('etiqueta', 'etiquetas.json');
-  await importTable('priceRange', 'priceranges.json');
-  await importTable('repartidor', 'repartidores.json');
+  // El orden es importante para respetar las restricciones de clave externa.
+  // Borrar en orden inverso a la creación.
+  console.log('Limpiando la base de datos existente...');
+  await prisma.etiqueta.deleteMany({});
+  await prisma.order.deleteMany({});
+  await prisma.priceRange.deleteMany({});
+  await prisma.socialPost.deleteMany({});
+  await prisma.client.deleteMany({});
+  await prisma.repartidor.deleteMany({});
+  console.log('Base de datos limpiada.');
 
-  console.log('\n¡Proceso de importación completado exitosamente!');
-}
+  // Importar en el orden de dependencia.
+  const tablesToImport = [
+    { model: 'client' as keyof PrismaClient, file: 'clients' },
+    { model: 'repartidor' as keyof PrismaClient, file: 'repartidores' },
+    { model: 'socialPost' as keyof PrismaClient, file: 'socialPosts' },
+    { model: 'priceRange' as keyof PrismaClient, file: 'priceRanges' },
+    { model: 'order' as keyof PrismaClient, file: 'orders' },
+    { model: 'etiqueta' as keyof PrismaClient, file: 'etiquetas' },
+  ];
 
-main()
-  .catch((e) => {
+  try {
+    for (const table of tablesToImport) {
+       await importTable(table.file, table.model);
+    }
+    console.log('\n¡Importación de datos completada exitosamente!');
+  } catch (e) {
     console.error('Ocurrió un error durante la importación:', e);
     process.exit(1);
-  })
-  .finally(async () => {
+  } finally {
     await prisma.$disconnect();
-  });
+  }
+}
+
+main();
