@@ -1,27 +1,15 @@
-# Directories to exclude from AI processing
-node_modules/
-.next/
-dist/
-build/
-out/
-.vercel/
-docs/
-prisma/
+# Directories to exclude from AI context
+node_modules
+.next
+.vscode
+dist
+build
 
-# Configuration files
-next.config.mjs
-postcss.config.js
-tsconfig.json
-package-lock.json
+# Specific files to exclude
 bun.lockb
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
-# Generated files
-prisma/generated/
-
-# Documentation and non-code files
-*.lock
-.env
-.env.local
-.gitignore
-.aiexclude
-apphosting.yaml
+# Exclude generated data files from prisma
+prisma/datos/*.json
