@@ -1,36 +1,30 @@
 // src/app/admin/etiquetas/[id]/page.tsx
-'use client';
-
-import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
 import { AdminHeader } from "@/components/layout/AdminHeader";
 import { Footer } from "@/components/homenew/footer";
-import { EtiquetaForm } from "@/components/admin/etiquetas/EtiquetaForm";
-import type { Metadata } from 'next';
-import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
+import type { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
 import { Package, Printer } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ServiceTypeEnum, Etiqueta } from "@prisma/client";
-import { Button } from "@/components/ui/button";
-import { EtiquetaPrintLayout } from "@/components/admin/etiquetas/EtiquetaPrintLayout";
+import { Etiqueta as PrismaEtiqueta } from "@prisma/client";
+import { EtiquetaClientPage } from "@/components/admin/etiquetas/EtiquetaClientPage";
 
-// This is a client component, so metadata should be handled differently or removed if not needed server-side.
-// For simplicity, we'll manage the title client-side.
-
-type FormattedEtiquetaType = Omit<Etiqueta, 'montoACobrar'> & {
+type FormattedEtiquetaType = Omit<PrismaEtiqueta, 'montoACobrar'> & {
   montoACobrar: number | null;
 };
 
-// Async function to fetch data
+interface PageProps {
+    params: { id: string };
+}
+
 async function getEtiqueta(id: string): Promise<FormattedEtiquetaType | 'nueva' | null> {
   if (id === 'nueva') {
     return 'nueva';
   }
   
-  const numericId = parseInt(id);
+  const numericId = parseInt(id, 10);
   if (isNaN(numericId)) {
-    return null; // Triggers notFound
+    return null;
   }
   
   const etiqueta = await prisma.etiqueta.findUnique({
@@ -47,43 +41,45 @@ async function getEtiqueta(id: string): Promise<FormattedEtiquetaType | 'nueva' 
   };
 }
 
-export default function EtiquetaPageWrapper() {
-    const pathname = usePathname();
-    const id = pathname.split('/').pop() || '';
-    const [etiqueta, setEtiqueta] = useState<FormattedEtiquetaType | 'nueva' | null | undefined>(undefined);
-    
-    useEffect(() => {
-        if(id){
-            getEtiqueta(id).then(data => {
-                if (data === null) {
-                    notFound();
-                } else {
-                    setEtiqueta(data);
-                }
-            });
-        }
-    }, [id]);
+export async function generateMetadata({ params }: PageProps, parent: ResolvingMetadata): Promise<Metadata> {
+    const id = params.id;
+    const etiqueta = await getEtiqueta(id);
 
-    const isNew = etiqueta === 'nueva';
-    const hasData = etiqueta && etiqueta !== 'nueva';
+    let title: string;
+    let description: string;
     
-    const handlePrint = () => {
-        window.print();
-    };
-
-    if (etiqueta === undefined) {
-        return (
-            <div className="min-h-screen flex flex-col bg-blue-50 dark:bg-gray-900 font-sans">
-                <AdminHeader />
-                <main className="flex-grow container mx-auto px-4 py-8 pt-24 text-center">
-                    <p>Cargando datos de la etiqueta...</p>
-                </main>
-                <Footer />
-            </div>
-        );
+    if(etiqueta === 'nueva') {
+        title = "Generar Nueva Etiqueta";
+        description = "Crea una nueva etiqueta de envío para un pedido."
+    } else if (etiqueta) {
+        title = `Editando Etiqueta #${(etiqueta as FormattedEtiquetaType).orderNumber || id}`;
+        description = `Modifica los detalles de la etiqueta de envío existente.`
+    } else {
+        title = "Etiqueta no encontrada";
+        description = "La etiqueta que buscas no existe o ha sido eliminada."
     }
 
-    const title = isNew ? 'Generar Nueva Etiqueta de Envío' : `Editando Etiqueta #${(etiqueta as FormattedEtiquetaType)?.orderNumber || id}`;
+    return {
+        title,
+        description,
+        robots: {
+            index: false,
+            follow: false,
+        },
+    }
+}
+
+
+export default async function EtiquetaPage({ params }: PageProps) {
+    const etiquetaData = await getEtiqueta(params.id);
+
+    if (etiquetaData === null) {
+        notFound();
+    }
+    
+    const isNew = etiquetaData === 'nueva';
+    const hasData = etiquetaData && !isNew;
+    const title = isNew ? 'Generar Nueva Etiqueta de Envío' : `Editando Etiqueta #${(etiquetaData as FormattedEtiquetaType)?.orderNumber || params.id}`;
     const description = isNew ? 'Completa los datos para generar una etiqueta para un nuevo envío.' : 'Modifica los detalles de la etiqueta existente.';
 
     return (
@@ -104,43 +100,12 @@ export default function EtiquetaPageWrapper() {
                             </CardDescription>
                         </CardHeader>
                     </Card>
-                    <EtiquetaForm initialData={hasData ? etiqueta as FormattedEtiquetaType : null} />
-                    {hasData && (
-                        <div className="max-w-4xl mx-auto mt-8 flex justify-center">
-                            <Button onClick={handlePrint} size="lg">
-                                <Printer className="mr-2 h-5 w-5" />
-                                Imprimir Etiqueta
-                            </Button>
-                        </div>
-                    )}
                 </div>
-                {hasData && (
-                    <div className="print-only">
-                        <EtiquetaPrintLayout etiqueta={etiqueta as FormattedEtiquetaType} />
-                    </div>
-                )}
+                <EtiquetaClientPage 
+                    initialData={hasData ? (etiquetaData as FormattedEtiquetaType) : null}
+                />
             </main>
             <Footer />
-            <style jsx global>{`
-                @media print {
-                  .no-print {
-                    display: none;
-                  }
-                  .print-only {
-                    display: block;
-                  }
-                  body {
-                    background-color: #fff;
-                  }
-                  main {
-                    padding-top: 0 !important;
-                    padding-bottom: 0 !important;
-                  }
-                }
-                .print-only {
-                  display: none;
-                }
-            `}</style>
         </div>
     );
 }
