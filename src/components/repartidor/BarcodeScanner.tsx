@@ -1,9 +1,8 @@
-
 // src/components/repartidor/BarcodeScanner.tsx
 'use client';
 
-import React, { useState } from 'react';
-import { BarcodeReader } from 'react-zxing';
+import React, { useState, useEffect } from 'react';
+import { Scanner } from 'react-zxing';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { CameraOff, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -14,7 +13,7 @@ interface BarcodeScannerProps {
 
 export function BarcodeScanner({ onScan }: BarcodeScannerProps) {
   const { toast } = useToast();
-  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const [hasPermission, setHasPermission] = useState<boolean | undefined>(undefined);
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleScan = (result: any) => {
@@ -27,20 +26,40 @@ export function BarcodeScanner({ onScan }: BarcodeScannerProps) {
     }
   };
 
-  const handlePermission = (permission: boolean) => {
-    setHasPermission(permission);
-    if (!permission) {
+  const handleError = (error: Error) => {
+    console.error('Scanner Error:', error);
+    if (error.name === 'NotAllowedError') {
+      setHasPermission(false);
       toast({
         variant: 'destructive',
         title: 'Acceso a la Cámara Denegado',
         description: 'Por favor, habilita el permiso de la cámara en tu navegador para usar el escáner.',
       });
+    } else {
+        toast({
+            variant: 'destructive',
+            title: 'Error de Cámara',
+            description: 'No se pudo iniciar la cámara. Asegúrate de que no esté en uso por otra aplicación.',
+        });
     }
   };
+  
+  useEffect(() => {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        setHasPermission(true);
+        stream.getTracks().forEach(track => track.stop());
+      })
+      .catch(err => {
+        setHasPermission(false);
+        handleError(err);
+      });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <div className="relative w-full aspect-square rounded-lg overflow-hidden border bg-muted">
-       {hasPermission === false ? (
+    <div className="relative w-full aspect-video rounded-lg overflow-hidden border bg-muted">
+       {hasPermission === false && (
           <div className="flex flex-col items-center justify-center h-full text-center p-4">
               <CameraOff className="h-12 w-12 text-destructive mb-4" />
               <Alert variant="destructive">
@@ -50,16 +69,14 @@ export function BarcodeScanner({ onScan }: BarcodeScannerProps) {
                   </AlertDescription>
               </Alert>
           </div>
-      ) : (
+      )}
+      {hasPermission === true && (
           <>
-              <BarcodeReader onDecode={handleScan} onPermission={handlePermission} />
-              {hasPermission === null && !isProcessing && (
-                  <div className="absolute inset-0 bg-background/80 flex flex-col items-center justify-center">
-                      <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                      <p className="mt-2 text-sm text-muted-foreground">Iniciando cámara...</p>
-                  </div>
-              )}
-               {isProcessing && (
+              <Scanner
+                onResult={handleScan}
+                onError={handleError}
+              />
+              {isProcessing && (
                   <div className="absolute inset-0 bg-background/80 flex flex-col items-center justify-center">
                       <Loader2 className="h-8 w-8 animate-spin text-primary" />
                       <p className="mt-2 text-sm text-muted-foreground">Procesando código...</p>
@@ -67,6 +84,12 @@ export function BarcodeScanner({ onScan }: BarcodeScannerProps) {
               )}
           </>
       )}
+       {hasPermission === undefined && (
+            <div className="absolute inset-0 bg-background/80 flex flex-col items-center justify-center">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                <p className="mt-2 text-sm text-muted-foreground">Iniciando cámara...</p>
+            </div>
+       )}
       {/* Visual guide for scanning */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
           <div className="w-3/4 h-1/2 border-4 border-dashed border-primary/50 rounded-lg" />
@@ -74,4 +97,3 @@ export function BarcodeScanner({ onScan }: BarcodeScannerProps) {
     </div>
   );
 }
-

@@ -56,10 +56,12 @@ export function AssignEtiqueta({ repartidorId, onEtiquetaAssigned }: AssignEtiqu
   };
   
   const handleBarcodeScanned = (barcode: string) => {
-    form.setValue('orderNumber', barcode);
-    setIsScannerOpen(false);
-    // Automatically submit the form after scanning
-    form.handleSubmit(onSubmit)();
+    if (barcode) {
+        form.setValue('orderNumber', barcode);
+        setIsScannerOpen(false);
+        // Automatically submit the form after scanning
+        form.handleSubmit(onSubmit)();
+    }
   };
 
   return (
