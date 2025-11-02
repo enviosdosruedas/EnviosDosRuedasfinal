@@ -15,6 +15,8 @@ import { updateEtiquetasStatus } from '@/app/admin/etiquetas/actions';
 import { EtiquetaStatus } from '@/app/admin/etiquetas/status';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
+import { Badge } from "@/components/ui/badge";
+
 
 export type FormattedEtiqueta = Omit<Etiqueta, 'montoACobrar' | 'status'> & {
   montoACobrar: number | null;
