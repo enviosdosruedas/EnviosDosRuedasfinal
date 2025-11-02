@@ -9,6 +9,8 @@ export function middleware(request: NextRequest) {
   const isAdminRoute = pathname.startsWith('/admin');
   const isLoginPage = pathname === '/admin/login';
 
+  // Temporarily disabled for development
+  /*
   // If trying to access an admin route without a token (and it's not the login page)
   if (isAdminRoute && !isLoginPage && !authToken) {
     const loginUrl = new URL('/admin/login', request.url);
@@ -20,6 +22,7 @@ export function middleware(request: NextRequest) {
     const adminUrl = new URL('/admin', request.url);
     return NextResponse.redirect(adminUrl);
   }
+  */
 
   return NextResponse.next();
 }
