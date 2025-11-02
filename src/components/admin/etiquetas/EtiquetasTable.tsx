@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Pencil, Printer } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { Etiqueta as PrismaEtiqueta, ServiceTypeEnum } from "@prisma/client";
+import { Etiqueta as PrismaEtiqueta, ServiceTypeEnum, EtiquetaStatus } from "@prisma/client";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 
@@ -40,16 +40,24 @@ const serviceTypeVariantMap: { [key in ServiceTypeEnum]: "default" | "secondary"
   [ServiceTypeEnum.PUNTO_DE_RETIRO]: 'outline',
 };
 
+const statusVariantMap: { [key in EtiquetaStatus]: "default" | "secondary" | "destructive" | "outline" } = {
+  [EtiquetaStatus.PENDIENTE]: 'destructive',
+  [EtiquetaStatus.IMPRESA]: 'default',
+};
+
+const statusTextMap: { [key in EtiquetaStatus]: string } = {
+  [EtiquetaStatus.PENDIENTE]: 'Pendiente',
+  [EtiquetaStatus.IMPRESA]: 'Impresa',
+};
+
 export function EtiquetasTable({ etiquetas, onPrint }: EtiquetasTableProps) {
   const { toast } = useToast();
 
   const handleDelete = async (etiquetaId: number) => {
-    // This would call a server action, e.g., deleteEtiqueta(etiquetaId)
-    // For now, it's just a placeholder.
+    // Placeholder for delete functionality
     if (!confirm('¿Estás seguro de que deseas eliminar esta etiqueta? Esta acción no se puede deshacer.')) {
       return;
     }
-    // const result = await deleteEtiqueta(etiquetaId);
     toast({
       title: "Función no implementada",
       description: "La eliminación de etiquetas aún no está disponible.",
@@ -76,6 +84,7 @@ export function EtiquetasTable({ etiquetas, onPrint }: EtiquetasTableProps) {
             <TableHead>Remitente</TableHead>
             <TableHead>Destinatario</TableHead>
             <TableHead>Tipo</TableHead>
+            <TableHead>Estado</TableHead>
             <TableHead>Fecha</TableHead>
             <TableHead className="text-right">Monto a Cobrar</TableHead>
             <TableHead className="text-center w-[150px]">Acciones</TableHead>
@@ -90,6 +99,11 @@ export function EtiquetasTable({ etiquetas, onPrint }: EtiquetasTableProps) {
               <TableCell>
                 <Badge variant={serviceTypeVariantMap[etiqueta.tipoEnvio]}>
                   {serviceTypeMap[etiqueta.tipoEnvio]}
+                </Badge>
+              </TableCell>
+               <TableCell>
+                <Badge variant={statusVariantMap[etiqueta.status]}>
+                  {statusTextMap[etiqueta.status]}
                 </Badge>
               </TableCell>
               <TableCell>

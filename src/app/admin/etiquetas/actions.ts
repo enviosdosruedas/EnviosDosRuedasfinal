@@ -3,11 +3,12 @@
 
 import { z } from 'zod';
 import prisma from '@/lib/prisma';
-import { Prisma, ServiceTypeEnum } from '@prisma/client';
+import { Prisma, ServiceTypeEnum, EtiquetaStatus } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 const timeStringToMinutes = (time: string) => {
+  if (!time || !time.includes(':')) return 0;
   const [hours, minutes] = time.split(':').map(Number);
   return hours * 60 + minutes;
 };
@@ -77,7 +78,7 @@ export async function upsertEtiqueta(
 
     const { id, ...data } = validatedFields.data;
 
-    const dbData: Omit<Prisma.EtiquetaCreateInput, 'orderNumber'> & { orderNumber?: string } = {
+    const dbData: Omit<Prisma.EtiquetaCreateInput, 'orderNumber' | 'status'> & { orderNumber?: string, status?: EtiquetaStatus } = {
         tipoEnvio: data.tipoEnvio,
         remitenteNombre: data.remitenteNombre,
         remitenteDireccion: data.remitenteDireccion,
@@ -95,7 +96,7 @@ export async function upsertEtiqueta(
 
     try {
         if (id) {
-            // Update logic
+            // Update logic - status does not change on update
             const updatedEtiqueta = await prisma.etiqueta.update({
                 where: { id },
                 data: dbData,
@@ -110,15 +111,13 @@ export async function upsertEtiqueta(
                 data: {
                     ...dbData,
                     orderNumber: orderNumber,
+                    status: EtiquetaStatus.PENDIENTE, // Default status for new labels
                 },
             });
             newEtiquetaId = newEtiqueta.id;
         }
 
         revalidatePath('/admin/etiquetas');
-        if (!id) {
-             // Do not redirect here, let the client handle it based on state
-        }
 
         return {
             message: `Etiqueta ${id ? 'actualizada' : 'creada'} exitosamente.`,
@@ -132,4 +131,34 @@ export async function upsertEtiqueta(
             error: `Hubo un error al guardar la etiqueta: ${errorMessage}`,
         };
     }
+}
+
+
+export async function updateEtiquetasStatus(
+  ids: number[],
+  status: EtiquetaStatus
+): Promise<{ success: boolean; error?: string; count?: number }> {
+  if (!ids || ids.length === 0) {
+    return { success: false, error: 'No se proporcionaron IDs de etiquetas.' };
+  }
+
+  try {
+    const updateResult = await prisma.etiqueta.updateMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+      data: {
+        status: status,
+      },
+    });
+
+    revalidatePath('/admin/etiquetas');
+    return { success: true, count: updateResult.count };
+  } catch (error) {
+    console.error('Error updating etiqueta status:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Error desconocido.';
+    return { success: false, error: `Error al actualizar estado: ${errorMessage}` };
+  }
 }

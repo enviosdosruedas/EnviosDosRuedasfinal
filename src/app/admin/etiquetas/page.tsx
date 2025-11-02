@@ -37,8 +37,6 @@ export default async function AdminEtiquetasPage() {
     const etiquetas = await getEtiquetas();
 
     return (
-        <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
-            <EtiquetasClientPage initialEtiquetas={etiquetas} />
-        </div>
+        <EtiquetasClientPage initialEtiquetas={etiquetas} />
     );
 }
