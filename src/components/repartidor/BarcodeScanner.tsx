@@ -1,7 +1,7 @@
 // src/components/repartidor/BarcodeScanner.tsx
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useZxing } from 'react-zxing';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { CameraOff, Loader2 } from 'lucide-react';

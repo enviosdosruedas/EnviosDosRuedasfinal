@@ -71,7 +71,7 @@ export function EditClientForm({ client }: EditClientFormProps) {
     },
   });
 
-  const { reset, setError, setValue, clearErrors } = form;
+  const { setError, setValue, clearErrors } = form;
 
   useEffect(() => {
     if (state?.message) {

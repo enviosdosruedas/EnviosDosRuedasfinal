@@ -44,7 +44,6 @@ function StatusChanger({ client }: { client: FormattedClient }) {
   const { toast } = useToast();
   const router = useRouter();
   const [isUpdating, setIsUpdating] = React.useState(false);
-  const currentStatusInfo = client.isActive ? statusConfig.active : statusConfig.inactive;
   const newStatus = client.isActive ? 'Inactivo' : 'Activo';
 
   const handleChangeStatus = async () => {
@@ -70,7 +69,6 @@ function StatusChanger({ client }: { client: FormattedClient }) {
     setIsUpdating(false);
   };
 
-  const StatusIcon = currentStatusInfo.icon;
 
   return (
     <DropdownMenuItem

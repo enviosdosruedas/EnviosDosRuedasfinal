@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useGoogleMaps } from '@/hooks/useGoogleMaps';
 import { RouteTracker } from './route-tracker';
 import { Button } from '@/components/ui/button';
-import { RefreshCw, MapPin, Navigation, AlertTriangle, Loader2 } from 'lucide-react';
+import { RefreshCw, Navigation, AlertTriangle, Loader2 } from 'lucide-react';
 import { GoogleMap } from '@react-google-maps/api';
 
 interface Location {
@@ -26,10 +26,8 @@ export function InteractiveTrackingMap({
   pickupLocation,
   deliveryLocation,
   driverLocation,
-  orderId
 }: InteractiveTrackingMapProps) {
   const { map, isLoaded, error: mapError } = useGoogleMaps({ center });
-  const [isTracking, setIsTracking] = useState(true); 
   const [lastUpdate, setLastUpdate] = useState(new Date());
   
   const routePoints = [
@@ -86,7 +84,7 @@ export function InteractiveTrackingMap({
               {mapError}
             </p>
             <p className="text-xs text-gray-500 mb-4">
-              Intente recargar la página. Si el problema persiste, verifique su conexión a internet y asegúrese de que la API Key de Google Maps (<code>NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code>) sea válida, esté configurada correctamente en su proyecto de Google Cloud (con la "Maps JavaScript API" habilitada y facturación activa) y no tenga restricciones que impidan su uso. Consulte la consola para más detalles.
+              Intente recargar la página. Si el problema persiste, verifique su conexión a internet y asegúrese de que la API Key de Google Maps (<code>NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code>) sea válida, esté configurada correctamente en su proyecto de Google Cloud (con la &quot;Maps JavaScript API&quot; habilitada y facturación activa) y no tenga restricciones que impidan su uso. Consulte la consola para más detalles.
             </p>
              <Button
                 onClick={() => window.open(`https://maps.google.com/maps?ll=${center.lat},${center.lng}&z=13&t=m`, '_blank')}

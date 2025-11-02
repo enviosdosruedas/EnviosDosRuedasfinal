@@ -1,7 +1,7 @@
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Star, ThumbsUp, PackageCheck, Smile, Award, Leaf, Quote } from "lucide-react";
+import { Star, PackageCheck, Smile, Award, Leaf, Quote } from "lucide-react";
 
 const testimonials = [
   {

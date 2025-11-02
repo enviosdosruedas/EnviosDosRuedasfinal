@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { OptimizedHeader } from "@/components/homenew/optimized-header";
 import { CarruselRedes } from "@/components/homenew/carrusel-redes";
 import { Footer } from "@/components/homenew/footer";
@@ -28,24 +28,19 @@ export default function SeguimientoPage() {
   const [trackingData, setTrackingData] = useState<TrackingData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [formattedEstimatedArrival, setFormattedEstimatedArrival] = useState<string>("N/A");
-
-  useEffect(() => {
+  
+  const formattedEstimatedArrival = useMemo(() => {
     if (trackingData?.estimatedArrival) {
       try {
         const dateObj = parseISO(trackingData.estimatedArrival);
         if (isValid(dateObj)) {
-          setFormattedEstimatedArrival(format(dateObj, "p", { locale: es }));
-        } else {
-          setFormattedEstimatedArrival("Hora inválida");
+          return format(dateObj, "p", { locale: es });
         }
       } catch (e) {
         console.error("Error parsing estimated arrival for display:", trackingData.estimatedArrival, e);
-        setFormattedEstimatedArrival("Hora inválida");
       }
-    } else {
-      setFormattedEstimatedArrival("N/A");
     }
+    return "Hora inválida";
   }, [trackingData?.estimatedArrival]);
 
 

@@ -72,21 +72,20 @@ export function VisionSection() {
           variants={itemVariants}
           className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center font-heading"
         >
-          Nuestra <span className="text-secondary">Visi√≥n Global</span>
+          Nuestra <span className="text-secondary">Visión Global</span>
         </motion.h2>
 
         <motion.p
           variants={itemVariants}
           className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl text-center font-sans"
         >
-          Datos que respaldan nuestra calidad y compromiso. ¬°Descubre por qu√©
-          somos la soluci√≥n confiable para tus env√≠os!
+          Datos que respaldan nuestra calidad y compromiso. ¡Descubre por qué somos la solución confiable para tus envíos!
         </motion.p>
 
         <motion.div variants={itemVariants} whileHover={{ scale: 1.05 }}>
           <Button asChild size="lg" variant="secondary" className="font-bold px-8 py-3 text-base rounded-full">
             <Link href="/nosotros/sobre-nosotros">
-              Conoc√© m√°s
+              Conocé más
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>

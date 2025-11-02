@@ -1,11 +1,10 @@
 // src/components/contact/contact-form.tsx
 "use client"
 
-import type React from "react"
 import { useActionState, useEffect } from 'react';
 import { useFormStatus } from 'react-dom';
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { useForm, type FieldErrors } from "react-hook-form"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
@@ -13,9 +12,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Send, CheckCircle, Loader2, User, MailIcon as Mail, Phone, MessageSquare, Briefcase } from "lucide-react"
-import { submitContactForm } from '@/app/actions';
+import { Send, CheckCircle, Loader2, User, MailIcon as Mail, MessageSquare } from "lucide-react"
+import { submitContactForm, type ContactFormState } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { motion } from "framer-motion";
 
@@ -27,7 +25,7 @@ const contactSchema = z.object({
 
 type ContactFormValues = z.infer<typeof contactSchema>;
 
-const initialState = {
+const initialState: ContactFormState = {
   message: undefined,
   error: undefined,
   fieldErrors: {},
@@ -65,7 +63,7 @@ export function ContactForm() {
       email: '',
       message: '',
     },
-    errors: state?.fieldErrors ? state.fieldErrors as any : {},
+    errors: state?.fieldErrors ? state.fieldErrors as FieldErrors<ContactFormValues> : {},
   });
 
    useEffect(() => {
@@ -142,7 +140,7 @@ export function ContactForm() {
                   </FormItem>
                 )}
               />
-              
+            
             <FormField
               control={form.control}
               name="email"

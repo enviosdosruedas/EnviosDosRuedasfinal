@@ -1,7 +1,7 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Facebook, Instagram, Twitter, Youtube, Mail } from "lucide-react"
+import { Facebook, Instagram } from "lucide-react"
 import Image from "next/image"
 
 export function SocialConnect() {

@@ -2,7 +2,7 @@
 import { AdminHeader } from "@/components/layout/AdminHeader";
 import { Footer } from "@/components/homenew/footer";
 import { ImagePromptGenerator } from "@/components/admin/crea-imagenes/ImagePromptGenerator";
-import { ImageIcon, Wand2 } from "lucide-react";
+import { Wand2 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import type { Metadata } from 'next';
 

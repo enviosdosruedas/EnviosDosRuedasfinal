@@ -1,6 +1,6 @@
 // src/components/contact/business-hours.tsx
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Clock, Calendar, AlertTriangle } from "lucide-react"
+import { Calendar } from "lucide-react"
 import { motion } from "framer-motion";
 
 const cardVariants = {

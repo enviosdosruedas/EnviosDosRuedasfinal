@@ -62,7 +62,7 @@ export function SuccessStories() {
                 </div>
 
                 <Quote className="w-8 h-8 text-blue-200 mb-3" />
-                <p className="text-gray-700 mb-4 leading-relaxed italic">"{testimonial.testimonial}"</p>
+                <p className="text-gray-700 mb-4 leading-relaxed italic">&quot;{testimonial.testimonial}&quot;</p>
 
                 <div className="bg-blue-50 p-3 rounded-lg">
                   <p className="text-sm font-semibold text-blue-800">Resultado: {testimonial.results}</p>

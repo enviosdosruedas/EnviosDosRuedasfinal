@@ -2,7 +2,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Zap, Shield, Users, BarChart, XCircle, CheckCircle } from "lucide-react";
+import { XCircle, CheckCircle } from "lucide-react";
 
 export function DiferenciaGastronomico() {
   return (

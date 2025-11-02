@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Bike, CalendarClock, FileText, Package, Zap } from "lucide-react";
+import { Bike, CalendarClock, FileText, Package } from "lucide-react";
 
 const services = [
   {

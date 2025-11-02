@@ -10,7 +10,7 @@
     "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
     "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
     "format": "bunx biome format --write",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate --no-engine",
     "db:push": "bunx prisma db push",
     "db:seed": "bun prisma/seed.ts",
     "db:export": "bun prisma/script/bajartodo.ts",

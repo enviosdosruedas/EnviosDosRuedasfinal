@@ -1,18 +1,18 @@
 // src/app/admin/login/actions.ts
 'use server';
 
-import { z } from 'zod';
+import type { z } from 'zod';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 
-const loginSchema = z.object({
-  username: z.string().min(1, { message: 'El nombre de usuario es requerido.' }),
-  password: z.string().min(1, { message: 'La contraseña es requerida.' }),
-});
+const loginSchema = {
+  username: "",
+  password: "",
+};
+
 
 export interface LoginFormState {
   error?: string;
-  fieldErrors?: Partial<Record<keyof z.infer<typeof loginSchema>, string[]>>;
+  fieldErrors?: Partial<Record<keyof typeof loginSchema, string[]>>;
   success?: boolean;
 }
 
@@ -23,14 +23,17 @@ export async function login(
   prevState: LoginFormState,
   formData: FormData
 ): Promise<LoginFormState> {
-  // Simulate a successful login without checking credentials.
-  // This is for development purposes.
+  const username = formData.get('username');
+  const password = formData.get('password');
 
-  // Set a session cookie
+  if (username !== ADMIN_USER || password !== ADMIN_PASS) {
+      return {
+          error: "Nombre de usuario o contraseña incorrectos."
+      }
+  }
+
+
   (await
-    // Simulate a successful login without checking credentials.
-    // This is for development purposes.
-    // Set a session cookie
     cookies()).set('admin-auth-token', 'your-secret-session-token', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -38,13 +41,10 @@ export async function login(
     path: '/',
   });
   
-  // The redirect will be caught by the try/catch in the client component
-  // and handled by router.push()
   return { success: true };
 
 }
 
 export async function logout() {
   (await cookies()).delete('admin-auth-token');
-  redirect('/admin/login');
 }

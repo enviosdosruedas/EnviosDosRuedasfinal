@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Calculator, Loader2, PackageCheck, RotateCcw, ThumbsUp, AlertTriangle } from 'lucide-react';
+import { Calculator, Loader2, PackageCheck, RotateCcw, ThumbsUp } from 'lucide-react';
 import React, { useState, FormEvent, useMemo } from 'react';
 import RouteMap from './route-map';
 import { useToast } from '@/hooks/use-toast';

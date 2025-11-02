@@ -5,7 +5,6 @@ import { z } from 'zod';
 import prisma from '@/lib/prisma';
 import { Prisma, ServiceTypeEnum } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { EtiquetaStatus } from '@/types';
 
 
@@ -178,6 +177,7 @@ export async function updateEtiquetaStatus(
     });
 
     revalidatePath('/admin/etiquetas');
+    revalidatePath(`/repartidor/${id}`);
     return { success: true };
   } catch (error) {
     console.error('Error updating single etiqueta status:', error);

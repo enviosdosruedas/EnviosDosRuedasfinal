@@ -62,7 +62,7 @@ export function TestimonialsSection() {
 
               <div className="text-center min-h-[200px] md:min-h-[150px] flex flex-col justify-center">
                 <p className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed italic font-sans">
-                  "{testimonials[currentTestimonial].text}"
+                  &quot;{testimonials[currentTestimonial].text}&quot;
                 </p>
               </div>
 

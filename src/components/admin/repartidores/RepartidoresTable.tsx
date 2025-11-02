@@ -56,7 +56,7 @@ export function RepartidoresTable({ repartidores, onEdit }: RepartidoresTablePro
   if (repartidores.length === 0) {
     return (
       <div className="text-center py-8">
-        <p className="text-sm text-muted-foreground">No hay repartidores registrados aún. Haz clic en "Añadir Repartidor" para empezar.</p>
+        <p className="text-sm text-muted-foreground">No hay repartidores registrados aún. Haz clic en &quot;Añadir Repartidor&quot; para empezar.</p>
       </div>
     );
   }

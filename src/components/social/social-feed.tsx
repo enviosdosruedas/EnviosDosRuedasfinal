@@ -6,7 +6,7 @@ import type { SocialPost } from "@/types/social-post";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { Facebook, Instagram, MessageSquare, Heart, MessageCircle as MessageIcon, Share2, ArrowRight, ExternalLink, ThumbsUp } from "lucide-react";
+import { Facebook, Instagram, MessageSquare, MessageCircle as MessageIcon, Share2, ExternalLink, ThumbsUp } from "lucide-react";
 
 interface SocialFeedProps {
   posts: SocialPost[];
@@ -130,7 +130,7 @@ export function SocialFeed({ posts }: SocialFeedProps) {
 
         <div className="text-center mt-12">
           <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-            Ver Más en Nuestras Redes <ArrowRight className="ml-2 h-5 w-5" />
+            Ver Más en Nuestras Redes <span className="ml-2">→</span>
           </Button>
         </div>
       </div>

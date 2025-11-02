@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useRef } from "react"
@@ -39,12 +40,12 @@ export default function AboutSection() {
           <div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">About drannel</h2>
             <p className="text-lg mb-6 text-zinc-300">
-              drannel is not just a beat maker; he's a sonic architect crafting the soundscapes of tomorrow. With a
-              decade of experience and an ear for innovation, drannel pushes the boundaries of what's possible in music
+              drannel is not just a beat maker; he&apos;s a sonic architect crafting the soundscapes of tomorrow. With a
+              decade of experience and an ear for innovation, drannel pushes the boundaries of what&apos;s possible in music
               production.
             </p>
             <p className="text-lg mb-8 text-zinc-300">
-              From chart-topping hits to underground anthems, drannel's versatile style and meticulous attention to
+              From chart-topping hits to underground anthems, drannel&apos;s versatile style and meticulous attention to
               detail ensure that each beat is not just a track, but a journey waiting to be explored by the right
               artist.
             </p>

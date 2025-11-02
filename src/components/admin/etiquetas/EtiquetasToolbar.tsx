@@ -8,7 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { Calendar as CalendarIcon, Search, Bell, CheckCircle, XCircle } from "lucide-react";
-import { format, addDays } from "date-fns";
+import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import type { DateRange } from "react-day-picker";
 import { EtiquetaStatus } from '@/types';
@@ -26,6 +26,18 @@ interface EtiquetasToolbarProps {
   printedCount: number;
 }
 
+const FilterButton = ({ status, label, icon: Icon, count, onStatusFilterChange, statusFilter }: { status: string; label: string; icon: React.ElementType; count: number; onStatusFilterChange: (status: string) => void; statusFilter: string; }) => (
+    <Button
+      onClick={() => onStatusFilterChange(status)}
+      variant={statusFilter === status ? 'default' : 'outline'}
+      className="h-10 text-sm"
+    >
+      <Icon className="mr-2 h-4 w-4" />
+      {label}
+      <Badge variant={statusFilter === status ? 'secondary' : 'default'} className="ml-2">{count}</Badge>
+    </Button>
+  );
+
 export function EtiquetasToolbar({
   searchTerm,
   onSearchTermChange,
@@ -37,18 +49,6 @@ export function EtiquetasToolbar({
   pendingCount,
   printedCount
 }: EtiquetasToolbarProps) {
-
-  const FilterButton = ({ status, label, icon: Icon, count }: { status: string, label: string, icon: React.ElementType, count: number }) => (
-    <Button
-      onClick={() => onStatusFilterChange(status)}
-      variant={statusFilter === status ? 'default' : 'outline'}
-      className="h-10 text-sm"
-    >
-      <Icon className="mr-2 h-4 w-4" />
-      {label}
-      <Badge variant={statusFilter === status ? 'secondary' : 'default'} className="ml-2">{count}</Badge>
-    </Button>
-  );
 
   return (
     <div className="space-y-4 rounded-lg border bg-card p-4 shadow-sm">
@@ -105,9 +105,9 @@ export function EtiquetasToolbar({
       </div>
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-sm font-medium text-muted-foreground mr-2">Filtrar por estado:</span>
-        <FilterButton status="all" label="Todas" icon={Bell} count={allCount} />
-        <FilterButton status={EtiquetaStatus.PENDIENTE} label="Pendientes" icon={XCircle} count={pendingCount} />
-        <FilterButton status={EtiquetaStatus.IMPRESA} label="Impresas" icon={CheckCircle} count={printedCount} />
+        <FilterButton status="all" label="Todas" icon={Bell} count={allCount} onStatusFilterChange={onStatusFilterChange} statusFilter={statusFilter} />
+        <FilterButton status={EtiquetaStatus.PENDIENTE} label="Pendientes" icon={XCircle} count={pendingCount} onStatusFilterChange={onStatusFilterChange} statusFilter={statusFilter} />
+        <FilterButton status={EtiquetaStatus.IMPRESA} label="Impresas" icon={CheckCircle} count={printedCount} onStatusFilterChange={onStatusFilterChange} statusFilter={statusFilter} />
       </div>
     </div>
   );

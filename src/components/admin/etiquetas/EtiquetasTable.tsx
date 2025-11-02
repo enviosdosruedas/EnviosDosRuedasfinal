@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Pencil, Printer, MoreVertical, Check, X, Loader2, Truck, PackageCheck, AlertCircle } from "lucide-react";
+import { Pencil, Printer, Check, X, Loader2, Truck, PackageCheck, AlertCircle } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { ServiceTypeEnum } from "@prisma/client";
@@ -26,8 +26,7 @@ import {
   DropdownMenu, 
   DropdownMenuContent, 
   DropdownMenuItem, 
-  DropdownMenuTrigger,
-  DropdownMenuSeparator
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 
 
@@ -48,12 +47,12 @@ const serviceTypeVariantMap: { [key in ServiceTypeEnum]: "default" | "secondary"
   [ServiceTypeEnum.PUNTO_DE_RETIRO]: 'outline',
 };
 
-const statusConfig = {
-  [EtiquetaStatus.PENDIENTE]: { variant: "destructive" as "destructive", text: 'Pendiente', icon: X },
-  [EtiquetaStatus.IMPRESA]: { variant: "default" as "default", text: 'Impresa', icon: Check },
-  [EtiquetaStatus.EN_CAMINO]: { variant: "secondary" as "secondary", text: 'En Camino', icon: Truck },
-  [EtiquetaStatus.ENTREGADA]: { variant: "outline" as "outline", text: 'Entregada', icon: PackageCheck },
-  [EtiquetaStatus.NO_ENTREGADA]: { variant: "destructive" as "destructive", text: 'No Entregada', icon: AlertCircle },
+const statusConfig: Record<EtiquetaStatus, { variant: "default" | "secondary" | "destructive" | "outline", text: string, icon: React.ElementType }> = {
+  [EtiquetaStatus.PENDIENTE]: { variant: "destructive", text: 'Pendiente', icon: X },
+  [EtiquetaStatus.IMPRESA]: { variant: "default", text: 'Impresa', icon: Check },
+  [EtiquetaStatus.EN_CAMINO]: { variant: "secondary", text: 'En Camino', icon: Truck },
+  [EtiquetaStatus.ENTREGADA]: { variant: "outline", text: 'Entregada', icon: PackageCheck },
+  [EtiquetaStatus.NO_ENTREGADA]: { variant: "destructive", text: 'No Entregada', icon: AlertCircle },
 };
 
 const ClientFormattedDate = ({ date }: { date: Date | string }) => {

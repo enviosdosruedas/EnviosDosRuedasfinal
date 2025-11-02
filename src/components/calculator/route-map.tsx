@@ -2,10 +2,9 @@
 'use client';
 
 import { GoogleMap, useJsApiLoader, DirectionsRenderer } from '@react-google-maps/api';
-import { AlertTriangle, Map, Loader2 } from 'lucide-react';
+import { Map, Loader2 } from 'lucide-react';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Skeleton } from '../ui/skeleton';
 import { Button } from '../ui/button';
 
 
@@ -43,18 +42,14 @@ export default function RouteMap({ origin, destination }: RouteMapProps) {
   const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
   const [directionsResponse, setDirectionsResponse] = useState<google.maps.DirectionsResult | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [apiKeyError, setApiKeyError] = useState<boolean>(false);
+  const [apiKeyError, setApiKeyError] = useState<boolean>(
+    INVALID_API_KEY_PLACEHOLDERS.includes(googleMapsApiKey)
+  );
 
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: googleMapsApiKey,
     libraries: ['places'],
   });
-
-  useEffect(() => {
-    if (INVALID_API_KEY_PLACEHOLDERS.includes(googleMapsApiKey)) {
-      setApiKeyError(true);
-    }
-  }, [googleMapsApiKey]);
 
   const calculateRoute = useCallback(() => {
     if (!origin || !destination || !isLoaded || apiKeyError || !window.google) {
@@ -85,9 +80,11 @@ export default function RouteMap({ origin, destination }: RouteMapProps) {
     if (origin && destination) {
         calculateRoute();
     } else {
-        setDirectionsResponse(null);
+        if (directionsResponse) {
+            setDirectionsResponse(null);
+        }
     }
-  }, [origin, destination, calculateRoute]);
+  }, [origin, destination, calculateRoute, directionsResponse]);
 
   const openInGoogleMaps = () => {
     if (!origin || !destination) return;
@@ -99,7 +96,7 @@ export default function RouteMap({ origin, destination }: RouteMapProps) {
     return (
       <Card className="mt-6 border-destructive bg-destructive/10">
         <CardContent className="p-4 flex flex-col items-center justify-center text-center gap-3">
-            <AlertTriangle className="h-8 w-8 text-destructive" />
+            <span className="text-destructive">!</span>
             <p className="text-destructive text-sm font-semibold">{apiKeyError ? PLACEHOLDER_API_KEY_MESSAGE : GENERIC_API_ERROR_MESSAGE}</p>
             <p className="text-destructive/80 text-xs">
               Para habilitar el mapa, el propietario del sitio debe configurar una clave de API válida de Google Maps.

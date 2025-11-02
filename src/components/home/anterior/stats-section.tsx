@@ -48,7 +48,7 @@ export function StatsSection() {
     useEffect(() => {
       if (!isInView) return
 
-      let startValue = 0
+      const startValue = 0
       const duration = 2500 // Slower animation
       const startTime = Date.now()
 

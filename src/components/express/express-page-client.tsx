@@ -1,13 +1,11 @@
 'use client';
 
 import { HeroSection } from "@/components/ui/HeroSection";
-import { Badge } from "@/components/ui/badge";
 import { ExpressContent } from "@/components/express/express-content";
 import { ExpressBenefits } from "@/components/express/express-benefits";
 import { UrgentScenarios } from "@/components/express/urgent-scenarios";
 import { ExpressCta } from "@/components/express/express-cta";
 import { ExpressPricingRanges, type PriceRangeClient } from "@/components/express/express-pricing-ranges";
-import { Rocket, ArrowRight, Calculator as CalculatorIcon } from "lucide-react";
 
 interface ExpressPageClientProps {
   priceRanges: PriceRangeClient[];

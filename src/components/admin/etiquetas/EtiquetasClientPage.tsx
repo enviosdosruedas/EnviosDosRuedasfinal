@@ -10,7 +10,6 @@ import { EtiquetaPrintLayout } from "@/components/admin/etiquetas/EtiquetaPrintL
 import { EtiquetasTable } from "@/components/admin/etiquetas/EtiquetasTable";
 import { AdminHeader } from "@/components/layout/AdminHeader";
 import { Footer } from "@/components/homenew/footer";
-import { updateEtiquetasStatus } from '@/app/admin/etiquetas/actions';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { EtiquetaStatus, type FormattedEtiqueta } from "@/types";

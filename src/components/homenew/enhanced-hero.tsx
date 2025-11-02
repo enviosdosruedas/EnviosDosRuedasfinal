@@ -1,7 +1,7 @@
 
 "use client"
 
-import { useEffect, useRef, useCallback, useState, useMemo } from "react"
+import { useEffect, useRef, useCallback, useState } from "react"
 import * as THREE from "three"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -40,7 +40,7 @@ export function EnhancedHero() {
     };
 
     handleResize();
-
+    
     setRandomValues(
         [...Array(6)].map(() => ({
             y1: Math.random() * window.innerHeight,
@@ -48,6 +48,7 @@ export function EnhancedHero() {
             top: Math.random() * 100 + "%",
         }))
     );
+
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -176,7 +177,7 @@ export function EnhancedHero() {
       animationFrameId.current = requestAnimationFrame(animate)
       time += 0.01
 
-      instances.forEach((instance, index) => {
+      instances.forEach((instance) => {
         // Floating animation
         const floatY = Math.sin(time + instance.floatOffset) * 0.5
         instance.mesh.position.copy(instance.originalPosition)

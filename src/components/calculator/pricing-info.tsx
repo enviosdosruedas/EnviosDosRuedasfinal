@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { DollarSign, Scale, Clock } from "lucide-react";
+import { Scale, Clock } from "lucide-react";
 
 export default function PricingInfo() {
   return (
@@ -59,7 +59,7 @@ export default function PricingInfo() {
         </div>
          <div className="mt-8 md:mt-10 text-center">
             <p className="text-sm md:text-base text-muted-foreground font-sans">
-                Para distancias muy largas o fuera de cobertura habitual, el cotizador podría indicar "Consultar".
+                Para distancias muy largas o fuera de cobertura habitual, el cotizador podría indicar &quot;Consultar&quot;.
                 En estos casos, te invitamos a <a href="/contacto" className="text-primary hover:underline font-semibold">contactarnos</a> para una cotización personalizada.
             </p>
         </div>

@@ -1,9 +1,7 @@
 // src/components/admin/etiquetas/EtiquetaPrintLayout.tsx
 'use client';
 import { ServiceTypeEnum } from "@prisma/client";
-import { Package, User, Phone, MapPin, Info, DollarSign, Zap, Home, Clock, Building, Globe } from "lucide-react";
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
+import { Package, Home, Clock, Building } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
@@ -115,7 +113,7 @@ export function EtiquetaPrintLayout({ etiqueta, isLast = true }: EtiquetaPrintLa
               <div className="pl-7">
                 <p className="font-semibold">{etiqueta.destinatarioNombre}</p>
                 <p>{etiqueta.destinatarioDireccion}</p>
-                <p className="flex items-center gap-1"><Phone className="w-3 h-3"/> {etiqueta.destinatarioTelefono}</p>
+                <p className="flex items-center gap-1"><span className="font-bold">Tel:</span> {etiqueta.destinatarioTelefono}</p>
                 {etiqueta.destinatarioNotas && <p className="text-sm text-gray-600 italic mt-1">Nota: {etiqueta.destinatarioNotas}</p>}
               </div>
             </div>
@@ -129,9 +127,9 @@ export function EtiquetaPrintLayout({ etiqueta, isLast = true }: EtiquetaPrintLa
 
           <footer className="mt-6 pt-4 border-t-2 border-dashed border-gray-300 text-center text-xs text-gray-500">
             <div className="flex justify-center items-center gap-4">
-                 <p className="flex items-center gap-1"><Phone className="w-3 h-3"/> 2236602699</p>
+                 <p className="flex items-center gap-1"><span className="font-bold">Tel:</span> 2236602699</p>
                  <Separator orientation="vertical" className="h-4 bg-gray-400"/>
-                 <p className="flex items-center gap-1"><Globe className="w-3 h-3"/> www.enviosdosruedas.com</p>
+                 <p className="flex items-center gap-1"><span className="font-bold">Web:</span> www.enviosdosruedas.com</p>
             </div>
             <p className="mt-2">Gracias por confiar en Envios DosRuedas.</p>
           </footer>

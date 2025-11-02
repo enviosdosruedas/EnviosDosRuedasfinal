@@ -5,17 +5,16 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Phone, Mail, MapPin, Facebook, Instagram, MessageCircle, ChevronUp } from "lucide-react"
+import { Phone, Mail, MapPin, Facebook, Instagram, ChevronUp } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { navGroups } from "@/lib/navigation"
+import { cn } from "@/lib/utils"
 
 export function Footer() {
   const [isVisible, setIsVisible] = useState(false)
-  const [currentYear, setCurrentYear] = useState<number | null>(null)
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
-    setCurrentYear(new Date().getFullYear())
-
     const toggleVisibility = () => {
       if (window.pageYOffset > 300) {
         setIsVisible(true)
@@ -150,7 +149,7 @@ export function Footer() {
               </div>
               <ul className="space-y-3 font-sans">
                 {group.items.map((item, itemIndex) => {
-                  const Icon = item.icon
+                  const Icon = item.icon;
                   return (
                     <motion.li
                       key={item.href}

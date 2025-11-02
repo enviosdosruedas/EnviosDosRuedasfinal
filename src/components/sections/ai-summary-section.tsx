@@ -1,19 +1,18 @@
-// @ts-nocheck
-// TODO: Fix typescript errors
+// src/components/sections/ai-summary-section.tsx
 'use client';
 
-import { useEffect, useActionState } from 'react'; // Changed import
+import { useEffect, useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Sparkles, Brain } from 'lucide-react';
-import { generateTestimonialSummary } from '@/app/actions';
+import { generateTestimonialSummary, type AISummaryState } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
-const initialState = {
+const initialState: AISummaryState = {
   summary: undefined,
   error: undefined,
   fieldErrors: {},
@@ -41,7 +40,7 @@ function SubmitButton() {
 }
 
 export function AiSummarySection() {
-  const [state, formAction] = useActionState(generateTestimonialSummary, initialState); // Changed to useActionState
+  const [state, formAction] = useActionState(generateTestimonialSummary, initialState);
   const { toast } = useToast();
 
   useEffect(() => {

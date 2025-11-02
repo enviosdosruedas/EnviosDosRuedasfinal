@@ -1,7 +1,6 @@
 // src/lib/social/posts.ts
 import prisma from "@/lib/prisma";
 import type { SocialPost as SocialPostType } from "@/types/social-post";
-import type { SocialPost } from "@prisma/client";
 
 /**
  * Fetches all social posts from the database and sorts them by timestamp descending.

@@ -20,11 +20,9 @@ import { navGroups } from "@/lib/navigation"
 
 export function Footer() {
   const [isVisible, setIsVisible] = useState(false)
-  const [currentYear, setCurrentYear] = useState<number | null>(null);
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
   useEffect(() => {
-    setCurrentYear(new Date().getFullYear());
-
     const toggleVisibility = () => {
       if (window.pageYOffset > 300) {
         setIsVisible(true)

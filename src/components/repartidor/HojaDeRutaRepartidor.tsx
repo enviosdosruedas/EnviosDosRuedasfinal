@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-import { Printer, Search, Truck, Check, X, Loader2, Info } from 'lucide-react';
+import { Printer, Search, Truck, Check, Loader2, Info } from 'lucide-react';
 import { updateEtiquetaStatus } from '@/app/admin/etiquetas/actions';
 import { useToast } from '@/hooks/use-toast';
 
@@ -49,7 +49,7 @@ export function HojaDeRutaRepartidor({ etiquetas, onStatusChange }: HojaDeRutaRe
         });
     }, [etiquetas, statusFilter, searchTerm]);
 
-    const handleUpdateStatus = (etiquetaId: number, currentStatus: EtiquetaStatus, nextStatus: EtiquetaStatus) => {
+    const handleUpdateStatus = (etiquetaId: number, nextStatus: EtiquetaStatus) => {
         startTransition(async () => {
             const result = await updateEtiquetaStatus(etiquetaId, nextStatus);
 
@@ -66,10 +66,10 @@ export function HojaDeRutaRepartidor({ etiquetas, onStatusChange }: HojaDeRutaRe
         const { status, id } = etiqueta;
 
         if (status === EtiquetaStatus.IMPRESA) {
-            return <Button size="sm" onClick={() => handleUpdateStatus(id, status, EtiquetaStatus.EN_CAMINO)} disabled={isPending}><Truck className='mr-2 h-4 w-4' />En Camino</Button>
+            return <Button size="sm" onClick={() => handleUpdateStatus(id, EtiquetaStatus.EN_CAMINO)} disabled={isPending}><Truck className='mr-2 h-4 w-4' />En Camino</Button>
         }
         if (status === EtiquetaStatus.EN_CAMINO) {
-            return <Button size="sm" variant="secondary" onClick={() => handleUpdateStatus(id, status, EtiquetaStatus.ENTREGADA)} disabled={isPending}><Check className='mr-2 h-4 w-4' />Entregada</Button>
+            return <Button size="sm" variant="secondary" onClick={() => handleUpdateStatus(id, EtiquetaStatus.ENTREGADA)} disabled={isPending}><Check className='mr-2 h-4 w-4' />Entregada</Button>
         }
         if (status === EtiquetaStatus.ENTREGADA) {
              return <Badge className={statusConfig[status].color}><Check className='mr-2 h-4 w-4'/> {statusConfig[status].text}</Badge>

@@ -2,16 +2,16 @@
 'use client';
 
 import React, { useActionState, useEffect, useState, useTransition } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { createClient, geocodeAddress } from '@/app/admin/clientes/actions';
-import type { CreateClientState } from '@/app/admin/clientes/actions';
+import type { ClientFormState } from '@/app/admin/clientes/actions';
 import { useToast } from '@/hooks/use-toast';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Loader2, UserPlus, Mail, MapPin, Phone, CheckCircle, Search } from 'lucide-react';
+import { Loader2, UserPlus, CheckCircle, Search } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 const createClientSchema = z.object({
@@ -26,7 +26,7 @@ const createClientSchema = z.object({
 
 type CreateClientFormValues = z.infer<typeof createClientSchema>;
 
-const initialState: CreateClientState = {};
+const initialState: ClientFormState = {};
 
 function SubmitButton({ isPending }: { isPending: boolean }) {
   return (

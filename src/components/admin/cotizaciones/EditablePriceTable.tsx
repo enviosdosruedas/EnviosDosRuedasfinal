@@ -14,7 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from '@/components/ui/input';
-import { MoreHorizontal, Pencil, Save, Trash2, Loader2, PlusCircle, AlertCircle } from "lucide-react";
+import { Save, Loader2, AlertCircle } from "lucide-react";
 import { ServiceTypeEnum } from '@prisma/client';
 import { useToast } from '@/hooks/use-toast';
 import { updateMultiplePriceRanges } from '@/app/admin/cotizaciones/actions';
@@ -42,7 +42,7 @@ const statusVariantMap: { [key: string]: "default" | "secondary" | "destructive"
 const serviceTypeMap: Record<ServiceTypeEnum, string> = {
   [ServiceTypeEnum.EXPRESS]: 'Express',
   [ServiceTypeEnum.LOW_COST]: 'Low Cost',
-  PUNTO_DE_RETIRO: ''
+  [ServiceTypeEnum.PUNTO_DE_RETIRO]: 'Punto de Retiro'
 };
 
 const initialState: MultiplePriceRangesState = {};

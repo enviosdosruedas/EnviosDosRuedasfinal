@@ -7,10 +7,9 @@ import { z } from 'zod';
 import type {
   ClientSearchInput, ClientSearchResult,
   RegisterClientInput, RegisterClientResult,
-  QuoteShipmentInput, QuoteDetails, QuoteShipmentResult,
-  SaveShipmentInput, SaveShipmentResult
+  QuoteShipmentInput, QuoteShipmentResult
 } from '@/types/order-actions';
-import { format, parse } from 'date-fns';
+import type { SaveShipmentInput, SaveShipmentResult } from '@/types/order-actions';
 
 
 // --- Google Maps API Helper ---
@@ -184,8 +183,7 @@ export async function quoteShipment(input: QuoteShipmentInput): Promise<QuoteShi
     let distanceKm: number;
     let distanceText: string;
     let durationText: string;
-    let price: number | null;
-
+    
     if (!GOOGLE_MAPS_API_KEY || GOOGLE_MAPS_API_KEY === "YOUR_GOOGLE_MAPS_API_KEY" || GOOGLE_MAPS_API_KEY === "demo-key") {
       console.warn("Google Maps API key not configured or is placeholder. Simulating directions for quote.");
       // Simulate distance (e.g., between 1 and 15 km)
@@ -226,7 +224,7 @@ export async function quoteShipment(input: QuoteShipmentInput): Promise<QuoteShi
         },
     });
 
-    price = priceRangeRecord ? priceRangeRecord.precioRango.toNumber() : null;
+    const price = priceRangeRecord ? priceRangeRecord.precioRango.toNumber() : null;
 
     return {
       success: true,

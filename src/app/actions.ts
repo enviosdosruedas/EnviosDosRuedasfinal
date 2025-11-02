@@ -1,5 +1,4 @@
-// @ts-nocheck
-// TODO: Fix typescript errors
+// src/app/actions.ts
 'use server';
 
 import { z } from 'zod';
@@ -10,7 +9,7 @@ const aiSummarySchema = z.object({
   testimonials: z.string().min(20, { message: 'El testimonio debe tener al menos 20 caracteres.' }).max(5000, { message: 'El testimonio no debe exceder los 5000 caracteres.' }),
 });
 
-interface AISummaryState {
+export interface AISummaryState {
   summary?: string;
   error?: string;
   fieldErrors?: Partial<Record<keyof z.infer<typeof aiSummarySchema>, string[]>>;
@@ -38,7 +37,7 @@ export async function generateTestimonialSummary(
   try {
     const result = await summarizeTestimonialsFlow({ testimonials: validatedFields.data.testimonials });
     return { summary: result.summary, timestamp: Date.now() };
-  } catch (e) {
+  } catch (e: unknown) {
     console.error(e);
     // Check if e is an Error instance and has a message property
     const errorMessage = e instanceof Error ? e.message : 'Error desconocido.';
@@ -53,7 +52,7 @@ const contactSchema = z.object({
   message: z.string().min(10, { message: 'El mensaje debe tener al menos 10 caracteres.' }).max(1000, { message: 'El mensaje no debe exceder los 1000 caracteres.'}),
 });
 
-interface ContactFormState {
+export interface ContactFormState {
   message?: string;
   error?: string;
   fieldErrors?: Partial<Record<keyof z.infer<typeof contactSchema>, string[]>>;

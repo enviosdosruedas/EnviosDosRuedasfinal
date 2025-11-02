@@ -1,23 +1,20 @@
-// @ts-nocheck
-// TODO: Fix typescript errors
+// src/components/sections/contact-section.tsx
 'use client';
 
-import { useEffect, useActionState } from 'react'; // Changed import
+import { useEffect, useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, type FieldErrors } from 'react-hook-form';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-// Label is imported via FormLabel
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Phone, Mail, MapPin, Send } from 'lucide-react';
-import { submitContactForm } from '@/app/actions';
+import { submitContactForm, type ContactFormState } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
-// Alert components are not used here, so imports can be removed if they were just for this file.
 
 const contactFormSchema = z.object({
   name: z.string().min(2, { message: 'El nombre es requerido y debe tener al menos 2 caracteres.' }),
@@ -27,7 +24,7 @@ const contactFormSchema = z.object({
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
 
-const initialState = {
+const initialState: ContactFormState = {
   message: undefined,
   error: undefined,
   fieldErrors: {},
@@ -55,7 +52,7 @@ function SubmitButton() {
 }
 
 export function ContactSection() {
-  const [state, formAction] = useActionState(submitContactForm, initialState); // Changed to useActionState
+  const [state, formAction] = useActionState(submitContactForm, initialState);
   const { toast } = useToast();
 
   const form = useForm<ContactFormValues>({
@@ -65,8 +62,7 @@ export function ContactSection() {
       email: '',
       message: '',
     },
-    // Pass the server state to react-hook-form to display errors
-    errors: state?.fieldErrors ? state.fieldErrors as any : {},
+    errors: state?.fieldErrors ? state.fieldErrors as FieldErrors<ContactFormValues> : {},
   });
 
    useEffect(() => {
@@ -76,7 +72,7 @@ export function ContactSection() {
         description: state.message,
         className: "bg-green-100 border-green-400 text-green-700",
       });
-      form.reset(); // Reset form on successful submission
+      form.reset();
     }
     if (state?.error) {
       toast({
@@ -92,11 +88,12 @@ export function ContactSection() {
         description: state.formError,
       });
     }
-    // Update form errors if they come from server action
     if (state?.fieldErrors) {
       const fieldErrors = state.fieldErrors;
       (Object.keys(fieldErrors) as Array<keyof ContactFormValues>).forEach((key) => {
-        form.setError(key, { type: 'server', message: fieldErrors[key]?.join(', ') });
+        if (fieldErrors[key]) {
+          form.setError(key, { type: 'server', message: fieldErrors[key]?.join(', ') });
+        }
       });
     }
 

@@ -1,9 +1,8 @@
 
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Truck, Clock, Shield, MapPin, Zap, Package } from "lucide-react"
+import { Zap, Package, Truck } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import Image from "next/image"

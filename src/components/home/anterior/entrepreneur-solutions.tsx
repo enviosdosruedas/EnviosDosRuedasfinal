@@ -4,7 +4,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { TrendingUp, Users, Package, Zap, DollarSign, Clock } from "lucide-react"
+import { TrendingUp, Users, Package } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 

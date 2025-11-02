@@ -2,7 +2,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ShieldCheck, UserCheck, PhoneCall, Zap, Clock, Users } from "lucide-react";
+import { ShieldCheck, UserCheck, PhoneCall } from "lucide-react";
 import { motion } from "framer-motion";
 
 const benefits = [
