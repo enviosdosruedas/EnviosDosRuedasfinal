@@ -1,4 +1,3 @@
-
 // src/lib/navigation-admin.ts
 import {
   LayoutDashboard,
@@ -10,8 +9,8 @@ import {
   BarChart2,
   Users,
   Settings,
-  BookImage, // Agregado para el nuevo grupo
-  Bike, // Icono para Repartidores
+  BookImage,
+  Bike,
 } from "lucide-react";
 
 export interface AdminNavItem {
@@ -64,7 +63,7 @@ export const adminNavItems: (AdminNavItem | AdminNavGroup)[] = [
             href: "/admin/repartidores",
             label: "Repartidores",
             icon: Bike,
-            description: "Gestiona la flota de repartidores.",
+            description: "Gestiona la flota y las hojas de ruta.",
             color: "text-fuchsia-500",
             bgColor: "bg-fuchsia-50",
         },

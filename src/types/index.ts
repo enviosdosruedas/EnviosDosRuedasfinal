@@ -22,11 +22,16 @@ export interface Technology {
 export enum EtiquetaStatus {
     PENDIENTE = 'PENDIENTE',
     IMPRESA = 'IMPRESA',
+    EN_CAMINO = 'EN_CAMINO',
+    ENTREGADA = 'ENTREGADA',
+    NO_ENTREGADA = 'NO_ENTREGADA',
 }
 
+
 // Client-safe version with numbers instead of Decimals
-export type FormattedEtiqueta = Omit<PrismaEtiqueta, 'montoACobrar' | 'orderNumber' | 'status'> & {
+export type FormattedEtiqueta = Omit<PrismaEtiqueta, 'montoACobrar' | 'orderNumber' | 'status' | 'repartidorId'> & {
   montoACobrar: number | null;
   orderNumber: string | null;
   status: EtiquetaStatus;
+  repartidorId: number | null;
 };

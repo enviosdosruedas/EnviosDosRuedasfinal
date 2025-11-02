@@ -1,4 +1,3 @@
-
 // src/app/admin/repartidores/actions.ts
 'use server';
 
@@ -6,6 +5,7 @@ import { z } from 'zod';
 import prisma from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { EtiquetaStatus } from '@/types';
 
 const repartidorSchema = z.object({
   id: z.coerce.number().int().optional(),
@@ -111,4 +111,53 @@ export async function deleteRepartidor(id: number): Promise<{ success: boolean; 
     }
     return { success: false, error: 'Ocurrió un error al eliminar el repartidor.' };
   }
+}
+
+
+export async function assignEtiquetaToRepartidor(
+  etiquetaId: number,
+  repartidorId: number
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    await prisma.etiqueta.update({
+      where: { id: etiquetaId },
+      data: {
+        repartidorId,
+        status: EtiquetaStatus.IMPRESA, // O el estado que consideres apropiado
+      },
+    });
+    revalidatePath('/admin/repartidores');
+    return { success: true };
+  } catch (error) {
+    console.error('Error assigning etiqueta:', error);
+    return { success: false, error: 'No se pudo asignar la etiqueta.' };
+  }
+}
+
+export async function updateStatusOnTheWay(etiquetaId: number): Promise<{ success: boolean, error?: string }> {
+    try {
+        await prisma.etiqueta.update({
+            where: { id: etiquetaId },
+            data: { status: EtiquetaStatus.EN_CAMINO },
+        });
+        revalidatePath('/admin/repartidores');
+        return { success: true };
+    } catch (error) {
+        console.error(error);
+        return { success: false, error: 'No se pudo actualizar el estado.' };
+    }
+}
+
+export async function updateStatusDelivered(etiquetaId: number): Promise<{ success: boolean, error?: string }> {
+    try {
+        await prisma.etiqueta.update({
+            where: { id: etiquetaId },
+            data: { status: EtiquetaStatus.ENTREGADA },
+        });
+        revalidatePath('/admin/repartidores');
+        return { success: true };
+    } catch (error) {
+        console.error(error);
+        return { success: false, error: 'No se pudo actualizar el estado.' };
+    }
 }

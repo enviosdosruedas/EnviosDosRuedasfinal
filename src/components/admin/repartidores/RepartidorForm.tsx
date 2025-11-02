@@ -1,8 +1,7 @@
-
 // src/components/admin/repartidores/RepartidorForm.tsx
 'use client';
 
-import { useActionState, useEffect } from 'react';
+import { useActionState, useEffect, useTransition } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -16,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Loader2, Save, UserPlus } from 'lucide-react';
-import { DialogFooter, DialogHeader, DialogTitle, DialogDescription, DialogClose } from '@/components/ui/dialog';
+import { DialogClose, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 const repartidorSchema = z.object({
   id: z.coerce.number().int().optional(),
@@ -50,6 +49,7 @@ export function RepartidorForm({ repartidor, onSuccess }: RepartidorFormProps) {
   const action = isNew ? createRepartidor : updateRepartidor;
 
   const [state, formAction] = useActionState(action, initialState);
+  const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
 
   const form = useForm<RepartidorFormValues>({
@@ -64,11 +64,12 @@ export function RepartidorForm({ repartidor, onSuccess }: RepartidorFormProps) {
     },
   });
 
-  const { setError } = form;
+  const { setError, reset } = form;
 
   useEffect(() => {
     if (state?.message) {
       toast({ title: 'Éxito', description: state.message });
+      reset({ name: '', phone: '', vehicleType: 'Moto', licensePlate: '', isActive: true });
       onSuccess();
     }
     if (state?.error) {
@@ -81,7 +82,19 @@ export function RepartidorForm({ repartidor, onSuccess }: RepartidorFormProps) {
         }
       }
     }
-  }, [state, toast, setError, onSuccess]);
+  }, [state, toast, setError, onSuccess, reset]);
+
+  useEffect(() => {
+    // Reset form when repartidor prop changes (e.g., clicking edit on another one)
+    reset({
+      id: repartidor?.id,
+      name: repartidor?.name || '',
+      phone: repartidor?.phone || '',
+      vehicleType: repartidor?.vehicleType || 'Moto',
+      licensePlate: repartidor?.licensePlate || '',
+      isActive: repartidor?.isActive ?? true,
+    });
+  }, [repartidor, reset]);
 
   const onFormSubmit = (data: RepartidorFormValues) => {
     const formData = new FormData();
@@ -90,20 +103,13 @@ export function RepartidorForm({ repartidor, onSuccess }: RepartidorFormProps) {
         formData.append(key, String(value));
       }
     });
-    formAction(formData);
+    startTransition(() => formAction(formData));
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onFormSubmit)} className="space-y-6">
-        <DialogHeader>
-          <DialogTitle>{isNew ? 'Crear Nuevo Repartidor' : 'Editar Repartidor'}</DialogTitle>
-          <DialogDescription>
-            {isNew ? 'Completa los datos para añadir un nuevo repartidor.' : `Editando los datos de ${repartidor.name}.`}
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="grid gap-4 py-4">
+      <form onSubmit={form.handleSubmit(onFormSubmit)} className="space-y-4">
+        <div className="grid gap-4">
           <FormField control={form.control} name="name" render={({ field }) => (
             <FormItem><FormLabel>Nombre Completo</FormLabel><FormControl><Input placeholder="Nombre del repartidor" {...field} /></FormControl><FormMessage /></FormItem>
           )} />
@@ -119,7 +125,7 @@ export function RepartidorForm({ repartidor, onSuccess }: RepartidorFormProps) {
             )} />
           </div>
           <FormField control={form.control} name="isActive" render={({ field }) => (
-            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm mt-2">
               <div className="space-y-0.5">
                 <FormLabel>Estado</FormLabel>
                 <FormDescription>Activo para recibir nuevas órdenes.</FormDescription>
@@ -131,11 +137,8 @@ export function RepartidorForm({ repartidor, onSuccess }: RepartidorFormProps) {
           )} />
         </div>
         
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button type="button" variant="secondary">Cancelar</Button>
-          </DialogClose>
-          <SubmitButton isPending={form.formState.isSubmitting} isNew={isNew} />
+        <DialogFooter className="pt-4">
+          <SubmitButton isPending={isPending} isNew={isNew} />
         </DialogFooter>
       </form>
     </Form>
