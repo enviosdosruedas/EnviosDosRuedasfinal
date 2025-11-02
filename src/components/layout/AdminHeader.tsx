@@ -8,11 +8,13 @@ import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet"
-import { Menu, X } from "lucide-react"
+import { Menu, X, ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { motion } from "framer-motion"
-import { adminNavItems } from "@/lib/navigation-admin"
+import { adminNavItems, type AdminNavGroup } from "@/lib/navigation-admin"
 import { LogoutButton } from "@/components/admin/LogoutButton"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const mobileNavVariants = {
   hidden: {},
@@ -69,8 +71,13 @@ export function AdminHeader() {
 
   const isActive = (path: string) => {
     // Exact match for dashboard, prefix match for others
+    if (path === '/admin' && pathname !== '/admin') return false;
     if (path === '/admin') return pathname === path;
     return pathname.startsWith(path)
+  }
+  
+  const isGroupActive = (group: AdminNavGroup) => {
+    return group.items.some(item => isActive(item.href));
   }
 
   useEffect(() => {
@@ -115,12 +122,56 @@ export function AdminHeader() {
         {/* Desktop Navigation */}
         <nav className="hidden items-center space-x-1 lg:flex">
           {adminNavItems.map((item) => {
-            const ItemIcon = item.icon
+            if ('href' in item) {
+                const ItemIcon = item.icon
+                return (
+                <NavLink key={item.href} href={item.href} isActive={isActive(item.href)}>
+                    <ItemIcon className="h-4 w-4" />
+                    <span>{item.label}</span>
+                </NavLink>
+                )
+            }
+            // This is a group
+            const GroupIcon = item.icon;
+            const groupIsActive = isGroupActive(item);
             return (
-              <NavLink key={item.href} href={item.href} isActive={isActive(item.href)}>
-                <ItemIcon className="h-4 w-4" />
-                <span>{item.label}</span>
-              </NavLink>
+              <DropdownMenu key={item.label}>
+                <DropdownMenuTrigger asChild>
+                  <motion.div
+                    className={cn(
+                      "flex cursor-pointer items-center space-x-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-200",
+                       groupIsActive
+                        ? "bg-secondary/10 text-secondary"
+                        : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10",
+                    )}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <GroupIcon className="h-4 w-4" />
+                    <span>{item.label}</span>
+                    <ChevronDown className="h-4 w-4 opacity-70" />
+                  </motion.div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="mt-2 w-56 bg-popover/80 backdrop-blur-lg border-primary-foreground/10 text-popover-foreground">
+                    {item.items.map((subItem) => {
+                       const SubItemIcon = subItem.icon;
+                        return (
+                             <DropdownMenuItem key={subItem.href} asChild>
+                                <Link
+                                    href={subItem.href}
+                                    className={cn(
+                                        "flex items-center space-x-3 py-2.5",
+                                        isActive(subItem.href) ? "text-secondary font-semibold" : "",
+                                    )}
+                                >
+                                    {SubItemIcon && <SubItemIcon className="h-4 w-4" />}
+                                    <span>{subItem.label}</span>
+                                </Link>
+                            </DropdownMenuItem>
+                        )
+                    })}
+                </DropdownMenuContent>
+              </DropdownMenu>
             )
           })}
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="ml-4">
@@ -149,27 +200,77 @@ export function AdminHeader() {
                 animate="visible"
               >
                 <div className="flex-grow">
+                    <Accordion type="multiple" className="w-full">
                     {adminNavItems.map((item) => {
-                        const ItemIcon = item.icon
+                        if ('href' in item) {
+                             const ItemIcon = item.icon
+                            return (
+                               <motion.div variants={mobileNavItemVariants} key={item.href}>
+                                    <SheetClose asChild>
+                                    <Link
+                                        href={item.href}
+                                        className={cn(
+                                        "flex items-center space-x-4 py-4 px-4 rounded-xl transition-all duration-300 w-full text-left group",
+                                        isActive(item.href)
+                                            ? "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary font-semibold shadow-lg"
+                                            : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/5",
+                                        )}
+                                    >
+                                        <ItemIcon className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
+                                        <span className="font-medium text-base">{item.label}</span>
+                                    </Link>
+                                    </SheetClose>
+                                </motion.div>
+                            )
+                        }
+                        // This is a group
+                        const GroupIcon = item.icon;
+                        const groupIsActive = isGroupActive(item);
                         return (
-                        <motion.div variants={mobileNavItemVariants} key={item.href}>
-                            <SheetClose asChild>
-                            <Link
-                                href={item.href}
-                                className={cn(
-                                "flex items-center space-x-4 py-4 px-4 rounded-xl transition-all duration-300 w-full text-left group",
-                                isActive(item.href)
-                                    ? "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary font-semibold shadow-lg"
-                                    : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/5",
-                                )}
-                            >
-                                <ItemIcon className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
-                                <span className="font-medium text-base">{item.label}</span>
-                            </Link>
-                            </SheetClose>
-                        </motion.div>
+                            <motion.div variants={mobileNavItemVariants} key={item.label}>
+                                <AccordionItem value={item.label} className="border-b-0">
+                                    <AccordionTrigger
+                                        className={cn(
+                                        "py-4 px-4 rounded-xl transition-all duration-300 w-full justify-between group",
+                                        groupIsActive && !'href' in item
+                                            ? "text-secondary font-semibold [&[data-state=open]]:bg-gradient-to-r [&[data-state=open]]:from-secondary/20 [&[data-state=open]]:to-secondary/10"
+                                            : "text-primary-foreground hover:text-secondary hover:bg-primary-foreground/5",
+                                        "hover:no-underline",
+                                        )}
+                                    >
+                                        <div className="flex items-center space-x-4">
+                                        <GroupIcon className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
+                                        <span className="font-medium text-base">{item.label}</span>
+                                        </div>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="pt-2 pb-0">
+                                        <div className="flex flex-col space-y-1 pl-8">
+                                        {item.items.map((subItem) => {
+                                            const SubItemIcon = subItem.icon
+                                            return (
+                                            <SheetClose asChild key={subItem.href}>
+                                                <Link
+                                                href={subItem.href}
+                                                className={cn(
+                                                    "flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 w-full text-left",
+                                                    isActive(subItem.href)
+                                                    ? "bg-secondary/10 text-secondary font-medium"
+                                                    : "text-primary-foreground/80 hover:text-secondary hover:bg-primary-foreground/5",
+                                                )}
+                                                >
+                                                {SubItemIcon && <SubItemIcon className="h-4 w-4" />}
+                                                <span className="text-sm">{subItem.label}</span>
+                                                </Link>
+                                            </SheetClose>
+                                            )
+                                        })}
+                                        </div>
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </motion.div>
                         )
                     })}
+                   </Accordion>
                 </div>
                 <motion.div variants={mobileNavItemVariants} className="mt-auto pt-6 pb-10">
                   <LogoutButton />

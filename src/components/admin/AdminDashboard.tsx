@@ -30,6 +30,8 @@ const itemVariants = {
 };
 
 export function AdminDashboard() {
+  const flattenedNavItems = adminNavItems.flatMap(item => 'href' in item ? item : item.items);
+  
   return (
     <motion.div 
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -37,7 +39,11 @@ export function AdminDashboard() {
         initial="hidden"
         animate="visible"
     >
-      {adminNavItems.map((section) => {
+      {flattenedNavItems.map((section) => {
+        // We only want to display direct links in the dashboard for now.
+        // Groups can be represented differently if needed in the future.
+        if (!section.href) return null;
+
         const Icon = section.icon;
         return (
           <motion.div key={section.label} variants={itemVariants}>
