@@ -18,6 +18,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, Save, Send, User, MapPin, Phone, MessageSquare, Briefcase, Clock } from 'lucide-react';
+import type { FormattedEtiqueta } from '@/types';
 
 const PUNTO_RETIRO_ADDRESS = "11 de Septiembre 3317, Mar del Plata";
 
@@ -66,13 +67,8 @@ const EtiquetaFormSchema = z.object({
 
 type EtiquetaFormValues = z.infer<typeof EtiquetaFormSchema>;
 
-type FormattedEtiquetaType = Omit<PrismaEtiqueta, 'montoACobrar' | 'orderNumber'> & {
-  montoACobrar: number | null;
-  orderNumber: string | null;
-};
-
 interface EtiquetaFormProps {
-  initialData?: FormattedEtiquetaType | null;
+  initialData?: FormattedEtiqueta | null;
 }
 
 const initialState: EtiquetaFormState = {};

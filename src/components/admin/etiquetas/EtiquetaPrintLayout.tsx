@@ -1,16 +1,13 @@
 // src/components/admin/etiquetas/EtiquetaPrintLayout.tsx
 'use client';
-import { type Etiqueta, ServiceTypeEnum } from "@prisma/client";
+import { ServiceTypeEnum } from "@prisma/client";
 import { Package, User, Phone, MapPin, Info, DollarSign, Zap, Home, Clock, Building, Globe } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
-
-type FormattedEtiqueta = Omit<Etiqueta, 'montoACobrar'> & {
-  montoACobrar: number | null;
-};
+import type { FormattedEtiqueta } from "@/types";
 
 interface EtiquetaPrintLayoutProps {
   etiqueta: FormattedEtiqueta;

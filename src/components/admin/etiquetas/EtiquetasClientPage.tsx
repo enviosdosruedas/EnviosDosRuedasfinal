@@ -13,7 +13,7 @@ import { Footer } from "@/components/homenew/footer";
 import { updateEtiquetasStatus } from '@/app/admin/etiquetas/actions';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
-import { EtiquetaStatus, type FormattedEtiqueta } from '@/types';
+import { EtiquetaStatus, type FormattedEtiqueta } from "@/types";
 import { EtiquetasToolbar } from './EtiquetasToolbar';
 import type { DateRange } from 'react-day-picker';
 

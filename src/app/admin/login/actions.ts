@@ -27,7 +27,11 @@ export async function login(
   // This is for development purposes.
 
   // Set a session cookie
-  cookies().set('admin-auth-token', 'your-secret-session-token', {
+  (await
+    // Simulate a successful login without checking credentials.
+    // This is for development purposes.
+    // Set a session cookie
+    cookies()).set('admin-auth-token', 'your-secret-session-token', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     maxAge: 60 * 60 * 24, // 1 day
@@ -41,6 +45,6 @@ export async function login(
 }
 
 export async function logout() {
-  cookies().delete('admin-auth-token');
+  (await cookies()).delete('admin-auth-token');
   redirect('/admin/login');
 }
