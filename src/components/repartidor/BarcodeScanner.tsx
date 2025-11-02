@@ -1,8 +1,9 @@
+
 // src/components/repartidor/BarcodeScanner.tsx
 'use client';
 
 import React, { useState } from 'react';
-import { Decoder, BarcodeReader } from 'react-zxing';
+import { BarcodeReader } from 'react-zxing';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { CameraOff, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -16,7 +17,7 @@ export function BarcodeScanner({ onScan }: BarcodeScannerProps) {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleScan = (result: ReturnType<Parameters<BarcodeReader['onDecode']>[0]>) => {
+  const handleScan = (result: any) => {
     if (result && !isProcessing) {
       const barcodeText = result.getText();
       if (barcodeText) {
@@ -51,7 +52,7 @@ export function BarcodeScanner({ onScan }: BarcodeScannerProps) {
           </div>
       ) : (
           <>
-              <Decoder onDecode={handleScan} onPermission={handlePermission} />
+              <BarcodeReader onDecode={handleScan} onPermission={handlePermission} />
               {hasPermission === null && !isProcessing && (
                   <div className="absolute inset-0 bg-background/80 flex flex-col items-center justify-center">
                       <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -73,3 +74,4 @@ export function BarcodeScanner({ onScan }: BarcodeScannerProps) {
     </div>
   );
 }
+
