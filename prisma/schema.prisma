@@ -12,115 +12,101 @@ datasource db {
 }
 
 model SocialPost {
-  id        Int                  @id @default(autoincrement())
+  id        Int                @id @default(autoincrement())
   platform  SocialPlatformEnum
   userName  String
   userAvatar String?
   userUrl   String?
-  content   String               @db.Text
-  postUrl   String               @unique
+  content   String             @db.Text
+  postUrl   String             @unique
   imageUrl  String?
   imageHint String?
   likes     Int?
   comments  Int?
   shares    Int?
-  timestamp DateTime             @default(now())
-
-  @@index([platform])
+  timestamp DateTime           @default(now())
 }
 
 model Client {
-  id        Int      @id @default(autoincrement())
-  name      String
-  lastName  String?
-  phone     String?  @unique
-  email     String?  @unique
-  address   String
-  addressLat Decimal? @db.Decimal(10, 7)
-  addressLng Decimal? @db.Decimal(10, 7)
-  isActive  Boolean  @default(true)
-  orders    Order[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  name       String
+  lastName   String?
+  phone      String?  @unique
+  email      String?  @unique
+  address    String
+  addressLat Decimal? @db.Decimal(10, 8)
+  addressLng Decimal? @db.Decimal(11, 8)
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  orders     Order[]
 }
 
 model Order {
-  id                      Int      @id @default(autoincrement())
+  id                      Int                 @id @default(autoincrement())
   clientId                Int?
-  client                  Client?  @relation(fields: [clientId], references: [id])
-  
+  repartidorId            Int?
+  serviceType             ServiceTypeEnum
+  status                  OrderStatusEnum     @default(PENDIENTE)
   originFullName          String
   originPhone             String
   originAddress           String
-  originLat               Decimal? @db.Decimal(10, 7)
-  originLng               Decimal? @db.Decimal(10, 7)
-  
+  originLat               Decimal?            @db.Decimal(10, 8)
+  originLng               Decimal?            @db.Decimal(11, 8)
+  pickupStreetAddress     String?
   destinationContactName  String
   destinationContactPhone String
   destinationContactEmail String?
   destinationAddress      String
-  destinationLat          Decimal? @db.Decimal(10, 7)
-  destinationLng          Decimal? @db.Decimal(10, 7)
-
-  serviceType             ServiceTypeEnum
-  status                  OrderStatusEnum @default(PENDIENTE)
-
-  pickupDate              DateTime
-  pickupTimeFrom          String
-  pickupTimeTo            String
-  deliveryDate            DateTime
-  deliveryTimeFrom        String
-  deliveryTimeTo          String
-  
-  pickupDateTime          DateTime?
-  deliveryDateTime        DateTime?
-
-  quotedPrice             Decimal? @db.Decimal(10, 2)
-  shippingCost            Decimal? @db.Decimal(10, 2)
-  totalCost               Decimal? @db.Decimal(10, 2)
-  
+  destinationLat          Decimal?            @db.Decimal(10, 8)
+  destinationLng          Decimal?            @db.Decimal(11, 8)
+  deliveryAddress         String?
+  deliveryNotes           String?
+  pickupDate              DateTime?
+  pickupTimeFrom          String?
+  pickupTimeTo            String?
+  deliveryDate            DateTime?
+  deliveryTimeFrom        String?
+  deliveryTimeTo          String?
   distanceText            String?
   durationText            String?
-  
-  notes                   String?
-  
+  quotedPrice             Decimal?            @db.Decimal(10, 2)
+  shippingCost            Decimal?            @db.Decimal(10, 2)
+  totalCost               Decimal?            @db.Decimal(10, 2)
   clientNameAtOrder       String?
   clientPhoneAtOrder      String?
-
-  repartidorId            Int?
-  repartidor              Repartidor? @relation(fields: [repartidorId], references: [id])
-  
-  createdAt               DateTime @default(now())
-  updatedAt               DateTime @updatedAt
-
-  @@index([clientId])
-  @@index([repartidorId])
+  client                  Client?             @relation(fields: [clientId], references: [id])
+  repartidor              Repartidor?         @relation(fields: [repartidorId], references: [id])
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
+  pickupDateTime          DateTime?
+  deliveryDateTime        DateTime?
 }
 
-
 model Repartidor {
-  id           Int      @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   name         String
-  phone        String   @unique
+  phone        String     @unique
   vehicleType  String
-  licensePlate String   @unique
-  isActive     Boolean  @default(true)
+  licensePlate String     @unique
+  isActive     Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
   orders       Order[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  etiquetas    Etiqueta[]
 }
 
 model PriceRange {
   id             Int             @id @default(autoincrement())
+  serviceType    ServiceTypeEnum
   distanciaMinKm Decimal         @db.Decimal(10, 2)
   distanciaMaxKm Decimal         @db.Decimal(10, 2)
   precioRango    Decimal         @db.Decimal(10, 2)
-  serviceType    ServiceTypeEnum
   isActive       Boolean         @default(true)
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
 
-  @@unique([distanciaMinKm, distanciaMaxKm, serviceType])
+  @@unique([serviceType, distanciaMinKm, distanciaMaxKm])
 }
 
 model Etiqueta {
@@ -135,13 +121,22 @@ model Etiqueta {
   destinatarioTelefono String
   montoACobrar         Decimal?        @db.Decimal(10, 2)
   destinatarioNotas    String?
-  deliveryStartTime    String?
-  deliveryEndTime      String?
   status               EtiquetaStatus  @default(PENDIENTE)
   createdAt            DateTime        @default(now())
   updatedAt            DateTime        @updatedAt
+  deliveryStartTime    String?
+  deliveryEndTime      String?
+  repartidorId         Int?
+  repartidor           Repartidor?     @relation(fields: [repartidorId], references: [id])
 }
 
+enum EtiquetaStatus {
+  PENDIENTE
+  IMPRESA
+  EN_CAMINO
+  ENTREGADA
+  NO_ENTREGADA
+}
 
 enum SocialPlatformEnum {
   facebook
@@ -160,9 +155,4 @@ enum ServiceTypeEnum {
   EXPRESS
   LOW_COST
   PUNTO_DE_RETIRO
-}
-
-enum EtiquetaStatus {
-  PENDIENTE
-  IMPRESA
 }
