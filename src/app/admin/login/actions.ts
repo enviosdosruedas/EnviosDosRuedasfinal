@@ -23,16 +23,8 @@ export async function login(
   prevState: LoginFormState,
   formData: FormData
 ): Promise<LoginFormState> {
-  const validatedFields = loginSchema.safeParse({
-    username: formData.get('username'),
-    password: formData.get('password'),
-  });
-
-  if (!validatedFields.success) {
-    return {
-      fieldErrors: validatedFields.error.flatten().fieldErrors,
-    };
-  }
+  // Simulate a successful login without checking credentials.
+  // This is for development purposes.
 
   // Set a session cookie
   cookies().set('admin-auth-token', 'your-secret-session-token', {
