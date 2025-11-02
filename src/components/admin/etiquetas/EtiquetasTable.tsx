@@ -1,6 +1,7 @@
 // src/components/admin/etiquetas/EtiquetasTable.tsx
 'use client';
 
+import * as React from 'react';
 import {
   Table,
   TableBody,
@@ -48,6 +49,18 @@ const statusTextMap: { [key in EtiquetaStatus]: string } = {
   [EtiquetaStatus.IMPRESA]: 'Impresa',
 };
 
+// New component to handle client-side date formatting
+const ClientFormattedDate = ({ date }: { date: Date | string }) => {
+    const [formattedDate, setFormattedDate] = React.useState<string>('Cargando...');
+  
+    React.useEffect(() => {
+      const dateObj = typeof date === 'string' ? new Date(date) : date;
+      setFormattedDate(format(dateObj, "dd MMM yyyy, p", { locale: es }));
+    }, [date]);
+  
+    return <>{formattedDate}</>;
+};
+
 export function EtiquetasTable({ etiquetas, onPrint }: EtiquetasTableProps) {
   const { toast } = useToast();
 
@@ -93,7 +106,7 @@ export function EtiquetasTable({ etiquetas, onPrint }: EtiquetasTableProps) {
                 </Badge>
               </TableCell>
               <TableCell>
-                {format(new Date(etiqueta.createdAt), "dd MMM yyyy, p", { locale: es })}
+                <ClientFormattedDate date={etiqueta.createdAt} />
               </TableCell>
               <TableCell className="text-right">
                 {etiqueta.montoACobrar !== null ? `$${etiqueta.montoACobrar.toFixed(2)}` : 'N/A'}
