@@ -65,29 +65,12 @@ export function EtiquetaPrintLayout({ etiqueta, isLast = true }: EtiquetaPrintLa
         <CardContent className="p-4 md:p-6 text-black">
           <header className="flex justify-between items-start pb-4 border-b-2 border-dashed border-gray-300">
             <div className="flex items-center gap-4">
-               <svg width="80" height="80" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="100" cy="100" r="95" fill="none" stroke="black" strokeWidth="5" strokeDasharray="10 5"/>
-                  <rect x="25" y="40" width="150" height="120" fill="none"/>
-
-                  <text x="100" y="65" fontFamily="Arial, sans-serif" fontSize="30" fill="black" textAnchor="middle">Envios</text>
-
-                  <text x="100" y="100" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="35" fill="black" textAnchor="middle">DosRuedas</text>
-
-                  <text x="100" y="135" fontFamily="Arial, sans-serif" fontSize="25" fill="black" textAnchor="middle">2236602699</text>
-
-                  <g transform="translate(100, 165)">
-                    <circle cx="-40" cy="-5" r="8" fill="black"/>
-                    <rect x="-42" y="-9" width="4" height="8" fill="white"/>
-                    <text x="-25" y="0" fontFamily="Arial, sans-serif" fontSize="15" fill="black" textAnchor="start">enviosdosruedas</text>
-                    <circle cx="45" cy="-5" r="8" fill="black"/>
-                    <circle cx="45" cy="-5" r="4" fill="white"/>
-                  </g>
-
-                  <circle cx="85" cy="180" r="10" stroke="black" strokeWidth="2" fill="none"/>
-                  <circle cx="115" cy="180" r="10" stroke="black" strokeWidth="2" fill="none"/>
-                  
-                  <text x="100" y="195" fontFamily="Arial, sans-serif" fontSize="15" fill="black" textAnchor="middle">MDQ</text>
-                </svg>
+              <Image 
+                src="/logo_envios.svg" 
+                alt="Logo Envios DosRuedas"
+                width={80}
+                height={80}
+              />
               <div>
                 <h2 className="text-2xl font-bold">Envios DosRuedas</h2>
                 <p className="text-sm">Tu solución logística</p>
