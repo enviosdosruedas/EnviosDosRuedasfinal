@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Pencil, Printer, MoreVertical, Check, X, Loader2 } from "lucide-react";
+import { Pencil, Printer, MoreVertical, Check, X, Loader2, Truck, PackageCheck, AlertCircle } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { ServiceTypeEnum } from "@prisma/client";
@@ -49,16 +49,11 @@ const serviceTypeVariantMap: { [key in ServiceTypeEnum]: "default" | "secondary"
 };
 
 const statusConfig = {
-  [EtiquetaStatus.PENDIENTE]: {
-    variant: "destructive" as "destructive",
-    text: 'Pendiente',
-    icon: X,
-  },
-  [EtiquetaStatus.IMPRESA]: {
-    variant: "default" as "default",
-    text: 'Impresa',
-    icon: Check,
-  },
+  [EtiquetaStatus.PENDIENTE]: { variant: "destructive" as "destructive", text: 'Pendiente', icon: X },
+  [EtiquetaStatus.IMPRESA]: { variant: "default" as "default", text: 'Impresa', icon: Check },
+  [EtiquetaStatus.EN_CAMINO]: { variant: "secondary" as "secondary", text: 'En Camino', icon: Truck },
+  [EtiquetaStatus.ENTREGADA]: { variant: "outline" as "outline", text: 'Entregada', icon: PackageCheck },
+  [EtiquetaStatus.NO_ENTREGADA]: { variant: "destructive" as "destructive", text: 'No Entregada', icon: AlertCircle },
 };
 
 const ClientFormattedDate = ({ date }: { date: Date | string }) => {
@@ -101,13 +96,13 @@ function StatusChanger({ etiqueta }: { etiqueta: FormattedEtiqueta }) {
     setIsUpdating(false);
   };
 
-  const StatusIcon = currentStatusInfo.icon;
+  const StatusIcon = currentStatusInfo?.icon || X;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant={currentStatusInfo.variant}
+          variant={currentStatusInfo?.variant || 'destructive'}
           size="sm"
           className="capitalize h-7 px-2"
           disabled={isUpdating}
@@ -117,7 +112,7 @@ function StatusChanger({ etiqueta }: { etiqueta: FormattedEtiqueta }) {
           ) : (
             <StatusIcon className="mr-1 h-3 w-3" />
           )}
-          {currentStatusInfo.text}
+          {currentStatusInfo?.text || 'Desconocido'}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
