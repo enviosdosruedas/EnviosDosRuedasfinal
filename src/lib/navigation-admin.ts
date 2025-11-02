@@ -9,6 +9,7 @@ import {
   BarChart2,
   Users,
   Settings,
+  BookImage, // Agregado para el nuevo grupo
 } from "lucide-react";
 
 export interface AdminNavItem {
@@ -76,19 +77,26 @@ export const adminNavItems: (AdminNavItem | AdminNavGroup)[] = [
     bgColor: "bg-orange-50",
   },
   {
-    href: "/admin/add-post",
-    label: "Agregar Publicación",
-    icon: PlusSquare,
-    description: "Añade nuevos posts al feed de redes sociales.",
-    color: "text-purple-500",
-    bgColor: "bg-purple-50",
-  },
-  {
-    href: "/admin/crea-imagenes",
-    label: "Generador de Prompts IA",
-    icon: Wand2,
-    description: "Crea prompts para generar imágenes de marca.",
-    color: "text-teal-500",
-    bgColor: "bg-teal-50",
-  },
+    label: "Publicaciones",
+    icon: BookImage,
+    description: "Gestiona el contenido visual y social de la marca.",
+    items: [
+       {
+        href: "/admin/add-post",
+        label: "Agregar Publicación",
+        icon: PlusSquare,
+        description: "Añade nuevos posts al feed de redes sociales.",
+        color: "text-purple-500",
+        bgColor: "bg-purple-50",
+      },
+      {
+        href: "/admin/crea-imagenes",
+        label: "Prompts IMG",
+        icon: Wand2,
+        description: "Crea prompts para generar imágenes de marca.",
+        color: "text-teal-500",
+        bgColor: "bg-teal-50",
+      },
+    ],
+  }
 ];
