@@ -1,3 +1,4 @@
+
 // src/lib/navigation-admin.ts
 import {
   LayoutDashboard,
@@ -10,6 +11,7 @@ import {
   Users,
   Settings,
   BookImage, // Agregado para el nuevo grupo
+  Bike, // Icono para Repartidores
 } from "lucide-react";
 
 export interface AdminNavItem {
@@ -57,6 +59,14 @@ export const adminNavItems: (AdminNavItem | AdminNavGroup)[] = [
             description: "Administra la base de datos de clientes.",
             color: "text-cyan-500",
             bgColor: "bg-cyan-50",
+        },
+        {
+            href: "/admin/repartidores",
+            label: "Repartidores",
+            icon: Bike,
+            description: "Gestiona la flota de repartidores.",
+            color: "text-fuchsia-500",
+            bgColor: "bg-fuchsia-50",
         },
         {
             href: "/admin/cotizaciones",
