@@ -1,97 +1,146 @@
 // src/app/admin/etiquetas/[id]/page.tsx
+'use client';
 
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { AdminHeader } from "@/components/layout/AdminHeader";
 import { Footer } from "@/components/homenew/footer";
 import { EtiquetaForm } from "@/components/admin/etiquetas/EtiquetaForm";
 import type { Metadata } from 'next';
 import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
-import { Package } from "lucide-react";
+import { Package, Printer } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ServiceTypeEnum, Etiqueta } from "@prisma/client";
+import { Button } from "@/components/ui/button";
+import { EtiquetaPrintLayout } from "@/components/admin/etiquetas/EtiquetaPrintLayout";
 
-
-interface PageProps {
-  params: { id: string };
-}
+// This is a client component, so metadata should be handled differently or removed if not needed server-side.
+// For simplicity, we'll manage the title client-side.
 
 type FormattedEtiquetaType = Omit<Etiqueta, 'montoACobrar'> & {
   montoACobrar: number | null;
-  orderNumber: string | null;
 };
 
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { id } = params;
-
+// Async function to fetch data
+async function getEtiqueta(id: string): Promise<FormattedEtiquetaType | 'nueva' | null> {
   if (id === 'nueva') {
-    return {
-      title: "Nueva Etiqueta de Envío",
-      description: "Genera una nueva etiqueta de envío para un pedido.",
-      robots: { index: false, follow: false },
-    };
+    return 'nueva';
   }
-
-  const etiqueta = await prisma.etiqueta.findUnique({ where: { id: parseInt(id) } });
+  
+  const numericId = parseInt(id);
+  if (isNaN(numericId)) {
+    return null; // Triggers notFound
+  }
+  
+  const etiqueta = await prisma.etiqueta.findUnique({
+    where: { id: numericId },
+  });
 
   if (!etiqueta) {
-    return {
-      title: "Etiqueta no encontrada",
-      robots: { index: false, follow: false },
-    };
+    return null;
   }
-
+  
   return {
-    title: `Editar Etiqueta #${etiqueta.orderNumber || etiqueta.id}`,
-    description: `Editando detalles para la etiqueta de envío de ${etiqueta.remitenteNombre} a ${etiqueta.destinatarioNombre}.`,
-    robots: { index: false, follow: false },
+    ...etiqueta,
+    montoACobrar: etiqueta.montoACobrar?.toNumber() ?? null,
   };
 }
 
-export default async function EtiquetaPage({ params }: PageProps) {
-  const { id } = params;
-  const isNew = id === 'nueva';
-  let etiqueta: Etiqueta | null = null;
+export default function EtiquetaPageWrapper() {
+    const pathname = usePathname();
+    const id = pathname.split('/').pop() || '';
+    const [etiqueta, setEtiqueta] = useState<FormattedEtiquetaType | 'nueva' | null | undefined>(undefined);
+    
+    useEffect(() => {
+        if(id){
+            getEtiqueta(id).then(data => {
+                if (data === null) {
+                    notFound();
+                } else {
+                    setEtiqueta(data);
+                }
+            });
+        }
+    }, [id]);
 
-  if (!isNew) {
-    const numericId = parseInt(id);
-    if (isNaN(numericId)) {
-      notFound();
+    const isNew = etiqueta === 'nueva';
+    const hasData = etiqueta && etiqueta !== 'nueva';
+    
+    const handlePrint = () => {
+        window.print();
+    };
+
+    if (etiqueta === undefined) {
+        return (
+            <div className="min-h-screen flex flex-col bg-blue-50 dark:bg-gray-900 font-sans">
+                <AdminHeader />
+                <main className="flex-grow container mx-auto px-4 py-8 pt-24 text-center">
+                    <p>Cargando datos de la etiqueta...</p>
+                </main>
+                <Footer />
+            </div>
+        );
     }
-    etiqueta = await prisma.etiqueta.findUnique({
-      where: { id: numericId },
-    });
-    if (!etiqueta) {
-      notFound();
-    }
-  }
 
-  const formattedEtiqueta: FormattedEtiquetaType | null = etiqueta ? {
-    ...etiqueta,
-    montoACobrar: etiqueta.montoACobrar?.toNumber() ?? null,
-    orderNumber: etiqueta.orderNumber ?? null,
-  } : null;
+    const title = isNew ? 'Generar Nueva Etiqueta de Envío' : `Editando Etiqueta #${(etiqueta as FormattedEtiquetaType)?.orderNumber || id}`;
+    const description = isNew ? 'Completa los datos para generar una etiqueta para un nuevo envío.' : 'Modifica los detalles de la etiqueta existente.';
 
-  return (
-    <div className="min-h-screen flex flex-col bg-blue-50 dark:bg-gray-900 font-sans">
-      <AdminHeader />
-      <main className="flex-grow container mx-auto px-4 py-8 pt-24">
-        <Card className="max-w-4xl mx-auto mb-8 bg-background shadow-lg">
-            <CardHeader className="text-center">
-                <div className="flex items-center justify-center gap-3">
-                    <Package className="w-7 h-7 text-primary" />
-                    <CardTitle className="text-2xl sm:text-3xl font-bold text-primary">
-                        {isNew ? 'Generar Nueva Etiqueta de Envío' : `Editando Etiqueta #${formattedEtiqueta?.orderNumber || id}`}
-                    </CardTitle>
+    return (
+        <div className="min-h-screen flex flex-col bg-blue-50 dark:bg-gray-900 font-sans">
+            <AdminHeader />
+            <main className="flex-grow container mx-auto px-4 py-8 pt-24">
+                <div className="no-print">
+                    <Card className="max-w-4xl mx-auto mb-8 bg-background shadow-lg">
+                        <CardHeader className="text-center">
+                            <div className="flex items-center justify-center gap-3">
+                                <Package className="w-7 h-7 text-primary" />
+                                <CardTitle className="text-2xl sm:text-3xl font-bold text-primary">
+                                    {title}
+                                </CardTitle>
+                            </div>
+                            <CardDescription>
+                                {description}
+                            </CardDescription>
+                        </CardHeader>
+                    </Card>
+                    <EtiquetaForm initialData={hasData ? etiqueta as FormattedEtiquetaType : null} />
+                    {hasData && (
+                        <div className="max-w-4xl mx-auto mt-8 flex justify-center">
+                            <Button onClick={handlePrint} size="lg">
+                                <Printer className="mr-2 h-5 w-5" />
+                                Imprimir Etiqueta
+                            </Button>
+                        </div>
+                    )}
                 </div>
-                 <CardDescription>
-                    {isNew ? 'Completa los datos para generar una etiqueta para un nuevo envío.' : 'Modifica los detalles de la etiqueta existente.'}
-                </CardDescription>
-            </CardHeader>
-        </Card>
-        <EtiquetaForm initialData={formattedEtiqueta} />
-      </main>
-      <Footer />
-    </div>
-  );
+                {hasData && (
+                    <div className="print-only">
+                        <EtiquetaPrintLayout etiqueta={etiqueta as FormattedEtiquetaType} />
+                    </div>
+                )}
+            </main>
+            <Footer />
+            <style jsx global>{`
+                @media print {
+                  .no-print {
+                    display: none;
+                  }
+                  .print-only {
+                    display: block;
+                  }
+                  body {
+                    background-color: #fff;
+                  }
+                  main {
+                    padding-top: 0 !important;
+                    padding-bottom: 0 !important;
+                  }
+                }
+                .print-only {
+                  display: none;
+                }
+            `}</style>
+        </div>
+    );
 }

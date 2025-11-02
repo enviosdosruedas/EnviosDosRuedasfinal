@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Pencil } from "lucide-react";
+import { Pencil, Printer } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { Etiqueta as PrismaEtiqueta, ServiceTypeEnum } from "@prisma/client";
@@ -21,11 +21,11 @@ import Link from "next/link";
 
 type FormattedEtiqueta = Omit<PrismaEtiqueta, 'montoACobrar'> & {
   montoACobrar: number | null;
-  orderNumber: string | null;
 };
 
 interface EtiquetasTableProps {
   etiquetas: FormattedEtiqueta[];
+  onPrint: (etiqueta: FormattedEtiqueta) => void;
 }
 
 const serviceTypeMap: Record<ServiceTypeEnum, string> = {
@@ -40,7 +40,7 @@ const serviceTypeVariantMap: { [key in ServiceTypeEnum]: "default" | "secondary"
   [ServiceTypeEnum.PUNTO_DE_RETIRO]: 'outline',
 };
 
-export function EtiquetasTable({ etiquetas }: EtiquetasTableProps) {
+export function EtiquetasTable({ etiquetas, onPrint }: EtiquetasTableProps) {
   const { toast } = useToast();
 
   const handleDelete = async (etiquetaId: number) => {
@@ -78,7 +78,7 @@ export function EtiquetasTable({ etiquetas }: EtiquetasTableProps) {
             <TableHead>Tipo</TableHead>
             <TableHead>Fecha</TableHead>
             <TableHead className="text-right">Monto a Cobrar</TableHead>
-            <TableHead className="text-center w-[100px]">Acciones</TableHead>
+            <TableHead className="text-center w-[150px]">Acciones</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -98,12 +98,16 @@ export function EtiquetasTable({ etiquetas }: EtiquetasTableProps) {
               <TableCell className="text-right">
                 {etiqueta.montoACobrar !== null ? `$${etiqueta.montoACobrar.toFixed(2)}` : 'N/A'}
               </TableCell>
-              <TableCell className="text-center">
-                 <Button asChild variant="ghost" size="icon">
+              <TableCell className="text-center space-x-1">
+                 <Button asChild variant="ghost" size="icon" title="Editar">
                     <Link href={`/admin/etiquetas/${etiqueta.id}`}>
                       <Pencil className="h-4 w-4" />
                       <span className="sr-only">Editar</span>
                     </Link>
+                  </Button>
+                  <Button onClick={() => onPrint(etiqueta)} variant="ghost" size="icon" title="Imprimir">
+                      <Printer className="h-4 w-4" />
+                      <span className="sr-only">Imprimir</span>
                   </Button>
               </TableCell>
             </TableRow>
