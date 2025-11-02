@@ -7,14 +7,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet"
-import { Menu, X, LayoutDashboard, ChevronDown } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { motion } from "framer-motion"
 import { adminNavItems } from "@/lib/navigation-admin"
@@ -44,12 +38,39 @@ const mobileNavItemVariants = {
   },
 }
 
+const NavLink = ({
+  href,
+  children,
+  isActive,
+}: {
+  href: string
+  children: React.ReactNode
+  isActive: boolean
+}) => (
+  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+    <Link
+      href={href}
+      className={cn(
+        "flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200",
+        isActive
+          ? "bg-secondary/10 text-secondary"
+          : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10",
+      )}
+    >
+      {children}
+    </Link>
+  </motion.div>
+);
+
+
 export function AdminHeader() {
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
 
   const isActive = (path: string) => {
-    return pathname === path
+    // Exact match for dashboard, prefix match for others
+    if (path === '/admin') return pathname === path;
+    return pathname.startsWith(path)
   }
 
   useEffect(() => {
@@ -92,40 +113,16 @@ export function AdminHeader() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center space-x-2 lg:flex">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <motion.div
-                className="flex cursor-pointer items-center space-x-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200 text-primary-foreground hover:text-secondary hover:bg-primary-foreground/10"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <LayoutDashboard className="h-4 w-4" />
-                <span>Navegación</span>
-                <ChevronDown className="h-4 w-4" />
-              </motion.div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="mt-2 w-64 bg-popover/90 backdrop-blur-lg border-primary-foreground/10 text-popover-foreground">
-              {adminNavItems.map((item) => {
-                const ItemIcon = item.icon
-                return (
-                  <DropdownMenuItem key={item.href} asChild>
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        "flex items-center space-x-3 py-2.5",
-                        isActive(item.href) ? "text-secondary font-semibold" : "",
-                      )}
-                    >
-                      <ItemIcon className="h-4 w-4" />
-                      <span>{item.label}</span>
-                    </Link>
-                  </DropdownMenuItem>
-                )
-              })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
+        <nav className="hidden items-center space-x-1 lg:flex">
+          {adminNavItems.map((item) => {
+            const ItemIcon = item.icon
+            return (
+              <NavLink key={item.href} href={item.href} isActive={isActive(item.href)}>
+                <ItemIcon className="h-4 w-4" />
+                <span>{item.label}</span>
+              </NavLink>
+            )
+          })}
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="ml-4">
             <LogoutButton />
           </motion.div>
