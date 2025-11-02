@@ -80,7 +80,6 @@ export async function upsertEtiqueta(
 
     const { id, ...data } = validatedFields.data;
 
-    // This is a temporary fix. You need to add 'status' to your Prisma schema.
     const dbData: Omit<Prisma.EtiquetaCreateInput, 'orderNumber' | 'status'> & { orderNumber?: string; status?: EtiquetaStatus } = {
         tipoEnvio: data.tipoEnvio,
         remitenteNombre: data.remitenteNombre,
@@ -101,7 +100,7 @@ export async function upsertEtiqueta(
         if (id) {
             const updatedEtiqueta = await prisma.etiqueta.update({
                 where: { id },
-                data: dbData as any, // Using 'as any' to bypass TS error until schema is fixed
+                data: dbData, 
             });
             newEtiquetaId = updatedEtiqueta.id;
         } else {
@@ -113,7 +112,7 @@ export async function upsertEtiqueta(
                     ...dbData,
                     orderNumber: orderNumber,
                     status: EtiquetaStatus.PENDIENTE,
-                } as any, // Using 'as any' to bypass TS error until schema is fixed
+                }, 
             });
             newEtiquetaId = newEtiqueta.id;
         }
@@ -144,11 +143,6 @@ export async function updateEtiquetasStatus(
   }
 
   try {
-    // TEMPORARY FIX: Log the action instead of updating the DB until the schema is fixed.
-    console.log(`[SIMULACIÓN] Actualizando estado de etiquetas ${ids.join(', ')} a ${status}`);
-    // Once you've updated your schema.prisma and run `prisma generate`, 
-    // replace the console.log above with the original code block below:
-    /*
     const updateResult = await prisma.etiqueta.updateMany({
       where: {
         id: {
@@ -159,13 +153,34 @@ export async function updateEtiquetasStatus(
         status: status,
       },
     });
-    */
-    const updateResult = { count: ids.length }; // Simulate the result object
 
     revalidatePath('/admin/etiquetas');
     return { success: true, count: updateResult.count };
   } catch (error) {
     console.error('Error updating etiqueta status:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Error desconocido.';
+    return { success: false, error: `Error al actualizar estado: ${errorMessage}` };
+  }
+}
+
+export async function updateEtiquetaStatus(
+  id: number,
+  status: EtiquetaStatus
+): Promise<{ success: boolean; error?: string; }> {
+  if (!id) {
+    return { success: false, error: 'No se proporcionó un ID de etiqueta.' };
+  }
+
+  try {
+    await prisma.etiqueta.update({
+      where: { id },
+      data: { status },
+    });
+
+    revalidatePath('/admin/etiquetas');
+    return { success: true };
+  } catch (error) {
+    console.error('Error updating single etiqueta status:', error);
     const errorMessage = error instanceof Error ? error.message : 'Error desconocido.';
     return { success: false, error: `Error al actualizar estado: ${errorMessage}` };
   }
