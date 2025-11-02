@@ -2,11 +2,12 @@
 import type { Metadata } from 'next';
 import { EtiquetaClientPage } from "@/components/admin/etiquetas/EtiquetaClientPage";
 import prisma from "@/lib/prisma";
-import { type Etiqueta as PrismaEtiqueta } from "@prisma/client";
 import { notFound } from "next/navigation";
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import type { FormattedEtiqueta } from '@/types';
+import { EtiquetaStatus } from '@/types';
 
 export const metadata: Metadata = {
   title: "Generar Etiqueta de Envío",
@@ -19,11 +20,6 @@ export const metadata: Metadata = {
 
 // Revalidate data on every request to ensure it's fresh
 export const revalidate = 0;
-
-type FormattedEtiqueta = Omit<PrismaEtiqueta, 'montoACobrar' | 'orderNumber'> & {
-  montoACobrar: number | null;
-  orderNumber: string | null;
-};
 
 async function getEtiqueta(id: string): Promise<FormattedEtiqueta | null> {
   if (id === 'nueva') {
@@ -42,10 +38,16 @@ async function getEtiqueta(id: string): Promise<FormattedEtiqueta | null> {
     notFound();
   }
 
+  // Explicitly cast the status to our custom enum
+  const status = (etiqueta.status as string) in EtiquetaStatus 
+    ? etiqueta.status as EtiquetaStatus 
+    : EtiquetaStatus.PENDIENTE;
+
   return {
     ...etiqueta,
     montoACobrar: etiqueta.montoACobrar?.toNumber() ?? null,
     orderNumber: etiqueta.orderNumber ?? null,
+    status: status,
   };
 }
 
