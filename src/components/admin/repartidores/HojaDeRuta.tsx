@@ -12,8 +12,10 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Printer, Search, Map, Truck, Check, Package, X, Loader2 } from 'lucide-react';
-import { updateStatusDelivered, updateStatusOnTheWay, assignEtiquetaToRepartidor } from '@/app/admin/repartidores/actions';
+import { updateEtiquetaStatus } from '@/app/admin/etiquetas/actions';
 import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
+
 
 interface HojaDeRutaProps {
     repartidor: Repartidor;
@@ -31,6 +33,7 @@ const statusConfig = {
 
 export function HojaDeRuta({ repartidor, etiquetas: allEtiquetas }: HojaDeRutaProps) {
     const { toast } = useToast();
+    const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const [filter, setFilter] = useState<string>('hoy'); // 'hoy', 'todas'
     const [statusFilter, setStatusFilter] = useState<string>('todos'); // 'todos', 'pendientes', 'en_camino', 'entregadas'
@@ -64,24 +67,14 @@ export function HojaDeRuta({ repartidor, etiquetas: allEtiquetas }: HojaDeRutaPr
         });
     }, [etiquetasAsignadas, filter, statusFilter, searchTerm]);
 
-    const handleUpdateStatus = (etiquetaId: number, currentStatus: EtiquetaStatus) => {
+    const handleUpdateStatus = (etiquetaId: number, newStatus: EtiquetaStatus) => {
         startTransition(async () => {
-            let result;
-            let nextStatus: EtiquetaStatus | null = null;
+            const result = await updateEtiquetaStatus(etiquetaId, newStatus);
 
-            if (currentStatus === EtiquetaStatus.IMPRESA) {
-                result = await updateStatusOnTheWay(etiquetaId);
-                nextStatus = EtiquetaStatus.EN_CAMINO;
-            } else if (currentStatus === EtiquetaStatus.EN_CAMINO) {
-                result = await updateStatusDelivered(etiquetaId);
-                nextStatus = EtiquetaStatus.ENTREGADA;
-            } else {
-                return; // No action for other statuses from this button
-            }
-
-            if (result.success && nextStatus) {
-                setEtiquetas(prev => prev.map(e => e.id === etiquetaId ? { ...e, status: nextStatus! } : e));
+            if (result.success) {
+                setEtiquetas(prev => prev.map(e => e.id === etiquetaId ? { ...e, status: newStatus } : e));
                 toast({ title: "Estado Actualizado" });
+                router.refresh();
             } else {
                 toast({ title: "Error", description: result.error, variant: 'destructive' });
             }
@@ -92,10 +85,10 @@ export function HojaDeRuta({ repartidor, etiquetas: allEtiquetas }: HojaDeRutaPr
         const status = etiqueta.status;
 
         if (status === EtiquetaStatus.IMPRESA) {
-            return <Button size="sm" onClick={() => handleUpdateStatus(etiqueta.id, status)} disabled={isPending}><Truck className='mr-2 h-4 w-4' />En Camino</Button>
+            return <Button size="sm" onClick={() => handleUpdateStatus(etiqueta.id, EtiquetaStatus.EN_CAMINO)} disabled={isPending}><Truck className='mr-2 h-4 w-4' />En Camino</Button>
         }
         if (status === EtiquetaStatus.EN_CAMINO) {
-            return <Button size="sm" variant="secondary" onClick={() => handleUpdateStatus(etiqueta.id, status)} disabled={isPending}><Check className='mr-2 h-4 w-4' />Entregada</Button>
+            return <Button size="sm" variant="secondary" onClick={() => handleUpdateStatus(etiqueta.id, EtiquetaStatus.ENTREGADA)} disabled={isPending}><Check className='mr-2 h-4 w-4' />Entregada</Button>
         }
         if (status === EtiquetaStatus.ENTREGADA) {
              return <Badge className={statusConfig[EtiquetaStatus.ENTREGADA].color}><Check className='mr-2 h-4 w-4'/> {statusConfig[EtiquetaStatus.ENTREGADA].text}</Badge>
