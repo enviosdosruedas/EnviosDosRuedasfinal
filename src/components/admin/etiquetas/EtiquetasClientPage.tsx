@@ -6,22 +6,16 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PlusCircle, Ticket, Printer, XCircle, CheckCircle, Bell } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Etiqueta } from "@prisma/client";
 import { EtiquetaPrintLayout } from "@/components/admin/etiquetas/EtiquetaPrintLayout";
 import { EtiquetasTable } from "@/components/admin/etiquetas/EtiquetasTable";
 import { AdminHeader } from "@/components/layout/AdminHeader";
 import { Footer } from "@/components/homenew/footer";
 import { updateEtiquetasStatus } from '@/app/admin/etiquetas/actions';
-import { EtiquetaStatus } from '@/app/admin/etiquetas/status';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { Badge } from "@/components/ui/badge";
+import { EtiquetaStatus, type FormattedEtiqueta } from '@/types';
 
-
-export type FormattedEtiqueta = Omit<Etiqueta, 'montoACobrar' | 'status'> & {
-  montoACobrar: number | null;
-  status: EtiquetaStatus;
-};
 
 interface EtiquetasClientPageProps {
     initialEtiquetas: FormattedEtiqueta[];

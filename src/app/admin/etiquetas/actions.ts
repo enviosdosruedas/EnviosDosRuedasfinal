@@ -6,7 +6,7 @@ import prisma from '@/lib/prisma';
 import { Prisma, ServiceTypeEnum } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { EtiquetaStatus } from './status';
+import { EtiquetaStatus } from '@/types';
 
 
 const timeStringToMinutes = (time: string) => {

@@ -19,9 +19,16 @@ export interface Technology {
   icon?: React.ElementType; // For Lucide icons
 }
 
-export type Etiqueta = PrismaEtiqueta;
+export enum EtiquetaStatus {
+    PENDIENTE = 'PENDIENTE',
+    IMPRESA = 'IMPRESA',
+}
+
+export type Etiqueta = PrismaEtiqueta & {
+    status: EtiquetaStatus;
+};
 
 // Client-safe version with numbers instead of Decimals
-export type FormattedEtiqueta = Omit<PrismaEtiqueta, 'montoACobrar'> & {
+export type FormattedEtiqueta = Omit<Etiqueta, 'montoACobrar'> & {
   montoACobrar: number | null;
 };
