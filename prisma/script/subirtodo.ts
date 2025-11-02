@@ -1,109 +1,109 @@
 // prisma/script/subirtodo.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { PrismaClient, Prisma } from '@prisma/client';
 import fs from 'fs';
 import path from 'path';
 
 const prisma = new PrismaClient();
-const dataDir = path.join(__dirname, '../datos');
+const datosDir = path.join(__dirname, '../datos');
 
-async function importTable<T>(
-  model: keyof Prisma.TypeMap['model'],
-  fileName: string,
-  transform?: (data: any) => T
-) {
-  const filePath = path.join(dataDir, fileName);
-  if (!fs.existsSync(filePath)) {
-    console.warn(`Archivo no encontrado para la tabla ${model}: ${fileName}. Saltando...`);
+// Función para limpiar una tabla
+async function clearTable(tableName: keyof typeof prisma) {
+  if (!prisma[tableName] || !(prisma[tableName] as any).deleteMany) {
+    console.error(`El modelo ${String(tableName)} no es válido o no tiene el método deleteMany.`);
     return;
   }
-
-  console.log(`Importando datos para la tabla: ${model}...`);
-  const jsonData = fs.readFileSync(filePath, 'utf-8');
-  const data = JSON.parse(jsonData) as any[];
-
-  if (data.length === 0) {
-    console.log(`No hay datos para importar en la tabla ${model}.`);
-    return;
-  }
-
-  const transformedData = transform ? data.map(transform) : data;
-
   try {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    await prisma[model].createMany({
-      data: transformedData,
-      skipDuplicates: true, // This can be useful, but be aware of its implications
-    });
-    console.log(`Datos para la tabla ${model} importados exitosamente.`);
+    const result = await (prisma[tableName] as any).deleteMany({});
+    console.log(`Tabla ${String(tableName)} limpiada. ${result.count} registros eliminados.`);
   } catch (error) {
-    console.error(`Error importando datos para la tabla ${model}:`, error);
-    // Optionally, you might want to handle errors more gracefully,
-    // e.g., by logging which records failed.
+    console.error(`Error limpiando la tabla ${String(tableName)}:`, error);
+    throw error;
   }
 }
 
-async function clearDatabase() {
-    console.log("Limpiando la base de datos...");
-    // The order is important due to foreign key constraints
-    await prisma.etiqueta.deleteMany({});
-    await prisma.order.deleteMany({});
-    await prisma.client.deleteMany({});
-    await prisma.socialPost.deleteMany({});
-    await prisma.priceRange.deleteMany({});
-    await prisma.repartidor.deleteMany({});
-    console.log("Base de datos limpiada.");
+// Función para importar datos a una tabla
+async function importTable(tableName: keyof typeof prisma, fileName: string) {
+  const filePath = path.join(datosDir, fileName);
+  if (!fs.existsSync(filePath)) {
+    console.warn(`Archivo ${fileName} no encontrado. Omitiendo importación para la tabla ${String(tableName)}.`);
+    return;
+  }
+
+  const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  if (!Array.isArray(data)) {
+    console.error(`El archivo ${fileName} no contiene un array de datos.`);
+    return;
+  }
+
+  console.log(`Importando ${data.length} registros a la tabla ${String(tableName)}...`);
+
+  // Convertir campos Decimal y DateTime de string a sus tipos correspondientes
+  const processedData = data.map(record => {
+    const newRecord: { [key: string]: any } = {};
+    for (const key in record) {
+      const value = record[key];
+      // Asumiendo que los campos decimal se guardan como strings y los de fecha también
+      if (typeof value === 'string') {
+        if (!isNaN(Date.parse(value)) && key.toLowerCase().includes('at')) {
+          newRecord[key] = new Date(value);
+        } else {
+          newRecord[key] = value;
+        }
+      } else if (typeof value === 'number' && (key.toLowerCase().includes('price') || key.toLowerCase().includes('cost') || key.toLowerCase().includes('distancia'))) {
+        newRecord[key] = new Prisma.Decimal(value);
+      }
+      else {
+        newRecord[key] = value;
+      }
+    }
+    return newRecord;
+  });
+
+  try {
+    // Usamos `createMany` que es más eficiente para inserciones masivas.
+    // Asegúrate de que tu proveedor de BD lo soporte (PostgreSQL, MySQL, etc., lo hacen).
+    await (prisma[tableName] as any).createMany({
+      data: processedData,
+      skipDuplicates: true, // Opcional: útil si podrías tener duplicados
+    });
+    console.log(`Tabla ${String(tableName)} importada exitosamente.`);
+  } catch (error) {
+    console.error(`Error importando datos a la tabla ${String(tableName)}:`, error);
+    throw error;
+  }
 }
 
 async function main() {
   console.log('Iniciando proceso de importación de datos...');
+  try {
+    // El orden de limpieza es importante para evitar violaciones de claves foráneas
+    // Se limpia desde las tablas que dependen de otras hacia las tablas de las que dependen
+    await clearTable('Etiqueta');
+    await clearTable('Order');
+    await clearTable('SocialPost');
+    await clearTable('Client');
+    await clearTable('PriceRange');
+    await clearTable('Repartidor');
 
-  await clearDatabase();
-  
-  // The order of importation should respect dependencies if any
-  // For now, it seems most are independent, but it's good practice.
-  await importTable('repartidor', 'repartidor.json');
-  await importTable('priceRange', 'priceRange.json');
-  await importTable('client', 'client.json', (item: any) => ({
-    ...item,
-    addressLat: item.addressLat ? new Prisma.Decimal(item.addressLat) : null,
-    addressLng: item.addressLng ? new Prisma.Decimal(item.addressLng) : null,
-  }));
-  await importTable('order', 'order.json', (item: any) => ({
-    ...item,
-    originLat: item.originLat ? new Prisma.Decimal(item.originLat) : null,
-    originLng: item.originLng ? new Prisma.Decimal(item.originLng) : null,
-    destinationLat: item.destinationLat ? new Prisma.Decimal(item.destinationLat) : null,
-    destinationLng: item.destinationLng ? new Prisma.Decimal(item.destinationLng) : null,
-    quotedPrice: item.quotedPrice ? new Prisma.Decimal(item.quotedPrice) : null,
-    shippingCost: item.shippingCost ? new Prisma.Decimal(item.shippingCost) : null,
-    totalCost: item.totalCost ? new Prisma.Decimal(item.totalCost) : null,
-    // Ensure date fields are correctly formatted
-    pickupDate: new Date(item.pickupDate),
-    deliveryDate: new Date(item.deliveryDate),
-    pickupDateTime: new Date(item.pickupDateTime),
-    deliveryDateTime: new Date(item.deliveryDateTime),
-  }));
-  await importTable('socialPost', 'socialPost.json', (item: any) => ({
-    ...item,
-    timestamp: item.timestamp ? new Date(item.timestamp) : new Date(),
-  }));
-   await importTable('etiqueta', 'etiqueta.json', (item: any) => ({
-    ...item,
-    montoACobrar: item.montoACobrar ? new Prisma.Decimal(item.montoACobrar) : null,
-    createdAt: item.createdAt ? new Date(item.createdAt) : new Date(),
-    updatedAt: new Date(),
-  }));
+    console.log('\nTodas las tablas han sido limpiadas. Iniciando inserción...\n');
 
-  console.log('¡Todos los datos han sido importados!');
-}
+    // El orden de inserción también es importante, inverso al de limpieza
+    await importTable('Repartidor', 'repartidor.json');
+    await importTable('PriceRange', 'priceRange.json');
+    await importTable('Client', 'client.json');
+    await importTable('Order', 'order.json');
+    await importTable('SocialPost', 'socialPost.json');
+    await importTable('Etiqueta', 'etiqueta.json');
 
-main()
-  .catch(e => {
-    console.error('Ocurrió un error durante la importación:', e);
+    console.log('\nProceso de importación de datos completado exitosamente.');
+  } catch (error) {
+    console.error('Ocurrió un error durante la importación:', error);
     process.exit(1);
-  })
-  .finally(async () => {
+  } finally {
     await prisma.$disconnect();
     console.log('Conexión con la base de datos cerrada.');
-  });
+  }
+}
+
+main();
