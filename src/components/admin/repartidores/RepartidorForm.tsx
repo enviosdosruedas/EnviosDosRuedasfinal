@@ -1,4 +1,3 @@
-
 // src/components/admin/repartidores/RepartidorForm.tsx
 'use client';
 
@@ -16,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Loader2, Save, UserPlus } from 'lucide-react';
-import { DialogClose, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { DialogClose } from '@/components/ui/dialog';
 
 const repartidorSchema = z.object({
   id: z.coerce.number().int().optional(),
@@ -138,7 +137,7 @@ export function RepartidorForm({ repartidor, onSuccess }: RepartidorFormProps) {
           )} />
         </div>
         
-        <div className="pt-4 flex justify-end">
+        <div className="pt-4 flex justify-end gap-2">
           <DialogClose asChild>
             <Button variant="ghost">Cancelar</Button>
           </DialogClose>

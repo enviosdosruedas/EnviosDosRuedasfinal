@@ -25,35 +25,30 @@ interface RepartidoresClientPageProps {
 
 export function RepartidoresClientPage({ initialRepartidores, initialEtiquetas }: RepartidoresClientPageProps) {
     const [repartidores, setRepartidores] = useState<Repartidor[]>(initialRepartidores);
-    const [etiquetas, setEtiquetas] = useState<FormattedEtiqueta[]>(initialEtiquetas);
     const [isFormOpen, setIsFormOpen] = useState(false);
-    const [selectedRepartidor, setSelectedRepartidor] = useState<Repartidor | null>(null);
+    const [selectedRepartidorForEdit, setSelectedRepartidorForEdit] = useState<Repartidor | null>(null);
     const [selectedRepartidorId, setSelectedRepartidorId] = useState<string | null>(null);
     const { toast } = useToast();
 
     const handleOpenForm = (repartidor: Repartidor | null = null) => {
-        setSelectedRepartidor(repartidor);
+        setSelectedRepartidorForEdit(repartidor);
         setIsFormOpen(true);
     };
 
     const handleFormSuccess = () => {
         setIsFormOpen(false);
-        // Data will be revalidated by the server action
+        // Data will be revalidated by the server action, but we could also update state here if needed
+        // For now, we rely on the server revalidation which refreshes the page props.
     };
 
     const handleAssign = async (etiquetaId: number, repartidorId: number) => {
         const result = await assignEtiquetaToRepartidor(etiquetaId, repartidorId);
         if (result.success) {
             toast({ title: 'Éxito', description: `Etiqueta asignada a ${repartidores.find(r => r.id === repartidorId)?.name}.` });
-            // Optimistically update UI or wait for revalidation
         } else {
             toast({ title: 'Error', description: result.error, variant: 'destructive' });
         }
     };
-
-    const etiquetasPendientes = useMemo(() => {
-        return initialEtiquetas.filter(e => e.status === EtiquetaStatus.PENDIENTE || e.status === EtiquetaStatus.IMPRESA);
-    }, [initialEtiquetas]);
 
     const repartidorSeleccionado = selectedRepartidorId 
         ? repartidores.find(r => r.id === parseInt(selectedRepartidorId)) 
@@ -116,7 +111,7 @@ export function RepartidoresClientPage({ initialRepartidores, initialEtiquetas }
                         <div className='md:border-r md:pr-8'>
                              <h3 className="text-lg font-semibold mb-4">Añadir o Editar Repartidor</h3>
                              <RepartidorForm 
-                                repartidor={selectedRepartidor}
+                                repartidor={selectedRepartidorForEdit}
                                 onSuccess={handleFormSuccess}
                             />
                         </div>
