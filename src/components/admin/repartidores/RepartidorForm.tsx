@@ -1,3 +1,4 @@
+
 // src/components/admin/repartidores/RepartidorForm.tsx
 'use client';
 
@@ -10,12 +11,12 @@ import type { RepartidorFormState } from '@/app/admin/repartidores/actions';
 import { useToast } from '@/hooks/use-toast';
 import { Repartidor } from '@prisma/client';
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Loader2, Save, UserPlus } from 'lucide-react';
-import { DialogClose, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { DialogClose, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 const repartidorSchema = z.object({
   id: z.coerce.number().int().optional(),
@@ -137,9 +138,12 @@ export function RepartidorForm({ repartidor, onSuccess }: RepartidorFormProps) {
           )} />
         </div>
         
-        <DialogFooter className="pt-4">
+        <div className="pt-4 flex justify-end">
+          <DialogClose asChild>
+            <Button variant="ghost">Cancelar</Button>
+          </DialogClose>
           <SubmitButton isPending={isPending} isNew={isNew} />
-        </DialogFooter>
+        </div>
       </form>
     </Form>
   );
