@@ -18,16 +18,18 @@ import { Loader2, Wand2, Sparkles, Copy, Check } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 const services = [
+    'General',
     'Envios Express',
     'Envios LowCost',
     'Envios Flex',
-    'Cuenta corriente flexible',
-    'Flota dedicada',
-    'Moto fija empresarial',
-    'Delivery Gastronómico'
+    'Plan Emprendedores',
+    'Moto Fija',
+    'Preguntas Frecuentes (FAQ)',
+    'Contacto',
+    'Sobre Nosotros',
 ];
 
-const sections = ['Hero', 'Card', 'Banner', 'General'];
+const sections = ['Hero', 'Card', 'Banner', 'General', 'Ilustración'];
 
 const promptGeneratorSchema = z.object({
   sectionType: z.string().min(1, 'El tipo de sección es requerido.'),
@@ -102,7 +104,7 @@ export function ImagePromptGenerator() {
               name="sectionType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tipo de Sección</FormLabel>
+                  <FormLabel>Tipo de Sección / Elemento</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
@@ -124,7 +126,7 @@ export function ImagePromptGenerator() {
               name="service"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Servicio Asociado</FormLabel>
+                  <FormLabel>Página / Servicio Asociado</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
