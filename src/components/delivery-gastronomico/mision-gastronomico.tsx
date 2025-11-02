@@ -21,7 +21,7 @@ export function MisionGastronomico() {
               <div className="flex flex-col md:flex-row items-center gap-8">
                 <div className="flex-shrink-0">
                   <Image 
-                    src="/matias-cejas.webp"
+                    src="/LogoEnviosDosRuedas.webp"
                     alt="Matías Cejas, fundador de Envios DosRuedas"
                     width={150}
                     height={150}

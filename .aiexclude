@@ -17,13 +17,6 @@ bun.lockb
 yarn.lock
 pnpm-lock.yaml
 
-# Directories to exclude from AI context
-node_modules
-.next
-.vscode
-dist
-build
-
 
 # Exclude generated data files from prisma
 prisma/datos/*.json
