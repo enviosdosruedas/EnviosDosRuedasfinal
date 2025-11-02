@@ -1,23 +1,61 @@
 // src/app/admin/etiquetas/[id]/page.tsx
 import type { Metadata } from 'next';
-import { EtiquetaPage } from "@/components/admin/etiquetas/EtiquetaPage";
+import { EtiquetaClientPage } from "@/components/admin/etiquetas/EtiquetaClientPage";
+import prisma from "@/lib/prisma";
+import { type Etiqueta as PrismaEtiqueta } from "@prisma/client";
+import { notFound } from "next/navigation";
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: "Generar Etiquetas de Envío",
-  description: "Crea etiquetas de envío individuales o en lote para tus pedidos.",
+  title: "Generar Etiqueta de Envío",
+  description: "Crea o edita etiquetas de envío para tus pedidos.",
   robots: {
     index: false,
     follow: false,
   },
 };
 
-export default function GenerarEtiquetasPage() {
+// Revalidate data on every request to ensure it's fresh
+export const revalidate = 0;
+
+type FormattedEtiqueta = Omit<PrismaEtiqueta, 'montoACobrar' | 'orderNumber'> & {
+  montoACobrar: number | null;
+  orderNumber: string | null;
+};
+
+async function getEtiqueta(id: string): Promise<FormattedEtiqueta | null> {
+  if (id === 'nueva') {
+    return null;
+  }
+  const numericId = parseInt(id, 10);
+  if (isNaN(numericId)) {
+    notFound();
+  }
+  
+  const etiqueta = await prisma.etiqueta.findUnique({
+    where: { id: numericId },
+  });
+
+  if (!etiqueta) {
+    notFound();
+  }
+
+  return {
+    ...etiqueta,
+    montoACobrar: etiqueta.montoACobrar?.toNumber() ?? null,
+    orderNumber: etiqueta.orderNumber ?? null,
+  };
+}
+
+
+export default async function GenerarEtiquetaPage({ params }: { params: { id: string } }) {
+    const etiqueta = await getEtiqueta(params.id);
+
     return (
         <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
-            <header className="p-4 no-print">
+             <header className="p-4 no-print">
                 <Button asChild variant="outline">
                     <Link href="/admin/etiquetas">
                         <ArrowLeft className="mr-2 h-4 w-4" />
@@ -25,8 +63,8 @@ export default function GenerarEtiquetasPage() {
                     </Link>
                 </Button>
             </header>
-            <main className="flex-grow">
-               <EtiquetaPage />
+            <main className="flex-grow container mx-auto px-4 py-8">
+               <EtiquetaClientPage initialData={etiqueta} />
             </main>
         </div>
     );

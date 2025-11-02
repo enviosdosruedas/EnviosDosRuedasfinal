@@ -1,3 +1,6 @@
+// src/types/index.ts
+import type { Etiqueta as PrismaEtiqueta } from "@prisma/client";
+
 export interface Order {
   id: string;
   customerName: string;
@@ -15,3 +18,10 @@ export interface Technology {
   description: string;
   icon?: React.ElementType; // For Lucide icons
 }
+
+export type Etiqueta = PrismaEtiqueta;
+
+// Client-safe version with numbers instead of Decimals
+export type FormattedEtiqueta = Omit<PrismaEtiqueta, 'montoACobrar'> & {
+  montoACobrar: number | null;
+};
