@@ -1,65 +1,60 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  directUrl    = env("DIRECT_URL")
+  relationMode = "prisma"
 }
 
-// --------------------------------------
-// ENUMERACIONES
-// --------------------------------------
-
-enum Role {
-  USER
-  ADMIN
-  REPARTIDOR
-}
-
-enum OrderStatusEnum {
-  PENDIENTE
-  EN_CURSO
-  ENTREGADO
-  CANCELADO
-  DEVUELTO
-}
-
-enum ServiceTypeEnum {
-  EXPRESS
-  LOW_COST
-  PUNTO_DE_RETIRO
-}
-
+// Enum for social media platforms
 enum SocialPlatformEnum {
   facebook
   instagram
   whatsapp
 }
 
+// Enum for service types
+enum ServiceTypeEnum {
+  EXPRESS
+  LOW_COST
+  PUNTO_DE_RETIRO
+}
+
+// Enum for order status
+enum OrderStatusEnum {
+  pendiente
+  en_curso
+  entregado
+  cancelado
+}
+
+// Enum for Etiqueta Status
 enum EtiquetaStatus {
   PENDIENTE
   IMPRESA
 }
 
-// --------------------------------------
-// MODELOS DE DATOS
-// --------------------------------------
-
-model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String?
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  orders    Order[]
+// SocialPost model to store social media feed items
+model SocialPost {
+  id        Int                @id @default(autoincrement())
+  platform  SocialPlatformEnum
+  userName  String
+  userAvatar String?
+  userUrl   String?
+  content   String             @db.Text
+  postUrl   String             @unique
+  imageUrl  String?
+  imageHint String?
+  likes     Int?
+  comments  Int?
+  shares    Int?
+  timestamp DateTime           @default(now())
 }
 
 model Repartidor {
@@ -73,60 +68,72 @@ model Repartidor {
 }
 
 model Client {
-  id          Int      @id @default(autoincrement())
-  name        String
-  lastName    String?
-  phone       String   @unique
-  email       String?  @unique
-  address     String
-  addressLat  Decimal?
-  addressLng  Decimal?
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  orders      Order[]
+  id                    Int      @id @default(autoincrement())
+  name                  String
+  lastName              String?
+  phone                 String   @unique
+  email                 String?  @unique
+  address               String
+  addressLat            Decimal? @db.Decimal(10, 8)
+  addressLng            Decimal? @db.Decimal(11, 8)
+  isActive              Boolean  @default(true)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  orders                Order[]
 }
 
 model Order {
-  id                      Int               @id @default(autoincrement())
+  id                      Int                 @id @default(autoincrement())
   clientId                Int?
-  client                  Client?           @relation(fields: [clientId], references: [id])
+  client                  Client?             @relation(fields: [clientId], references: [id])
   clientNameAtOrder       String
   clientPhoneAtOrder      String
-  status                  OrderStatusEnum   @default(PENDIENTE)
-  serviceType             ServiceTypeEnum
   originFullName          String
   originPhone             String
   originAddress           String
-  originLat               Decimal?
-  originLng               Decimal?
+  originLat               Decimal?            @db.Decimal(10, 8)
+  originLng               Decimal?            @db.Decimal(11, 8)
   destinationContactName  String
   destinationContactPhone String
   destinationContactEmail String?
   destinationAddress      String
-  destinationLat          Decimal?
-  destinationLng          Decimal?
+  destinationLat          Decimal?            @db.Decimal(10, 8)
+  destinationLng          Decimal?            @db.Decimal(11, 8)
+  serviceType             ServiceTypeEnum
+  status                  OrderStatusEnum     @default(pendiente)
+  quotedPrice             Decimal?            @db.Decimal(10, 2)
+  shippingCost            Decimal?            @db.Decimal(10, 2)
+  totalCost               Decimal?            @db.Decimal(10, 2)
   distanceText            String?
   durationText            String?
-  pickupDate              DateTime
-  pickupTimeFrom          String
-  pickupTimeTo            String
-  deliveryDate            DateTime
-  deliveryTimeFrom        String
-  deliveryTimeTo          String
-  pickupDateTime          DateTime
-  deliveryDateTime        DateTime
-  quotedPrice             Decimal?          @db.Decimal(10, 2)
-  shippingCost            Decimal?          @db.Decimal(10, 2)
-  totalCost               Decimal?          @db.Decimal(10, 2)
-  createdAt               DateTime          @default(now())
-  updatedAt               DateTime          @updatedAt
+  pickupDate              DateTime?
+  pickupTimeFrom          String?
+  pickupTimeTo            String?
+  deliveryDate            DateTime?
+  deliveryTimeFrom        String?
+  deliveryTimeTo          String?
+  pickupDateTime          DateTime?
+  deliveryDateTime        DateTime?
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
+}
+
+model PriceRange {
+  id             Int             @id @default(autoincrement())
+  distanciaMinKm Decimal         @db.Decimal(10, 2)
+  distanciaMaxKm Decimal         @db.Decimal(10, 2)
+  precioRango    Decimal         @db.Decimal(10, 2)
+  serviceType    ServiceTypeEnum
+  isActive       Boolean         @default(true)
+
+  @@unique([distanciaMinKm, distanciaMaxKm, serviceType])
 }
 
 model Etiqueta {
   id                    Int             @id @default(autoincrement())
   orderNumber           String?         @unique
   tipoEnvio             ServiceTypeEnum
+  status                EtiquetaStatus  @default(PENDIENTE)
   remitenteNombre       String
   remitenteDireccion    String
   remitenteNotas        String?
@@ -137,38 +144,55 @@ model Etiqueta {
   destinatarioNotas     String?
   deliveryStartTime     String?
   deliveryEndTime       String?
-  status                EtiquetaStatus  @default(PENDIENTE)
   createdAt             DateTime        @default(now())
   updatedAt             DateTime        @updatedAt
 }
 
-model PriceRange {
-  id             Int             @id @default(autoincrement())
-  distanciaMinKm Decimal         @db.Decimal(10, 2)
-  distanciaMaxKm Decimal         @db.Decimal(10, 2)
-  precioRango    Decimal         @db.Decimal(10, 2)
-  serviceType    ServiceTypeEnum
-  isActive       Boolean         @default(true)
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-
-  @@unique([distanciaMinKm, distanciaMaxKm, serviceType])
+// Define the User model for authentication
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
 }
 
-model SocialPost {
-  id         Int                @id @default(autoincrement())
-  platform   SocialPlatformEnum
-  userName   String
-  userAvatar String?
-  userUrl    String?
-  content    String             @db.Text
-  postUrl    String             @unique
-  imageUrl   String?
-  imageHint  String?
-  timestamp  DateTime
-  likes      Int?
-  comments   Int?
-  shares     Int?
-  createdAt  DateTime           @default(now())
-  updatedAt  DateTime           @updatedAt
+// Define the Account model for authentication
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+// Define the Session model for authentication
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Define the VerificationToken model for authentication
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }

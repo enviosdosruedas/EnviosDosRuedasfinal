@@ -69,7 +69,7 @@ export const adminNavItems: (AdminNavItem | AdminNavGroup)[] = [
   },
   {
     href: "/admin/etiquetas",
-    label: "Gestión de Etiquetas",
+    label: "Etiquetas",
     icon: Ticket,
     description: "Crea y administra etiquetas de envío.",
     color: "text-orange-500",
