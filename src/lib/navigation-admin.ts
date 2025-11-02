@@ -9,6 +9,7 @@ import {
   type LucideIcon,
   ListOrdered,
   BarChart2,
+  Users,
 } from "lucide-react";
 
 export interface AdminNavItem {
@@ -36,6 +37,14 @@ export const adminNavItems: AdminNavItem[] = [
     description: "Visualiza, crea y modifica las órdenes de envío.",
     color: "text-blue-500",
     bgColor: "bg-blue-50",
+  },
+  {
+    href: "/admin/clientes",
+    label: "Gestión de Clientes",
+    icon: Users,
+    description: "Administra la base de datos de clientes.",
+    color: "text-cyan-500",
+    bgColor: "bg-cyan-50",
   },
   {
     href: "/admin/cotizaciones",

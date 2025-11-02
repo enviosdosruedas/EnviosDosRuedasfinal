@@ -6,152 +6,144 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
-model SocialPost {
-  id        Int                @id @default(autoincrement())
-  platform  SocialPlatformEnum
-  userName  String
-  userAvatar String?
-  userUrl   String?
-  content   String             @db.Text
-  postUrl   String             @unique
-  imageUrl  String?
-  imageHint String?
-  likes     Int?
-  comments  Int?
-  shares    Int?
-  timestamp DateTime           @default(now())
-  createdAt DateTime           @default(now())
-  updatedAt DateTime           @updatedAt
+model Order {
+  id                      Int      @id @default(autoincrement())
+  clientId                Int?
+  clientNameAtOrder       String
+  clientPhoneAtOrder      String
+  pickupStreetAddress     String?
+  deliveryAddress         String?
+  status                  String   @default("pendiente") // pendiente, en_curso, entregado, cancelado
+  serviceType             ServiceTypeEnum
+  quotedPrice             Decimal? @db.Decimal(10, 2)
+  shippingCost            Decimal? @db.Decimal(10, 2)
+  totalCost               Decimal? @db.Decimal(10, 2)
+  pickupDate              DateTime? @db.Date
+  pickupTimeFrom          String? // HH:MM
+  pickupTimeTo            String? // HH:MM
+  deliveryDate            DateTime? @db.Date
+  deliveryTimeFrom        String? // HH:MM
+  deliveryTimeTo          String? // HH:MM
+  originLat               Decimal? @db.Decimal(10, 7)
+  originLng               Decimal? @db.Decimal(10, 7)
+  destinationLat          Decimal? @db.Decimal(10, 7)
+  destinationLng          Decimal? @db.Decimal(10, 7)
+  distanceText            String?
+  durationText            String?
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+  originFullName          String?
+  originPhone             String?
+  destinationContactName  String?
+  destinationContactPhone String?
+  destinationContactEmail String?
+  originAddress           String?
+  destinationAddress      String?
+  pickupDateTime          DateTime?
+  deliveryDateTime        DateTime?
+
+  client Client? @relation(fields: [clientId], references: [id])
+
+  @@index([clientId])
 }
 
-enum SocialPlatformEnum {
-  facebook
-  instagram
-  whatsapp
+model Client {
+  id          Int      @id @default(autoincrement())
+  name        String
+  lastName    String?
+  phone       String   @unique
+  email       String?  @unique
+  address     String
+  addressLat  Decimal? @db.Decimal(10, 7)
+  addressLng  Decimal? @db.Decimal(10, 7)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  isActive    Boolean  @default(true)
+  orders      Order[]
+  repartidor  Repartidor[]
+}
+
+model Repartidor {
+  id              Int      @id @default(autoincrement())
+  name            String
+  lastName        String
+  phone           String   @unique
+  vehicleType     String // MOTO, BICI, AUTO
+  licensePlate    String?  @unique
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  currentLat      Decimal? @db.Decimal(10, 7)
+  currentLng      Decimal? @db.Decimal(10, 7)
+  lastSeen        DateTime?
+  Client          Client?  @relation(fields: [clientId], references: [id])
+  clientId        Int?
 }
 
 model PriceRange {
-  id              Int              @id @default(autoincrement())
-  distanciaMinKm  Decimal          @db.Decimal(8, 2)
-  distanciaMaxKm  Decimal          @db.Decimal(8, 2)
-  precioRango     Decimal          @db.Decimal(10, 2)
-  serviceType     ServiceTypeEnum
-  isActive        Boolean          @default(true)
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  id             Int             @id @default(autoincrement())
+  distanciaMinKm Decimal         @dbDecimal(6, 2)
+  distanciaMaxKm Decimal         @dbDecimal(6, 2)
+  precioRango    Decimal         @dbDecimal(10, 2)
+  serviceType    ServiceTypeEnum
+  isActive       Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
 
   @@unique([distanciaMinKm, distanciaMaxKm, serviceType])
 }
 
-model Client {
-  id         Int       @id @default(autoincrement())
-  name       String
-  lastName   String?
-  phone      String    @unique
-  email      String?   @unique
-  address    String
-  addressLat Decimal?  @db.Decimal(10, 7)
-  addressLng Decimal?  @db.Decimal(10, 7)
-  isActive   Boolean   @default(true)
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  orders     Order[]
-}
-
-model Repartidor {
-  id        Int      @id @default(autoincrement())
-  name      String
-  lastName  String
-  phone     String   @unique
-  email     String?  @unique
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Order {
-  id                      Int               @id @default(autoincrement())
-  clientId                Int?
-  client                  Client?           @relation(fields: [clientId], references: [id], onDelete: SetNull)
-  clientNameAtOrder       String
-  clientPhoneAtOrder      String
-  
-  originFullName          String
-  originPhone             String
-  originAddress           String
-  originLat               Decimal?          @db.Decimal(10, 7)
-  originLng               Decimal?          @db.Decimal(10, 7)
-  
-  destinationContactName  String
-  destinationContactPhone String
-  destinationContactEmail String?
-  destinationAddress      String
-  destinationLat          Decimal?          @db.Decimal(10, 7)
-  destinationLng          Decimal?          @db.Decimal(10, 7)
-
-  serviceType             ServiceTypeEnum
-  status                  OrderStatusEnum   @default(pendiente)
-  
-  quotedPrice             Decimal?          @db.Decimal(10, 2)
-  shippingCost            Decimal?          @db.Decimal(10, 2)
-  totalCost               Decimal?          @db.Decimal(10, 2)
-
-  pickupDate              DateTime          @db.Date
-  pickupTimeFrom          String            // "HH:MM"
-  pickupTimeTo            String            // "HH:MM"
-  deliveryDate            DateTime          @db.Date
-  deliveryTimeFrom        String            // "HH:MM"
-  deliveryTimeTo          String            // "HH:MM"
-  
-  pickupDateTime          DateTime?         // Full datetime for sorting/filtering
-  deliveryDateTime        DateTime?         // Full datetime for sorting/filtering
-
-  pickupStreetAddress     String?
-  deliveryAddress         String?
-
-  distanceText            String?
-  durationText            String?
-
-  createdAt               DateTime          @default(now())
-  updatedAt               DateTime          @updatedAt
+model SocialPost {
+  id          Int                @id @default(autoincrement())
+  platform    SocialPlatformEnum
+  userName    String
+  userAvatar  String?
+  userUrl     String?
+  content     String             @db.Text
+  postUrl     String             @unique
+  imageUrl    String?
+  imageHint   String?
+  likes       Int?
+  comments    Int?
+  shares      Int?
+  timestamp   DateTime
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
 }
 
 model Etiqueta {
-  id                      Int             @id @default(autoincrement())
-  orderNumber             String?         @unique
-  tipoEnvio               ServiceTypeEnum
-  remitenteNombre         String
-  remitenteDireccion      String
-  remitenteNotas          String?
-  destinatarioNombre      String
-  destinatarioDireccion   String
-  destinatarioTelefono    String
-  montoACobrar            Decimal?        @db.Decimal(10, 2)
-  destinatarioNotas       String?
-  deliveryStartTime       String?
-  deliveryEndTime         String?
-    status    EtiquetaStatus @default(PENDIENTE)
+  id                    Int             @id @default(autoinश्चre++)
+  orderNumber           String?         @unique
+  tipoEnvio             ServiceTypeEnum
+  remitenteNombre       String
+  remitenteDireccion    String
+  remitenteNotas        String?
+  destinatarioNombre    String
+  destinatarioDireccion String
+  destinatarioTelefono  String
+  montoACobrar          Decimal?        @db.Decimal(10, 2)
+  destinatarioNotas     String?
+  deliveryStartTime     String?
+  deliveryEndTime       String?
+  status                String          @default("PENDIENTE") // PENDIENTE, IMPRESA, EN_CAMINO, ENTREGADO, CANCELADO
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+}
 
-  createdAt               DateTime        @default(now())
-  updatedAt               DateTime        @updatedAt
-}
-enum EtiquetaStatus {
-  PENDIENTE
-  IMPRESA
-}
+
 enum ServiceTypeEnum {
   EXPRESS
   LOW_COST
   PUNTO_DE_RETIRO
 }
 
-enum OrderStatusEnum {
-  pendiente
-  en_curso
-  entregado
-  cancelado
+enum SocialPlatformEnum {
+  facebook
+  instagram
+  whatsapp
 }
