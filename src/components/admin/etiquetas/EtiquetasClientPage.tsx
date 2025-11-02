@@ -24,8 +24,8 @@ interface EtiquetasClientPageProps {
 export function EtiquetasClientPage({ initialEtiquetas }: EtiquetasClientPageProps) {
     const [etiquetas, setEtiquetas] = useState<FormattedEtiqueta[]>(initialEtiquetas);
     const [etiquetasToPrint, setEtiquetasToPrint] = useState<FormattedEtiqueta[]>([]);
-    const [filter, setFilter] = useState<string>('all');
-    const [dateRange, setDateRange] = useState<DateRange | undefined>();
+    const [filter, setFilter] = useState<string>(EtiquetaStatus.PENDIENTE);
+    const [dateRange, setDateRange] = useState<DateRange | undefined>({ from: new Date(), to: new Date() });
     const [searchTerm, setSearchTerm] = useState('');
     const { toast } = useToast();
     const router = useRouter();
