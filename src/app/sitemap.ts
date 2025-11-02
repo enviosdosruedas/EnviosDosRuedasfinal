@@ -1,3 +1,4 @@
+
 import { MetadataRoute } from 'next'
  
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -16,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/servicios/enviosflex',
     '/servicios/moto-fija',
     '/servicios/plan-emprendedores',
+    '/servicios/delivery-gastronomico',
     '/ordenes',
     '/seguimiento',
     '/politica-de-privacidad',

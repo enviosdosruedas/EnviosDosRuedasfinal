@@ -16,6 +16,7 @@ import {
   Info,
   HelpCircle,
   Share2,
+  Utensils,
   type LucideIcon,
 } from "lucide-react";
 import type React from "react";
@@ -42,6 +43,7 @@ export const navGroups: NavGroup[] = [
       { href: "/servicios/envios-express", label: "Envíos Express", icon: Zap },
       { href: "/servicios/envios-lowcost", label: "Envíos LowCost", icon: DollarSign },
       { href: "/servicios/moto-fija", label: "Moto Fija", icon: Bike },
+      { href: "/servicios/delivery-gastronomico", label: "Delivery Gastronómico", icon: Utensils },
       { href: "/servicios/plan-emprendedores", label: "Plan Emprendedores", icon: TrendingUp },
       { href: "/servicios/enviosflex", label: "Mercado Libre Flex", icon: ShoppingCart },
     ],
