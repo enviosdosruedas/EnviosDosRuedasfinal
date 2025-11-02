@@ -1,6 +1,4 @@
 // src/app/admin/etiquetas/page.tsx
-import { AdminHeader } from "@/components/layout/AdminHeader";
-import { Footer } from "@/components/homenew/footer";
 import prisma from "@/lib/prisma";
 import type { Metadata } from 'next';
 import { Etiqueta } from "@prisma/client";
@@ -40,11 +38,7 @@ export default async function AdminEtiquetasPage() {
 
     return (
         <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
-            <AdminHeader />
-            <main className="flex-grow container mx-auto px-4 py-8 pt-24">
-               <EtiquetasClientPage initialEtiquetas={etiquetas} />
-            </main>
-            <Footer />
+            <EtiquetasClientPage initialEtiquetas={etiquetas} />
         </div>
     );
 }
