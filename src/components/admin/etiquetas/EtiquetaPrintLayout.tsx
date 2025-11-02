@@ -20,7 +20,7 @@ interface EtiquetaPrintLayoutProps {
 // A simple placeholder for a barcode, as seen in the example
 const Barcode = () => (
   <svg
-    className="w-full h-12"
+    className="w-full h-16"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 200 40"
@@ -67,12 +67,9 @@ export function EtiquetaPrintLayout({ etiqueta, isLast = true }: EtiquetaPrintLa
       <Card className="max-w-4xl mx-auto bg-card printable-area" id="shipping-label">
         <CardContent className="p-4 md:p-6 text-black">
           <header className="flex justify-between items-start pb-4 border-b-2 border-dashed border-gray-300">
-            <div className="flex items-center gap-3">
-               <Image src="/logo_envios.svg" alt="Logo Envios DosRuedas" width={40} height={40} />
-              <div>
-                <h2 className="text-2xl font-bold">Envios DosRuedas</h2>
-                <p className="text-sm">Tu solución logística</p>
-              </div>
+            <div>
+              <h2 className="text-2xl font-bold">Envios DosRuedas</h2>
+              <p className="text-sm">Tu solución logística</p>
             </div>
             <div className="text-right">
               <p className="font-semibold text-lg">{serviceTypeMap[etiqueta.tipoEnvio]}</p>
