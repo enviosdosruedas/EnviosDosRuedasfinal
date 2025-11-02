@@ -2,52 +2,10 @@
 'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ListOrdered, PlusCircle, BarChart2, Ticket, Wand2 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { adminNavItems } from "@/lib/navigation-admin";
 
-const adminSections = [
-  {
-    title: "Gestión de Órdenes",
-    description: "Visualiza, crea y modifica las órdenes de envío.",
-    href: "/admin/ordenes",
-    icon: ListOrdered,
-    color: "text-blue-500",
-    bgColor: "bg-blue-50",
-  },
-  {
-    title: "Gestión de Tarifas",
-    description: "Administra los rangos de precios para los servicios.",
-    href: "/admin/cotizaciones",
-    icon: BarChart2,
-    color: "text-green-500",
-    bgColor: "bg-green-50",
-  },
-   {
-    title: "Gestión de Etiquetas",
-    description: "Crea y administra etiquetas de envío.",
-    href: "/admin/etiquetas",
-    icon: Ticket,
-    color: "text-orange-500",
-    bgColor: "bg-orange-50",
-  },
-  {
-    title: "Agregar Publicación",
-    description: "Añade nuevos posts al feed de redes sociales.",
-    href: "/admin/add-post",
-    icon: PlusCircle,
-    color: "text-purple-500",
-    bgColor: "bg-purple-50",
-  },
-  {
-    title: "Generador de Prompts IA",
-    description: "Crea prompts para generar imágenes de marca.",
-    href: "/admin/crea-imagenes",
-    icon: Wand2,
-    color: "text-teal-500",
-    bgColor: "bg-teal-50",
-  },
-];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -79,10 +37,10 @@ export function AdminDashboard() {
         initial="hidden"
         animate="visible"
     >
-      {adminSections.map((section, index) => {
+      {adminNavItems.map((section) => {
         const Icon = section.icon;
         return (
-          <motion.div key={section.title} variants={itemVariants}>
+          <motion.div key={section.label} variants={itemVariants}>
             <Link href={section.href} className="block group">
               <Card className="h-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                 <CardHeader>
@@ -91,7 +49,7 @@ export function AdminDashboard() {
                         <Icon className={`h-8 w-8 ${section.color}`} />
                     </div>
                     <CardTitle className="text-xl font-bold font-display text-foreground group-hover:text-primary transition-colors">
-                        {section.title}
+                        {section.label}
                     </CardTitle>
                   </div>
                 </CardHeader>

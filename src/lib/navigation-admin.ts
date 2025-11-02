@@ -1,68 +1,72 @@
-
+// src/lib/navigation-admin.ts
 import {
-  Truck,
-  Calculator,
-  Users,
-  Home,
-  Mail,
-  ChevronDown,
-  Menu,
-  X,
-  Zap,
+  LayoutDashboard,
+  ClipboardList,
   DollarSign,
-  Bike,
-  TrendingUp,
-  ShoppingCart,
-  Info,
-  HelpCircle,
-  Share2,
+  Ticket,
+  PlusSquare,
+  Wand2,
   type LucideIcon,
+  ListOrdered,
+  BarChart2,
 } from "lucide-react";
-import type React from "react";
 
-export interface NavItem {
+export interface AdminNavItem {
   href: string;
   label: string;
-  icon?: React.ElementType;
+  icon: LucideIcon;
+  description: string;
+  color: string;
+  bgColor: string;
 }
 
-export interface NavGroup {
-  label: string;
-  icon: React.ElementType;
-  items: NavItem[];
-  basePath?: string;
-}
-
-export const navGroups: NavGroup[] = [
+export const adminNavItems: AdminNavItem[] = [
   {
-    label: "Servicios",
-    icon: Truck,
-    basePath: "/servicios",
-    items: [
-      { href: "/servicios/envios-express", label: "Envíos Express", icon: Zap },
-      { href: "/servicios/envios-lowcost", label: "Envíos LowCost", icon: DollarSign },
-      { href: "/servicios/moto-fija", label: "Moto Fija", icon: Bike },
-      { href: "/servicios/plan-emprendedores", label: "Plan Emprendedores", icon: TrendingUp },
-      { href: "/servicios/enviosflex", label: "Mercado Libre Flex", icon: ShoppingCart },
-    ],
+    href: "/admin",
+    label: "Dashboard",
+    icon: LayoutDashboard,
+    description: "Vista general del panel de administración.",
+    color: "text-indigo-500",
+    bgColor: "bg-indigo-50",
   },
   {
-    label: "Cotizar",
-    icon: Calculator,
-    basePath: "/cotizar",
-    items: [
-      { href: "/cotizar/express", label: "Cotizar Express", icon: Zap },
-      { href: "/cotizar/lowcost", label: "Cotizar LowCost", icon: DollarSign },
-    ],
+    href: "/admin/ordenes",
+    label: "Gestión de Órdenes",
+    icon: ListOrdered,
+    description: "Visualiza, crea y modifica las órdenes de envío.",
+    color: "text-blue-500",
+    bgColor: "bg-blue-50",
   },
   {
-    label: "Nosotros",
-    icon: Users,
-    basePath: "/nosotros",
-    items: [
-      { href: "/nosotros/sobre-nosotros", label: "Sobre Nosotros", icon: Info },
-      { href: "/nosotros/preguntas-frecuentes", label: "Preguntas Frecuentes", icon: HelpCircle },
-      { href: "/nosotros/nuestras-redes", label: "Nuestras Redes", icon: Share2 },
-    ],
+    href: "/admin/cotizaciones",
+    label: "Gestión de Tarifas",
+    icon: BarChart2,
+    description: "Administra los rangos de precios para los servicios.",
+    color: "text-green-500",
+    bgColor: "bg-green-50",
+  },
+  {
+    href: "/admin/etiquetas",
+    label: "Gestión de Etiquetas",
+    icon: Ticket,
+    description: "Crea y administra etiquetas de envío.",
+    color: "text-orange-500",
+    bgColor: "bg-orange-50",
+  },
+  {
+    href: "/admin/add-post",
+    label: "Agregar Publicación",
+    icon: PlusSquare,
+    description: "Añade nuevos posts al feed de redes sociales.",
+    color: "text-purple-500",
+    bgColor: "bg-purple-50",
+  },
+  {
+    href: "/admin/crea-imagenes",
+    label: "Generador de Prompts IA",
+    icon: Wand2,
+    description: "Crea prompts para generar imágenes de marca.",
+    color: "text-teal-500",
+    bgColor: "bg-teal-50",
   },
 ];
