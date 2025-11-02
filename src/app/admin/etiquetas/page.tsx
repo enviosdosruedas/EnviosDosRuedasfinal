@@ -19,9 +19,6 @@ type FormattedEtiqueta = Omit<Etiqueta, 'montoACobrar'> & {
   montoACobrar: number | null;
 };
 
-// Revalidate data to ensure it's fresh
-export const revalidate = 0; // Revalidate on every request
-
 async function getEtiquetas(): Promise<FormattedEtiqueta[]> {
    const etiquetas = await prisma.etiqueta.findMany({
     orderBy: {
