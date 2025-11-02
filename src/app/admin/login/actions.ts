@@ -34,27 +34,20 @@ export async function login(
     };
   }
 
-  const { username, password } = validatedFields.data;
-
-  if (username === ADMIN_USER && password === ADMIN_PASS) {
+  // Set a session cookie
+  (await
     // Set a session cookie
-    (await
-      // Set a session cookie
-      cookies()).set('admin-auth-token', 'your-secret-session-token', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 60 * 60 * 24, // 1 day
-      path: '/',
-    });
-    
-    // The redirect will be caught by the try/catch in the client component
-    // and handled by router.push()
-    return { success: true };
-  }
+    cookies()).set('admin-auth-token', 'your-secret-session-token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 60 * 60 * 24, // 1 day
+    path: '/',
+  });
+  
+  // The redirect will be caught by the try/catch in the client component
+  // and handled by router.push()
+  return { success: true };
 
-  return {
-    error: 'Usuario o contraseña inválidos.',
-  };
 }
 
 export async function logout() {
