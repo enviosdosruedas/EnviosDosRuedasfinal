@@ -1,6 +1,6 @@
 // src/app/admin/cotizaciones/page.tsx
 import type { Metadata } from 'next';
-import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { AdminHeader } from "@/components/layout/AdminHeader";
 import { Footer } from "@/components/homenew/footer";
 import prisma from "@/lib/prisma";
 import { ServiceTypeEnum, type PriceRange as PrismaPriceRange } from '@prisma/client';
@@ -55,6 +55,7 @@ async function getPriceRangesGrouped(): Promise<Record<ServiceTypeEnum, PriceRan
   return {
     [ServiceTypeEnum.EXPRESS]: groupedRanges[ServiceTypeEnum.EXPRESS] || [],
     [ServiceTypeEnum.LOW_COST]: groupedRanges[ServiceTypeEnum.LOW_COST] || [],
+    [ServiceTypeEnum.PUNTO_DE_RETIRO]: groupedRanges[ServiceTypeEnum.PUNTO_DE_RETIRO] || [],
   };
 }
 
@@ -63,8 +64,8 @@ export default async function AdminCotizacionesPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
-      <OptimizedHeader />
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <AdminHeader />
+      <main className="flex-grow container mx-auto px-4 py-8 pt-24">
         <Card className='mb-8'>
             <CardHeader>
                 <CardTitle>Gestión de Tarifas de Envío</CardTitle>

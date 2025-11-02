@@ -1,5 +1,5 @@
 // src/app/admin/ordenes/page.tsx
-import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { AdminHeader } from "@/components/layout/AdminHeader";
 import { CarruselRedes } from "@/components/homenew/carrusel-redes";
 import { Footer } from "@/components/homenew/footer";
 import prisma from "@/lib/prisma";
@@ -50,8 +50,8 @@ export default async function AdminOrdenesPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
-      <OptimizedHeader />
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <AdminHeader />
+      <main className="flex-grow container mx-auto px-4 py-8 pt-24">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-primary">Gestión de Órdenes</h1>
           <Button asChild>

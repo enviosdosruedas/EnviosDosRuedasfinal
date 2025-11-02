@@ -1,5 +1,5 @@
 // src/app/admin/etiquetas/page.tsx
-import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { AdminHeader } from "@/components/layout/AdminHeader";
 import { Footer } from "@/components/homenew/footer";
 import prisma from "@/lib/prisma";
 import { EtiquetasTable } from "@/components/admin/etiquetas/EtiquetasTable";
@@ -37,8 +37,8 @@ export default async function AdminEtiquetasPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
-      <OptimizedHeader />
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <AdminHeader />
+      <main className="flex-grow container mx-auto px-4 py-8 pt-24">
         <Card className="mb-8 bg-background shadow-lg">
             <CardHeader>
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

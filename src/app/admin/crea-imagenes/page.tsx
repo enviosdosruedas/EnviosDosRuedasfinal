@@ -1,5 +1,5 @@
 // src/app/admin/crea-imagenes/page.tsx
-import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { AdminHeader } from "@/components/layout/AdminHeader";
 import { Footer } from "@/components/homenew/footer";
 import { ImagePromptGenerator } from "@/components/admin/crea-imagenes/ImagePromptGenerator";
 import { ImageIcon, Wand2 } from "lucide-react";
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
 export default function CreaImagenesPage() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
-      <OptimizedHeader />
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <AdminHeader />
+      <main className="flex-grow container mx-auto px-4 py-8 pt-24">
          <Card className="max-w-4xl mx-auto mb-8 bg-background shadow-lg">
             <CardHeader className="text-center">
                 <div className="flex items-center justify-center gap-3">

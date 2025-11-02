@@ -1,6 +1,6 @@
 // src/app/admin/etiquetas/[id]/page.tsx
 
-import { OptimizedHeader } from "@/components/homenew/optimized-header";
+import { AdminHeader } from "@/components/layout/AdminHeader";
 import { Footer } from "@/components/homenew/footer";
 import { EtiquetaForm } from "@/components/admin/etiquetas/EtiquetaForm";
 import type { Metadata } from 'next';
@@ -74,8 +74,8 @@ export default async function EtiquetaPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen flex flex-col bg-blue-50 dark:bg-gray-900 font-sans">
-      <OptimizedHeader />
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <AdminHeader />
+      <main className="flex-grow container mx-auto px-4 py-8 pt-24">
         <Card className="max-w-4xl mx-auto mb-8 bg-background shadow-lg">
             <CardHeader className="text-center">
                 <div className="flex items-center justify-center gap-3">
