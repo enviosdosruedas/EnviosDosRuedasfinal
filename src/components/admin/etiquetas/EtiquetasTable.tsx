@@ -21,6 +21,7 @@ import Link from "next/link";
 
 type FormattedEtiqueta = Omit<PrismaEtiqueta, 'montoACobrar'> & {
   montoACobrar: number | null;
+  orderNumber: string | null;
 };
 
 interface EtiquetasTableProps {
