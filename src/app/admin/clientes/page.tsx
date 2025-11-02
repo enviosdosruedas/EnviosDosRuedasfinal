@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { CreateClientForm } from "@/components/admin/clientes/CreateClientForm";
 import { Users, PlusCircle } from "lucide-react";
 import type { Metadata } from 'next';
+import { ClientsTable } from "@/components/admin/clientes/ClientsTable";
 
 export const metadata: Metadata = {
   title: "Gestión de Clientes",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 };
 
 // Revalidate data to ensure it's fresh
-export const revalidate = 60;
+export const revalidate = 0;
 
 export default async function AdminClientesPage() {
   const clients = await prisma.client.findMany({
@@ -26,14 +27,20 @@ export default async function AdminClientesPage() {
     },
   });
 
+  const formattedClients = clients.map(client => ({
+      ...client,
+      addressLat: client.addressLat?.toNumber() ?? null,
+      addressLng: client.addressLng?.toNumber() ?? null,
+  }))
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
       <AdminHeader />
       <main className="flex-grow container mx-auto px-4 py-8 pt-24">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Columna del formulario */}
-          <div className="lg:col-span-2">
-             <Card className="shadow-lg">
+          <div className="lg:col-span-1">
+             <Card className="shadow-lg sticky top-24">
                 <CardHeader>
                     <div className="flex items-center gap-3">
                         <PlusCircle className="w-6 h-6 text-primary" />
@@ -50,31 +57,19 @@ export default async function AdminClientesPage() {
           </div>
           
           {/* Columna de la lista de clientes */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-2">
              <Card>
                 <CardHeader>
                     <div className="flex items-center gap-3">
                         <Users className="w-6 h-6 text-primary" />
-                        <CardTitle className="text-xl font-bold">Clientes Recientes</CardTitle>
+                        <CardTitle className="text-xl font-bold">Listado de Clientes</CardTitle>
                     </div>
                     <CardDescription>
-                       Listado de los últimos clientes registrados.
+                       Gestiona todos los clientes registrados en el sistema.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    {clients.length > 0 ? (
-                        <ul className="space-y-4">
-                            {clients.slice(0, 10).map(client => (
-                                <li key={client.id} className="p-3 bg-gray-100 rounded-md">
-                                    <p className="font-semibold">{client.name} {client.lastName}</p>
-                                    <p className="text-sm text-muted-foreground">{client.phone}</p>
-                                    <p className="text-xs text-gray-500">{client.address}</p>
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                         <p className="text-sm text-center text-muted-foreground py-8">No hay clientes registrados aún.</p>
-                    )}
+                    <ClientsTable clients={formattedClients} />
                 </CardContent>
             </Card>
           </div>
