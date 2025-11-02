@@ -134,10 +134,15 @@ model Etiqueta {
   destinatarioNotas       String?
   deliveryStartTime       String?
   deliveryEndTime         String?
+    status    EtiquetaStatus @default(PENDIENTE)
+
   createdAt               DateTime        @default(now())
   updatedAt               DateTime        @updatedAt
 }
-
+enum EtiquetaStatus {
+  PENDIENTE
+  IMPRESA
+}
 enum ServiceTypeEnum {
   EXPRESS
   LOW_COST
