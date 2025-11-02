@@ -29,6 +29,7 @@ export type Etiqueta = PrismaEtiqueta & {
 };
 
 // Client-safe version with numbers instead of Decimals
-export type FormattedEtiqueta = Omit<Etiqueta, 'montoACobrar'> & {
+export type FormattedEtiqueta = Omit<Etiqueta, 'montoACobrar' | 'orderNumber'> & {
   montoACobrar: number | null;
+  orderNumber: string | null;
 };

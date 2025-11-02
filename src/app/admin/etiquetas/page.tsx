@@ -28,6 +28,7 @@ async function getEtiquetas(): Promise<FormattedEtiqueta[]> {
     montoACobrar: etiqueta.montoACobrar?.toNumber() ?? null,
     // Temporary fix: Assume PENDIENTE if status is not in the DB yet
     status: (etiqueta as any).status || EtiquetaStatus.PENDIENTE,
+    orderNumber: etiqueta.orderNumber || null,
   }));
 }
 
