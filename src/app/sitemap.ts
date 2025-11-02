@@ -1,7 +1,6 @@
 import { MetadataRoute } from 'next'
  
 export default function sitemap(): MetadataRoute.Sitemap {
-  // IMPORTANT: Replace with your actual production domain
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://enviosdosruedas.com';
 
   const staticRoutes = [
@@ -21,12 +20,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/seguimiento',
     '/politica-de-privacidad',
     '/terminos-y-condiciones',
+    '/admin',
+    '/admin/login',
+    '/admin/ordenes',
+    '/admin/cotizaciones',
+    '/admin/etiquetas',
+    '/admin/add-post',
+    '/admin/crea-imagenes',
   ];
  
   return staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'weekly',
-    priority: route === '/' ? 1 : 0.8,
+    priority: route === '/' ? 1 : (route.startsWith('/admin') ? 0.3 : 0.8),
   }));
 }
