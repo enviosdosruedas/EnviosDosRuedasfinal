@@ -1,7 +1,5 @@
 // src/app/admin/etiquetas/[id]/page.tsx
 import type { Metadata } from 'next';
-import { AdminHeader } from "@/components/layout/AdminHeader";
-import { Footer } from "@/components/homenew/footer";
 import { EtiquetaPage } from "@/components/admin/etiquetas/EtiquetaPage";
 
 export const metadata: Metadata = {
@@ -16,11 +14,9 @@ export const metadata: Metadata = {
 export default function GenerarEtiquetasPage() {
     return (
         <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
-            <AdminHeader />
             <main className="flex-grow">
                <EtiquetaPage />
             </main>
-            <Footer />
         </div>
     );
 }
