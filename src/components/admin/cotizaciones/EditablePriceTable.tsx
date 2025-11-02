@@ -42,6 +42,7 @@ const statusVariantMap: { [key: string]: "default" | "secondary" | "destructive"
 const serviceTypeMap: Record<ServiceTypeEnum, string> = {
   [ServiceTypeEnum.EXPRESS]: 'Express',
   [ServiceTypeEnum.LOW_COST]: 'Low Cost',
+  PUNTO_DE_RETIRO: ''
 };
 
 const initialState: MultiplePriceRangesState = {};
