@@ -6,10 +6,14 @@ import { ExpressContent } from "@/components/express/express-content";
 import { ExpressBenefits } from "@/components/express/express-benefits";
 import { UrgentScenarios } from "@/components/express/urgent-scenarios";
 import { ExpressCta } from "@/components/express/express-cta";
-import { ExpressPricingRanges } from "@/components/express/express-pricing-ranges";
+import { ExpressPricingRanges, type PriceRangeClient } from "@/components/express/express-pricing-ranges";
 import { Rocket, ArrowRight, Calculator as CalculatorIcon } from "lucide-react";
 
-export function ExpressPageClient() {
+interface ExpressPageClientProps {
+  priceRanges: PriceRangeClient[];
+}
+
+export function ExpressPageClient({ priceRanges }: ExpressPageClientProps) {
   return (
     <>
       <HeroSection
@@ -48,7 +52,7 @@ export function ExpressPageClient() {
       />
       <ExpressContent />
       <div id="express-pricing-ranges">
-        <ExpressPricingRanges />
+        <ExpressPricingRanges priceRanges={priceRanges} />
       </div>
       <ExpressBenefits />
       <UrgentScenarios />

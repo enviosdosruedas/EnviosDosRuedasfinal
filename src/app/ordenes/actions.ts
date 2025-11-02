@@ -10,8 +10,6 @@ import type {
   QuoteShipmentInput, QuoteDetails, QuoteShipmentResult,
   SaveShipmentInput, SaveShipmentResult
 } from '@/types/order-actions';
-import { obtenerPrecioExpressPorDistancia } from '@/lib/preciosexpress';
-import { obtenerPrecioLowCostPorDistancia } from '@/lib/precioslowcost';
 import { format, parse } from 'date-fns';
 
 
@@ -195,16 +193,6 @@ export async function quoteShipment(input: QuoteShipmentInput): Promise<QuoteShi
       distanceText = `${distanceKm.toFixed(1)} km (simulado)`;
       durationText = `${Math.round(distanceKm * 5 + 5)} min (simulado)`; // Simulate duration
 
-      const priceRangeRecord = await prisma.priceRange.findFirst({
-        where: {
-          distanciaMinKm: { lte: new Prisma.Decimal(distanceKm.toFixed(2)) },
-          distanciaMaxKm: { gte: new Prisma.Decimal(distanceKm.toFixed(2)) },
-          serviceType: validatedData.serviceType,
-          isActive: true,
-        },
-      });
-      price = priceRangeRecord ? priceRangeRecord.precioRango.toNumber() : null;
-
     } else {
       const directionsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${originCoords.lat},${originCoords.lng}&destination=${destinationCoords.lat},${destinationCoords.lng}&key=${GOOGLE_MAPS_API_KEY}&language=es`;
       
@@ -226,16 +214,19 @@ export async function quoteShipment(input: QuoteShipmentInput): Promise<QuoteShi
       distanceKm = leg.distance.value / 1000; // Convert meters to km
       distanceText = leg.distance.text;
       durationText = leg.duration.text;
-
-      if (validatedData.serviceType === PrismaServiceTypeEnum.EXPRESS) {
-        price = obtenerPrecioExpressPorDistancia(distanceKm) ?? null;
-      } else if (validatedData.serviceType === PrismaServiceTypeEnum.LOW_COST) {
-        price = obtenerPrecioLowCostPorDistancia(distanceKm) ?? null;
-      } else {
-        price = null; // Should not happen if serviceType is validated
-        console.warn("Unknown service type for pricing:", validatedData.serviceType);
-      }
     }
+    
+    // Fetch price from database
+    const priceRangeRecord = await prisma.priceRange.findFirst({
+        where: {
+          distanciaMinKm: { lte: new Prisma.Decimal(distanceKm.toFixed(2)) },
+          distanciaMaxKm: { gte: new Prisma.Decimal(distanceKm.toFixed(2)) },
+          serviceType: validatedData.serviceType,
+          isActive: true,
+        },
+    });
+
+    price = priceRangeRecord ? priceRangeRecord.precioRango.toNumber() : null;
 
     return {
       success: true,

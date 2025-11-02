@@ -5,11 +5,22 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Zap, MapPin, ArrowRightCircle, Calculator, AlertTriangle } from "lucide-react";
 import Link from "next/link";
-import { preciosExpress, type PrecioRango } from "@/lib/preciosexpress";
 import { motion } from "framer-motion";
+import type { PriceRange } from "@prisma/client";
 
-export function ExpressPricingRanges() {
-  const displayedPriceRanges = preciosExpress.slice(0, 7);
+// Define a client-safe type with numbers instead of Decimals
+export type PriceRangeClient = Omit<PriceRange, 'distanciaMinKm' | 'distanciaMaxKm' | 'precioRango'> & {
+  distanciaMinKm: number;
+  distanciaMaxKm: number;
+  precioRango: number;
+};
+
+interface ExpressPricingRangesProps {
+  priceRanges: PriceRangeClient[];
+}
+
+export function ExpressPricingRanges({ priceRanges }: ExpressPricingRangesProps) {
+  const displayedPriceRanges = priceRanges.slice(0, 7);
 
   const formatKmDisplay = (km: number, isMaxBoundaryInTitleOrRange: boolean = false) => {
     const kmFixed = parseFloat(km.toFixed(2)); 
@@ -19,16 +30,16 @@ export function ExpressPricingRanges() {
     return Number.isInteger(kmFixed) ? kmFixed.toFixed(0) : kmFixed.toFixed(2).replace(".", ",");
   };
 
-  const expressTiers = displayedPriceRanges.map((rango: PrecioRango) => {
-    const titleMaxKmFormatted = formatKmDisplay(rango.distancia_max_km, true);
-    const rangeMinKmFormatted = formatKmDisplay(rango.distancia_min_km);
-    const rangeMaxKmFormatted = formatKmDisplay(rango.distancia_max_km, true);
+  const expressTiers = displayedPriceRanges.map((rango: PriceRangeClient) => {
+    const titleMaxKmFormatted = formatKmDisplay(rango.distanciaMaxKm, true);
+    const rangeMinKmFormatted = formatKmDisplay(rango.distanciaMinKm);
+    const rangeMaxKmFormatted = formatKmDisplay(rango.distanciaMaxKm, true);
 
     return {
       name: `Hasta ${titleMaxKmFormatted} km`,
       icon: MapPin, 
-      price: `$${rango.precio_rango.toLocaleString("es-AR", {
-        minimumFractionDigits: rango.precio_rango % 1 === 0 ? 0 : 2,
+      price: `$${rango.precioRango.toLocaleString("es-AR", {
+        minimumFractionDigits: rango.precioRango % 1 === 0 ? 0 : 2,
         maximumFractionDigits: 2,
       })}`,
       distanceRange: `${rangeMinKmFormatted} km - ${rangeMaxKmFormatted} km`,

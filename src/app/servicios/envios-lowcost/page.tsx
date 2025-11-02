@@ -8,6 +8,9 @@ import { LowcostCta } from "@/components/lowcost/lowcost-cta"
 import { CarruselRedes } from "@/components/homenew/carrusel-redes"
 import { Footer } from "@/components/homenew/footer"
 import type { Metadata } from "next"
+import prisma from "@/lib/prisma";
+import { ServiceTypeEnum } from "@prisma/client";
+import type { PriceRangeClient } from "@/components/lowcost/pricing-comparison";
 
 export const metadata: Metadata = {
   title: "Envios Low Cost - Envios DosRuedas | Mensajería Económica en Mar del Plata",
@@ -17,14 +20,35 @@ export const metadata: Metadata = {
     "envios low cost, mensajeria economica, envios baratos, mar del plata, rutas optimizadas, envios programados",
 }
 
-export default function EnviosLowCostPage() {
+async function getPriceRanges(): Promise<PriceRangeClient[]> {
+  const priceRanges = await prisma.priceRange.findMany({
+    where: {
+      serviceType: ServiceTypeEnum.LOW_COST,
+      isActive: true,
+    },
+    orderBy: {
+      distanciaMinKm: 'asc',
+    },
+  });
+
+  return priceRanges.map(pr => ({
+    ...pr,
+    distanciaMinKm: pr.distanciaMinKm.toNumber(),
+    distanciaMaxKm: pr.distanciaMaxKm.toNumber(),
+    precioRango: pr.precioRango.toNumber(),
+  }));
+}
+
+
+export default async function EnviosLowCostPage() {
+  const priceRanges = await getPriceRanges();
   return (
     <div className="min-h-screen">
       <OptimizedHeader />
       <main>
         <LowcostHero />
         <LowcostContent />
-        <PricingComparison />
+        <PricingComparison priceRanges={priceRanges} />
         <LowcostBenefits />
         <HowLowcostWorks />
         <LowcostCta />
