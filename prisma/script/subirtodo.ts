@@ -1,102 +1,99 @@
-/**
- * @fileoverview Script para poblar la base de datos con datos de archivos JSON.
- *
- * Este script lee todos los modelos definidos en `prisma/schema.prisma`, busca
- * un archivo JSON correspondiente para cada modelo en el directorio `prisma/datos`,
- * y luego inserta los datos en la base de datos.
- *
- * Características:
- * - Detección automática de todos los modelos de Prisma.
- * - Carga de datos desde archivos JSON individuales (ej. `Client.json`, `Order.json`).
- * - Utiliza `createMany` con `skipDuplicates` para una inserción masiva y segura.
- * - Manejo automático de la conversión de fechas en formato ISO a objetos `Date`.
- * - Proporciona retroalimentación detallada en la consola sobre el progreso.
- *
- * Para ejecutar este script:
- * bunx tsx prisma/script/subirtodo.ts
- */
-'use strict';
-
-import { Prisma, PrismaClient } from '@prisma/client';
-import * as fs from 'fs';
-import * as path from 'path';
+// prisma/script/subirtodo.ts
+import { PrismaClient, Prisma } from '@prisma/client';
+import fs from 'fs';
+import path from 'path';
 
 const prisma = new PrismaClient();
+const dataDir = path.join(__dirname, '../datos');
 
-// Función para transformar los valores antes de la inserción.
-// Convierte strings en formato ISO 8601 a objetos Date.
-function reviveDates(key: string, value: any): any {
-  const isoDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/;
-  if (typeof value === 'string' && isoDateRegex.test(value)) {
-    return new Date(value);
-  }
-  return value;
-}
-
-/**
- * Carga los datos de un modelo específico a la base de datos.
- * @param {string} modelName - El nombre del modelo en Prisma (ej. "Client").
- */
-async function seedModel(modelName: Prisma.ModelName) {
-  const model = (prisma as any)[modelName.charAt(0).toLowerCase() + modelName.slice(1)];
-  const filePath = path.join(__dirname, '..', 'datos', `${modelName}.json`);
+async function importTable<T>(
+  tableName: keyof PrismaClient,
+  fileName: string,
+  transform?: (data: T) => Omit<T, 'id'>
+) {
+  console.log(`Importando datos para la tabla: ${tableName}...`);
+  const filePath = path.join(dataDir, fileName);
 
   if (!fs.existsSync(filePath)) {
-    console.log(`🟡 No se encontró el archivo para el modelo ${modelName}. Omitiendo.`);
+    console.log(`-> Archivo ${fileName} no encontrado, omitiendo.`);
     return;
   }
 
-  console.log(`⏳ Iniciando carga para el modelo: ${modelName}...`);
+  const fileContent = fs.readFileSync(filePath, 'utf8');
+  const data = JSON.parse(fileContent) as T[];
 
-  try {
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
-    // Usamos JSON.parse con la función 'reviver' para convertir fechas
-    const data = JSON.parse(fileContent, reviveDates);
-
-    if (!Array.isArray(data) || data.length === 0) {
-      console.log(`⚪️ No hay datos en el archivo para ${modelName}. Omitiendo.`);
-      return;
-    }
-
-    const result = await model.createMany({
-      data,
-      skipDuplicates: true,
-    });
-    
-    console.log(`✅ ${result.count} registros nuevos agregados a ${modelName}.`);
-
-  } catch (error) {
-    console.error(`❌ Error cargando el modelo ${modelName}:`, error);
-    // Continuar con el siguiente modelo aunque uno falle
+  if (data.length === 0) {
+    console.log(`-> No hay datos en ${fileName} para importar.`);
+    return;
   }
+
+  // Convertir strings de fecha a objetos Date y números a Decimal donde sea necesario
+  const processedData = data.map((item: any) => {
+      const newItem = { ...item };
+      // Eliminar el id autoincremental
+      delete newItem.id;
+      
+      for (const key in newItem) {
+          if (typeof newItem[key] === 'string' && /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(newItem[key])) {
+              newItem[key] = new Date(newItem[key]);
+          }
+           // Prisma maneja la conversión de number a Decimal automáticamente en createMany si el tipo de schema es Decimal
+      }
+      return newItem;
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result = await (prisma[tableName] as any).createMany({
+    data: processedData,
+    skipDuplicates: true, // Por si acaso
+  });
+
+  console.log(`-> ¡${result.count} registros importados a '${tableName}' desde ${fileName}!`);
 }
 
-/**
- * Función principal que orquesta el proceso de carga de datos.
- */
+
+async function clearDatabase() {
+    console.log('Limpiando la base de datos...');
+    // El orden de eliminación es importante para evitar violaciones de claves foráneas
+    await prisma.etiqueta.deleteMany({});
+    console.log('- Tabla Etiqueta limpiada.');
+    await prisma.order.deleteMany({});
+    console.log('- Tabla Order limpiada.');
+    await prisma.client.deleteMany({});
+    console.log('- Tabla Client limpiada.');
+    await prisma.socialPost.deleteMany({});
+    console.log('- Tabla SocialPost limpiada.');
+    await prisma.priceRange.deleteMany({});
+    console.log('- Tabla PriceRange limpiada.');
+    await prisma.repartidor.deleteMany({});
+    console.log('- Tabla Repartidor limpiada.');
+    console.log('¡Base de datos limpiada!');
+}
+
+
 async function main() {
-  console.log('🚀 Iniciando el script de carga de datos...');
+  console.log('Iniciando proceso de importación de datos...');
+
+  // Limpiar la base de datos antes de importar
+  await clearDatabase();
   
-  // 1. Obtener todos los nombres de los modelos del esquema de Prisma
-  const modelNames = Object.values(Prisma.ModelName);
+  console.log('\nComenzando la carga de datos...');
+  // El orden de importación también es importante
+  await importTable('socialPost', 'socialposts.json');
+  await importTable('client', 'clients.json');
+  await importTable('order', 'orders.json');
+  await importTable('etiqueta', 'etiquetas.json');
+  await importTable('priceRange', 'priceranges.json');
+  await importTable('repartidor', 'repartidores.json');
 
-  console.log(`🔍 Modelos encontrados: ${modelNames.join(', ')}`);
-
-  // 2. Cargar datos para cada modelo secuencialmente
-  for (const modelName of modelNames) {
-    await seedModel(modelName);
-  }
-
-  console.log('\n🎉 ¡Proceso de carga de datos completado!');
+  console.log('\n¡Proceso de importación completado exitosamente!');
 }
 
 main()
-  .catch((error) => {
-    console.error('\n🔥 Ha ocurrido un error inesperado durante el proceso de carga:', error);
+  .catch((e) => {
+    console.error('Ocurrió un error durante la importación:', e);
     process.exit(1);
   })
   .finally(async () => {
-    // 3. Desconectar Prisma Client
     await prisma.$disconnect();
-    console.log('🚪 Desconectado de la base de datos.');
   });

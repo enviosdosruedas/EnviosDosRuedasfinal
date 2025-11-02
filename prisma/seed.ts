@@ -4,44 +4,44 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('Comenzando el proceso de limpieza de la base de datos...');
+  console.log('Iniciando el script de limpieza de la base de datos...');
 
-  // Eliminar registros en un orden que respete las claves foráneas
-  // Primero los modelos que dependen de otros.
+  // El orden de eliminación es importante para evitar violaciones de claves foráneas
+  // Eliminar registros de tablas que tienen dependencias primero.
   
-  // Etiqueta no parece tener dependencias salientes directas en el esquema que bloqueen
+  console.log('Eliminando registros de la tabla Etiqueta...');
   await prisma.etiqueta.deleteMany({});
-  console.log('-> Todas las etiquetas han sido eliminadas.');
+  console.log('-> Tabla Etiqueta limpiada.');
 
-  // Order depende de Client
+  console.log('Eliminando registros de la tabla Order...');
   await prisma.order.deleteMany({});
-  console.log('-> Todas las órdenes han sido eliminadas.');
-
-  // SocialPost no tiene dependencias
-  await prisma.socialPost.deleteMany({});
-  console.log('-> Todas las publicaciones sociales han sido eliminadas.');
-
-  // PriceRange no tiene dependencias
-  await prisma.priceRange.deleteMany({});
-  console.log('-> Todos los rangos de precios han sido eliminados.');
+  console.log('-> Tabla Order limpiada.');
   
-  // Client puede ser eliminado después de Order
+  console.log('Eliminando registros de la tabla Client...');
   await prisma.client.deleteMany({});
-  console.log('-> Todos los clientes han sido eliminados.');
+  console.log('-> Tabla Client limpiada.');
 
-  // Repartidor no tiene dependencias entrantes de los modelos borrados
-  // Si hubiera repartidores, se podrían borrar aquí.
-  // await prisma.repartidor.deleteMany({});
-  // console.log('-> Todos los repartidores han sido eliminados.');
+  console.log('Eliminando registros de la tabla SocialPost...');
+  await prisma.socialPost.deleteMany({});
+  console.log('-> Tabla SocialPost limpiada.');
 
-  console.log('✅ Proceso de limpieza completado.');
+  console.log('Eliminando registros de la tabla PriceRange...');
+  await prisma.priceRange.deleteMany({});
+  console.log('-> Tabla PriceRange limpiada.');
+
+  console.log('Eliminando registros de la tabla Repartidor...');
+  await prisma.repartidor.deleteMany({});
+  console.log('-> Tabla Repartidor limpiada.');
+
+  console.log('\n¡Todas las tablas han sido limpiadas exitosamente!');
 }
 
 main()
   .catch((e) => {
-    console.error('Error durante el proceso de limpieza:', e);
+    console.error('Ocurrió un error durante la limpieza de la base de datos:', e);
     process.exit(1);
   })
   .finally(async () => {
     await prisma.$disconnect();
+    console.log('Desconectado de la base de datos.');
   });

@@ -13,6 +13,8 @@
     "postinstall": "prisma generate",
     "db:push": "bunx prisma db push",
     "db:seed": "bun prisma/seed.ts",
+    "db:export": "bun prisma/script/bajartodo.ts",
+    "db:import": "bun prisma/script/subirtodo.ts",
     "clean": "rm -rf .next node_modules bun.lockb",
     "reinstall": "bun run clean && bun install",
     "build:clean": "bun run clean && bun run build",
