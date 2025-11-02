@@ -4,46 +4,44 @@ import fs from "fs";
 import path from "path";
 
 const prisma = new PrismaClient();
-const outputDir = path.join(__dirname, "../datos");
+const outputDir = path.join(__dirname, "..", "datos");
 
-// Define un mapeador de tipos para convertir Decimal a string
-const replacer = (key: string, value: unknown) => {
-  if (typeof value === 'object' && value !== null && 'constructor' in value && (value.constructor as any).name === 'Decimal') {
-    return (value as any).toString();
+// Helper para convertir Decimal a String y manejar otros tipos
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function replacer(key: string, value: any) {
+  if (value instanceof Date) {
+    return value.toISOString();
   }
-  if (typeof value === 'bigint') {
+   if (typeof value === 'object' && value !== null && value.constructor && value.constructor.name === 'Decimal') {
     return value.toString();
   }
   return value;
-};
+}
 
-type ModelName = Exclude<keyof Prisma.TypeMap['model'], '$transaction' | '$queryRaw' | '$executeRaw' | '$queryRawUnsafe' | '$executeRawUnsafe'>;
 
-async function exportTable(tableName: ModelName, fileName: string) {
+type ModelName = keyof typeof Prisma.ModelName;
+
+const tablesToExport: ModelName[] = [
+  "client",
+  "order",
+  // "etiqueta", // Omitida temporalmente por error P2032
+  // "priceRange", // Omitida por error de createdAt
+  "repartidor",
+];
+
+
+async function exportTable(tableName: ModelName) {
   console.log(`Exportando tabla: ${tableName}...`);
   try {
-    let records;
-    const model = prisma[tableName] as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const records = await (prisma[tableName] as any).findMany({
+       orderBy: {
+        id: 'asc', 
+      },
+    });
 
-    if (tableName === 'repartidor') {
-        // Excluir el campo `password` para los repartidores
-        records = await model.findMany({
-            select: {
-                id: true,
-                name: true,
-                lastName: true,
-                phone: true,
-                email: true,
-                isActive: true,
-                createdAt: true,
-                updatedAt: true,
-            }
-        });
-    } else {
-        records = await model.findMany();
-    }
-    
     const jsonContent = JSON.stringify(records, replacer, 2);
+    const fileName = `${tableName}.json`;
     fs.writeFileSync(path.join(outputDir, fileName), jsonContent);
     console.log(`Tabla ${tableName} exportada exitosamente a ${fileName}`);
   } catch (error) {
@@ -53,32 +51,26 @@ async function exportTable(tableName: ModelName, fileName: string) {
 }
 
 async function main() {
-  console.log("Iniciando proceso de exportación de datos...");
+  try {
+    console.log("Iniciando proceso de exportación de datos...");
 
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
-  }
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
+      console.log(`Directorio de salida creado: ${outputDir}`);
+    }
 
-  const tablesToExport: ModelName[] = [
-    "client",
-    "order",
-    "priceRange",
-    "repartidor",
-  ];
+    for (const tableName of tablesToExport) {
+      await exportTable(tableName);
+    }
 
-  for (const tableName of tablesToExport) {
-    await exportTable(tableName, `${tableName}.json`);
-  }
-
-  console.log("Proceso de exportación finalizado.");
-}
-
-main()
-  .catch((e) => {
-    console.error("Ocurrió un error durante la exportación:", e);
+    console.log("¡Exportación de todas las tablas completada exitosamente!");
+  } catch (error) {
+    console.error("Ocurrió un error durante la exportación:", error);
     process.exit(1);
-  })
-  .finally(async () => {
+  } finally {
     await prisma.$disconnect();
     console.log("Conexión con la base de datos cerrada.");
-  });
+  }
+}
+
+main();
