@@ -65,6 +65,19 @@
     "updatedAt": "2025-06-21T06:23:25.760Z"
   },
   {
+    "id": 6,
+    "name": "Cliente",
+    "lastName": "Prueba",
+    "phone": "+5490000000000",
+    "email": "clienteprueba@test.com",
+    "address": "Av. Colón 1234, B7600FXS Mar del Plata, Provincia de Buenos Aires, Argentina",
+    "addressLat": "-38.0105293",
+    "addressLng": "-57.5365937",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:21.566Z",
+    "updatedAt": "2025-11-02T04:38:07.188Z"
+  },
+  {
     "id": 13,
     "name": "Matias",
     "lastName": "Prestes",
@@ -89,18 +102,5 @@
     "isActive": true,
     "createdAt": "2025-06-21T21:02:46.457Z",
     "updatedAt": "2025-06-21T21:02:46.457Z"
-  },
-  {
-    "id": 6,
-    "name": "Cliente",
-    "lastName": "Prueba",
-    "phone": "+5490000000000",
-    "email": "clienteprueba@test.com",
-    "address": "Av. Colón 1234, B7600FXS Mar del Plata, Provincia de Buenos Aires, Argentina",
-    "addressLat": "-38.0105293",
-    "addressLng": "-57.5365937",
-    "isActive": true,
-    "createdAt": "2025-06-21T05:44:21.566Z",
-    "updatedAt": "2025-11-02T04:38:07.188Z"
   }
 ]
