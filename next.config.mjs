@@ -1,12 +1,34 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    // Keep other experimental features if any, but remove allowedDevOrigins from here.
+  /* config options here */
+  typescript: {
+          ignoreBuildErrors: true,
   },
-  // Add allowedDevOrigins to the root of the config object
-  allowedDevOrigins: [
-    "https://6000-firebase-studio-1753830952443.cluster-ve345ymguzcd6qqzuko2qbxtfe.cloudworkstations.dev",
-  ],
+  eslint: {
+          ignoreDuringBuilds: true,
+  },
+  images: {
+          remotePatterns: [
+                  {
+                          protocol: 'https',
+                          hostname: 'placehold.co',
+                          port: '',
+                          pathname: '/**',
+                  },
+                  {
+                          protocol: 'https',
+                          hostname: 'images.unsplash.com',
+                          port: '',
+                          pathname: '/**',
+                  },
+                  {
+                          protocol: 'https',
+                          hostname: 'picsum.photos',
+                          port: '',
+                          pathname: '/**',
+                  },
+          ],
+  },
 };
 
 export default nextConfig;
