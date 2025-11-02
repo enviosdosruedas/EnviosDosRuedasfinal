@@ -1,15 +1,16 @@
 // src/components/repartidor/RepartidorDashboard.tsx
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import type { Repartidor } from "@prisma/client";
 import type { FormattedEtiqueta } from "@/types";
 import { EtiquetaStatus } from '@/types';
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Bike, LogOut } from "lucide-react";
 import Link from 'next/link';
 import { HojaDeRutaRepartidor } from './HojaDeRutaRepartidor';
+import { AssignEtiqueta } from './AssignEtiqueta';
+import { useToast } from '@/hooks/use-toast';
 
 interface RepartidorDashboardProps {
     repartidor: Repartidor;
@@ -18,9 +19,29 @@ interface RepartidorDashboardProps {
 
 export function RepartidorDashboard({ repartidor, initialEtiquetas }: RepartidorDashboardProps) {
     const [etiquetas, setEtiquetas] = useState(initialEtiquetas);
+    const { toast } = useToast();
 
     const handleStatusChange = (etiquetaId: number, newStatus: EtiquetaStatus) => {
         setEtiquetas(prev => prev.map(e => e.id === etiquetaId ? { ...e, status: newStatus } : e));
+    };
+
+    const handleEtiquetaAssigned = (newEtiqueta: FormattedEtiqueta) => {
+        // Add or update the etiqueta in the list
+        setEtiquetas(prev => {
+            const existingIndex = prev.findIndex(e => e.id === newEtiqueta.id);
+            if (existingIndex > -1) {
+                const updatedList = [...prev];
+                updatedList[existingIndex] = newEtiqueta;
+                return updatedList;
+            } else {
+                return [newEtiqueta, ...prev];
+            }
+        });
+        toast({
+            title: 'Etiqueta Asignada',
+            description: `La etiqueta #${newEtiqueta.orderNumber} ha sido añadida a tu hoja de ruta.`,
+            className: 'bg-green-100 border-green-400 text-green-700',
+        });
     };
 
     return (
@@ -41,9 +62,13 @@ export function RepartidorDashboard({ repartidor, initialEtiquetas }: Repartidor
                 </div>
             </header>
 
-            <main className="container mx-auto px-4 py-8">
+            <main className="container mx-auto px-4 py-8 space-y-8">
+                 <AssignEtiqueta 
+                    repartidorId={repartidor.id} 
+                    onEtiquetaAssigned={handleEtiquetaAssigned} 
+                 />
                  <HojaDeRutaRepartidor 
-                    etiquetas={etiquetas}
+                    etiquetas={etiquetas.filter(e => e.repartidorId === repartidor.id)}
                     onStatusChange={handleStatusChange}
                  />
             </main>

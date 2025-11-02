@@ -6,6 +6,7 @@ import prisma from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import { EtiquetaStatus } from '@/types';
+import type { FormattedEtiqueta } from '@/types';
 
 const repartidorSchema = z.object({
   id: z.coerce.number().int().optional(),
@@ -91,12 +92,12 @@ export async function updateRepartidor(prevState: RepartidorFormState, formData:
 export async function deleteRepartidor(id: number): Promise<{ success: boolean; error?: string }> {
   try {
     // Check if the repartidor is associated with any orders
-    const ordersCount = await prisma.order.count({
+    const ordersCount = await prisma.etiqueta.count({
       where: { repartidorId: id },
     });
 
     if (ordersCount > 0) {
-      return { success: false, error: 'No se puede eliminar el repartidor porque tiene órdenes asociadas. Por favor, reasigna las órdenes primero.' };
+      return { success: false, error: 'No se puede eliminar el repartidor porque tiene entregas asociadas. Por favor, reasigna las entregas primero.' };
     }
 
     await prisma.repartidor.delete({
@@ -113,51 +114,50 @@ export async function deleteRepartidor(id: number): Promise<{ success: boolean; 
   }
 }
 
-
-export async function assignEtiquetaToRepartidor(
-  etiquetaId: number,
-  repartidorId: number
-): Promise<{ success: boolean; error?: string }> {
-  try {
-    await prisma.etiqueta.update({
-      where: { id: etiquetaId },
-      data: {
-        repartidorId,
-        status: EtiquetaStatus.IMPRESA, // O el estado que consideres apropiado
-      },
-    });
-    revalidatePath('/admin/repartidores');
-    return { success: true };
-  } catch (error) {
-    console.error('Error assigning etiqueta:', error);
-    return { success: false, error: 'No se pudo asignar la etiqueta.' };
-  }
-}
-
-export async function updateStatusOnTheWay(etiquetaId: number): Promise<{ success: boolean, error?: string }> {
+export async function assignEtiquetaByOrderNumber(
+    repartidorId: number,
+    orderNumber: string
+): Promise<{ success: boolean; error?: string; etiqueta?: FormattedEtiqueta }> {
     try {
-        await prisma.etiqueta.update({
-            where: { id: etiquetaId },
-            data: { status: EtiquetaStatus.EN_CAMINO },
+        const etiqueta = await prisma.etiqueta.findUnique({
+            where: { orderNumber },
         });
-        revalidatePath('/admin/repartidores');
-        return { success: true };
-    } catch (error) {
-        console.error(error);
-        return { success: false, error: 'No se pudo actualizar el estado.' };
-    }
-}
 
-export async function updateStatusDelivered(etiquetaId: number): Promise<{ success: boolean, error?: string }> {
-    try {
-        await prisma.etiqueta.update({
-            where: { id: etiquetaId },
-            data: { status: EtiquetaStatus.ENTREGADA },
+        if (!etiqueta) {
+            return { success: false, error: `No se encontró ninguna etiqueta con el número de orden "${orderNumber}".` };
+        }
+
+        if (etiqueta.repartidorId && etiqueta.repartidorId !== repartidorId) {
+            return { success: false, error: `Esta etiqueta ya está asignada a otro repartidor.` };
+        }
+
+        if (etiqueta.status !== EtiquetaStatus.PENDIENTE && etiqueta.status !== EtiquetaStatus.IMPRESA) {
+            return { success: false, error: `La etiqueta ya está en estado "${etiqueta.status}" y no puede ser re-asignada.` };
+        }
+
+        const updatedEtiqueta = await prisma.etiqueta.update({
+            where: { id: etiqueta.id },
+            data: {
+                repartidorId: repartidorId,
+                status: EtiquetaStatus.EN_CAMINO,
+            },
         });
+
+        revalidatePath(`/repartidor/${repartidorId}`);
         revalidatePath('/admin/repartidores');
-        return { success: true };
+
+        return {
+            success: true,
+            etiqueta: {
+              ...updatedEtiqueta,
+              montoACobrar: updatedEtiqueta.montoACobrar?.toNumber() ?? null,
+              orderNumber: updatedEtiqueta.orderNumber || null,
+              status: updatedEtiqueta.status as EtiquetaStatus,
+            }
+        };
+
     } catch (error) {
-        console.error(error);
-        return { success: false, error: 'No se pudo actualizar el estado.' };
+        console.error("Error assigning etiqueta by order number:", error);
+        return { success: false, error: "Ocurrió un error en el servidor al intentar asignar la etiqueta." };
     }
 }
