@@ -12,7 +12,7 @@ import { upsertEtiqueta } from '@/app/admin/etiquetas/actions';
 import type { EtiquetaFormState } from '@/app/admin/etiquetas/actions';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
@@ -22,8 +22,9 @@ import { Loader2, Save, Send, User, MapPin, Phone, MessageSquare, Briefcase, Clo
 const PUNTO_RETIRO_ADDRESS = "11 de Septiembre 3317, Mar del Plata";
 
 const timeStringToMinutes = (time: string) => {
+  if (!time || !time.includes(':')) return 0;
   const [hours, minutes] = time.split(':').map(Number);
-  return hours * 60 + minutes;
+  return (hours || 0) * 60 + (minutes || 0);
 };
 
 const EtiquetaFormSchema = z.object({
@@ -65,8 +66,13 @@ const EtiquetaFormSchema = z.object({
 
 type EtiquetaFormValues = z.infer<typeof EtiquetaFormSchema>;
 
+type FormattedEtiquetaType = Omit<PrismaEtiqueta, 'montoACobrar'> & {
+  montoACobrar: number | null;
+  orderNumber: string | null;
+};
+
 interface EtiquetaFormProps {
-  initialData?: (Omit<PrismaEtiqueta, 'montoACobrar'> & { montoACobrar: number | null }) | null;
+  initialData?: FormattedEtiquetaType | null;
 }
 
 const initialState: EtiquetaFormState = {};
@@ -198,13 +204,13 @@ export function EtiquetaForm({ initialData }: EtiquetaFormProps) {
                   <CardTitle className="text-xl flex items-center gap-2"><User /> Datos del Remitente</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <FormField name="remitenteNombre" render={({ field }) => (
+                  <FormField control={form.control} name="remitenteNombre" render={({ field }) => (
                     <FormItem><FormLabel>Nombre / Cliente</FormLabel><FormControl><Input placeholder="Ej: Juan Pérez" {...field} /></FormControl><FormMessage /></FormItem>
                   )} />
-                  <FormField name="remitenteDireccion" render={({ field }) => (
+                  <FormField control={form.control} name="remitenteDireccion" render={({ field }) => (
                     <FormItem><FormLabel>Dirección de Retiro</FormLabel><FormControl><Input placeholder="Ej: Av. Colón 1234" {...field} /></FormControl><FormMessage /></FormItem>
                   )} />
-                  <FormField name="remitenteNotas" render={({ field }) => (
+                  <FormField control={form.control} name="remitenteNotas" render={({ field }) => (
                     <FormItem><FormLabel>Notas adicionales</FormLabel><FormControl><Textarea placeholder="Ej: Tocar timbre depto 5B" {...field} /></FormControl><FormMessage /></FormItem>
                   )} />
                 </CardContent>
@@ -215,20 +221,20 @@ export function EtiquetaForm({ initialData }: EtiquetaFormProps) {
                   <CardTitle className="text-xl flex items-center gap-2"><User /> Datos del Destinatario</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <FormField name="destinatarioNombre" render={({ field }) => (
+                  <FormField control={form.control} name="destinatarioNombre" render={({ field }) => (
                     <FormItem><FormLabel>Nombre y Apellido</FormLabel><FormControl><Input placeholder="Ej: María Gonzalez" {...field} /></FormControl><FormMessage /></FormItem>
                   )} />
-                  <FormField name="destinatarioDireccion" render={({ field }) => (
+                  <FormField control={form.control} name="destinatarioDireccion" render={({ field }) => (
                     <FormItem>
                       <FormLabel>Dirección de Entrega</FormLabel>
                       <FormControl><Input placeholder="Ej: Rivadavia 5678" {...field} disabled={tipoEnvio === ServiceTypeEnum.PUNTO_DE_RETIRO} /></FormControl>
                       <FormMessage />
                     </FormItem>
                   )} />
-                  <FormField name="destinatarioTelefono" render={({ field }) => (
+                  <FormField control={form.control} name="destinatarioTelefono" render={({ field }) => (
                     <FormItem><FormLabel>Teléfono</FormLabel><FormControl><Input type="tel" placeholder="Ej: 2235123456" {...field} /></FormControl><FormMessage /></FormItem>
                   )} />
-                  <FormField name="montoACobrar" render={({ field }) => (
+                  <FormField control={form.control} name="montoACobrar" render={({ field }) => (
                     <FormItem>
                       <FormLabel>Monto a Cobrar (Opcional)</FormLabel>
                       <FormControl><Input type="number" step="0.01" placeholder="Ej: 1500" {...field} /></FormControl>
@@ -236,7 +242,7 @@ export function EtiquetaForm({ initialData }: EtiquetaFormProps) {
                       <FormMessage />
                     </FormItem>
                   )} />
-                  <FormField name="destinatarioNotas" render={({ field }) => (
+                  <FormField control={form.control} name="destinatarioNotas" render={({ field }) => (
                     <FormItem><FormLabel>Notas adicionales</FormLabel><FormControl><Textarea placeholder="Ej: Entregar en recepción" {...field} /></FormControl><FormMessage /></FormItem>
                   )} />
                 </CardContent>
