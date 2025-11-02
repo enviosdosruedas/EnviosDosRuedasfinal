@@ -35,9 +35,7 @@ export async function login(
   }
 
   // Set a session cookie
-  (await
-    // Set a session cookie
-    cookies()).set('admin-auth-token', 'your-secret-session-token', {
+  cookies().set('admin-auth-token', 'your-secret-session-token', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     maxAge: 60 * 60 * 24, // 1 day
@@ -51,6 +49,6 @@ export async function login(
 }
 
 export async function logout() {
-  (await cookies()).delete('admin-auth-token');
+  cookies().delete('admin-auth-token');
   redirect('/admin/login');
 }
