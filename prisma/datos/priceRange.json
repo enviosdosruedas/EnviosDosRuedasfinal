@@ -1,222 +1,222 @@
 [
-    {
-      "id": 1,
-      "distanciaMinKm": "0",
-      "distanciaMaxKm": "2.99",
-      "precioRango": "3000",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:15.923Z",
-      "updatedAt": "2025-11-01T22:35:58.483Z"
-    },
-    {
-      "id": 2,
-      "distanciaMinKm": "3",
-      "distanciaMaxKm": "4.99",
-      "precioRango": "3700",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:16.198Z",
-      "updatedAt": "2025-11-01T22:35:58.483Z"
-    },
-    {
-      "id": 3,
-      "distanciaMinKm": "5",
-      "distanciaMaxKm": "5.99",
-      "precioRango": "4500",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:16.394Z",
-      "updatedAt": "2025-11-01T22:35:58.483Z"
-    },
-    {
-      "id": 4,
-      "distanciaMinKm": "6",
-      "distanciaMaxKm": "6.99",
-      "precioRango": "5400",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:16.586Z",
-      "updatedAt": "2025-11-01T22:35:58.483Z"
-    },
-    {
-      "id": 5,
-      "distanciaMinKm": "7",
-      "distanciaMaxKm": "7.99",
-      "precioRango": "6200",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:16.767Z",
-      "updatedAt": "2025-11-01T22:35:58.483Z"
-    },
-    {
-      "id": 6,
-      "distanciaMinKm": "8",
-      "distanciaMaxKm": "8.99",
-      "precioRango": "7000",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:16.948Z",
-      "updatedAt": "2025-11-01T22:35:58.483Z"
-    },
-    {
-      "id": 7,
-      "distanciaMinKm": "9",
-      "distanciaMaxKm": "10",
-      "precioRango": "7850",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:17.136Z",
-      "updatedAt": "2025-11-01T22:35:58.483Z"
-    },
-    {
-      "id": 8,
-      "distanciaMinKm": "10.01",
-      "distanciaMaxKm": "11",
-      "precioRango": "8000",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:17.326Z",
-      "updatedAt": "2025-11-01T22:35:58.483Z"
-    },
-    {
-      "id": 9,
-      "distanciaMinKm": "11.01",
-      "distanciaMaxKm": "12",
-      "precioRango": "9600",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:17.510Z",
-      "updatedAt": "2025-11-01T22:35:58.483Z"
-    },
-    {
-      "id": 10,
-      "distanciaMinKm": "12.01",
-      "distanciaMaxKm": "13",
-      "precioRango": "10400",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:17.709Z",
-      "updatedAt": "2025-11-01T22:37:03.954Z"
-    },
-    {
-      "id": 11,
-      "distanciaMinKm": "13.01",
-      "distanciaMaxKm": "14",
-      "precioRango": "11200",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:17.882Z",
-      "updatedAt": "2025-11-01T22:37:03.954Z"
-    },
-    {
-      "id": 12,
-      "distanciaMinKm": "14.01",
-      "distanciaMaxKm": "15",
-      "precioRango": "12000",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:18.077Z",
-      "updatedAt": "2025-11-01T22:37:03.954Z"
-    },
-    {
-      "id": 13,
-      "distanciaMinKm": "15.01",
-      "distanciaMaxKm": "16",
-      "precioRango": "12800",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:18.261Z",
-      "updatedAt": "2025-11-01T22:37:03.954Z"
-    },
-    {
-      "id": 14,
-      "distanciaMinKm": "16.01",
-      "distanciaMaxKm": "17",
-      "precioRango": "13600",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:18.441Z",
-      "updatedAt": "2025-11-01T22:37:03.954Z"
-    },
-    {
-      "id": 15,
-      "distanciaMinKm": "17.01",
-      "distanciaMaxKm": "18",
-      "precioRango": "14400",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:18.619Z",
-      "updatedAt": "2025-11-01T22:37:03.954Z"
-    },
-    {
-      "id": 16,
-      "distanciaMinKm": "18.01",
-      "distanciaMaxKm": "19",
-      "precioRango": "15200",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:18.794Z",
-      "updatedAt": "2025-11-01T22:37:03.954Z"
-    },
-    {
-      "id": 17,
-      "distanciaMinKm": "19.01",
-      "distanciaMaxKm": "20",
-      "precioRango": "16000",
-      "serviceType": "EXPRESS",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:18.975Z",
-      "updatedAt": "2025-11-01T22:37:03.954Z"
-    },
-    {
-      "id": 18,
-      "distanciaMinKm": "0",
-      "distanciaMaxKm": "2.99",
-      "precioRango": "2400",
-      "serviceType": "LOW_COST",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:19.166Z",
-      "updatedAt": "2025-11-01T22:40:16.736Z"
-    },
-    {
-      "id": 19,
-      "distanciaMinKm": "3",
-      "distanciaMaxKm": "4.99",
-      "precioRango": "3200",
-      "serviceType": "LOW_COST",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:19.341Z",
-      "updatedAt": "2025-11-01T22:40:16.736Z"
-    },
-    {
-      "id": 20,
-      "distanciaMinKm": "5",
-      "distanciaMaxKm": "8.99",
-      "precioRango": "4300",
-      "serviceType": "LOW_COST",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:19.519Z",
-      "updatedAt": "2025-11-01T22:40:16.736Z"
-    },
-    {
-      "id": 21,
-      "distanciaMinKm": "9",
-      "distanciaMaxKm": "12.99",
-      "precioRango": "6308",
-      "serviceType": "LOW_COST",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:19.702Z",
-      "updatedAt": "2025-11-01T22:40:16.736Z"
-    },
-    {
-      "id": 22,
-      "distanciaMinKm": "13.01",
-      "distanciaMaxKm": "20",
-      "precioRango": "9000",
-      "serviceType": "LOW_COST",
-      "isActive": true,
-      "createdAt": "2025-06-21T05:44:19.882Z",
-      "updatedAt": "2025-11-01T22:40:16.736Z"
-    }
-  ]
+  {
+    "id": 22,
+    "serviceType": "LOW_COST",
+    "distanciaMinKm": "13.01",
+    "distanciaMaxKm": "20",
+    "precioRango": "9000",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:19.882Z",
+    "updatedAt": "2025-11-01T22:40:16.736Z"
+  },
+  {
+    "id": 21,
+    "serviceType": "LOW_COST",
+    "distanciaMinKm": "9",
+    "distanciaMaxKm": "12.99",
+    "precioRango": "6308",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:19.702Z",
+    "updatedAt": "2025-11-01T22:40:16.736Z"
+  },
+  {
+    "id": 20,
+    "serviceType": "LOW_COST",
+    "distanciaMinKm": "5",
+    "distanciaMaxKm": "8.99",
+    "precioRango": "4300",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:19.519Z",
+    "updatedAt": "2025-11-01T22:40:16.736Z"
+  },
+  {
+    "id": 19,
+    "serviceType": "LOW_COST",
+    "distanciaMinKm": "3",
+    "distanciaMaxKm": "4.99",
+    "precioRango": "3200",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:19.341Z",
+    "updatedAt": "2025-11-01T22:40:16.736Z"
+  },
+  {
+    "id": 18,
+    "serviceType": "LOW_COST",
+    "distanciaMinKm": "0",
+    "distanciaMaxKm": "2.99",
+    "precioRango": "2400",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:19.166Z",
+    "updatedAt": "2025-11-01T22:40:16.736Z"
+  },
+  {
+    "id": 17,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "19.01",
+    "distanciaMaxKm": "20",
+    "precioRango": "16000",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:18.975Z",
+    "updatedAt": "2025-11-01T22:37:03.954Z"
+  },
+  {
+    "id": 16,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "18.01",
+    "distanciaMaxKm": "19",
+    "precioRango": "15200",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:18.794Z",
+    "updatedAt": "2025-11-01T22:37:03.954Z"
+  },
+  {
+    "id": 15,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "17.01",
+    "distanciaMaxKm": "18",
+    "precioRango": "14400",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:18.619Z",
+    "updatedAt": "2025-11-01T22:37:03.954Z"
+  },
+  {
+    "id": 14,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "16.01",
+    "distanciaMaxKm": "17",
+    "precioRango": "13600",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:18.441Z",
+    "updatedAt": "2025-11-01T22:37:03.954Z"
+  },
+  {
+    "id": 13,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "15.01",
+    "distanciaMaxKm": "16",
+    "precioRango": "12800",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:18.261Z",
+    "updatedAt": "2025-11-01T22:37:03.954Z"
+  },
+  {
+    "id": 12,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "14.01",
+    "distanciaMaxKm": "15",
+    "precioRango": "12000",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:18.077Z",
+    "updatedAt": "2025-11-01T22:37:03.954Z"
+  },
+  {
+    "id": 11,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "13.01",
+    "distanciaMaxKm": "14",
+    "precioRango": "11200",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:17.882Z",
+    "updatedAt": "2025-11-01T22:37:03.954Z"
+  },
+  {
+    "id": 10,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "12.01",
+    "distanciaMaxKm": "13",
+    "precioRango": "10400",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:17.709Z",
+    "updatedAt": "2025-11-01T22:37:03.954Z"
+  },
+  {
+    "id": 9,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "11.01",
+    "distanciaMaxKm": "12",
+    "precioRango": "9600",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:17.510Z",
+    "updatedAt": "2025-11-01T22:35:58.483Z"
+  },
+  {
+    "id": 8,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "10.01",
+    "distanciaMaxKm": "11",
+    "precioRango": "8000",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:17.326Z",
+    "updatedAt": "2025-11-01T22:35:58.483Z"
+  },
+  {
+    "id": 7,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "9",
+    "distanciaMaxKm": "10",
+    "precioRango": "7850",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:17.136Z",
+    "updatedAt": "2025-11-01T22:35:58.483Z"
+  },
+  {
+    "id": 6,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "8",
+    "distanciaMaxKm": "8.99",
+    "precioRango": "7000",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:16.948Z",
+    "updatedAt": "2025-11-01T22:35:58.483Z"
+  },
+  {
+    "id": 5,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "7",
+    "distanciaMaxKm": "7.99",
+    "precioRango": "6200",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:16.767Z",
+    "updatedAt": "2025-11-01T22:35:58.483Z"
+  },
+  {
+    "id": 4,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "6",
+    "distanciaMaxKm": "6.99",
+    "precioRango": "5400",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:16.586Z",
+    "updatedAt": "2025-11-01T22:35:58.483Z"
+  },
+  {
+    "id": 3,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "5",
+    "distanciaMaxKm": "5.99",
+    "precioRango": "4500",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:16.394Z",
+    "updatedAt": "2025-11-01T22:35:58.483Z"
+  },
+  {
+    "id": 2,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "3",
+    "distanciaMaxKm": "4.99",
+    "precioRango": "3700",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:16.198Z",
+    "updatedAt": "2025-11-01T22:35:58.483Z"
+  },
+  {
+    "id": 1,
+    "serviceType": "EXPRESS",
+    "distanciaMinKm": "0",
+    "distanciaMaxKm": "2.99",
+    "precioRango": "3000",
+    "isActive": true,
+    "createdAt": "2025-06-21T05:44:15.923Z",
+    "updatedAt": "2025-11-01T22:35:58.483Z"
+  }
+]
